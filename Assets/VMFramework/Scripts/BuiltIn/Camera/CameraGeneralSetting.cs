@@ -1,0 +1,22 @@
+﻿using Sirenix.OdinInspector;
+using VMFramework.Editor;
+using VMFramework.GameLogicArchitecture;
+using VMFramework.Localization;
+
+namespace VMFramework
+{
+    public sealed partial class CameraGeneralSetting : GeneralSettingBase
+    {
+        [LabelText("FOV插值速度")]
+        [MinValue(0)]
+        public float fovLerpSpeed = 5f;
+
+        [LabelText("位置插值速度")]
+        [MinValue(0)]
+        public float positionLerpSpeed = 5f;
+
+        [LabelText("角度插值速度")]
+        [MinValue(0)]
+        public float angleLerpSpeed = 5f;
+    }
+}

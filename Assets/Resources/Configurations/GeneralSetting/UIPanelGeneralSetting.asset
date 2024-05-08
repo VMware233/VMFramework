@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6518af2b4f3081e40a23184daa418733, type: 3}
+  m_Name: UIPanelGeneralSetting
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: languageConfigs
+      Entry: 7
+      Data: 0|VMFramework.Configuration.DictionaryConfigs`2[[System.String, mscorlib],[VMFramework.UI.UIPanelLanguageConfig,
+        Assembly-CSharp]], Assembly-CSharp
+    - Name: configs
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[VMFramework.UI.UIPanelLanguageConfig,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  dataFolderRelativePath: Configurations
+  defaultJSONFileSuffix: txt
+  <defaultLocalizationTableName>k__BackingField: 
+  initialGamePrefabWrappers: []
+  <defaultGameType>k__BackingField: 
+  container:
+    containerID: 
+    container: {fileID: 0}
+  defaultTheme: {fileID: 0}
+  defaultScreenMatchMode: 0
+  defaultMatch: 0.5
+  defaultReferenceResolution: {x: 1920, y: 1080}
+  enableLanguageConfigs: 1
