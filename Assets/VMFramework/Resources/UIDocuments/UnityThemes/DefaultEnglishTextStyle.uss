@@ -1,7 +1,0 @@
-﻿VisualElement {
-    -unity-font-definition: resource('Fonts/鸿雷板书简体');
-    font-size: 30px;
-}
-
-VisualElement {
-}
