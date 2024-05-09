@@ -24,4 +24,4 @@ MonoBehaviour:
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
   <defaultLocalizationTableName>k__BackingField: 
-  singleWrapperTemplate: {fileID: 0}
+  singleWrapperTemplate: {fileID: 11400000, guid: fc69ab04c2193fd49a2cda936f6880d1, type: 2}
