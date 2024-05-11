@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using VMFramework.UI;
 using VMFramework.Core;
-using VMFramework.ExtendedTilemap;
 using VMFramework.Containers;
 using VMFramework.GlobalEvent;
-using VMFramework.Map;
 using VMFramework.Procedure;
 using VMFramework.Property;
 using VMFramework.Recipe;
@@ -49,6 +47,8 @@ namespace VMFramework.GameLogicArchitecture
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.mouseEventGeneralSetting;
 
 
+        // Resources Management
+        
         public static ParticleGeneralSetting particleGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.particleGeneralSetting;
 
@@ -57,14 +57,15 @@ namespace VMFramework.GameLogicArchitecture
 
         public static AudioGeneralSetting audioGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.audioGeneralSetting;
+        
+        public static ModelGeneralSetting modelGeneralSetting =>
+            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.modelGeneralSetting;
+
+        public static SpriteGeneralSetting spriteGeneralSetting =>
+            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.spriteGeneralSetting;
 
 
-
-        public static MapCoreGeneralSetting mapCoreGeneralSetting =>
-            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.mapCoreGeneralSetting;
-
-        public static ExtendedRuleTileGeneralSetting extendedRuleTileGeneralSetting =>
-            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.extendedRuleTileGeneralSetting;
+        // Built-In Modules
 
         public static PropertyGeneralSetting propertyGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.propertyGeneralSetting;
@@ -75,17 +76,13 @@ namespace VMFramework.GameLogicArchitecture
         public static CameraGeneralSetting cameraGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.cameraGeneralSetting;
 
-        public static ModelGeneralSetting modelGeneralSetting =>
-            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.modelGeneralSetting;
-
-        public static SpriteGeneralSetting spriteGeneralSetting =>
-            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.spriteGeneralSetting;
-
         public static ContainerGeneralSetting containerGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.containerGeneralSetting;
 
         public static RecipeGeneralSetting recipeGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.recipeGeneralSetting;
+        
+        // UI
 
         public static UIPanelGeneralSetting uiPanelGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.uiPanelGeneralSetting;

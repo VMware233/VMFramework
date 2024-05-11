@@ -16,7 +16,7 @@ namespace VMFramework.UI
 
         [LabelText("绑定的容器"), TabGroup(TAB_GROUP_NAME, CONTAINER_SETTING_CATEGORY, SdfIconType.Box,
              TextColor = "magenta")]
-        [GamePrefabIDValueDropdown(typeof(ContainerPreset))]
+        [GamePrefabID(typeof(ContainerPreset))]
         [IsNotNullOrEmpty]
         [JsonProperty]
         public string bindContainerID;
@@ -26,7 +26,7 @@ namespace VMFramework.UI
         public bool useCustomSlotSourceContainer = false;
 
         [LabelText("自定义插槽容器名称"), TabGroup(TAB_GROUP_NAME, CONTAINER_SETTING_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [ShowIf(nameof(useCustomSlotSourceContainer))]
         [JsonProperty]
         public List<string> customSlotSourceContainerNames = new();

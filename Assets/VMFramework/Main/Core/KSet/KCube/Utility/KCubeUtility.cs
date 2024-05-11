@@ -150,100 +150,6 @@ namespace VMFramework.Core
 
         #endregion
 
-        #region Random Point
-
-        #region Get Random Point
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int GetRandomPoint(this IKCube<int> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float GetRandomPoint(this IKCube<float> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2Int GetRandomPoint(this IKCube<Vector2Int> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3Int GetRandomPoint(this IKCube<Vector3Int> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 GetRandomPoint(this IKCube<Vector2> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 GetRandomPoint(this IKCube<Vector3> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4 GetRandomPoint(this IKCube<Vector4> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内的一个随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Color GetRandomPoint(this IKCube<Color> cube)
-        {
-            return cube.min.RandomRange(cube.max);
-        }
-
-        #endregion
-
         #region Get Random Points
 
         /// <summary>
@@ -385,8 +291,6 @@ namespace VMFramework.Core
         {
             return count.GenerateUniqueVector3Ints(cube.min, cube.max);
         }
-
-        #endregion
 
         #endregion
 

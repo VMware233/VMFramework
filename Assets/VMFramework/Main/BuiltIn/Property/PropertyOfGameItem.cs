@@ -7,7 +7,7 @@ using VMFramework.UI;
 
 namespace VMFramework.Property
 {
-    public class PropertyOfGameItem : GameItem, ITracingTooltipProvider
+    public abstract class PropertyOfGameItem : GameItem, ITracingTooltipProvider
     {
         protected PropertyConfig propertyConfig => (PropertyConfig)origin;
         

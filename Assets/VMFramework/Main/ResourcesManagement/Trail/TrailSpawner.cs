@@ -13,18 +13,18 @@ namespace VMFramework.ResourcesManagement
     public class TrailSpawnConfig : BaseConfigClass
     {
         [LabelText("拖尾效果")]
-        [GamePrefabIDValueDropdown(typeof(TrailPreset))]
+        [GamePrefabID(typeof(TrailPreset))]
         [IsNotNullOrEmpty]
         [SerializeField]
         protected string trailID;
 
         [LabelText("位置")]
         [SerializeField, JsonProperty]
-        protected Vector3SetterCore position = 0;
+        protected IChooserConfig<Vector3> position = new SingleValueChooserConfig<Vector3>();
 
         public TrailRenderer GenerateTrail(Transform parent)
         {
-            var trailRenderer = TrailSpawner.Spawn(trailID, position, parent);
+            var trailRenderer = TrailSpawner.Spawn(trailID, position.GetValue(), parent);
 
             return trailRenderer;
         }

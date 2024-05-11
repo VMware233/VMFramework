@@ -22,7 +22,7 @@ namespace VMFramework.Configuration
     [HideDuplicateReferenceBox]
     [HideReferenceObjectPicker]
     [JsonObject(MemberSerialization.OptIn, ItemTypeNameHandling = TypeNameHandling.All)]
-    [OnInspectorInit("@((BaseConfigClass)$value)?.OnInspectorInit()")]
+    [OnInspectorInit("@((IBaseConfigClass)$value)?.OnInspectorInit()")]
     public abstract class BaseConfigClass : IBaseConfigClass
     {
         public bool initDone { get; private set; } = false;

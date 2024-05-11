@@ -15,13 +15,13 @@ namespace VMFramework.UI
         public override Type controllerType => typeof(DebugUIPanelController);
 
         [LabelText("左容器VisualElement名称"), TabGroup(TAB_GROUP_NAME, DEBUGGING_UI_SETTING_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [IsNotNullOrEmpty]
         [JsonProperty]
         public string leftContainerVisualElementName = LEFT_GROUP_NAME;
 
         [LabelText("右容器VisualElement名称"), TabGroup(TAB_GROUP_NAME, DEBUGGING_UI_SETTING_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [IsNotNullOrEmpty]
         [JsonProperty]
         public string rightContainerVisualElementName = RIGHT_GROUP_NAME;

@@ -10,8 +10,6 @@ namespace VMFramework.ResourcesManagement
     public sealed partial class AudioGeneralSetting : GamePrefabGeneralSetting
     {
         #region Meta Data
-        
-        public override string prefabName => "Audio Preset";
 
         public override Type baseGamePrefabType => typeof(AudioPreset);
 

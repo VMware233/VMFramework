@@ -10,7 +10,7 @@ namespace VMFramework.GameLogicArchitecture
 #if UNITY_EDITOR
         [field: LabelText("默认语言表名"), TabGroup(TAB_GROUP_NAME, LOCALIZABLE_SETTING_CATEGORY)]
         [field: InfoBox("本地化设置不可用", VisibleIf = "@!localizationEnabled")]
-        [field: TableNameValueDropdown]
+        [field: TableName]
         [field: OnValueChanged(nameof(OnDefaultLocalizationTableNameChanged))]
         [field: EnableIf(nameof(localizationEnabled))]
 #endif

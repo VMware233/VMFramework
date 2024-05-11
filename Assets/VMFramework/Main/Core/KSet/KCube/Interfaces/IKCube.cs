@@ -52,5 +52,12 @@ namespace VMFramework.Core
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TPoint ClampMax(TPoint pos);
+
+        /// <summary>
+        /// 获取K维立方体内的一个随机点
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public TPoint GetRandomPoint();
     }
 }

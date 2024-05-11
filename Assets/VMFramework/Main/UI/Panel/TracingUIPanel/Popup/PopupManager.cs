@@ -15,7 +15,7 @@ namespace VMFramework.UI
         [Button]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void PopupText(
-            [UIPresetIDValueDropdown(typeof(IPopupTextPreset))]
+            [UIPresetID(typeof(IPopupTextPreset))]
             string damagePopupID, Transform target, string content, Color? textColor = null)
         {
             var popup = ITracingUIPanel.OpenOnTargetTransform<IPopupTextController>(damagePopupID, target);
@@ -31,7 +31,7 @@ namespace VMFramework.UI
         [Button]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void PopupText(
-            [UIPresetIDValueDropdown(typeof(IPopupTextPreset))]
+            [UIPresetID(typeof(IPopupTextPreset))]
             string damagePopupID, Transform target, float value, int decimalPlaces = 0, Color? textColor = null)
         {
             var popup = ITracingUIPanel.OpenOnTargetTransform<IPopupTextController>(damagePopupID, target);
@@ -47,7 +47,7 @@ namespace VMFramework.UI
         [Button]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void PopupText(
-            [UIPresetIDValueDropdown(typeof(IPopupTextPreset))]
+            [UIPresetID(typeof(IPopupTextPreset))]
             string damagePopupID, Transform target, int value, Color? textColor = null)
         {
             var popup = ITracingUIPanel.OpenOnTargetTransform<IPopupTextController>(damagePopupID, target);
@@ -63,7 +63,7 @@ namespace VMFramework.UI
         [Button]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void PopupText(
-            [UIPresetIDValueDropdown(typeof(IPopupTextPreset))]
+            [UIPresetID(typeof(IPopupTextPreset))]
             string damagePopupID, Vector3 position, string content, Color? textColor = null)
         {
             var popup = ITracingUIPanel.OpenOnTargetPosition<UGUIPopupTextController>(damagePopupID, position);
@@ -79,7 +79,7 @@ namespace VMFramework.UI
         [Button]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void PopupText(
-            [UIPresetIDValueDropdown(typeof(IPopupTextPreset))]
+            [UIPresetID(typeof(IPopupTextPreset))]
             string damagePopupID, Vector3 position, float value, int decimalPlaces = 0, Color? textColor = null)
         {
             var popup = ITracingUIPanel.OpenOnTargetPosition<UGUIPopupTextController>(damagePopupID, position);
@@ -95,7 +95,7 @@ namespace VMFramework.UI
         [Button]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void PopupText(
-            [UIPresetIDValueDropdown(typeof(IPopupTextPreset))]
+            [UIPresetID(typeof(IPopupTextPreset))]
             string damagePopupID, Vector3 position, int value, Color? textColor = null)
         {
             var popup = ITracingUIPanel.OpenOnTargetPosition<UGUIPopupTextController>(damagePopupID, position);

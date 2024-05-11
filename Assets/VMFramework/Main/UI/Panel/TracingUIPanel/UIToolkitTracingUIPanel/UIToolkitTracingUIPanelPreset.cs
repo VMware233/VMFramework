@@ -5,7 +5,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public class UIToolkitTracingUIPanelPreset : UIToolkitPanelPreset
+    public class UIToolkitTracingUIPanelPreset : UIToolkitPanelPreset, ITracingUIPanelPreset
     {
         protected const string TRACING_UI_SETTING_CATEGORY = "鼠标追随UI的设置";
 
@@ -44,7 +44,7 @@ namespace VMFramework.UI
         public bool useTopPosition;
 
         [LabelText("容器VisualElement名称"), TabGroup(TAB_GROUP_NAME, TRACING_UI_SETTING_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [IsNotNullOrEmpty]
         [JsonProperty]
         public string containerVisualElementName;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VMFramework.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Procedure
@@ -13,13 +13,13 @@ namespace VMFramework.Procedure
         private static readonly HashSet<Type> _abstractManagerTypes = new();
 
         private static readonly HashSet<Type> _interfaceManagerTypes = new();
-        
+
         private static readonly HashSet<Type> _managerTypes = new();
 
         public static IReadOnlyCollection<Type> abstractManagerTypes => _abstractManagerTypes;
 
         public static IReadOnlyCollection<Type> interfaceManagerTypes => _interfaceManagerTypes;
-        
+
         public static IReadOnlyCollection<Type> managerTypes => _managerTypes;
 
         public static void CreateManagers()
@@ -29,9 +29,9 @@ namespace VMFramework.Procedure
                 Debug.LogWarning("No Manager Creation Settings found.");
                 return;
             }
-            
+
             ManagerCreatorContainers.Init();
-            
+
             var eventCoreContainer = ManagerCreatorContainers.GetManagerTypeContainer(ManagerType.EventCore);
 
             eventCoreContainer.GetOrAddComponent<EventSystem>();
@@ -44,8 +44,7 @@ namespace VMFramework.Procedure
             var validManagerClassTypes = new Dictionary<Type, ManagerCreationProviderAttribute>();
             var invalidManagerClassTypes = new Dictionary<Type, ManagerCreationProviderAttribute>();
 
-            foreach (var managerClassType in typeof(MonoBehaviour).GetDerivedClasses(includingSelf: true,
-                         includingGenericDefinition: false))
+            foreach (var managerClassType in typeof(MonoBehaviour).GetDerivedClasses(true, false))
             {
                 if (managerClassType.TryGetAttribute<ManagerCreationProviderAttribute>(true,
                         out var providerAttribute) == false)
@@ -65,22 +64,21 @@ namespace VMFramework.Procedure
                     continue;
                 }
 
-                bool isParentOrChild = false;
+                var isParentOrChild = false;
 
-                foreach (var (validManagerClassType, validManagerProviderAttribute)in validManagerClassTypes
-                             .ToList())
+                foreach (var (validManagerType, validProviderAttribute) in validManagerClassTypes.ToList())
                 {
-                    if (managerClassType.IsSubclassOf(validManagerClassType))
+                    if (managerClassType.IsSubclassOf(validManagerType))
                     {
-                        validManagerClassTypes.Remove(validManagerClassType);
-                        invalidManagerClassTypes.Add(validManagerClassType, validManagerProviderAttribute);
+                        validManagerClassTypes.Remove(validManagerType);
+                        invalidManagerClassTypes.Add(validManagerType, validProviderAttribute);
                         validManagerClassTypes.Add(managerClassType, providerAttribute);
 
                         isParentOrChild = true;
                         break;
                     }
 
-                    if (validManagerClassType.IsSubclassOf(managerClassType))
+                    if (validManagerType.IsSubclassOf(managerClassType))
                     {
                         invalidManagerClassTypes.Add(managerClassType, providerAttribute);
 
@@ -109,7 +107,7 @@ namespace VMFramework.Procedure
                 var managerType = providerAttribute.ManagerType;
 
                 var container = ManagerCreatorContainers.GetManagerTypeContainer(managerType);
-
+                
                 container.GetOrAddComponent(managerClassType);
             }
 

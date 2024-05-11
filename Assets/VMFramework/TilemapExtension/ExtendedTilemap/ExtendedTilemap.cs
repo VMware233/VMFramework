@@ -57,7 +57,7 @@ namespace VMFramework.ExtendedTilemap
 
         private void Update()
         {
-            UpdateAnimations();
+            // UpdateAnimations();
             UpdateTilesPlacement();
         }
 
@@ -127,114 +127,114 @@ namespace VMFramework.ExtendedTilemap
 
         #region Animation
 
-        [LabelText("所有的动画信息")]
-        [ShowInInspector]
-        private Dictionary<Vector2Int, AnimationInfo> allAnimationInfos = new();
-
-        private void AddAnimationInfo(Vector2Int pos, Rule rule)
-        {
-            if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
-            {
-                if (animationInfo.rule == rule)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                animationInfo = new();
-                allAnimationInfos[pos] = animationInfo;
-            }
-
-            animationInfo.rule = rule;
-            animationInfo.sprites = rule.animationSprites;
-            animationInfo.timeLeftToNext = rule.gap;
-
-            if (rule.autoPlayOnStart)
-            {
-                animationInfo.enable = true;
-                animationInfo.loop = true;
-            }
-            else
-            {
-                animationInfo.enable = false;
-                animationInfo.loop = false;
-            }
-        }
-
-        private void RemoveAnimationInfo(Vector2Int pos)
-        {
-            allAnimationInfos.Remove(pos);
-        }
-
-        private void UpdateAnimations()
-        {
-            foreach (var (pos, animationInfo) in allAnimationInfos)
-            {
-                if (animationInfo.enable == false)
-                {
-                    continue;
-                }
-
-                if (animationInfo.sprites == null ||
-                    animationInfo.sprites.Count == 0)
-                {
-                    continue;
-                }
-
-                animationInfo.timeLeftToNext -= Time.deltaTime;
-
-                if (animationInfo.timeLeftToNext <= 0)
-                {
-                    animationInfo.timeLeftToNext = animationInfo.rule.gap;
-
-                    animationInfo.currentIndex++;
-
-                    if (animationInfo.currentIndex >= animationInfo.sprites.Count)
-                    {
-                        animationInfo.currentIndex = 0;
-
-                        if (animationInfo.loop == false)
-                        {
-                            animationInfo.enable = false;
-                        }
-                    }
-                }
-
-                var sprite =
-                    TileBaseManager.GetTileBase(
-                        animationInfo.sprites[animationInfo.currentIndex]);
-
-                //tilemap.SetTile(pos.As3DXY(), sprite);
-            }
-        }
-
-        public void Play(Vector2Int pos, bool loop)
-        {
-            if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
-            {
-                animationInfo.enable = true;
-                animationInfo.loop = loop;
-            }
-        }
-
-        public void Replay(Vector2Int pos, bool loop)
-        {
-            if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
-            {
-                animationInfo.enable = true;
-                animationInfo.loop = loop;
-                animationInfo.currentIndex = 0;
-            }
-        }
-
-        public void Stop(Vector2Int pos)
-        {
-            if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
-            {
-                animationInfo.enable = false;
-            }
-        }
+        // [LabelText("所有的动画信息")]
+        // [ShowInInspector]
+        // private Dictionary<Vector2Int, AnimationInfo> allAnimationInfos = new();
+        //
+        // private void AddAnimationInfo(Vector2Int pos, Rule rule)
+        // {
+        //     if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
+        //     {
+        //         if (animationInfo.rule == rule)
+        //         {
+        //             return;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         animationInfo = new();
+        //         allAnimationInfos[pos] = animationInfo;
+        //     }
+        //
+        //     animationInfo.rule = rule;
+        //     animationInfo.sprites = rule.animationSprites;
+        //     animationInfo.timeLeftToNext = rule.gap;
+        //
+        //     if (rule.autoPlayOnStart)
+        //     {
+        //         animationInfo.enable = true;
+        //         animationInfo.loop = true;
+        //     }
+        //     else
+        //     {
+        //         animationInfo.enable = false;
+        //         animationInfo.loop = false;
+        //     }
+        // }
+        //
+        // private void RemoveAnimationInfo(Vector2Int pos)
+        // {
+        //     allAnimationInfos.Remove(pos);
+        // }
+        //
+        // private void UpdateAnimations()
+        // {
+        //     foreach (var (pos, animationInfo) in allAnimationInfos)
+        //     {
+        //         if (animationInfo.enable == false)
+        //         {
+        //             continue;
+        //         }
+        //
+        //         if (animationInfo.sprites == null ||
+        //             animationInfo.sprites.Count == 0)
+        //         {
+        //             continue;
+        //         }
+        //
+        //         animationInfo.timeLeftToNext -= Time.deltaTime;
+        //
+        //         if (animationInfo.timeLeftToNext <= 0)
+        //         {
+        //             animationInfo.timeLeftToNext = animationInfo.rule.gap;
+        //
+        //             animationInfo.currentIndex++;
+        //
+        //             if (animationInfo.currentIndex >= animationInfo.sprites.Count)
+        //             {
+        //                 animationInfo.currentIndex = 0;
+        //
+        //                 if (animationInfo.loop == false)
+        //                 {
+        //                     animationInfo.enable = false;
+        //                 }
+        //             }
+        //         }
+        //
+        //         var sprite =
+        //             TileBaseManager.GetTileBase(
+        //                 animationInfo.sprites[animationInfo.currentIndex]);
+        //
+        //         //tilemap.SetTile(pos.As3DXY(), sprite);
+        //     }
+        // }
+        //
+        // public void Play(Vector2Int pos, bool loop)
+        // {
+        //     if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
+        //     {
+        //         animationInfo.enable = true;
+        //         animationInfo.loop = loop;
+        //     }
+        // }
+        //
+        // public void Replay(Vector2Int pos, bool loop)
+        // {
+        //     if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
+        //     {
+        //         animationInfo.enable = true;
+        //         animationInfo.loop = loop;
+        //         animationInfo.currentIndex = 0;
+        //     }
+        // }
+        //
+        // public void Stop(Vector2Int pos)
+        // {
+        //     if (allAnimationInfos.TryGetValue(pos, out var animationInfo))
+        //     {
+        //         animationInfo.enable = false;
+        //     }
+        // }
 
         #endregion
 
@@ -321,7 +321,7 @@ namespace VMFramework.ExtendedTilemap
 
                 var tilemap = tilemapGroupController.GetTilemap(layerIndex);
 
-                var tileBase = TileBaseManager.GetTileBase(spriteLayer.sprite);
+                var tileBase = TileBaseManager.GetTileBase(spriteLayer.sprite.GetValue());
 
                 tilemap.SetTile(pos.As3DXY(), tileBase);
             }
@@ -474,7 +474,7 @@ namespace VMFramework.ExtendedTilemap
         {
             allRuleTiles.Clear();
             tilemapGroupController.ClearAllTilemaps();
-            allAnimationInfos.Clear();
+            // allAnimationInfos.Clear();
         }
 
         #region Neighbor

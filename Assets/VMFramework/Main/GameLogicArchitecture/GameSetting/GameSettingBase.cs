@@ -21,7 +21,7 @@ public abstract class GameSettingBase : SerializedScriptableObject
     
     protected const string MISCELLANEOUS_CATEGORY = "杂项设置";
     
-    protected const string GENERAL_SETTING_METADATA_CATEGORY = "设置元数据";
+    protected const string METADATA_CATEGORY = "设置元数据";
 
     #endregion
 

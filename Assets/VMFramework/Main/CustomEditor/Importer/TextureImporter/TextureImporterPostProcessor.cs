@@ -40,7 +40,7 @@ namespace VMFramework.Editor
 
                 importer.filterMode = configuration.filterMode;
 
-                importer.spritePivot = configuration.spritePivot;
+                importer.spritePivot = configuration.spritePivot.GetValue();
                 importer.isReadable = configuration.isReadable;
 
                 TextureImporterPlatformSettings settings = new()

@@ -13,7 +13,7 @@ namespace VMFramework.UI
         public override Type controllerType => typeof(NotificationUIPanelController);
 
         [LabelText("通知容器"), TabGroup(TAB_GROUP_NAME, NOTIFICATION_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         public string notificationContainer;
 
         [LabelText("通知显示动画"), TabGroup(TAB_GROUP_NAME, NOTIFICATION_CATEGORY)]

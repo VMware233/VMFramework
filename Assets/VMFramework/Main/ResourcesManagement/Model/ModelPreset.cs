@@ -11,7 +11,7 @@ namespace VMFramework.ResourcesManagement
     public class ModelImportSetting : BaseConfigClass
     {
         [LabelText("模型预制体")]
-        [GamePrefabIDValueDropdown(typeof(ModelPreset))]
+        [GamePrefabID(typeof(ModelPreset))]
         [IsNotNullOrEmpty]
         [SerializeField, JsonProperty]
         protected string modelPrefabID;
@@ -24,7 +24,7 @@ namespace VMFramework.ResourcesManagement
         [SerializeField, JsonProperty]
         [Indent]
         [ShowIf(nameof(overridePosition))]
-        protected Vector3SetterCore position = 0;
+        protected IChooserConfig<Vector3> position = new SingleValueChooserConfig<Vector3>();
 
         [LabelText("覆写旋转")]
         [SerializeField, JsonProperty]
@@ -34,7 +34,7 @@ namespace VMFramework.ResourcesManagement
         [SerializeField, JsonProperty]
         [Indent]
         [ShowIf(nameof(overrideRotation))]
-        protected Vector3SetterCore rotation = 0;
+        protected IChooserConfig<Vector3> rotation = new SingleValueChooserConfig<Vector3>();
 
         [LabelText("覆写缩放")]
         [SerializeField, JsonProperty]
@@ -44,7 +44,7 @@ namespace VMFramework.ResourcesManagement
         [ShowIf(nameof(overrideScale))]
         [Indent]
         [SerializeField, JsonProperty]
-        protected FloatSetter scale = 1;
+        protected IChooserConfig<float> scale = new SingleValueChooserConfig<float>(1);
 
         protected GameObject modelPrefab =>
             GamePrefabManager.GetGamePrefabStrictly<ModelPreset>(modelPrefabID).GetPrefab();
@@ -55,17 +55,17 @@ namespace VMFramework.ResourcesManagement
 
             if (overridePosition)
             {
-                newInstance.transform.localPosition = position;
+                newInstance.transform.localPosition = position.GetValue();
             }
 
             if (overrideRotation)
             {
-                newInstance.transform.localEulerAngles = rotation;
+                newInstance.transform.localEulerAngles = rotation.GetValue();
             }
 
             if (overrideScale)
             {
-                newInstance.transform.localScale = scale * Vector3.one;
+                newInstance.transform.localScale = scale.GetValue() * Vector3.one;
             }
 
             return newInstance;
@@ -77,9 +77,9 @@ namespace VMFramework.ResourcesManagement
         {
             base.OnInspectorInit();
 
-            position ??= new();
-            rotation ??= new();
-            scale ??= new();
+            position ??= new SingleValueChooserConfig<Vector3>();
+            rotation ??= new SingleValueChooserConfig<Vector3>();
+            scale ??= new SingleValueChooserConfig<float>(1);
         }
 
         #endregion

@@ -32,7 +32,7 @@ namespace VMFramework.UI
 
         [Button("重建面板")]
         public static IUIPanelController RecreateUniquePanel(
-            [GamePrefabIDValueDropdown(typeof(UIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(UIPanelPreset))] string presetID)
         {
             if (GamePrefabManager.GetGamePrefabStrictly<IUIPanelPreset>(presetID).isUnique == false)
             {
@@ -88,7 +88,7 @@ namespace VMFramework.UI
 
         [Button("创建面板")]
         public static IUIPanelController CreatePanel(
-            [GamePrefabIDValueDropdown(typeof(IUIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(IUIPanelPreset))] string presetID)
         {
             presetID.AssertIsNotNullOrEmpty(nameof(presetID));
 
@@ -99,7 +99,7 @@ namespace VMFramework.UI
 
         [Button("获取已经关闭的或创建新面板")]
         public static IUIPanelController GetClosedOrCreatePanel(
-            [GamePrefabIDValueDropdown(typeof(UIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(UIPanelPreset))] string presetID)
         {
             if (UIPanelPool.TryGetUniquePanel(presetID, out var result))
             {
@@ -121,7 +121,7 @@ namespace VMFramework.UI
 
         [Button("获取已经关闭的或创建新面板并打开")]
         private static void GetClosedOrCreatePanelAndOpen(
-            [GamePrefabIDValueDropdown(typeof(UIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(UIPanelPreset))] string presetID)
         {
             var newPanel = GetClosedOrCreatePanel(presetID);
 

@@ -23,6 +23,6 @@ namespace VMFramework.ResourcesManagement
 
         [LabelText("持续时间"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [ShowIf(nameof(enableDurationLimitation))]
-        public FloatSetter duration = new();
+        public IChooserConfig<float> duration = new SingleValueChooserConfig<float>();
     }
 }

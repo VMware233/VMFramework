@@ -8,8 +8,6 @@ namespace VMFramework.UI
     public sealed partial class DebugUIPanelGeneralSetting : GamePrefabGeneralSetting
     {
         #region Setting MetaData
-        
-        public override string prefabName => "Debug Entry";
 
         public override Type baseGamePrefabType => typeof(DebugEntry);
 

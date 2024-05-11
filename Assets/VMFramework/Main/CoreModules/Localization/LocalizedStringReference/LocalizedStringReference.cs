@@ -18,7 +18,7 @@ namespace VMFramework.Localization
 #if UNITY_EDITOR
         [HideLabel, HorizontalGroup(TABLE_HORIZONTAL_GROUP)]
         [OnValueChanged(nameof(OnTableNameChanged))]
-        [TableNameValueDropdown]
+        [TableName]
 #endif
         [SerializeField]
         private string _tableName;

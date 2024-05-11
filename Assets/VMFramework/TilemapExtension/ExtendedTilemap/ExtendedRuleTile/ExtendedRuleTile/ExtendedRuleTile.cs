@@ -33,7 +33,7 @@ namespace VMFramework.ExtendedTilemap
         public RuleMode ruleMode = RuleMode.Normal;
 
         [LabelText("父规则瓦片ID"), TabGroup(TAB_GROUP_NAME, RULE_CATEGORY)]
-        [GamePrefabIDValueDropdown(typeof(ExtendedRuleTile))]
+        [GamePrefabID(typeof(ExtendedRuleTile))]
         [InfoBox("不能为自己的ID", InfoMessageType.Error, "@parentRuleTileID == id")]
         [ShowIf(nameof(hasParent))]
         [IsNotNullOrEmpty]
@@ -122,7 +122,7 @@ namespace VMFramework.ExtendedTilemap
 
         #endregion
 
-        #region Init
+        #region Init & Check
 
         protected override void OnInit()
         {
@@ -139,6 +139,21 @@ namespace VMFramework.ExtendedTilemap
             base.OnPostInit();
 
             InitInheritance();
+        }
+
+        public override void CheckSettings()
+        {
+            base.CheckSettings();
+
+            foreach (var spriteLayer in defaultSpriteLayers)
+            {
+                spriteLayer.CheckSettings();
+            }
+
+            foreach (var rule in ruleSet)
+            {
+                rule.CheckSettings();
+            }
         }
 
         #endregion

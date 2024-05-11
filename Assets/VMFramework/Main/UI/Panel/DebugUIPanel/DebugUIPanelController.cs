@@ -126,7 +126,7 @@ namespace VMFramework.UI
         #region Test
 
         [Button(nameof(AddEntry))]
-        private void AddEntry([GamePrefabIDValueDropdown(typeof(IDebugEntry))] string debugEntryID)
+        private void AddEntry([GamePrefabID(typeof(IDebugEntry))] string debugEntryID)
         {
             AddEntry(GamePrefabManager.GetGamePrefab<IDebugEntry>(debugEntryID));
         }

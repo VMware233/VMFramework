@@ -30,8 +30,6 @@ MonoBehaviour:
   audioGeneralSetting: {fileID: 11400000, guid: cf38edfea8576bf45beade93f6cb0501, type: 2}
   modelGeneralSetting: {fileID: 11400000, guid: 6fa66472caacb4a438e51f020c6b35d0, type: 2}
   spriteGeneralSetting: {fileID: 11400000, guid: a1484a824053989459af6674ba4740c6, type: 2}
-  mapCoreGeneralSetting: {fileID: 11400000, guid: 97ff2ca2d44d25e46b8885a3ce535707, type: 2}
-  extendedRuleTileGeneralSetting: {fileID: 11400000, guid: e95bf21a40f23874cbe7ee8a3b1ea6e8, type: 2}
   propertyGeneralSetting: {fileID: 11400000, guid: c736fb1e83b3f584bba1f310bd94a323, type: 2}
   tooltipPropertyGeneralSetting: {fileID: 11400000, guid: 50c656be71f2c904eb23a0b7990a0107, type: 2}
   cameraGeneralSetting: {fileID: 11400000, guid: 517847eb944a6a8448d31b32d000d69f, type: 2}
@@ -47,3 +45,5 @@ MonoBehaviour:
   hierarchyComponentIconGeneralSetting: {fileID: 11400000, guid: 7ef72e20a29a6ac48bc118acd4652db1, type: 2}
   textureImporterGeneralSetting: {fileID: 11400000, guid: 48d6dc05649e0284ba23cb651631a79d, type: 2}
   gamePrefabWrapperGeneralSetting: {fileID: 11400000, guid: 5515826852218bb46a7b88a5be876648, type: 2}
+  mapCoreGeneralSetting: {fileID: 11400000, guid: 97ff2ca2d44d25e46b8885a3ce535707, type: 2}
+  extendedRuleTileGeneralSetting: {fileID: 11400000, guid: e95bf21a40f23874cbe7ee8a3b1ea6e8, type: 2}

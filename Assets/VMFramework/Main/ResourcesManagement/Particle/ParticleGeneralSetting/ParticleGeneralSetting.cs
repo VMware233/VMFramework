@@ -12,8 +12,6 @@ namespace VMFramework.ResourcesManagement
     {
         #region Meta Data
 
-        public override string prefabName => "Particle Preset";
-
         public override Type baseGamePrefabType => typeof(ParticlePreset);
 
         #endregion
@@ -23,7 +21,7 @@ namespace VMFramework.ResourcesManagement
 
         [Button("设置持续时间"), TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
         public void SetDuration(
-            [GamePrefabIDValueDropdown(typeof(ParticlePreset))]
+            [GamePrefabID(typeof(ParticlePreset))]
             string id, 
             [MinValue(0)]
             float duration)

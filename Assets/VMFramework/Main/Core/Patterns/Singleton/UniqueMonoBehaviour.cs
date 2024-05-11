@@ -2,6 +2,10 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+/// <summary>
+/// 非线程安全的单例MonoBehaviour
+/// </summary>
+/// <typeparam name="T"></typeparam>
 [DisallowMultipleComponent]
 public abstract class UniqueMonoBehaviour<T> : SerializedMonoBehaviour where T : UniqueMonoBehaviour<T>
 {

@@ -10,7 +10,7 @@ namespace VMFramework.GlobalEvent
     {
         #region Meta Data
 
-        public override string prefabName => "Global Event";
+        public override string gamePrefabName => "Global Event";
 
         public override Type baseGamePrefabType => typeof(GlobalEventConfig);
 

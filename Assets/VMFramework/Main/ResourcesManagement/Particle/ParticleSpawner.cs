@@ -48,7 +48,7 @@ namespace VMFramework.ResourcesManagement
         /// <returns></returns>
         [Button("生成粒子")]
         public static ParticleSystem Spawn(
-            [GamePrefabIDValueDropdown(typeof(ParticlePreset))]
+            [GamePrefabID(typeof(ParticlePreset))]
             string id, Vector3 pos, Transform parent = null, bool isWorldSpace = true)
         {
             var registeredParticle = GamePrefabManager.GetGamePrefabStrictly<ParticlePreset>(id);
@@ -94,7 +94,7 @@ namespace VMFramework.ResourcesManagement
 
         [Button("设置持续时间")]
         public static void SetDuration(
-            [GamePrefabIDValueDropdown(typeof(ParticlePreset))]
+            [GamePrefabID(typeof(ParticlePreset))]
             string id, float duration)
         {
             GameCoreSettingBase.particleGeneralSetting.SetDuration(id,

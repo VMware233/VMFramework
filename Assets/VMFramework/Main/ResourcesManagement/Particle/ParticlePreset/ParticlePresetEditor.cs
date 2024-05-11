@@ -1,4 +1,6 @@
-﻿#if UNITY_EDITOR
+﻿using VMFramework.Configuration;
+
+#if UNITY_EDITOR
 namespace VMFramework.ResourcesManagement
 {
     public partial class ParticlePreset
@@ -7,7 +9,7 @@ namespace VMFramework.ResourcesManagement
         {
             base.OnInspectorInit();
 
-            duration ??= new();
+            duration ??= new SingleValueChooserConfig<float>();
         }
     }
 }

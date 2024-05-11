@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using VMFramework.Configuration;
+using VMFramework.Core;
 
 namespace VMFramework.ExtendedTilemap
 {
@@ -9,13 +10,13 @@ namespace VMFramework.ExtendedTilemap
         public int layer;
 
         [HideLabel]
-        public SpritePresetChooser sprite = new();
+        public ISpritePresetChooserConfig sprite;
 
-        protected override void OnInspectorInit()
+        public override void CheckSettings()
         {
-            base.OnInspectorInit();
-
-            sprite ??= new();
+            base.CheckSettings();
+            
+            sprite.AssertIsNotNull(nameof(sprite));
         }
     }
 }

@@ -20,8 +20,6 @@ namespace VMFramework.UI
 
         #region MetaData;
 
-        public override string prefabName => "UI Panel";
-
         public override Type baseGamePrefabType => typeof(UIPanelPreset);
 
         #endregion

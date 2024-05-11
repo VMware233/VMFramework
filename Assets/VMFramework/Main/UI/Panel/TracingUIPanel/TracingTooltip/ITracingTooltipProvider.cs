@@ -27,7 +27,7 @@ namespace VMFramework.UI
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string GetTooltipID() =>
-            GameCoreSettingBase.tracingTooltipGeneralSetting.defaultTooltipID;
+            GameCoreSettingBase.tracingTooltipGeneralSetting.defaultTracingTooltipID;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool DisplayTooltip() => true;

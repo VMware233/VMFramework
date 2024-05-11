@@ -1,12 +1,9 @@
 ﻿using Sirenix.OdinInspector;
 using VMFramework.UI;
 using VMFramework.Core;
-using UnityEngine.Serialization;
 using VMFramework.Containers;
 using VMFramework.Core.Linq;
-using VMFramework.ExtendedTilemap;
 using VMFramework.GlobalEvent;
-using VMFramework.Map;
 using VMFramework.Procedure;
 using VMFramework.Property;
 using VMFramework.Recipe;
@@ -65,14 +62,6 @@ namespace VMFramework.GameLogicArchitecture
         [LabelText("精灵通用设置"), TabGroup(TAB_GROUP_NAME, RESOURCES_MANAGEMENT_CATEGORY)]
         [Required]
         public SpriteGeneralSetting spriteGeneralSetting;
-
-        [LabelText("地图核心通用设置"), TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
-        [Required]
-        public MapCoreGeneralSetting mapCoreGeneralSetting;
-
-        [LabelText("拓展瓦片通用设置"), TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
-        [Required]
-        public ExtendedRuleTileGeneralSetting extendedRuleTileGeneralSetting;
 
         [LabelText("属性通用设置"), TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
         [Required]

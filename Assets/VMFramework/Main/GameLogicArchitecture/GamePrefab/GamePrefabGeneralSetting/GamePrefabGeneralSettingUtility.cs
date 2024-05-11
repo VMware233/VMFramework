@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
@@ -46,5 +49,19 @@ namespace VMFramework.GameLogicArchitecture
             gamePrefabSetting = GetGamePrefabGeneralSetting(gamePrefab);
             return gamePrefabSetting != null;
         }
+
+        public static IEnumerable<ValueDropdownItem> GetGamePrefabGeneralSettingNameList()
+        {
+            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            {
+                if (generalSetting is not GamePrefabGeneralSetting gamePrefabSetting)
+                {
+                    continue;
+                }
+
+                yield return new ValueDropdownItem(gamePrefabSetting.gamePrefabName, gamePrefabSetting);
+            }
+        }
     }
 }
+#endif

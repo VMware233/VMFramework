@@ -157,32 +157,13 @@ namespace VMFramework.Configuration
             {
                 startTime = 0,
                 leapDuration = 0.7f,
-                leapPower = 50,
-                leapTimes = 2,
-                leapEndOffset = new()
+                leapPower = new SingleValueChooserConfig<float>(50),
+                leapTimes = new SingleValueChooserConfig<int>(2),
+                leapEndOffset = new WeightedSelectChooserConfig<Vector3>(new Vector3[]
                 {
-                    asVector2D = true,
-                    planeType = PlaneType.XY,
-                    setter2D = new()
-                    {
-                        isRandomValue = true,
-                        randomType = "Weighted Select",
-                        weightedSelectItems = new()
-                        {
-                            new()
-                            {
-                                value = new Vector2(140, 50),
-                                ratio = 1
-                            },
-                            new()
-                            {
-                                value = new Vector2(-140, 50),
-                                ratio = 1
-                            }
-                        },
-                        decimalPlaces = 0
-                    }
-                }
+                    new Vector2(140, 50),
+                    new Vector2(-140, 50)
+                })
             });
         }
 
@@ -203,7 +184,7 @@ namespace VMFramework.Configuration
             {
                 startTime = 0,
                 moveDuration = 0.3f,
-                end = new Vector2(0, 65),
+                end = new SingleValueChooserConfig<Vector3>(new Vector2(0, 65)),
                 ease = Ease.OutCubic
             });
 
@@ -343,15 +324,15 @@ namespace VMFramework.Configuration
         public float leapDuration = 0.7f;
 
         [LabelText("跳跃落点")]
-        public Vector3Setter leapEndOffset = new Vector2(140, 50);
+        public IChooserConfig<Vector3> leapEndOffset = new SingleValueChooserConfig<Vector3>();
 
         [LabelText("跳跃力量")]
         [MinValue(0)]
-        public FloatSetter leapPower = 50;
+        public IChooserConfig<float> leapPower = new SingleValueChooserConfig<float>();
 
         [LabelText("跳跃次数")]
         [MinValue(0)]
-        public IntegerSetter leapTimes = 2;
+        public IChooserConfig<int> leapTimes = new SingleValueChooserConfig<int>(1);
 
 
         public override float GetTotalDuration()
@@ -361,9 +342,9 @@ namespace VMFramework.Configuration
 
         public override Tween Run(Transform target)
         {
-            return target.DOLocalJump(target.localPosition + leapEndOffset,
-                leapPower,
-                leapTimes,
+            return target.DOLocalJump(target.localPosition + leapEndOffset.GetValue(),
+                leapPower.GetValue(),
+                leapTimes.GetValue(),
                 leapDuration,
                 false);
         }
@@ -379,9 +360,9 @@ namespace VMFramework.Configuration
         {
             base.OnInspectorInit();
 
-            leapEndOffset ??= new();
-            leapPower ??= new();
-            leapTimes ??= new();
+            leapEndOffset ??= new SingleValueChooserConfig<Vector3>();
+            leapPower ??= new SingleValueChooserConfig<float>();
+            leapTimes ??= new SingleValueChooserConfig<int>(1);
         }
 
         #endregion
@@ -395,7 +376,7 @@ namespace VMFramework.Configuration
         public float moveDuration = 0.3f;
 
         [LabelText("终点")]
-        public Vector3Setter end = new();
+        public IChooserConfig<Vector3> end = new SingleValueChooserConfig<Vector3>();
 
         [LabelText("动画曲线")]
         [Helper("https://easings.net/")]
@@ -408,7 +389,7 @@ namespace VMFramework.Configuration
 
         public override Tween Run(Transform target)
         {
-            return target.DOLocalMove(target.localPosition + end, moveDuration)
+            return target.DOLocalMove(target.localPosition + end.GetValue(), moveDuration)
                 .SetEase(ease);
         }
 

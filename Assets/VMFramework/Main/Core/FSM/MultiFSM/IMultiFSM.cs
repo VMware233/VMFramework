@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace VMFramework.Core.FSM
 {
@@ -15,8 +16,19 @@ namespace VMFramework.Core.FSM
         protected Dictionary<TID, IMultiFSMState<TID, TOwner>> _currentStates { get; set; }
 
         public IReadOnlyDictionary<TID, IMultiFSMState<TID, TOwner>> currentStates => _currentStates;
-        
-        public IEnumerable<TID> currentStatesID => _currentStates.Keys;
+
+        public IEnumerable<TID> currentStatesID
+        {
+            get
+            {
+                if (_currentStates == null)
+                {
+                    return Enumerable.Empty<TID>();
+                }
+                
+                return _currentStates.Keys;
+            }
+        }
 
         public void Init(TOwner owner, params TID[] initialStatesID)
         {

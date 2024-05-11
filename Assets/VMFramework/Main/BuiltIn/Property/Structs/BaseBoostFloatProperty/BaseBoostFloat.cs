@@ -1,4 +1,5 @@
-﻿namespace VMFramework.Property
+﻿
+namespace VMFramework.Property
 {
     public readonly struct BaseBoostFloat
     {

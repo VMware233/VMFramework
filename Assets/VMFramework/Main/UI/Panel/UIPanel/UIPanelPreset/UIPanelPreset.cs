@@ -37,7 +37,7 @@ namespace VMFramework.UI
         public bool autoOpenOnCreation = false;
 
         [LabelText("开启此面板时关闭的全局事件"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [GamePrefabIDValueDropdown(typeof(GlobalEventConfig))]
+        [GamePrefabID(typeof(GlobalEventConfig))]
         [ListDrawerSettings(ShowFoldout = false)]
         [DisallowDuplicateElements]
         [JsonProperty]
@@ -48,7 +48,7 @@ namespace VMFramework.UI
         public bool enableCloseInputMapping = false;
 
         [LabelText("关闭此UI的输入映射"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [GamePrefabIDValueDropdown(typeof(GlobalEventConfig))]
+        [GamePrefabID(typeof(GlobalEventConfig))]
         [IsNotNullOrEmpty]
         [ShowIf(nameof(enableCloseInputMapping))]
         [JsonProperty]
@@ -59,7 +59,7 @@ namespace VMFramework.UI
         public bool enableToggleInputMapping = false;
 
         [LabelText("切换开关此UI的输入映射"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [GamePrefabIDValueDropdown(typeof(GlobalEventConfig))]
+        [GamePrefabID(typeof(GlobalEventConfig))]
         [IsNotNullOrEmpty]
         [ShowIf(nameof(enableToggleInputMapping))]
         [JsonProperty]

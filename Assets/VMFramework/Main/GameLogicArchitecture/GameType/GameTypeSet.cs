@@ -17,11 +17,11 @@ namespace VMFramework.GameLogicArchitecture
         public IGameTypeOwner owner { get; }
 
         [ShowInInspector]
-        [GameTypeValueDropdown(leafGameTypesOnly: false)]
+        [GameType(leafGameTypesOnly: false)]
         private readonly HashSet<string> gameTypesHashSet = new();
 
         [ShowInInspector]
-        [GameTypeValueDropdown(leafGameTypesOnly: true)]
+        [GameType(leafGameTypesOnly: true)]
         private readonly HashSet<string> leafGameTypesHashSet = new();
 
         public IEnumerable<GameType> gameTypes => gameTypesHashSet.Select(GameType.GetGameType)

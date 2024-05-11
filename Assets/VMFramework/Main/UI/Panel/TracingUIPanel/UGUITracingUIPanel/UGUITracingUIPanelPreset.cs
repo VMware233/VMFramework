@@ -6,7 +6,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public class UGUITracingUIPanelPreset : UGUIPanelPreset
+    public class UGUITracingUIPanelPreset : UGUIPanelPreset, ITracingUIPanelPreset
     {
         protected const string TRACING_UI_SETTING_CATEGORY = "鼠标追随UI的设置";
 

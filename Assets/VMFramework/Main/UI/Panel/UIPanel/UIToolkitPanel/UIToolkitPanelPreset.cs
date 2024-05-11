@@ -56,7 +56,7 @@ namespace VMFramework.UI
 
         [LabelText("关闭按钮名称")]
         [TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
-        [VisualElementNameValueDropdown(typeof(Button), typeof(BasicButton))]
+        [VisualElementName(typeof(Button), typeof(BasicButton))]
         [JsonProperty]
         public string closeUIButtonName;
 

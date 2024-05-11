@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.GameLogicArchitecture;
-using VMFramework.Localization;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
@@ -57,33 +56,15 @@ namespace VMFramework.UI
 
     public sealed partial class TracingTooltipGeneralSetting : GeneralSettingBase
     {
-        public const string TOOLTIP_SETTING_CATEGORY = "提示框设置";
+        public const string TOOLTIP_CATEGORY = "提示框设置";
 
         #region Default Tooltip
 
-        [LabelText("默认Tooltip框架"), TitleGroup(TOOLTIP_SETTING_CATEGORY)]
-        [JsonProperty, SerializeField]
-        private UIFrameworkType defaultTooltipFrameworkType = UIFrameworkType.UGUI;
-
-        [LabelText("默认UIToolkit版本的Tooltip"), TitleGroup(TOOLTIP_SETTING_CATEGORY)]
-        [ShowIf(nameof(defaultTooltipFrameworkType), UIFrameworkType.UIToolkit)]
-        [GamePrefabIDValueDropdown(typeof(UIToolkitTracingTooltipPreset))]
+        [LabelText("默认的追踪提示框"), TabGroup(TAB_GROUP_NAME, TOOLTIP_CATEGORY)]
+        [GamePrefabID(typeof(UIToolkitTracingTooltipPreset))]
         [IsNotNullOrEmpty]
         [JsonProperty, SerializeField]
-        private string defaultUIToolkitTooltipID;
-
-        [LabelText("默认UGUI版本的Tooltip"), TitleGroup(TOOLTIP_SETTING_CATEGORY)]
-        [ShowIf(nameof(defaultTooltipFrameworkType), UIFrameworkType.UGUI)]
-        [IsNotNullOrEmpty]
-        [JsonProperty, SerializeField]
-        private string defaultUGUITooltipID;
-
-        public string defaultTooltipID => defaultTooltipFrameworkType switch
-        {
-            UIFrameworkType.UGUI => defaultUGUITooltipID,
-            UIFrameworkType.UIToolkit => defaultUIToolkitTooltipID,
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        public string defaultTracingTooltipID;
 
         #endregion
 
@@ -99,11 +80,11 @@ namespace VMFramework.UI
             public int priority;
         }
 
-        [LabelText("Tooltip优先级预设"), TitleGroup(TOOLTIP_SETTING_CATEGORY)]
+        [LabelText("Tooltip优先级预设"), TabGroup(TAB_GROUP_NAME, TOOLTIP_CATEGORY)]
         [JsonProperty, SerializeField]
         private List<TooltipPriorityPreset> tooltipPriorityPresets = new();
 
-        [LabelText("默认优先级"), TitleGroup(TOOLTIP_SETTING_CATEGORY)]
+        [LabelText("默认优先级"), TabGroup(TAB_GROUP_NAME, TOOLTIP_CATEGORY)]
         public TooltipPriorityConfig defaultPriority = new();
 
         public IEnumerable GetTooltipPriorityPresetsID()

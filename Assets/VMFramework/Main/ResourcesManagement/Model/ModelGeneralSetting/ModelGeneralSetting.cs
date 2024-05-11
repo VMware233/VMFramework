@@ -6,8 +6,6 @@ namespace VMFramework.ResourcesManagement
     public sealed partial class ModelGeneralSetting : GamePrefabGeneralSetting
     {
         #region Meta Data
-
-        public override string prefabName => "Model Preset";
         
         public override Type baseGamePrefabType => typeof(ModelPreset);
 

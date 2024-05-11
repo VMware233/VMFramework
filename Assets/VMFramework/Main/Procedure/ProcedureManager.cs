@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.FSM;
 
 namespace VMFramework.Procedure
@@ -12,12 +12,11 @@ namespace VMFramework.Procedure
     public sealed class ProcedureManager : UniqueMonoBehaviour<ProcedureManager>
     {
         [ShowInInspector]
-        private static IMultiFSM<string, ProcedureManager> fsm =
-            new MultiFSM<string, ProcedureManager>();
+        private static IMultiFSM<string, ProcedureManager> fsm = new MultiFSM<string, ProcedureManager>();
 
         [ShowInInspector]
         private static List<IManagerBehaviour> managerBehaviours = new();
-        
+
         [ShowInInspector]
         private static Dictionary<string, IProcedure> procedures = new();
 
@@ -27,8 +26,8 @@ namespace VMFramework.Procedure
             fsm?.currentStatesID.ToList();
 
         [ShowInInspector]
-        private static readonly Queue<(string fromProcedureID, string toProcedureID)>
-            procedureSwitchQueue = new();
+        private static readonly Queue<(string fromProcedureID, string toProcedureID)> procedureSwitchQueue =
+            new();
 
         private static event Action<string> OnEnterProcedureEvent;
         private static event Action<string> OnExitProcedureEvent;
@@ -38,7 +37,7 @@ namespace VMFramework.Procedure
         protected override void Awake()
         {
             base.Awake();
-            
+
             Debug.Log("启动游戏！");
         }
 
@@ -50,11 +49,11 @@ namespace VMFramework.Procedure
                 {
                     continue;
                 }
-                
+
                 var procedure = (IProcedure)derivedClass.CreateInstance();
-                
+
                 procedures.Add(procedure.id, procedure);
-                
+
                 procedure.OnEnterEvent += () =>
                 {
                     Debug.Log($"进入流程:{procedure.id}");
@@ -71,9 +70,9 @@ namespace VMFramework.Procedure
 
                 fsm.AddState(procedure);
             }
-            
+
             fsm.Init(this);
-            
+
             EnterProcedure(CoreInitializationProcedure.ID);
         }
 
@@ -86,14 +85,12 @@ namespace VMFramework.Procedure
 
             var (fromProcedureID, toProcedureID) = procedureSwitchQueue.Dequeue();
 
-            if (fsm.HasCurrentState(fromProcedureID) == false)
+            if (fsm.HasCurrentState(fromProcedureID))
             {
-                EnterProcedure(toProcedureID);
+                ExitProcedure(fromProcedureID);
             }
-            else
-            {
-                EnterProcedure(fromProcedureID, toProcedureID);
-            }
+            
+            EnterProcedure(toProcedureID);
         }
 
         #endregion
@@ -105,25 +102,18 @@ namespace VMFramework.Procedure
             fsm.EnterState(procedureID);
         }
 
-        public static void EnterProcedure(string fromProcedureID, string toProcedureID)
-        {
-            fsm.ExitState(fromProcedureID);
-            fsm.EnterState(toProcedureID);
-        }
-
         public static void ExitProcedure(string procedureID)
         {
             fsm.ExitState(procedureID);
         }
 
-        public static void AddToSwitchQueue(string fromProcedureID,
-            string toProcedureID)
+        public static void AddToSwitchQueue(string fromProcedureID, string toProcedureID)
         {
             if (procedures.ContainsKey(fromProcedureID) == false)
             {
                 throw new ArgumentException($"不存在的流程ID:{fromProcedureID}");
             }
-            
+
             if (procedures.ContainsKey(toProcedureID) == false)
             {
                 throw new ArgumentException($"不存在的流程ID:{toProcedureID}");
@@ -142,7 +132,7 @@ namespace VMFramework.Procedure
             {
                 throw new ArgumentException($"不存在的流程ID:{procedureID}");
             }
-            
+
             return procedures[procedureID];
         }
 
@@ -154,7 +144,7 @@ namespace VMFramework.Procedure
         {
             GetProcedure(procedureID).OnEnterEvent += action;
         }
-        
+
         public static void AddOnExitEvent(string procedureID, Action action)
         {
             GetProcedure(procedureID).OnExitEvent += action;

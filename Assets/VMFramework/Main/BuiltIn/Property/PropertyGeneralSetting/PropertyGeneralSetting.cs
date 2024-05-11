@@ -23,7 +23,7 @@ namespace VMFramework.Property
 
         #region Metadata
 
-        public override string prefabName => "Property";
+        public override string gameItemName => "Property";
 
         public override Type baseGamePrefabType => typeof(PropertyConfig);
 
@@ -35,7 +35,7 @@ namespace VMFramework.Property
         private static Dictionary<Type, List<PropertyConfig>> propertyConfigs = new();
 
         [LabelText("提示框"), TabGroup(TAB_GROUP_NAME, TOOLTIP_SETTING_CATEGORY)]
-        [GamePrefabIDValueDropdown(typeof(UIToolkitTracingTooltipPreset))]
+        [GamePrefabID(typeof(UIToolkitTracingTooltipPreset))]
         [IsNotNullOrEmpty]
         [JsonProperty]
         public string tooltipID;

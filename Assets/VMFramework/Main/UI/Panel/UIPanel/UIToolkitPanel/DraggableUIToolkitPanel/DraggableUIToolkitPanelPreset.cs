@@ -12,13 +12,13 @@ namespace VMFramework.UI
         public bool enableDragging = false;
 
         [LabelText("可拖拽区域名称"), TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [EnableIf(nameof(enableDragging))]
         [JsonProperty]
         public string draggableAreaName;
 
         [LabelText("拖拽容器名称"), TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [EnableIf(nameof(enableDragging))]
         [JsonProperty]
         public string draggingContainerName;

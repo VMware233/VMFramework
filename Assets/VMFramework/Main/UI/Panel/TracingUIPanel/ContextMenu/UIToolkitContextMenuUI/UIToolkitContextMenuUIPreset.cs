@@ -9,7 +9,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public partial class UIToolkitContextMenuUIPreset : UIToolkitTracingUIPanelPreset
+    public partial class UIToolkitContextMenuUIPreset : UIToolkitTracingUIPanelPreset, IContextMenuPreset
     {
         public const string CONTEXT_MENU_UI_CATEGORY = "上下文菜单界面设置";
         
@@ -19,7 +19,7 @@ namespace VMFramework.UI
             typeof(UIToolkitContextMenuUIController);
 
         [LabelText("上下文菜单条目容器名称"), TabGroup(TAB_GROUP_NAME, CONTEXT_MENU_UI_CATEGORY)]
-        [VisualElementNameValueDropdown]
+        [VisualElementName]
         [JsonProperty]
         public string contextMenuEntryContainerName;
 
@@ -36,7 +36,7 @@ namespace VMFramework.UI
         public MouseButtonType clickMouseButtonType = MouseButtonType.LeftButton;
 
         [LabelText("全局事件触发时关闭此UI"), TabGroup(TAB_GROUP_NAME, CONTEXT_MENU_UI_CATEGORY)]
-        [GamePrefabIDValueDropdown(typeof(GlobalEventConfig))]
+        [GamePrefabID(typeof(GlobalEventConfig))]
         [JsonProperty]
         public List<string> globalEventIDsToClose = new();
 

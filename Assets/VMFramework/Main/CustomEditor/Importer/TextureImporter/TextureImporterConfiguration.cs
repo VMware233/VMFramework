@@ -29,7 +29,8 @@ namespace VMFramework.Editor
 
         [LabelText("精灵中心点"), FoldoutGroup("精灵")]
         [JsonProperty]
-        public Vector2Setter spritePivot = new Vector2(0.5f, 0.5f);
+        public IChooserConfig<Vector2> spritePivot =
+            new SingleValueChooserConfig<Vector2>(new Vector2(0.5f, 0.5f));
 
         [LabelText("过滤模式")]
         [JsonProperty]

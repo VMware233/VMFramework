@@ -1,8 +1,10 @@
 ﻿#if FISHNET
+using FishNet.CodeGenerating;
 using FishNet.Serializing;
 
 namespace VMFramework.Property
 {
+    [UseGlobalCustomSerializer]
     public static class BaseBoostFloatPropertySerializer
     {
         public static void WriteBaseBoostFloatProperty(this Writer writer, BaseBoostFloatProperty property)

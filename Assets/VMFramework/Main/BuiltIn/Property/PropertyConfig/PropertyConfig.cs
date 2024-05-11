@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace VMFramework.Property
 {
-    public partial class PropertyConfig : LocalizedGameTypedGamePrefab
+    public abstract partial class PropertyConfig : LocalizedGameTypedGamePrefab
     {
         protected override string idSuffix => "property";
+
+        public override Type gameItemType => typeof(PropertyOfGameItem);
 
         [LabelText("目标类型"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [ShowInInspector]

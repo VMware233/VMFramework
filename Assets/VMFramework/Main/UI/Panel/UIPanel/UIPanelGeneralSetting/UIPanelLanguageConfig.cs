@@ -11,7 +11,7 @@ namespace VMFramework.UI
     public class UIPanelLanguageConfig : BaseConfigClass, IIDOwner, INameOwner
     {
         [LabelText("语言代码")]
-        [LocaleNameValueDropdown]
+        [LocaleName]
         [IsNotNullOrEmpty]
         [SerializeField]
         private string localeCode;

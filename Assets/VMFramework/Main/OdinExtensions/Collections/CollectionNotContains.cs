@@ -38,8 +38,7 @@ namespace VMFramework.OdinExtensions
 
 #if UNITY_EDITOR
 
-    public class
-        CollectionNotContainsAttributeDrawer : OdinAttributeDrawer<CollectionNotContains>
+    public class CollectionNotContainsAttributeDrawer : OdinAttributeDrawer<CollectionNotContains>
     {
         private ValueResolver contentResolver;
 
