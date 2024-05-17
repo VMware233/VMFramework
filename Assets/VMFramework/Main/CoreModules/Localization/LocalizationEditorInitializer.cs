@@ -6,7 +6,7 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.Localization
 {
-    public class LocalizationEditorInitializer : IEditorInitializer
+    internal class LocalizationEditorInitializer : IEditorInitializer
     {
         void IInitializer.OnPreInit(Action onDone)
         {

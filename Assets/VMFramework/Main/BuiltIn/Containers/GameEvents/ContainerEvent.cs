@@ -2,14 +2,14 @@
 
 namespace VMFramework.Containers
 {
-    public class ContainerEvent<TContainerEvent> : GameEvent<TContainerEvent>
-        where TContainerEvent : ContainerEvent<TContainerEvent>
+    public class ContainerEvent<TContainerEvent> : SingletonGameEvent<TContainerEvent>
+        where TContainerEvent : ContainerEvent<TContainerEvent>, new()
     {
         public IContainer container { get; private set; }
         
-        public void SetContainer(IContainer container)
+        public static void SetContainer(IContainer newContainer)
         {
-            this.container = container;
+            instance.container = newContainer;
         }
 
         protected override void OnPropagationStopped()

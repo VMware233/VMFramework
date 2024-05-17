@@ -62,13 +62,8 @@ namespace VMFramework.Containers
 
             isDestroyed = false;
             
-            if (GameEventManager.TryGetGameEvent(ContainerCreateEventConfig.ID,
-                    out ContainerCreateEvent gameEvent))
-            {
-                gameEvent.SetContainer(this);
-                
-                gameEvent.Propagate();
-            }
+            ContainerCreateEvent.SetContainer(this);
+            ContainerCreateEvent.Propagate();
         }
 
         #endregion
@@ -102,14 +97,9 @@ namespace VMFramework.Containers
                 Debug.LogWarning($"{this} is Destroyed On Client!");
             }
             
-            if (GameEventManager.TryGetGameEvent(ContainerDestroyEventConfig.ID,
-                    out ContainerDestroyEvent gameEvent))
-            {
-                gameEvent.SetContainer(this);
-                
-                gameEvent.Propagate();
-            }
-
+            ContainerDestroyEvent.SetContainer(this);
+            ContainerDestroyEvent.Propagate();
+            
             isDestroyed = true;
         }
 

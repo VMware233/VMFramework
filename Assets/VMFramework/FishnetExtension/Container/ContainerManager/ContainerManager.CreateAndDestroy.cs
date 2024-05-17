@@ -10,11 +10,8 @@ namespace VMFramework.Containers
     {
         void IInitializer.OnInitComplete(Action onDone)
         {
-            GameEventManager.AddCallback<ContainerCreateEvent>(ContainerCreateEventConfig.ID,
-                OnContainerCreate, GameEventPriority.SUPER);
-            
-            GameEventManager.AddCallback<ContainerDestroyEvent>(ContainerDestroyEventConfig.ID,
-                OnContainerDestroy, GameEventPriority.SUPER);
+            ContainerCreateEvent.AddCallback(OnContainerCreate, GameEventPriority.SUPER);
+            ContainerDestroyEvent.AddCallback(OnContainerDestroy, GameEventPriority.SUPER);
             
             onDone();
         }

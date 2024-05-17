@@ -32,6 +32,15 @@ namespace VMFramework.Core
                     if (baseType.IsAssignableFrom(t))
                     {
                         derivedTypes.Add(t);
+                        continue;
+                    }
+
+                    if (baseType.IsGenericTypeDefinition)
+                    {
+                        if (t.GetBaseTypes(false, true).Contains(baseType))
+                        {
+                            derivedTypes.Add(t);
+                        }
                     }
                 }
                 

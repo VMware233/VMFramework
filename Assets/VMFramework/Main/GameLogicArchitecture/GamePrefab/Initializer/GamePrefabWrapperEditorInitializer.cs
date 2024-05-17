@@ -5,7 +5,7 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
-    public sealed class GamePrefabWrapperEditorInitializer : IEditorInitializer
+    internal sealed class GamePrefabWrapperEditorInitializer : IEditorInitializer
     {
         public void OnInit(Action onDone)
         {

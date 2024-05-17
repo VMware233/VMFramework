@@ -9,8 +9,9 @@ namespace VMFramework.UI
     {
         void IInitializer.OnInitComplete(Action onDone)
         {
-            GameEventManager.AddCallback<ContainerDestroyEvent>(ContainerDestroyEventConfig.ID,
-                OnContainerDestroy);
+            ContainerDestroyEvent.AddCallback(OnContainerDestroy);
+            // GameEventManager.AddCallback<ContainerDestroyEvent>(ContainerDestroyEventConfig.ID,
+            //     OnContainerDestroy);
             
             onDone();
         }

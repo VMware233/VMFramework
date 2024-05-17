@@ -8,7 +8,7 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.Editor
 {
-    public sealed class GameEditorInitializer : IEditorInitializer
+    internal sealed class GameEditorInitializer : IEditorInitializer
     {
         async void IInitializer.OnInitComplete(Action onDone)
         {

@@ -4,7 +4,7 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.Procedure
 {
-    public sealed class ManagerCreatorEditorInitializer : IEditorInitializer
+    internal class ManagerCreatorEditorInitializer : IEditorInitializer
     {
         void IInitializer.OnInit(Action onDone)
         {

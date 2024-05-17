@@ -4,7 +4,7 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
-    public class GameSettingEditorInitializer : IEditorInitializer
+    internal class GameSettingEditorInitializer : IEditorInitializer
     {
         public void OnBeforeInit(Action onDone)
         {
