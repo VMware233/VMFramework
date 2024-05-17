@@ -2,7 +2,7 @@
 
 namespace VMFramework.Examples
 {
-    public class GameStartEvent : GameEvent<GameStartEvent>
+    public sealed class GameStartEvent : GameEvent<GameStartEvent>
     {
         // Some Game Start Parameters
         public int playerCount { get; private set; } = -1;
