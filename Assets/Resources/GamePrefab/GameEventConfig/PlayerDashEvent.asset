@@ -69,7 +69,99 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 4|VMFramework.GameEvents.InputActionGroup, Assembly-CSharp
+    - Name: actions
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[VMFramework.GameEvents.InputAction,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: VMFramework.GameEvents.InputAction, Assembly-CSharp
+    - Name: type
+      Entry: 3
       Data: 0
+    - Name: keyCode
+      Entry: 3
+      Data: 304
+    - Name: keyBoardTriggerType
+      Entry: 3
+      Data: 0
+    - Name: holdThreshold
+      Entry: 4
+      Data: 0.3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: VMFramework.GameEvents.InputAction, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: keyCode
+      Entry: 3
+      Data: 116
+    - Name: keyBoardTriggerType
+      Entry: 3
+      Data: 1
+    - Name: holdThreshold
+      Entry: 4
+      Data: 0.3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|VMFramework.GameEvents.InputActionGroup, Assembly-CSharp
+    - Name: actions
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[VMFramework.GameEvents.InputAction,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: VMFramework.GameEvents.InputAction, Assembly-CSharp
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: keyCode
+      Entry: 3
+      Data: 113
+    - Name: keyBoardTriggerType
+      Entry: 3
+      Data: 1
+    - Name: holdThreshold
+      Entry: 4
+      Data: 0.3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

@@ -17,7 +17,7 @@ namespace VMFramework.Examples
                 
                 // You can stop the propagation of the event if you want to prevent others from receiving it.
                 gameEvent.StopPropagation();
-            });
+            }, GameEventPriority.SUPER);
             
             // Propagate the GameStartEvent
             if (GameEventManager.TryGetGameEvent(GameStartEventConfig.ID, out GameStartEvent gameStartEvent))
