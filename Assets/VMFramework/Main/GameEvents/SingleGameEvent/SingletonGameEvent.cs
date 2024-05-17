@@ -110,7 +110,7 @@ namespace VMFramework.GameEvents
 
         private static bool isPropagationStopped = false;
         
-        public static void StopPropagation()
+        public void StopPropagation()
         {
             isPropagationStopped = true;
         }
