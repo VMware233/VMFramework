@@ -6,12 +6,12 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public class UIPresetIDAttributeDrawer : GeneralValueDropdownAttributeDrawer<UIPresetIDAttribute>
+    public class UIPresetIDAttributeDrawer : GamePrefabIDAttributeDrawer<UIPresetIDAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()
         {
             foreach (var uiPreset in GamePrefabManager.GetGamePrefabsByTypes<IUIPanelPreset>(Attribute
-                         .UIPresetTypes))
+                         .GamePrefabTypes))
             {
                 if (Attribute.IsUnique != null)
                 {

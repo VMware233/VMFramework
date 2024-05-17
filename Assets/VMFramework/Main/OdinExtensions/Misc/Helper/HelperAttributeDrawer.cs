@@ -44,8 +44,6 @@ namespace VMFramework.OdinExtensions
                 Launcher.LaunchUri(url, false);
             }
 
-
-
             GUIHelper.PopGUIEnabled();
             GUILayout.EndHorizontal();
         }

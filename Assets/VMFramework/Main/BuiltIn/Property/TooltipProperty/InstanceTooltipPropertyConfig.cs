@@ -8,7 +8,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Property
 {
-    public class InstanceTooltipPropertyConfig : BaseConfigClass
+    public class InstanceTooltipPropertyConfig : BaseConfig
     {
         [HideInInspector]
         public Type filterType;

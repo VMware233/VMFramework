@@ -1,7 +1,7 @@
 ﻿using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using VMFramework.GlobalEvent;
+using VMFramework.GameEvents;
 
 namespace VMFramework.UI
 {
@@ -34,14 +34,14 @@ namespace VMFramework.UI
                 isDebugging = true;
             }
 
-            if (preset.enableCloseInputMapping)
+            if (preset.enableUICloseGameEvent)
             {
-                GlobalEventManager.AddEvent(preset.closeInputMappingID, this.Close);
+                GameEventManager.AddCallback(preset.uiCloseGameEventID, Close);
             }
 
-            if (preset.enableToggleInputMapping)
+            if (preset.enableUIGameEvent)
             {
-                GlobalEventManager.AddEvent(preset.toggleInputMappingID, this.Toggle);
+                GameEventManager.AddCallback(preset.uiToggleGameEventID, Toggle);
             }
         }
 
@@ -99,22 +99,19 @@ namespace VMFramework.UI
         {
             UIPanelPool.Unregister(this);
             
-            if (preset.enableCloseInputMapping)
+            if (preset.enableUICloseGameEvent)
             {
-                GlobalEventManager.RemoveEvent(preset.closeInputMappingID, this.Close);
+                GameEventManager.RemoveCallback(preset.uiCloseGameEventID, Close);
             }
 
-            if (preset.enableToggleInputMapping)
+            if (preset.enableUIGameEvent)
             {
-                GlobalEventManager.RemoveEvent(preset.toggleInputMappingID, this.Toggle);
+                GameEventManager.RemoveCallback(preset.uiToggleGameEventID, Toggle);
             }
 
             if (isOpened)
             {
-                foreach (var inputMappingID in preset.globalEventDisabledListOnOpen)
-                {
-                    GlobalEventManager.EnableEvent(inputMappingID);
-                }
+                GameEventManager.Enable(preset.gameEventDisabledOnOpen);
             }
         }
 
@@ -140,10 +137,7 @@ namespace VMFramework.UI
                 return;
             }
 
-            foreach (var inputMappingID in preset.globalEventDisabledListOnOpen)
-            {
-                GlobalEventManager.DisableEvent(inputMappingID);
-            }
+            GameEventManager.Disable(preset.gameEventDisabledOnOpen);
 
             isOpened = true;
 
@@ -167,10 +161,7 @@ namespace VMFramework.UI
 
             OnCloseInstantlyEvent?.Invoke(this);
 
-            foreach (var inputMappingID in preset.globalEventDisabledListOnOpen)
-            {
-                GlobalEventManager.EnableEvent(inputMappingID);
-            }
+            GameEventManager.Enable(preset.gameEventDisabledOnOpen);
         }
         
         public void SetEnabled(bool enableState)

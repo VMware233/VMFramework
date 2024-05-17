@@ -6,12 +6,13 @@ using VMFramework.Configuration;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public class TooltipPriorityConfig : BaseConfigClass
+    public class TooltipPriorityConfig : BaseConfig
     {
         private enum TooltipPriorityType
         {
@@ -70,7 +71,7 @@ namespace VMFramework.UI
 
         #region Tooltip Priority
 
-        private class TooltipPriorityPreset : BaseConfigClass
+        private class TooltipPriorityPreset : BaseConfig
         {
             [LabelText("ID")]
             [IsNotNullOrEmpty]
@@ -107,5 +108,12 @@ namespace VMFramework.UI
         }
 
         #endregion
+
+        public override void CheckSettings()
+        {
+            base.CheckSettings();
+            
+            defaultTracingTooltipID.AssertIsNotNullOrEmpty(nameof(defaultTracingTooltipID));
+        }
     }
 }

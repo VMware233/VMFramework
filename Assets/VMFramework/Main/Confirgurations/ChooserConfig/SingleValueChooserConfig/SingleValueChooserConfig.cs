@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
-    public class SingleValueChooserConfig<T> : ChooserConfig<T>
+    public partial class SingleValueChooserConfig<T> : ChooserConfig<T>
     {
         [HideLabel]
         public T value;
@@ -18,6 +20,26 @@ namespace VMFramework.Configuration
         public SingleValueChooserConfig(T value)
         {
             this.value = value;
+        }
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            
+            if (value is IConfig config)
+            {
+                config.Init();
+            }
+            else if (value is IEnumerable enumerable)
+            {
+                foreach (var item in enumerable)
+                {
+                    if (item is IConfig itemConfig)
+                    {
+                        itemConfig.Init();
+                    }
+                }
+            }
         }
 
         public override IChooser<T> GenerateNewObjectChooser()
@@ -37,6 +59,11 @@ namespace VMFramework.Configuration
 
         public override string ToString()
         {
+            if (value is IEnumerable enumerable)
+            {
+                return enumerable.Cast<object>().Join(", ");
+            }
+            
             return ValueToString(value);
         }
 

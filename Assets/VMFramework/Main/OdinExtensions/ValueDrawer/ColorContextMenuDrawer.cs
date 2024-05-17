@@ -3,6 +3,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Localization;
 
 namespace VMFramework.OdinExtensions
 {
@@ -19,7 +20,7 @@ namespace VMFramework.OdinExtensions
             genericMenu.AddSeparator("");
 
             genericMenu.AddDisabledItem(
-                new GUIContent(ValueEntry.SmartValue.ToString(ColorStringFormat.Name)));
+                new GUIContent(ValueEntry.SmartValue.ToLocalizedString(ColorStringFormat.Name)));
         }
     }
 }

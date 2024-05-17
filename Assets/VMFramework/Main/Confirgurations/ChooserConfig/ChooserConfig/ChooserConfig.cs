@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using VMFramework.Core;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
     [PreviewComposite]
-    public abstract class ChooserConfig<T> : BaseConfigClass, IChooserConfig<T>
+    public abstract class ChooserConfig<T> : BaseConfig, IChooserConfig<T>
     {
+        [ShowInInspector, HideInEditorMode]
         private IChooser<T> objectChooser;
 
-        public override void Init()
+        protected override void OnInit()
         {
-            base.Init();
+            base.OnInit();
             
             objectChooser = GenerateNewObjectChooser();
         }
@@ -40,7 +42,7 @@ namespace VMFramework.Configuration
 
         protected virtual string ValueToString(T value)
         {
-            return value.ToString();
+            return value?.ToString();
         }
     }
 }

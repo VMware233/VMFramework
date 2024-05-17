@@ -15,8 +15,17 @@ namespace VMFramework.GameLogicArchitecture
         private static readonly Dictionary<Type, HashSet<IGamePrefab>> allGamePrefabsByType = new();
 
         private static readonly Dictionary<string, HashSet<IGamePrefab>> allGamePrefabsByGameType = new();
-        
-        public static IEnumerable<string> allGamePrefabIDs => allGamePrefabsByID.Keys;
+
+        public static IEnumerable<string> allGamePrefabIDs
+        {
+            get
+            {
+                lock (locker)
+                {
+                    return allGamePrefabsByID.Keys;
+                }
+            }
+        }
         
         public delegate void GamePrefabModificationEvent(IGamePrefab gamePrefab);
 
@@ -25,6 +34,8 @@ namespace VMFramework.GameLogicArchitecture
         public static event GamePrefabModificationEvent OnGamePrefabUnregisteredEvent;
 
         #region Register & Unregister
+        
+        private static readonly object locker = new();
 
         public static bool RegisterGamePrefab(IGamePrefab gamePrefab)
         {
@@ -38,44 +49,47 @@ namespace VMFramework.GameLogicArchitecture
                 Debug.LogError($"ID不能为空！");
                 return false;
             }
-            
-            if (allGamePrefabsByID.TryAdd(gamePrefab.id, gamePrefab) == false)
-            {
-                Debug.LogWarning($"ID为{gamePrefab.id}的{nameof(IGamePrefab)}已经注册过了！");
-                return false;
-            }
-            
-            allIDsByGamePrefab.Add(gamePrefab, gamePrefab.id);
-            
-            var gamePrefabType = gamePrefab.GetType();
 
-            if (allGamePrefabsByType.TryGetValue(gamePrefabType, out var gamePrefabsByType) == false)
+            lock (locker)
             {
-                gamePrefabsByType = new();
-                allGamePrefabsByType.Add(gamePrefabType, gamePrefabsByType);
-            }
-            
-            gamePrefabsByType.Add(gamePrefab);
-
-            if (gamePrefab is IGameTypeOwner gameTypeOwner)
-            {
-                var gameTypeSet = gameTypeOwner.gameTypeSet;
-                
-                foreach (var gameTypeID in gameTypeSet.gameTypesID)
+                if (allGamePrefabsByID.TryAdd(gamePrefab.id, gamePrefab) == false)
                 {
-                    if (allGamePrefabsByGameType.ContainsKey(gameTypeID) == false)
-                    {
-                        allGamePrefabsByGameType.Add(gameTypeID, new HashSet<IGamePrefab>());
-                    }
-                    
-                    allGamePrefabsByGameType[gameTypeID].Add(gamePrefab);
+                    Debug.LogWarning($"ID为{gamePrefab.id}的{nameof(IGamePrefab)}已经注册过了！");
+                    return false;
                 }
-                
-                gameTypeSet.OnAddGameType += OnAddGameType;
-                gameTypeSet.OnRemoveGameType += OnRemoveGameType;
-            }
             
-            OnGamePrefabRegisteredEvent?.Invoke(gamePrefab);
+                allIDsByGamePrefab.Add(gamePrefab, gamePrefab.id);
+            
+                var gamePrefabType = gamePrefab.GetType();
+
+                if (allGamePrefabsByType.TryGetValue(gamePrefabType, out var gamePrefabsByType) == false)
+                {
+                    gamePrefabsByType = new();
+                    allGamePrefabsByType.Add(gamePrefabType, gamePrefabsByType);
+                }
+            
+                gamePrefabsByType.Add(gamePrefab);
+
+                if (gamePrefab is IGameTypeOwner gameTypeOwner)
+                {
+                    var gameTypeSet = gameTypeOwner.gameTypeSet;
+                
+                    foreach (var gameTypeID in gameTypeSet.gameTypesID)
+                    {
+                        if (allGamePrefabsByGameType.ContainsKey(gameTypeID) == false)
+                        {
+                            allGamePrefabsByGameType.Add(gameTypeID, new HashSet<IGamePrefab>());
+                        }
+                    
+                        allGamePrefabsByGameType[gameTypeID].Add(gamePrefab);
+                    }
+                
+                    gameTypeSet.OnAddGameType += OnAddGameType;
+                    gameTypeSet.OnRemoveGameType += OnRemoveGameType;
+                }
+            
+                OnGamePrefabRegisteredEvent?.Invoke(gamePrefab);
+            }
             
             return true;
         }
@@ -86,50 +100,53 @@ namespace VMFramework.GameLogicArchitecture
             {
                 return false;
             }
-            
-            if (allGamePrefabsByID.Remove(id, out IGamePrefab gamePrefab) == false)
-            {
-                return false;
-            }
-            
-            allIDsByGamePrefab.Remove(gamePrefab);
-            
-            var gamePrefabType = gamePrefab.GetType();
 
-            if (allGamePrefabsByType.TryGetValue(gamePrefabType, out var gamePrefabsByType) == false)
+            lock (locker)
             {
-                Debug.LogWarning($"类型为{gamePrefabType}的{nameof(IGamePrefab)}不存在！");
-            }
-            else
-            {
-                if (gamePrefabsByType.Remove(gamePrefab) == false)
+                if (allGamePrefabsByID.Remove(id, out IGamePrefab gamePrefab) == false)
+                {
+                    return false;
+                }
+            
+                allIDsByGamePrefab.Remove(gamePrefab);
+            
+                var gamePrefabType = gamePrefab.GetType();
+
+                if (allGamePrefabsByType.TryGetValue(gamePrefabType, out var gamePrefabsByType) == false)
                 {
                     Debug.LogWarning($"类型为{gamePrefabType}的{nameof(IGamePrefab)}不存在！");
                 }
-
-                if (gamePrefabsByType.Count == 0)
+                else
                 {
-                    allGamePrefabsByType.Remove(gamePrefabType);
-                }
-            }
-
-            if (gamePrefab is IGameTypeOwner gameTypeOwner)
-            {
-                var gameTypeSet = gameTypeOwner.gameTypeSet;
-
-                foreach (var gameTypeID in gameTypeSet.gameTypesID)
-                {
-                    if (allGamePrefabsByGameType.TryGetValue(gameTypeID, out var gamePrefabsByGameType))
+                    if (gamePrefabsByType.Remove(gamePrefab) == false)
                     {
-                        gamePrefabsByGameType.Remove(gamePrefab);
+                        Debug.LogWarning($"类型为{gamePrefabType}的{nameof(IGamePrefab)}不存在！");
+                    }
+
+                    if (gamePrefabsByType.Count == 0)
+                    {
+                        allGamePrefabsByType.Remove(gamePrefabType);
                     }
                 }
 
-                gameTypeSet.OnAddGameType -= OnAddGameType;
-                gameTypeSet.OnRemoveGameType -= OnRemoveGameType;
-            }
+                if (gamePrefab is IGameTypeOwner gameTypeOwner)
+                {
+                    var gameTypeSet = gameTypeOwner.gameTypeSet;
+
+                    foreach (var gameTypeID in gameTypeSet.gameTypesID)
+                    {
+                        if (allGamePrefabsByGameType.TryGetValue(gameTypeID, out var gamePrefabsByGameType))
+                        {
+                            gamePrefabsByGameType.Remove(gamePrefab);
+                        }
+                    }
+
+                    gameTypeSet.OnAddGameType -= OnAddGameType;
+                    gameTypeSet.OnRemoveGameType -= OnRemoveGameType;
+                }
             
-            OnGamePrefabUnregisteredEvent?.Invoke(gamePrefab);
+                OnGamePrefabUnregisteredEvent?.Invoke(gamePrefab);
+            }
             
             return true;
         }
@@ -155,9 +172,12 @@ namespace VMFramework.GameLogicArchitecture
 
         public static void Clear()
         {
-            foreach (var id in allGamePrefabsByID.Keys.ToList())
+            lock (locker)
             {
-                UnregisterGamePrefab(id);
+                foreach (var id in allGamePrefabsByID.Keys.ToList())
+                {
+                    UnregisterGamePrefab(id);
+                }
             }
         }
 

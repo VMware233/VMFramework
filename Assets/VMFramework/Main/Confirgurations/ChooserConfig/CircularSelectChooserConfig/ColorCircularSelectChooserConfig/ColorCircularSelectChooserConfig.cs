@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Localization;
 
 namespace VMFramework.Configuration
 {
@@ -12,7 +13,7 @@ namespace VMFramework.Configuration
 
         protected override string ValueToString(Color value)
         {
-            return value.ToString(colorStringFormat);
+            return value.ToLocalizedString(colorStringFormat);
         }
     }
 }

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Core;
-using VMFramework.GameLogicArchitecture;
 using VMFramework.Containers;
 using VMFramework.Procedure;
 
 namespace VMFramework.UI
 {
     [ManagerCreationProvider(ManagerType.UICore)]
-    public class ContainerUIManager : ManagerBehaviour<ContainerUIManager>
+    public sealed partial class ContainerUIManager : ManagerBehaviour<ContainerUIManager>
     {
         #region Init
 
@@ -19,42 +17,27 @@ namespace VMFramework.UI
         {
             base.OnBeforeInit();
 
-            UIPanelManager.OnPanelCreatedEvent += uiPanelController =>
-            {
-                if (uiPanelController is IContainerUIPanel)
-                {
-                    uiPanelController.OnOpenInstantlyEvent += OnOpenContainerUIPriorityRegistered;
-                    uiPanelController.OnCloseInstantlyEvent += OnCloseContainerUIPriorityUnregistered;
-                }
-            };
+            UIPanelManager.OnPanelCreatedEvent += OnPanelCreated;
         }
 
         #endregion
 
-        #region Binder
+        #region Panel Create Event
 
-        public static readonly Dictionary<string, string> containerBinder = new();
-
-        public static void BindContainerUITo(string containerUIPanelID, string containerID)
+        private static void OnPanelCreated(IUIPanelController panel)
         {
-            if (GamePrefabManager.TryGetGamePrefab<UIPanelPreset>(containerUIPanelID, out var panelPreset) ==
-                false)
+            if (panel is not IContainerUIPanel)
             {
-                Debug.LogWarning($"未找到ID为{containerUIPanelID}的{nameof(UIPanelPreset)}");
                 return;
             }
+            
+            panel.OnOpenInstantlyEvent += OnOpenContainerUIPriorityRegistered;
+            panel.OnCloseInstantlyEvent += OnCloseContainerUIPriorityUnregistered;
+            panel.OnDestructEvent += OnCloseContainerUIPriorityUnregistered;
 
-            if (containerBinder.ContainsKey(containerID))
-            {
-                Debug.LogWarning($"已经存在ID为容器UI:{containerUIPanelID}" + $"到容器:{containerID}的绑定，将覆盖旧的绑定");
-            }
-
-            containerBinder[containerID] = containerUIPanelID;
-        }
-
-        public static bool TryGetContainerUI(string containerID, out string containerUIPanelID)
-        {
-            return containerBinder.TryGetValue(containerID, out containerUIPanelID);
+            panel.OnOpenInstantlyEvent += OnPanelOpenCollectorRegister;
+            panel.OnCloseInstantlyEvent += OnPanelCloseCollectorUnregister;
+            panel.OnDestructEvent += OnPanelCloseCollectorUnregister;
         }
 
         #endregion

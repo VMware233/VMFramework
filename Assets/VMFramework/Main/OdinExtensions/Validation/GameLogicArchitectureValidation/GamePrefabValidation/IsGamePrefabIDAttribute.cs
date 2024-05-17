@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace VMFramework.OdinExtensions
+﻿namespace VMFramework.OdinExtensions
 {
     public class IsGamePrefabIDAttribute : MultipleValidationAttribute
     {

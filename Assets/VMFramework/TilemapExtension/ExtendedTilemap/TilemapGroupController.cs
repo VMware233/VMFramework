@@ -23,7 +23,7 @@ namespace VMFramework.ExtendedTilemap
         {
             tilemapPrefab =
                 tilemapPrefabObject.transform
-                    .QueryComponentInChildren<Tilemap>(true);
+                    .QueryFirstComponentInChildren<Tilemap>(true);
 
             tilemapPrefabObject.SetActive(true);
 
@@ -43,7 +43,7 @@ namespace VMFramework.ExtendedTilemap
 
             go.SetActive(true);
 
-            tilemap = go.transform.QueryComponentInChildren<Tilemap>(true);
+            tilemap = go.transform.QueryFirstComponentInChildren<Tilemap>(true);
 
             allTilemaps.Add(layer, tilemap);
 

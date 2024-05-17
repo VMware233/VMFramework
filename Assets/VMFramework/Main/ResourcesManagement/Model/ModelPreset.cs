@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace VMFramework.ResourcesManagement
 {
-    public class ModelImportSetting : BaseConfigClass
+    public class ModelImportSetting : BaseConfig
     {
         [LabelText("模型预制体")]
         [GamePrefabID(typeof(ModelPreset))]

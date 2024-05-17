@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -33,6 +34,29 @@ namespace VMFramework.Configuration
                 value = item,
                 ratio = 1
             }).ToList();
+        }
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            
+            foreach (var item in items)
+            {
+                if (item.value is IConfig config)
+                {
+                    config.Init();
+                }
+                else if (item.value is IEnumerable enumerable)
+                {
+                    foreach (var obj in enumerable)
+                    {
+                        if (obj is IConfig configObj)
+                        {
+                            configObj.Init();
+                        }
+                    }
+                }
+            }
         }
 
         public override IChooser<T> GenerateNewObjectChooser()

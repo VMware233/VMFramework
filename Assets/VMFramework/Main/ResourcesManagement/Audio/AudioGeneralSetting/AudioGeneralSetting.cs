@@ -2,8 +2,6 @@
 using VMFramework.Configuration;
 using VMFramework.GameLogicArchitecture;
 using Sirenix.OdinInspector;
-using VMFramework.Editor;
-using VMFramework.Localization;
 
 namespace VMFramework.ResourcesManagement
 {

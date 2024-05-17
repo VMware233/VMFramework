@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 
@@ -12,7 +13,28 @@ namespace VMFramework.GameLogicArchitecture
             return ConfigurationPath.RESOURCES_PATH.FindAssetsOfType<GamePrefabWrapper>();
         }
 
-        public static IEnumerable<GamePrefabWrapper> GetGamePrefabWrapper(IGamePrefab gamePrefab)
+        public static bool TryGetGamePrefabWrapper(string id, out GamePrefabWrapper wrapper)
+        {
+            wrapper = GetGamePrefabWrapper(id);
+            return wrapper != null;
+        }
+
+        public static GamePrefabWrapper GetGamePrefabWrapper(string id)
+        {
+            if (GamePrefabManager.TryGetGamePrefab(id, out var gamePrefab) == false)
+            {
+                return null;
+            }
+            
+            return GetGamePrefabWrapper(gamePrefab);
+        }
+
+        public static GamePrefabWrapper GetGamePrefabWrapper(IGamePrefab gamePrefab)
+        {
+            return GetGamePrefabWrappers(gamePrefab).FirstOrDefault();
+        }
+
+        public static IEnumerable<GamePrefabWrapper> GetGamePrefabWrappers(IGamePrefab gamePrefab)
         {
             if (gamePrefab == null)
             {
@@ -32,7 +54,7 @@ namespace VMFramework.GameLogicArchitecture
             }
         }
 
-        public static IEnumerable<GamePrefabWrapper> GetGamePrefabWrapper(Type gamePrefabType)
+        public static IEnumerable<GamePrefabWrapper> GetGamePrefabWrappers(Type gamePrefabType)
         {
             if (gamePrefabType == null)
             {

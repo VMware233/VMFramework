@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Linq;
-using VMFramework.Core;
 using VMFramework.Core.Editor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
@@ -15,7 +14,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
                 return;
             }
 
-            foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrapper(gamePrefab)
+            foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrappers(gamePrefab)
                          .ToList())
             {
                 if (GamePrefabGeneralSettingUtility.TryGetGamePrefabGeneralSetting(gamePrefab,
@@ -38,7 +37,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
             {
                 if (predicate(room))
                 {
-                    foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrapper(room))
+                    foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrappers(room))
                     {
                         if (gamePrefabGeneralSetting != null)
                         {

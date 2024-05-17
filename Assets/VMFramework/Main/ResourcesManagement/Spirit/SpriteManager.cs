@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using VMFramework.Core;
@@ -14,46 +15,41 @@ namespace VMFramework.ResourcesManagement
     {
         [LabelText("Sprite缓存")]
         [ShowInInspector]
-        private static readonly Dictionary<string, Sprite> spriteCache = new();
+        private static readonly Dictionary<int, Sprite> spriteCache = new();
         
         [LabelText("SpriteID缓存")]
         [ShowInInspector]
-        private static readonly Dictionary<Sprite, string> spriteIDCache = new();
+        private static readonly Dictionary<Sprite, string> spriteIDLookup = new();
 
-        #region Get & Reset Sprite
+        #region Get Sprite
 
-        public static Sprite GetSprite(string spritePresetID)
+        public static Sprite GetSprite(string spritePresetID, FlipType2D flipType)
         {
             if (spritePresetID.IsNullOrEmpty())
             {
                 return null;
             }
 
-            if (spriteCache.TryGetValue(spritePresetID, out var existedSprite))
+            var id = HashCode.Combine(spritePresetID, flipType);
+            
+            if (spriteCache.TryGetValue(id, out var existedSprite))
             {
                 return existedSprite;
             }
-
+            
             var spritePreset = GamePrefabManager.GetGamePrefab<SpritePreset>(spritePresetID);
 
             if (spritePreset == null)
             {
                 return null;
             }
-
-            var sprite = spritePreset.GenerateSprite();
-
-            spriteCache.Add(spritePresetID, sprite);
-
+            
+            var sprite = spritePreset.GenerateSprite(flipType);
+            
+            spriteCache.Add(id, sprite);
+            spriteIDLookup.Add(sprite, spritePresetID);
+            
             return sprite;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ResetSprite(string spritePresetID)
-        {
-            spriteCache.Remove(spritePresetID);
-
-            GetSprite(spritePresetID);
         }
 
         #endregion
@@ -67,14 +63,14 @@ namespace VMFramework.ResourcesManagement
                 return false;
             }
             
-            if (spriteIDCache.TryGetValue(sprite, out var spritePresetID))
+            if (spriteIDLookup.TryGetValue(sprite, out var spritePresetID))
             {
                 if (GamePrefabManager.ContainsGamePrefab(spritePresetID))
                 {
                     return true;
                 }
                 
-                spriteIDCache.Remove(sprite);
+                spriteIDLookup.Remove(sprite);
                     
                 return false;
             }
@@ -87,7 +83,7 @@ namespace VMFramework.ResourcesManagement
                 return false;
             }
             
-            spriteIDCache.Add(sprite, spritePreset.id);
+            spriteIDLookup.Add(sprite, spritePreset.id);
 
             return true;
         }
@@ -99,13 +95,13 @@ namespace VMFramework.ResourcesManagement
                 return null;
             }
             
-            if (spriteIDCache.TryGetValue(sprite, out var spritePresetID))
+            if (spriteIDLookup.TryGetValue(sprite, out var spritePresetID))
             {
                 var existedSpritePreset = GamePrefabManager.GetGamePrefab<SpritePreset>(spritePresetID);
                 
                 if (existedSpritePreset == null)
                 {
-                    spriteIDCache.Remove(sprite);
+                    spriteIDLookup.Remove(sprite);
                 }
                 
                 return existedSpritePreset;
@@ -119,7 +115,7 @@ namespace VMFramework.ResourcesManagement
                 return null;
             }
             
-            spriteIDCache.Add(sprite, spritePreset.id);
+            spriteIDLookup.Add(sprite, spritePreset.id);
 
             return spritePreset;
         }

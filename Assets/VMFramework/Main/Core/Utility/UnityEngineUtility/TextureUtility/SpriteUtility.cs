@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using EnumsNET;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -27,16 +28,21 @@ namespace VMFramework.Core
 
         #region Flip
 
-        public enum SpritePivotOperationType
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Sprite Flip(this Sprite sprite, FlipType2D flipType,
+            SpritePivotFlipType spritePivotOperationType)
         {
-            [LabelText("翻转")]
-            Flip,
-            [LabelText("不变")]
-            Reversed
+            if (flipType.GetFlagCount() > 1)
+            {
+                throw new System.Exception("FlipType2D 最多只能包含一个方向");
+            }
+
+            var (flipX, flipY) = flipType.ToBool();
+            return Flip(sprite, flipX, flipY, spritePivotOperationType);
         }
 
         public static Sprite Flip(this Sprite sprite, bool flipX, bool flipY,
-            SpritePivotOperationType spritePivotOperationType)
+            SpritePivotFlipType spritePivotOperationType)
         {
             sprite.AssertIsNotNull(nameof(sprite));
 
@@ -91,7 +97,7 @@ namespace VMFramework.Core
 
             Vector2 resultPivot = sprite.pivot.Divide(new Vector2(spriteWidth, spriteHeight));
 
-            if (spritePivotOperationType == SpritePivotOperationType.Flip)
+            if (spritePivotOperationType == SpritePivotFlipType.Flip)
             {
                 if (flipX)
                 {

@@ -36,14 +36,14 @@ namespace VMFramework.UI
                 return;
             }
 
-            if (containerUICore.bindContainer.isDirty && uiEnabled)
-            {
-                SetEnabled(false);
-            }
-            else if (containerUICore.bindContainer.isDirty == false && uiEnabled == false)
-            {
-                SetEnabled(true);
-            }
+            // if (containerUICore.bindContainer.isDirty && uiEnabled)
+            // {
+            //     SetEnabled(false);
+            // }
+            // else if (containerUICore.bindContainer.isDirty == false && uiEnabled == false)
+            // {
+            //     SetEnabled(true);
+            // }
         }
 
         #endregion
@@ -165,9 +165,9 @@ namespace VMFramework.UI
             containerUICore.SetBindContainer(newBindContainer);
         }
 
-        IContainer IContainerUIPanel.GetBindContainer()
+        public IEnumerable<IContainer> GetBindContainers()
         {
-            return containerUICore.bindContainer;
+            yield return containerUICore.bindContainer;
         }
 
         #endregion

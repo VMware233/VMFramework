@@ -1,6 +1,6 @@
 ﻿using System;
-using VMFramework.Configuration;
 using Sirenix.OdinInspector;
+using VMFramework.Configuration.Animation;
 
 namespace VMFramework.UI
 {
@@ -26,7 +26,7 @@ namespace VMFramework.UI
         [EnableIf(nameof(enableContainerAnimation))]
         [HideIf(nameof(splitContainerAnimation))]
         [Indent]
-        public ObjectAnimation containerAnimation = new();
+        public GameObjectAnimation containerAnimation = new();
 
         [LabelText("是否容器动画结束后自动关闭"), TabGroup(TAB_GROUP_NAME, POPUP_SETTING_CATEGORY)]
         [EnableIf(nameof(enableContainerAnimation))]
@@ -38,19 +38,30 @@ namespace VMFramework.UI
         [EnableIf(nameof(enableContainerAnimation))]
         [ShowIf(nameof(splitContainerAnimation))]
         [Indent]
-        public ObjectAnimation startContainerAnimation = new();
+        public GameObjectAnimation startContainerAnimation = new();
 
         [LabelText("结束容器动画"), TabGroup(TAB_GROUP_NAME, POPUP_SETTING_CATEGORY)]
         [EnableIf(nameof(enableContainerAnimation))]
         [ShowIf(nameof(splitContainerAnimation))]
         [Indent]
-        public ObjectAnimation endContainerAnimation = new();
+        public GameObjectAnimation endContainerAnimation = new();
+
+        public override void CheckSettings()
+        {
+            base.CheckSettings();
+            
+            containerAnimation.CheckSettings();
+            startContainerAnimation.CheckSettings();
+            endContainerAnimation.CheckSettings();
+        }
 
         protected override void OnInit()
         {
             base.OnInit();
 
             containerAnimation.Init();
+            startContainerAnimation.Init();
+            endContainerAnimation.Init();
         }
     }
 }

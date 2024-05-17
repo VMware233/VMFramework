@@ -22,13 +22,6 @@ namespace VMFramework.GameLogicArchitecture
             
         }
 
-        [Button("创建所有本地化字符串键"), TabGroup(TAB_GROUP_NAME, LOCALIZABLE_SETTING_CATEGORY)]
-        [EnableIf(nameof(localizationEnabled))]
-        public virtual void CreateLocalizedStringKeys()
-        {
-            
-        }
-
         [Button("设置Key为默认值"), TabGroup(TAB_GROUP_NAME, LOCALIZABLE_SETTING_CATEGORY)]
         [EnableIf(nameof(localizationEnabled))]
         public virtual void SetKeyValueByDefault()

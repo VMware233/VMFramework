@@ -84,6 +84,13 @@ namespace VMFramework.Editor
             LocalizationEditorManager.GetStringOfEditorTable(OPEN_GAME_ITEM_SCRIPT_BUTTON_NAME_KEY,
                 OPEN_GAME_ITEM_SCRIPT_BUTTON_DEFAULT_NAME);
         
+        public const string OPEN_CONTROLLER_SCRIPT_BUTTON_DEFAULT_NAME = "Open Controller Script";
+        public const string OPEN_CONTROLLER_SCRIPT_BUTTON_NAME_KEY = "OpenControllerScriptButtonName";
+        
+        public static string openControllerScriptButtonName =>
+            LocalizationEditorManager.GetStringOfEditorTable(OPEN_CONTROLLER_SCRIPT_BUTTON_NAME_KEY,
+                OPEN_CONTROLLER_SCRIPT_BUTTON_DEFAULT_NAME);
+        
         public const string SAVE_BUTTON_DEFAULT_NAME = "Save";
         public const string SAVE_BUTTON_NAME_KEY = "SaveButtonName";
         

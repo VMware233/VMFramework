@@ -5,13 +5,13 @@ using VMFramework.Network;
 
 namespace VMFramework.Containers
 {
-    public interface IContainer : IGameItem, IUUIDOwner
+    public partial interface IContainer : IGameItem
     {
         public bool isOpen { get; }
 
         public bool isDestroyed { get; }
 
-        public abstract int size { get; }
+        public int size { get; }
 
         public int validItemsSize { get; }
         
@@ -19,17 +19,22 @@ namespace VMFramework.Containers
         
         public IReadOnlyCollection<int> validSlotIndices { get; }
         
-        public event Action OnDestroyOnClientEvent;
+        public delegate void ItemChangedHandler(IContainer container, int index, IContainerItem item);
 
-        public event Action OnOpenOnServerEvent;
-        public event Action OnCloseOnServerEvent;
+        public delegate void ItemCountChangedHandler(IContainer container, int index, IContainerItem item,
+            int oldCount, int newCount);
+        
+        public delegate void SizeChangedHandler(IContainer container, int currentSize);
 
-        public event Action<IContainer, int, IContainerItem> OnBeforeItemChangedEvent;
-        public event Action<IContainer, int, IContainerItem> OnAfterItemChangedEvent;
-        public event Action<IContainer, int, IContainerItem> OnItemAddedEvent;
-        public event Action<IContainer, int, IContainerItem> OnItemRemovedEvent;
-        public event Action<IContainer, int, IContainerItem, int, int> OnItemCountChangedEvent;
-        public event Action OnSizeChangedEvent;
+        public event ItemChangedHandler OnBeforeItemChangedEvent;
+        public event ItemChangedHandler OnAfterItemChangedEvent;
+        public event ItemChangedHandler OnItemAddedEvent;
+        public event ItemChangedHandler OnItemRemovedEvent;
+        public event ItemCountChangedHandler OnItemCountChangedEvent;
+        public event SizeChangedHandler OnSizeChangedEvent;
+        
+        public event Action<IContainer> OnOpenEvent;
+        public event Action<IContainer> OnCloseEvent;
 
         /// <summary>
         /// 尝试获取IContainerItem，如果index无效，返回false，其他情况不管item是否为null，都返回true
@@ -93,9 +98,5 @@ namespace VMFramework.Containers
         public void Open();
 
         public void Close();
-
-        public void OpenOnServer();
-
-        public void CloseOnServer();
     }
 }

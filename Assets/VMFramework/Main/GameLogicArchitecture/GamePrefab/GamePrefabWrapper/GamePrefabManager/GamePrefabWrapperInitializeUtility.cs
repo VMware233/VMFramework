@@ -58,50 +58,44 @@ namespace VMFramework.GameLogicArchitecture.Editor
 
         public static void CreateAutoRegisterGamePrefabs()
         {
-            foreach (var gamePrefabType in typeof(IGamePrefab).GetDerivedClasses(false, false))
+            var autoRegisterInfos = GamePrefabAutoRegisterCollector.Collect();
+
+            foreach (var info in autoRegisterInfos)
             {
-                if (gamePrefabType.IsAbstract || gamePrefabType.IsInterface)
+                var id = info.id;
+                var gamePrefabType = info.gamePrefabType;
+                
+                if (GamePrefabManager.TryGetGamePrefab(id, out var existedGamePrefab))
+                {
+                    if (existedGamePrefab.GetType() != gamePrefabType)
+                    {
+                        Debug.LogWarning($"ID为{id}的{nameof(GamePrefab)}已经存在，但类型不匹配，请检查。" +
+                                         $"需要自动创建的类型为{gamePrefabType}，" +
+                                         $"但已存在的类型为{existedGamePrefab.GetType()}。");
+                    }
+                        
+                    continue;
+                }
+                    
+                var wrapper = GamePrefabWrapperCreator.CreateGamePrefabWrapper(id, gamePrefabType);
+
+                if (wrapper == null)
                 {
                     continue;
                 }
-
-                foreach (var gamePrefabAutoRegisterAttribute in gamePrefabType
-                             .GetAttributes<GamePrefabAutoRegisterAttribute>(false))
+                    
+                foreach (var gamePrefab in wrapper.GetGamePrefabs())
                 {
-                    var id = gamePrefabAutoRegisterAttribute.ID;
-
-                    if (GamePrefabManager.TryGetGamePrefab(id, out var existedGamePrefab))
+                    if (gamePrefab is IGamePrefabAutoRegisterProvider autoRegisterProvider)
                     {
-                        if (existedGamePrefab.GetType() != gamePrefabType)
-                        {
-                            Debug.LogWarning($"ID为{id}的GamePrefab已经存在，但类型不匹配，请检查。" +
-                                             $"需要自动注册的类型为{gamePrefabType}，" +
-                                             $"但已存在的类型为{existedGamePrefab.GetType()}。");
-                        }
-                        
-                        continue;
+                        autoRegisterProvider.OnGamePrefabAutoRegister();
                     }
-                    
-                    var wrapper = GamePrefabWrapperCreator.CreateGamePrefabWrapper(id, gamePrefabType);
-
-                    if (wrapper == null)
-                    {
-                        continue;
-                    }
-                    
-                    foreach (var gamePrefab in wrapper.GetGamePrefabs())
-                    {
-                        if (gamePrefab is IGamePrefabAutoRegisterProvider autoRegisterProvider)
-                        {
-                            autoRegisterProvider.OnGamePrefabAutoRegister();
-                        }
-                    }
-                    
-                    wrapper.EnforceSave();
                 }
-                
-                Refresh();
+                    
+                wrapper.EnforceSave();
             }
+            
+            Refresh();
         }
 
         private static void OnGamePrefabIDChanged(IGamePrefab gamePrefab, string oldID, string newID)

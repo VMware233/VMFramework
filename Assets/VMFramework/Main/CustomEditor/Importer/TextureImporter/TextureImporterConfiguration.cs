@@ -7,7 +7,7 @@ using VMFramework.Configuration;
 
 namespace VMFramework.Editor
 {
-    public class TextureImporterConfiguration : BaseConfigClass
+    public class TextureImporterConfiguration : BaseConfig
     {
         [LabelText("是否开启")]
         [JsonProperty]

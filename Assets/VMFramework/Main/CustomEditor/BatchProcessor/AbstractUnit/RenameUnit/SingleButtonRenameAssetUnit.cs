@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VMFramework.Core;
 using VMFramework.Core.Editor;
 
 namespace VMFramework.Editor

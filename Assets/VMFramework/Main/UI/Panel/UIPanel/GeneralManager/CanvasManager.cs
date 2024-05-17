@@ -2,11 +2,13 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
 namespace VMFramework.UI
 {
+    [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class CanvasManager : ManagerBehaviour<CanvasManager>
     {
         private static UIPanelGeneralSetting setting => GameCoreSettingBase.uiPanelGeneralSetting;
@@ -26,22 +28,22 @@ namespace VMFramework.UI
 
         public static Canvas GetCanvas(int sortingOrder)
         {
-            if (canvasDict.ContainsKey(sortingOrder) == false)
+            if (canvasDict.TryGetValue(sortingOrder, out var canvas) == false)
             {
-                var (canvas, canvasScaler, graphicRaycaster) =
-                    canvasContainer.CreateCanvas($"Canvas:{sortingOrder}");
+                var result = canvasContainer.CreateCanvas($"Canvas:{sortingOrder}");
+                canvas = result.canvas;
 
                 canvas.sortingOrder = sortingOrder;
                 canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = setting.defaultReferenceResolution;
-                canvasScaler.matchWidthOrHeight = setting.defaultMatch;
+                result.canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                result.canvasScaler.referenceResolution = setting.defaultReferenceResolution;
+                result.canvasScaler.matchWidthOrHeight = setting.defaultMatch;
 
                 canvasDict[sortingOrder] = canvas;
             }
 
-            return canvasDict[sortingOrder];
+            return canvas;
         }
     }
 }

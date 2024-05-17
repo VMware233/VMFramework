@@ -11,6 +11,7 @@ using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core;
+using Object = UnityEngine.Object;
 using SerializationUtility = Sirenix.Serialization.SerializationUtility;
 
 namespace VMFramework.OdinExtensions
@@ -52,47 +53,7 @@ namespace VMFramework.OdinExtensions
         {
             
         }
-
-        protected override void DrawPropertyLayout(GUIContent label)
-        {
-            this.label = label;
-            
-            Validate();
-
-            if (Property.ValueEntry == null)
-            {
-                CallNextDrawer(label);
-            }
-            else if (isList)
-            {
-                if (Attribute.DisableListAddButtonBehaviour)
-                {
-                    CallNextDrawer(label);
-                }
-                else
-                {
-                    var customAddFunction = CollectionDrawerStaticInfo.NextCustomAddFunction;
-                    CollectionDrawerStaticInfo.NextCustomAddFunction = OpenSelector;
-                    CallNextDrawer(label);
-                    if (result != null)
-                    {
-                        AddResult(result);
-                        result = null;
-                    }
-
-                    CollectionDrawerStaticInfo.NextCustomAddFunction = customAddFunction;
-                }
-            }
-            else if (Attribute.DrawDropdownForListElements || isListElement == false)
-            {
-                DrawDropdown();
-            }
-            else
-            {
-                CallNextDrawer(label);
-            }
-        }
-
+        
         private void AddResult(IEnumerable<object> query)
         {
             if (isList)
@@ -131,9 +92,115 @@ namespace VMFramework.OdinExtensions
             }
         }
 
+        #region Draw
+        
+        private static bool showOriginalValue = false;
+
+        protected override void DrawPropertyLayout(GUIContent label)
+        {
+            this.label = label;
+            
+            Validate();
+
+            if (Property.ValueEntry == null)
+            {
+                CallNextDrawer(label);
+            }
+            else if (isList)
+            {
+                if (Attribute.DisableListAddButtonBehaviour)
+                {
+                    CallNextDrawer(label);
+                }
+                else
+                {
+                    var customAddFunction = CollectionDrawerStaticInfo.NextCustomAddFunction;
+                    CollectionDrawerStaticInfo.NextCustomAddFunction = OpenSelector;
+                    CallNextDrawer(label);
+                    if (result != null)
+                    {
+                        AddResult(result);
+                        result = null;
+                    }
+
+                    CollectionDrawerStaticInfo.NextCustomAddFunction = customAddFunction;
+                }
+            }
+            else if (Attribute.DrawDropdownForListElements || isListElement == false)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.BeginVertical();
+                
+                if (GUI.enabled && showOriginalValue)
+                {
+                    CallNextDrawer(label);
+                }
+                else
+                {
+                    DrawDropdown();
+                }
+                
+                GUILayout.EndVertical();
+                
+                var iconType = showOriginalValue ? SdfIconType.EyeFill : SdfIconType.EyeSlashFill;
+
+                if (Button("开关显示原内容", iconType))
+                {
+                    showOriginalValue = !showOriginalValue;
+                }
+                
+                DrawCustomButtons();
+
+                GUILayout.EndHorizontal();
+            }
+            else
+            {
+                CallNextDrawer(label);
+            }
+        }
+
+        protected virtual void DrawCustomButtons()
+        {
+            
+        }
+        
+        protected Rect GetButtonRect()
+        {
+            float buttonWidth = EditorGUIUtility.singleLineHeight + 6f;
+            
+            var rect = EditorGUILayout.GetControlRect(
+                false, EditorGUIUtility.singleLineHeight,
+                GUILayout.Width(buttonWidth));
+                    
+            return rect;
+        }
+
+        protected bool Button(string tooltip, SdfIconType icon)
+        {
+            return SirenixEditorGUI.SDFIconButton(GetButtonRect(), tooltip, icon,
+                style: SirenixGUIStyles.MiniButton);
+        }
+
+        protected virtual Texture GetSelectorIcon(object value)
+        {
+            if (value is Object obj)
+            {
+                return GUIHelper.GetAssetThumbnail(obj, Property.Info.TypeOfOwner, true);
+            }
+
+            if (value is Type type)
+            {
+                return GUIHelper.GetAssetThumbnail(null, type, false);
+            }
+            
+            return null;
+        }
+
         private void DrawDropdown()
         {
+            var value = Property.ValueEntry.WeakSmartValue;
             List<object> objects;
+            
             if (Attribute.AppendNextDrawer && isList == false)
             {
                 GUILayout.BeginHorizontal();
@@ -145,11 +212,12 @@ namespace VMFramework.OdinExtensions
                 }
 
                 var btnLabel = GUIHelper.TempContent("");
-                if (Property.Info.TypeOfValue == typeof(Type))
-                {
-                    btnLabel.image = GUIHelper.GetAssetThumbnail(null,
-                        Property.ValueEntry.WeakSmartValue as Type, false);
-                }
+                btnLabel.image = GetSelectorIcon(value);
+                // if (Property.Info.TypeOfValue == typeof(Type))
+                // {
+                //     btnLabel.image = GUIHelper.GetAssetThumbnail(null,
+                //         Property.ValueEntry.WeakSmartValue as Type, false);
+                // }
 
                 objects = OdinSelector<object>.DrawSelectorDropdown(label, btnLabel, ShowSelector,
                         !Attribute.OnlyChangeValueOnConfirm, GUIStyle.none, GUILayoutOptions.Width(width))
@@ -187,11 +255,12 @@ namespace VMFramework.OdinExtensions
                 }
                 
                 var btnLabel = GUIHelper.TempContent(currentName);
-                if (Property.Info.TypeOfValue == typeof(Type))
-                {
-                    btnLabel.image = GUIHelper.GetAssetThumbnail(null,
-                        Property.ValueEntry.WeakSmartValue as Type, false);
-                }
+                btnLabel.image = GetSelectorIcon(value);
+                // if (Property.Info.TypeOfValue == typeof(Type))
+                // {
+                //     btnLabel.image = GUIHelper.GetAssetThumbnail(null,
+                //         Property.ValueEntry.WeakSmartValue as Type, false);
+                // }
 
                 if (!Attribute.HideChildProperties && Property.Children.Count > 0)
                 {
@@ -226,6 +295,10 @@ namespace VMFramework.OdinExtensions
 
             AddResult(objects);
         }
+
+        #endregion
+
+        #region Selector
 
         private void OpenSelector()
         {
@@ -329,7 +402,20 @@ namespace VMFramework.OdinExtensions
             }
 
             selector.SetSelection(selection);
-            selector.SelectionTree.EnumerateTree().AddThumbnailIcons(true);
+
+            foreach (var menuItem in selector.SelectionTree.EnumerateTree())
+            {
+                var texture = GetSelectorIcon(menuItem.Value);
+
+                if (texture == null)
+                {
+                    menuItem.AddThumbnailIcon(false);
+                }
+                else
+                {
+                    menuItem.IconGetter = () => texture;
+                }
+            }
 
             if (Attribute.ExpandAllMenuItems)
             {
@@ -343,6 +429,8 @@ namespace VMFramework.OdinExtensions
 
             return selector;
         }
+
+        #endregion
 
         private bool TryGetCurrentValueName(out string name)
         {

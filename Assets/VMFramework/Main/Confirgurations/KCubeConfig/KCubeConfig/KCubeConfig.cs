@@ -9,7 +9,7 @@ namespace VMFramework.Configuration
 {
     [PreviewComposite]
     [TypeValidation]
-    public abstract partial class KCubeConfig<TPoint> : BaseConfigClass, IKCubeConfig<TPoint>, ICloneable
+    public abstract partial class KCubeConfig<TPoint> : BaseConfig, IKCubeConfig<TPoint>, ICloneable
         where TPoint : struct, IEquatable<TPoint>
     {
         protected const string WRAPPER_GROUP = "WrapperGroup";

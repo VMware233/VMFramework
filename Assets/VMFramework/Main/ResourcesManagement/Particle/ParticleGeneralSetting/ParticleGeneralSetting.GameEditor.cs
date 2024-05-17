@@ -14,11 +14,9 @@ namespace VMFramework.ResourcesManagement
             { "en-US", "Particle Spawner" }
         };
 
+        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Flower1;
+
         string IGameEditorMenuTreeNode.folderPath => GameEditorNames.resourcesManagementCategoryName;
-
-        EditorIconType IGameEditorMenuTreeNode.iconType => EditorIconType.SdfIcon;
-
-        SdfIconType IGameEditorMenuTreeNode.sdfIcon => SdfIconType.Flower1;
     }
 }
 #endif

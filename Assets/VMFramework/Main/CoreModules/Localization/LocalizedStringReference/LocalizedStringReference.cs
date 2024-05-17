@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
 using VMFramework.Configuration;
 using VMFramework.Core;
 using VMFramework.OdinExtensions;
@@ -9,7 +8,7 @@ using VMFramework.OdinExtensions;
 namespace VMFramework.Localization
 {
     [PreviewComposite]
-    public partial class LocalizedStringReference : BaseConfigClass, IReadOnlyLocalizedStringReference
+    public partial class LocalizedStringReference : BaseConfig, IReadOnlyLocalizedStringReference
     {
         private const string TABLE_HORIZONTAL_GROUP = "TableHorizontalGroup";
         
@@ -42,6 +41,7 @@ namespace VMFramework.Localization
         [LabelWidth(40)]
         [ShowIf(nameof(ExistsTable))]
 #endif
+        [KeyName("@" + nameof(tableName))]
         public string key;
         
         public string defaultValue;

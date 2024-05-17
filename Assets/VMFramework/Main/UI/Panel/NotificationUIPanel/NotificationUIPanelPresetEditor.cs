@@ -7,7 +7,7 @@ namespace VMFramework.UI
         {
             base.OnInspectorInit();
 
-            notificationShowAnimation ??= new();
+            // notificationShowAnimation ??= new();
         }
     }
 }

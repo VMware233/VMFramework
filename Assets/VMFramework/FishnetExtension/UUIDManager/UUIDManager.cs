@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using FishNet.Connection;
 using UnityEngine;
 using UnityEngine.Scripting;
+using VMFramework.Containers;
 using VMFramework.Procedure;
 
 namespace VMFramework.Network
@@ -185,6 +186,11 @@ namespace VMFramework.Network
 
         public static void Register(TUUIDOwner owner)
         {
+            if (owner is IContainer container)
+            {
+                Debug.LogError($"Is Registering {container}");
+            }
+            
             var uuid = owner.uuid;
 
             if (uuid.IsNullOrEmpty())

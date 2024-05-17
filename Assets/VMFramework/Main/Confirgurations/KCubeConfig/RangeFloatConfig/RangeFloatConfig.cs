@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using VMFramework.Core;
 
 namespace VMFramework.Configuration

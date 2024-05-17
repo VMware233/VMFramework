@@ -3,7 +3,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.UI
 {
-    [GamePrefabAutoRegister(ID)]
+    [GamePrefabTypeAutoRegister(ID)]
     public class CurrentLanguageDebugEntry : TitleContentDebugEntry
     {
         public const string ID = "current_language_debug_entry";

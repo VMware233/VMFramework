@@ -4,8 +4,8 @@ using VMFramework.GameLogicArchitecture;
 using VMFramework.Core;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using VMFramework.GameEvents;
 using VMFramework.OdinExtensions;
-using VMFramework.GlobalEvent;
 
 namespace VMFramework.UI
 {
@@ -36,34 +36,34 @@ namespace VMFramework.UI
         [JsonProperty]
         public bool autoOpenOnCreation = false;
 
-        [LabelText("开启此面板时关闭的全局事件"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [GamePrefabID(typeof(GlobalEventConfig))]
+        [LabelText("开启此面板时关闭的游戏事件"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
+        [GamePrefabID(typeof(IGameEventConfig))]
         [ListDrawerSettings(ShowFoldout = false)]
         [DisallowDuplicateElements]
         [JsonProperty]
-        public List<string> globalEventDisabledListOnOpen = new();
+        public List<string> gameEventDisabledOnOpen = new();
 
         [LabelText("启用关闭此UI的输入映射"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [JsonProperty]
-        public bool enableCloseInputMapping = false;
+        public bool enableUICloseGameEvent = false;
 
-        [LabelText("关闭此UI的输入映射"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [GamePrefabID(typeof(GlobalEventConfig))]
+        [LabelText("关闭此UI的游戏事件"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
+        [GamePrefabID(typeof(IGameEventConfig))]
         [IsNotNullOrEmpty]
-        [ShowIf(nameof(enableCloseInputMapping))]
+        [ShowIf(nameof(enableUICloseGameEvent))]
         [JsonProperty]
-        public string closeInputMappingID;
+        public string uiCloseGameEventID;
 
         [LabelText("启用切换开关此UI的输入映射"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [JsonProperty]
-        public bool enableToggleInputMapping = false;
+        public bool enableUIGameEvent = false;
 
-        [LabelText("切换开关此UI的输入映射"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [GamePrefabID(typeof(GlobalEventConfig))]
+        [LabelText("切换开关此UI的游戏事件"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
+        [GamePrefabID(typeof(IGameEventConfig))]
         [IsNotNullOrEmpty]
-        [ShowIf(nameof(enableToggleInputMapping))]
+        [ShowIf(nameof(enableUIGameEvent))]
         [JsonProperty]
-        public string toggleInputMappingID;
+        public string uiToggleGameEventID;
 
         #region Interface Implementation
 

@@ -297,7 +297,7 @@ public class PixelOutlineTools
 
 
     [TitleGroup("描边选项")]
-    [InfoBox(@"@""预计有"" + MathUtility.GetCombinationNumbers<OutlineInfo>(outlineInfos).ToString() + ""种描边可能""",
+    [InfoBox(@"@""预计有"" + Math.GetCombinationNumbers<OutlineInfo>(outlineInfos).ToString() + ""种描边可能""",
         VisibleIf = "@outlineInfos.Count > 0")]
     [InfoBox(@"@""预计结果尺寸为"" + GetResultSize().ToString()",
         VisibleIf = "@outlineInfos.Count > 0")]

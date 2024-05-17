@@ -6,12 +6,12 @@ namespace VMFramework.Configuration
     {
         protected IChooser<T> objectChooser { get; set; }
 
-        void IChooserConfig.Init()
+        void IConfig.Init()
         {
             objectChooser = GenerateNewObjectChooser();
         }
 
-        T IChooserConfig<T>.GetValue()
+        T IChooser<T>.GetValue()
         {
             return objectChooser.GetValue();
         }

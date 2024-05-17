@@ -36,7 +36,7 @@ namespace VMFramework.Editor
             {
                 if (obj is IGamePrefab gamePrefab)
                 {
-                    foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrapper(gamePrefab))
+                    foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrappers(gamePrefab))
                     {
                         yield return wrapper;
                     }
@@ -48,7 +48,7 @@ namespace VMFramework.Editor
                 {
                     if (type.IsDerivedFrom<IGamePrefab>(true))
                     {
-                        foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrapper(type))
+                        foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrappers(type))
                         {
                             yield return wrapper;
                         }

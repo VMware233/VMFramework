@@ -1,48 +1,46 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 using VMFramework.ResourcesManagement;
 
 namespace VMFramework.Configuration
 {
-    public sealed partial class SpritePresetItem : BaseConfigClass
+    public sealed partial class SpritePresetItem : BaseConfig
     {
         private const string SPRITE_PREVIEW_GROUP = "SpritePreview";
         
-        private const string SPRITE_PREVIEW_LEFT_GROUP = "SpritePreview/SpritePreviewLeft";
+        private const string SPRITE_PREVIEW_LEFT_GROUP = SPRITE_PREVIEW_GROUP + "/SpritePreviewLeft";
         
-        private const string SPRITE_PREVIEW_FLIP_GROUP = "SpritePreview/SpritePreviewLeft/Flip";
+        private const string SPRITE_PREVIEW_FLIP_GROUP = SPRITE_PREVIEW_GROUP + "/SpritePreviewLeft/Flip";
 
-#if UNITY_EDITOR
-        [HideLabel, VerticalGroup(SPRITE_PREVIEW_LEFT_GROUP)]
-        [GamePrefabID(typeof(SpritePreset))]
-        [OnValueChanged(nameof(OnIDChanged))]
-#endif
-        public string spritePresetID;
+        [field: HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP, 200), VerticalGroup(SPRITE_PREVIEW_LEFT_GROUP)]
+        [field: GamePrefabID(typeof(SpritePreset))]
+        [field: SerializeField]
+        public string spritePresetID { get; private set; }
 
-#if UNITY_EDITOR
-        [LabelText("X轴翻转"), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
-        [LabelWidth(50)]
-        [OnValueChanged(nameof(OnFlipChanged))]
-        [ShowInInspector]
-#endif
-        private bool flipX = false;
+        public string id
+        {
+            get => spritePresetID;
+            init => spritePresetID = value;
+        }
 
-#if UNITY_EDITOR
-        [LabelText("Y轴翻转"), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
-        [LabelWidth(50)]
-        [OnValueChanged(nameof(OnFlipChanged))]
-        [ShowInInspector]
-#endif
-        private bool flipY = false;
+        [field: LabelText("X轴翻转"), LabelWidth(50), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
+        [field: SerializeField]
+        public bool flipX { get; init; } = false;
+
+        [field: LabelText("Y轴翻转"), LabelWidth(50), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
+        [field: SerializeField]
+        public bool flipY { get; init; } = false;
 
         [HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP)]
         [PreviewField(40, ObjectFieldAlignment.Right)]
         [ShowInInspector]
         public Sprite sprite
         {
-            get => SpriteManager.GetSprite(spritePresetID);
+            get => SpriteManager.GetSprite(spritePresetID, (flipX, flipY).ToFlipType2D());
+#if UNITY_EDITOR
             private set
             {
                 if (value == null)
@@ -57,6 +55,7 @@ namespace VMFramework.Configuration
 
                 spritePresetID = SpriteManager.GetSpritePreset(value)?.id;
             }
+#endif
         }
 
         #region Constructor
@@ -86,7 +85,7 @@ namespace VMFramework.Configuration
 
         public static implicit operator Sprite(SpritePresetItem item)
         {
-            return item.sprite;
+            return item?.sprite;
         }
 
         #endregion

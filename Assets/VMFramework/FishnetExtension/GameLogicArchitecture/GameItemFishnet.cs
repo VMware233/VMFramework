@@ -52,18 +52,20 @@ namespace VMFramework.GameLogicArchitecture
         /// 在网络上如何传输，当在此实例被写进byte流时调用
         /// </summary>
         /// <param name="writer"></param>
+        [NotSerializer]
         protected virtual void OnWrite(Writer writer)
         {
-            // Debug.LogWarning($"is Writing GameItem :{this}");
+            Debug.LogWarning($"is Writing GameItem :{this}");
         }
 
         /// <summary>
         /// 在网络上如何传输，当在此实例被从byte流中读出时调用
         /// </summary>
         /// <param name="reader"></param>
+        [NotSerializer]
         protected virtual void OnRead(Reader reader)
         {
-            // Debug.LogWarning($"is Reading GameItem :{this}");
+            Debug.LogWarning($"is Reading GameItem :{this}");
         }
 
         void IGameItem.OnWriteFishnet(Writer writer)

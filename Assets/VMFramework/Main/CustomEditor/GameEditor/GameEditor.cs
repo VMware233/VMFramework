@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -7,6 +6,7 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
+using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
@@ -17,7 +17,8 @@ namespace VMFramework.Editor
     {
         private readonly AuxiliaryTools auxiliaryTools = new();
 
-        [MenuItem("Tools/" + GameEditorNames.GAME_EDITOR_DEFAULT_NAME)]
+        [MenuItem("Tools/" + GameEditorNames.GAME_EDITOR_DEFAULT_NAME + " #G")]
+        [Shortcut("Open Game Editor", KeyCode.G, ShortcutModifiers.Shift)]
         private static void OpenWindow()
         {
             GameCoreSettingBaseFile.CheckGlobal();
@@ -26,7 +27,7 @@ namespace VMFramework.Editor
             var window = CreateWindow<GameEditor>(editorName);
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
-
+        
         protected override OdinMenuTree BuildMenuTree()
         {
             if (GameCoreSettingBase.gameCoreSettingsFileBase == null)
@@ -44,7 +45,6 @@ namespace VMFramework.Editor
             OdinMenuTree tree = new(true)
             {
                 { auxiliaryToolsCategoryName, auxiliaryTools, EditorIcons.HamburgerMenu },
-                //{ "辅助工具/像素描边工具", pixelOutlineTools },
                 {
                     generalSettingsCategoryName, GameCoreSettingBase.gameCoreSettingsFileBase,
                     SdfIconType.GearFill
@@ -92,21 +92,8 @@ namespace VMFramework.Editor
                 }
 
                 totalPath += $"/{generalSettingNode.name}";
-
-                switch (generalSettingNode.iconType)
-                {
-                    case EditorIconType.Sprite:
-                        tree.Add(totalPath, generalSetting, generalSettingNode.spriteIcon);
-                        break;
-                    case EditorIconType.SdfIcon:
-                        tree.Add(totalPath, generalSetting, generalSettingNode.sdfIcon);
-                        break;
-                    case EditorIconType.Texture2D:
-                        tree.Add(totalPath, generalSetting, generalSettingNode.texture2DIcon);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                
+                tree.Add(totalPath, generalSetting, generalSettingNode.icon);
 
                 generalSettingsPathDict.Add(generalSetting, totalPath);
             }
@@ -120,7 +107,13 @@ namespace VMFramework.Editor
                 {
                     var path = totalPath;
 
-                    var allNodes = menuTreeNodeProvider.GetAllMenuTreeNodes().ToList();
+                    var allNodes = menuTreeNodeProvider.GetAllMenuTreeNodes()?.ToList();
+                    
+                    if (allNodes == null)
+                    {
+                        Debug.LogWarning($"{menuTreeNodeProvider}获取的节点列表为Null");
+                        continue;
+                    }
 
                     if (menuTreeNodeProvider.autoStackMenuTreeNodes)
                     {
@@ -138,7 +131,7 @@ namespace VMFramework.Editor
                             continue;
                         }
 
-                        tree.Add($"{path}/{menuTreeNode.name}", menuTreeNode, menuTreeNode.spriteIcon);
+                        tree.Add($"{path}/{menuTreeNode.name}", menuTreeNode, menuTreeNode.icon);
                     }
                 }
             }

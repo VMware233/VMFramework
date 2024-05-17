@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Localization;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
     [PreviewComposite]
-    public class TextTagFormat : BaseConfigClass
+    public class TextTagFormat : BaseConfig
     {
         [LabelText("覆盖颜色")]
         [JsonProperty]
@@ -81,7 +82,7 @@ namespace VMFramework.Configuration
 
             if (overrideFontColor)
             {
-                strList.Add(fontColor.ToString(ColorStringFormat.Name));
+                strList.Add(fontColor.ToLocalizedString(ColorStringFormat.Name));
             }
 
             if (overrideBoldStyle)

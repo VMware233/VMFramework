@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VMFramework.Core.Linq;
 using VMFramework.Editor;
@@ -8,7 +9,7 @@ namespace VMFramework.ExtendedTilemap
 {
     public partial class ExtendedRuleTile : IGameEditorMenuTreeNode
     {
-        Sprite IGameEditorMenuTreeNode.spriteIcon
+        Icon IGameEditorMenuTreeNode.icon
         {
             get
             {
@@ -21,12 +22,12 @@ namespace VMFramework.ExtendedTilemap
                 
                 if (ruleSet.IsNullOrEmpty())
                 {
-                    return null;
+                    return Icon.None;
                 }
                     
-                var firstRule = ruleSet[0];
+                var lastRule = ruleSet[^1];
                     
-                return GetIconFromSpriteLayers(firstRule.layers);
+                return GetIconFromSpriteLayers(lastRule.layers);
             }
         }
 
@@ -37,7 +38,7 @@ namespace VMFramework.ExtendedTilemap
                 return null;
             }
             
-            return spriteLayers[0].sprite.GetValue();
+            return spriteLayers[0].sprite?.GetAvailableValues().FirstOrDefault()?.sprite;
         }
     }
 }

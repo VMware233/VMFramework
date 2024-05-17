@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using VMFramework.Core;
 
 namespace VMFramework.Containers
@@ -7,7 +6,7 @@ namespace VMFramework.Containers
     public class InputsAndOutputsContainer : GridContainer, IInputsContainer, IOutputsContainer
     {
         protected InputsAndOutputsContainerPreset inputsAndOutputsContainerPreset =>
-            (InputsAndOutputsContainerPreset)origin;
+            (InputsAndOutputsContainerPreset)gamePrefab;
 
         public RangeInteger inputsRange { get; private set; }
 

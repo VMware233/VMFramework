@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
-using VMFramework.Core;
 using VMFramework.Core.Editor;
 
 namespace VMFramework.OdinExtensions

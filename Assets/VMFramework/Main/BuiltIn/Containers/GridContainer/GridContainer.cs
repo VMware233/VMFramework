@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -13,7 +12,7 @@ namespace VMFramework.Containers
 {
     public class GridContainer : Container
     {
-        protected GridContainerPreset gridContainerPreset => (GridContainerPreset)origin;
+        protected GridContainerPreset gridContainerPreset => (GridContainerPreset)gamePrefab;
 
         [ShowInInspector]
         private IContainerItem[] items;

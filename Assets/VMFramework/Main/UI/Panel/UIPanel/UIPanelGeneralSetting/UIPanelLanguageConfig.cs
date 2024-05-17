@@ -8,7 +8,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public class UIPanelLanguageConfig : BaseConfigClass, IIDOwner, INameOwner
+    public class UIPanelLanguageConfig : BaseConfig, IIDOwner, INameOwner
     {
         [LabelText("语言代码")]
         [LocaleName]

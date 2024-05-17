@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Configuration;
 using VMFramework.GameLogicArchitecture;
-using VMFramework.Localization;
 
 namespace VMFramework.Property
 {

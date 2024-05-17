@@ -49,7 +49,7 @@ namespace VMFramework.UI
         {
             if (preset.isDebugging)
             {
-                Debug.LogWarning($"开始拖拽:{name}");
+                Debug.LogWarning($"开始拖拽:{this.name}");
             }
         }
 
@@ -57,7 +57,7 @@ namespace VMFramework.UI
         {
             if (preset.isDebugging)
             {
-                Debug.LogWarning($"结束拖拽:{name}");
+                Debug.LogWarning($"结束拖拽:{this.name}");
             }
         }
 

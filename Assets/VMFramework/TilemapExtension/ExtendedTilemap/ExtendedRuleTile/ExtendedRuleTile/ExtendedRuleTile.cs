@@ -5,6 +5,7 @@ using VMFramework.GameLogicArchitecture;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Configuration;
 using VMFramework.Core.Linq;
 using VMFramework.OdinExtensions;
 
@@ -54,8 +55,7 @@ namespace VMFramework.ExtendedTilemap
 
 #if UNITY_EDITOR
         [LabelText("规则集"), TabGroup(TAB_GROUP_NAME, RULE_CATEGORY)]
-        [ListDrawerSettings(NumberOfItemsPerPage = 6, DefaultExpandedState = false,
-            CustomAddFunction = nameof(AddRuleToRuleSetGUI))]
+        [ListDrawerSettings(NumberOfItemsPerPage = 6, CustomAddFunction = nameof(AddRuleToRuleSetGUI))]
 #endif
         public List<Rule> ruleSet = new();
 
@@ -80,7 +80,10 @@ namespace VMFramework.ExtendedTilemap
                 runtimeRuleSet = new();
                 foreach (var rule in ruleSet)
                 {
-                    runtimeRuleSet.Add(rule.GetClone());
+                    foreach (var generatedRule in rule.GenerateRules())
+                    {
+                        runtimeRuleSet.Add(generatedRule);
+                    }
                 }
                 hasInitInheritance = true;
                 return;
@@ -92,28 +95,31 @@ namespace VMFramework.ExtendedTilemap
 
             foreach (var rule in parentRuleTile.runtimeRuleSet)
             {
-                runtimeRuleSet.Add(rule.GetClone());
+                runtimeRuleSet.Add(rule.GetClone(false, false));
             }
 
             foreach (var rule in ruleSet)
             {
-                int count = 0;
-                foreach (var subLimitRule in GetRuntimeRuleWithSubLimitsOf(rule))
+                foreach (var generatedRule in rule.GenerateRules())
                 {
-                    foreach (var layer in rule.layers)
+                    int count = 0;
+                    foreach (var subLimitRule in GetRuntimeRuleWithSubLimitsOf(generatedRule))
                     {
-                        subLimitRule.layers.RemoveAll(spriteLayer =>
-                            spriteLayer.layer == layer.layer);
+                        foreach (var layer in rule.layers)
+                        {
+                            subLimitRule.layers.RemoveAll(spriteLayer =>
+                                spriteLayer.layer == layer.layer);
 
-                        subLimitRule.layers.Add(layer);
+                            subLimitRule.layers.Add(layer);
+                        }
+
+                        count++;
                     }
 
-                    count++;
-                }
-
-                if (count == 0)
-                {
-                    runtimeRuleSet.Add(rule.GetClone());
+                    if (count == 0)
+                    {
+                        runtimeRuleSet.Add(generatedRule);
+                    }
                 }
             }
 
@@ -123,6 +129,14 @@ namespace VMFramework.ExtendedTilemap
         #endregion
 
         #region Init & Check
+        
+        public override void CheckSettings()
+        {
+            base.CheckSettings();
+
+            defaultSpriteLayers.CheckSettings();
+            ruleSet.CheckSettings();
+        }
 
         protected override void OnInit()
         {
@@ -132,6 +146,8 @@ namespace VMFramework.ExtendedTilemap
             {
                 parentRuleTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(parentRuleTileID);
             }
+            
+            defaultSpriteLayers.Init();
         }
 
         protected override void OnPostInit()
@@ -141,19 +157,11 @@ namespace VMFramework.ExtendedTilemap
             InitInheritance();
         }
 
-        public override void CheckSettings()
+        protected override void OnInitComplete()
         {
-            base.CheckSettings();
-
-            foreach (var spriteLayer in defaultSpriteLayers)
-            {
-                spriteLayer.CheckSettings();
-            }
-
-            foreach (var rule in ruleSet)
-            {
-                rule.CheckSettings();
-            }
+            base.OnInitComplete();
+            
+            runtimeRuleSet.Init();
         }
 
         #endregion
@@ -250,72 +258,76 @@ namespace VMFramework.ExtendedTilemap
                         return false;
                     }
 
-                    if (neighborRuleTile.id != id)
+                    if (neighborRuleTile.id == id)
                     {
-                        if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
-                        {
-                            return SatisfyLimit(neighborRuleTile.parentRuleTile,
-                                limit);
-                        }
-
-                        return false;
+                        return true;
                     }
 
-                    return true;
+                    if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
+                    {
+                        return SatisfyLimit(neighborRuleTile.parentRuleTile,
+                            limit);
+                    }
+
+                    return false;
+
                 case LimitType.NotThis:
                     if (neighborRuleTile == null)
                     {
                         return true;
                     }
 
-                    if (neighborRuleTile.id != id)
+                    if (neighborRuleTile.id == id)
                     {
-                        if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
-                        {
-                            return SatisfyLimit(neighborRuleTile.parentRuleTile,
-                                limit);
-                        }
-
-                        return true;
+                        return false;
                     }
 
-                    return false;
+                    if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
+                    {
+                        return SatisfyLimit(neighborRuleTile.parentRuleTile,
+                            limit);
+                    }
+
+                    return true;
+
                 case LimitType.SpecificTiles:
                     if (neighborRuleTile == null)
                     {
                         return false;
                     }
 
-                    if (limit.specificTiles.Contains(neighborRuleTile.id) == false)
+                    if (limit.specificTiles.Contains(neighborRuleTile.id))
                     {
-                        if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
-                        {
-                            return SatisfyLimit(neighborRuleTile.parentRuleTile,
-                                limit);
-                        }
-
-                        return false;
+                        return true;
                     }
 
-                    return true;
+                    if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
+                    {
+                        return SatisfyLimit(neighborRuleTile.parentRuleTile,
+                            limit);
+                    }
+
+                    return false;
+
                 case LimitType.NotSpecificTiles:
                     if (neighborRuleTile == null)
                     {
                         return true;
                     }
 
-                    if (limit.specificTiles.Contains(neighborRuleTile.id) == false)
+                    if (limit.specificTiles.Contains(neighborRuleTile.id))
                     {
-                        if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
-                        {
-                            return SatisfyLimit(neighborRuleTile.parentRuleTile,
-                                limit);
-                        }
-
-                        return true;
+                        return false;
                     }
 
-                    return false;
+                    if (neighborRuleTile.ruleMode == RuleMode.Inheritance)
+                    {
+                        return SatisfyLimit(neighborRuleTile.parentRuleTile,
+                            limit);
+                    }
+
+                    return true;
+
                 case LimitType.IsEmpty:
                     return neighborRuleTile == null || neighborRuleTile.id == EMPTY_TILE_ID;
                 case LimitType.NotEmpty:

@@ -12,7 +12,7 @@ public class TilemapBasicTools : MonoBehaviour
 
     protected virtual void Reset()
     {
-        bindTilemap = this.QueryComponentInChildren<Tilemap>(true);
+        bindTilemap = this.QueryFirstComponentInChildren<Tilemap>(true);
     }
 
     [Button("清除地图", ButtonSizes.Medium)]

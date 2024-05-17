@@ -2,6 +2,7 @@
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core.Pool;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 using VMFramework.Procedure;

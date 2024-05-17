@@ -9,7 +9,7 @@ using VMFramework.Core.Editor;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    public class OpenScriptContextMenuDrawer<T> : OdinValueDrawer<T>,
+    public sealed class OpenScriptContextMenuDrawer<T> : OdinValueDrawer<T>,
         IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
@@ -17,8 +17,7 @@ namespace VMFramework.OdinExtensions
             CallNextDrawer(label);
         }
 
-        public void PopulateGenericMenu(InspectorProperty property,
-            GenericMenu genericMenu)
+        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
             var typeOfValue = property.ValueEntry.TypeOfValue;
 

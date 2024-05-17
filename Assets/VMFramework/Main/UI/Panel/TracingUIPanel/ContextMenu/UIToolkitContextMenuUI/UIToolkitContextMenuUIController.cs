@@ -3,8 +3,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
 using VMFramework.Core;
-using VMFramework.GlobalEvent;
-using VMFramework.MouseEvent;
+using VMFramework.GameEvents;
 
 namespace VMFramework.UI
 {
@@ -47,9 +46,25 @@ namespace VMFramework.UI
                 }
             };
 
-            foreach (var globalEventID in contextMenuUIPreset.globalEventIDsToClose)
+            if (contextMenuUIPreset.gameEventIDsToClose != null)
             {
-                GlobalEventManager.AddEvent(globalEventID, this.Close);
+                foreach (var gameEventID in contextMenuUIPreset.gameEventIDsToClose)
+                {
+                    GameEventManager.AddCallback(gameEventID, Close);
+                }
+            }
+        }
+
+        protected override void OnDestruction()
+        {
+            base.OnDestruction();
+            
+            if (contextMenuUIPreset.gameEventIDsToClose != null)
+            {
+                foreach (var gameEventID in contextMenuUIPreset.gameEventIDsToClose)
+                {
+                    GameEventManager.RemoveCallback(gameEventID, Close);
+                }
             }
         }
 

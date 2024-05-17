@@ -4,18 +4,13 @@ using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.GameEvents;
 using VMFramework.GameLogicArchitecture;
-using VMFramework.Network;
 
 namespace VMFramework.Containers
 {
     public abstract partial class Container : GameItem, IContainer
     {
-        [ShowInInspector]
-        public string uuid { get; private set; }
-        
-        public bool isDirty = true;
-
         [ShowInInspector]
         public IContainerOwner owner { get; private set; }
 
@@ -39,31 +34,23 @@ namespace VMFramework.Containers
 
         protected readonly SortedSet<int> validSlotIndices = new();
 
-        public event Action OnDestroyOnClientEvent;
-
-        public event Action OnOpenOnServerEvent;
-        public event Action OnCloseOnServerEvent;
-
-        public event Action<IContainer, int, IContainerItem> OnBeforeItemChangedEvent;
-        public event Action<IContainer, int, IContainerItem> OnAfterItemChangedEvent;
-        public event Action<IContainer, int, IContainerItem> OnItemAddedEvent;
-        public event Action<IContainer, int, IContainerItem> OnItemRemovedEvent;
+        public event IContainer.ItemChangedHandler OnBeforeItemChangedEvent;
+        public event IContainer.ItemChangedHandler OnAfterItemChangedEvent;
+        public event IContainer.ItemChangedHandler OnItemAddedEvent;
+        public event IContainer.ItemChangedHandler OnItemRemovedEvent;
+        
+        public event Action<IContainer> OnOpenEvent;
+        public event Action<IContainer> OnCloseEvent;
 
         private readonly Dictionary<int, Action<int, int>> itemCountChangedActions = new();
         
-        public event Action<IContainer, int, IContainerItem, int, int> OnItemCountChangedEvent;
+        public event IContainer.ItemCountChangedHandler OnItemCountChangedEvent;
 
-        public event Action OnSizeChangedEvent;
+        public event IContainer.SizeChangedHandler OnSizeChangedEvent;
 
         #region Interface Implementation
 
         IReadOnlyCollection<int> IContainer.validSlotIndices => validSlotIndices;
-
-        bool IUUIDOwner.isDirty
-        {
-            get => isDirty;
-            set => isDirty = value;
-        }
 
         #endregion
 
@@ -73,14 +60,15 @@ namespace VMFramework.Containers
         {
             base.OnCreate();
 
-#if FISHNET
-            if (isServer)
+            isDestroyed = false;
+            
+            if (GameEventManager.TryGetGameEvent(ContainerCreateEventConfig.ID,
+                    out ContainerCreateEvent gameEvent))
             {
-                uuid = Guid.NewGuid().ToString();
-
-                ContainerManager.Register(this);
+                gameEvent.SetContainer(this);
+                
+                gameEvent.Propagate();
             }
-#endif
         }
 
         #endregion
@@ -109,38 +97,23 @@ namespace VMFramework.Containers
                 return;
             }
 
-            //if (isServer)
-            //{
-            //    OnDestroyOnServer();
-            //}
-
-#if FISHNET
-            if (isClient)
-            {
-                OnDestroyOnClient();
-            }
-#else
-            OnDestroyOnClient();
-#endif
-
-#if FISHNET
-            ContainerManager.Unregister(this);
-#endif
-
-            isDestroyed = true;
-        }
-
-        protected virtual void OnDestroyOnClient()
-        {
             if (isDebugging)
             {
                 Debug.LogWarning($"{this} is Destroyed On Client!");
             }
+            
+            if (GameEventManager.TryGetGameEvent(ContainerDestroyEventConfig.ID,
+                    out ContainerDestroyEvent gameEvent))
+            {
+                gameEvent.SetContainer(this);
+                
+                gameEvent.Propagate();
+            }
 
-            OnDestroyOnClientEvent?.Invoke();
+            isDestroyed = true;
         }
 
-#endregion
+        #endregion
 
         #region Open & Close
 
@@ -152,15 +125,8 @@ namespace VMFramework.Containers
             }
 
             isOpen = true;
-
-#if FISHNET
-            if (isServer)
-            {
-                isDirty = false;
-            }
-
-            ContainerManager.Observe(this);
-#endif
+            
+            OnOpenEvent?.Invoke(this);
         }
 
         public void Close()
@@ -171,30 +137,8 @@ namespace VMFramework.Containers
             }
 
             isOpen = false;
-
-#if FISHNET
-            ContainerManager.Unobserve(this);
-#endif
-        }
-
-        public void OpenOnServer()
-        {
-            if (isDebugging)
-            {
-                Debug.LogWarning($"{this}在服务器上打开");
-            }
-
-            OnOpenOnServerEvent?.Invoke();
-        }
-
-        public void CloseOnServer()
-        {
-            if (isDebugging)
-            {
-                Debug.LogWarning($"{this}在服务器上关闭");
-            }
-
-            OnCloseOnServerEvent?.Invoke();
+            
+            OnCloseEvent?.Invoke(this);
         }
 
         #endregion
@@ -203,8 +147,6 @@ namespace VMFramework.Containers
 
         protected void OnItemAdded(int slotIndex, IContainerItem item)
         {
-            // Debug.LogWarning($"OnItemAdded({slotIndex}, {item})");
-            
             item.sourceContainer = this;
 
             OnItemAddedEvent?.Invoke(this, slotIndex, item);
@@ -263,7 +205,7 @@ namespace VMFramework.Containers
 
         protected void OnSizeChanged()
         {
-            OnSizeChangedEvent?.Invoke();
+            OnSizeChangedEvent?.Invoke(this, size);
 
             if (isDebugging)
             {
@@ -387,7 +329,7 @@ namespace VMFramework.Containers
         protected override IEnumerable<(string propertyID, string propertyContent)>
             OnGetStringProperties()
         {
-            yield return (nameof(uuid), uuid);
+            // yield return (nameof(uuid), uuid);
             yield return (nameof(validItemsSize), validItemsSize.ToString());
         }
 

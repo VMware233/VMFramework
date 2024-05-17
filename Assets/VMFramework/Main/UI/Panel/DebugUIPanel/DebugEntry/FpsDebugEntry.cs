@@ -4,7 +4,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.UI
 {
-    [GamePrefabAutoRegister(ID)]
+    [GamePrefabTypeAutoRegister(ID)]
     public class FpsDebugEntry : TitleContentDebugEntry
     {
         public const string ID = "fps_debug_entry";

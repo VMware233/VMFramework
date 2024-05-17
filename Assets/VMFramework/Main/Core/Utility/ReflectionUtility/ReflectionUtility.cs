@@ -25,7 +25,7 @@ namespace VMFramework.Core
                 return null;
             }
 
-            var newInstance = targetType.CreateInstance();
+            var newInstance = targetType.TryCreateInstance();
 
             foreach (var fieldInfo in newInstance.GetType()
                          .GetFields(BindingFlags.Public | BindingFlags.Instance |
@@ -56,7 +56,7 @@ namespace VMFramework.Core
         public static ICollection<T> Clone<T>(this ICollection<T> collection)
         {
             var newCollection =
-                (ICollection<T>)collection.GetType().CreateInstance();
+                (ICollection<T>)collection.GetType().TryCreateInstance();
 
             foreach (var item in collection)
             {
@@ -102,7 +102,7 @@ namespace VMFramework.Core
                 {
                     var elementType = originType.GetGenericArguments()[0];
 
-                    var newCollection = originType.CreateInstance();
+                    var newCollection = originType.TryCreateInstance();
 
                     foreach (var item in originCollection)
                     {
@@ -120,7 +120,7 @@ namespace VMFramework.Core
                 return origin;
             }
 
-            var newInstance = originType.CreateInstance();
+            var newInstance = originType.TryCreateInstance();
 
             foreach (var (fieldInfo, value) in origin.GetAllFieldValues(
                          BindingFlags.Public | BindingFlags.Instance |
@@ -172,7 +172,7 @@ namespace VMFramework.Core
                 throw new ArgumentException("不能拷贝来自UnityEngine.Object的对象");
             }
 
-            var newInstance = origin.GetType().CreateInstance();
+            var newInstance = origin.GetType().TryCreateInstance();
 
             if (origin is ICollection collection)
             {
@@ -232,5 +232,4 @@ namespace VMFramework.Core
 
         #endregion
     }
-
 }

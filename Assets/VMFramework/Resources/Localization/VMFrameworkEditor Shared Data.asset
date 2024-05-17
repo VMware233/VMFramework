@@ -267,6 +267,10 @@ MonoBehaviour:
     m_Key: BatchProcessorName
     m_Metadata:
       m_Items: []
+  - m_Id: 17273153570058240
+    m_Key: OpenControllerScriptButtonName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

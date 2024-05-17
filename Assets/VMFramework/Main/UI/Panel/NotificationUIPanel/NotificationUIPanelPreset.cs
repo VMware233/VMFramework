@@ -1,7 +1,6 @@
 ﻿using System;
 using VMFramework.Configuration;
 using Sirenix.OdinInspector;
-using UnityEngine.UIElements;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
@@ -16,8 +15,8 @@ namespace VMFramework.UI
         [VisualElementName]
         public string notificationContainer;
 
-        [LabelText("通知显示动画"), TabGroup(TAB_GROUP_NAME, NOTIFICATION_CATEGORY)]
-        public VisualElementAnimation notificationShowAnimation = new();
+        // [LabelText("通知显示动画"), TabGroup(TAB_GROUP_NAME, NOTIFICATION_CATEGORY)]
+        // public VisualElementAnimation notificationShowAnimation = new();
 
         #region Init
 
@@ -25,7 +24,7 @@ namespace VMFramework.UI
         {
             base.OnPostInit();
 
-            notificationShowAnimation.Init();
+            // notificationShowAnimation.Init();
         }
 
         #endregion

@@ -1,5 +1,7 @@
 ﻿#if UNITY_EDITOR
+using Sirenix.OdinInspector;
 using VMFramework.Core;
+using VMFramework.Editor;
 
 namespace VMFramework.ExtendedTilemap
 {
@@ -24,6 +26,12 @@ namespace VMFramework.ExtendedTilemap
             {
                 center = "";
             }
+        }
+
+        [Button("测试动态生成"), HorizontalGroup(FLIP_CATEGORY)]
+        private void GenerateRulesDebug()
+        {
+            GenerateRules().ShowTempViewer();
         }
     }
 }

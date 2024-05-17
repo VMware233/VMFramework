@@ -23,8 +23,8 @@ MonoBehaviour:
     SerializationNodes: []
   managerCreationGeneralSetting: {fileID: 11400000, guid: 46f708024df1cce44a664a5999e0ab26, type: 2}
   gameTypeGeneralSetting: {fileID: 11400000, guid: bb2a04439ee1eb140a0bea77cd389a26, type: 2}
-  globalEventGeneralSetting: {fileID: 11400000, guid: d8cf2540fa08d114ab208c6ae0ac106d, type: 2}
-  mouseEventGeneralSetting: {fileID: 11400000, guid: f1e492e9b12bc10449b83344cc0bda7e, type: 2}
+  gameEventGeneralSetting: {fileID: 11400000, guid: b3781047277b1ac4b80abdfba38a04d1, type: 2}
+  colliderMouseEventGeneralSetting: {fileID: 11400000, guid: f1e492e9b12bc10449b83344cc0bda7e, type: 2}
   particleGeneralSetting: {fileID: 11400000, guid: f36fb2836cf15c3478bc0ceba4718901, type: 2}
   trailGeneralSetting: {fileID: 11400000, guid: e7a5e3302d6bcc0409b656f28fb929cb, type: 2}
   audioGeneralSetting: {fileID: 11400000, guid: cf38edfea8576bf45beade93f6cb0501, type: 2}

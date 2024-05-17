@@ -48,7 +48,7 @@ namespace VMFramework.UI
             }
         }
 
-        public UniTask<bool> AwaitToOpen(IUIPanelController source, CancellationToken cts = default);
+        public UniTask<bool> AwaitToOpen(IUIPanelController source, CancellationToken token = default);
 
         void IUIPanelController.StopOpening()
         {

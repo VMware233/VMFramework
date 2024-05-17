@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
 {
@@ -38,7 +37,8 @@ namespace VMFramework.GameLogicArchitecture
         #endregion
 
 #if UNITY_EDITOR
-        [LabelText("初始GamePrefab"), TabGroup(TAB_GROUP_NAME, INITIAL_GAME_PREFABS_CATEGORY)]
+        [LabelText("初始GamePrefab"),
+         TabGroup(TAB_GROUP_NAME, INITIAL_GAME_PREFABS_CATEGORY, SdfIconType.Info, TextColor = "blue")]
         [OnCollectionChanged(nameof(OnInitialGamePrefabWrappersChanged))]
 #endif
         [SerializeField]

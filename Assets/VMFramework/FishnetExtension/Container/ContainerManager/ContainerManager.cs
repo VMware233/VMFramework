@@ -160,6 +160,31 @@ namespace VMFramework.Containers
             }
         }
 
+        private static void OnContainerItemCountChanged(IContainer container, 
+            int slotIndex, IContainerItem item, int previous, int current)
+        {
+            if (current != previous)
+            {
+                SetSlotDirty(container.uuid, slotIndex);
+            }
+        }
+
+        private static void OnItemRemoved(IContainer container, int slotIndex, 
+            IContainerItem item)
+        {
+            SetSlotDirty(container.uuid, slotIndex);
+        }
+
+        private static void OnItemAdded(IContainer container, int slotIndex, 
+            IContainerItem item)
+        {
+            SetSlotDirty(container.uuid, slotIndex);
+        }
+
+        #endregion
+
+        #region Set Slot Dirty
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetSlotDirty(IContainer container, int slotIndex)
         {
@@ -193,27 +218,6 @@ namespace VMFramework.Containers
         private static void SetSlotDirty(ContainerInfo containerInfo, int slotIndex)
         {
             containerInfo.dirtySlots.Add(slotIndex);
-        }
-
-        private static void OnContainerItemCountChanged(IContainer container, 
-            int slotIndex, IContainerItem item, int previous, int current)
-        {
-            if (current != previous)
-            {
-                SetSlotDirty(container.uuid, slotIndex);
-            }
-        }
-
-        private static void OnItemRemoved(IContainer container, int slotIndex, 
-            IContainerItem item)
-        {
-            SetSlotDirty(container.uuid, slotIndex);
-        }
-
-        private static void OnItemAdded(IContainer container, int slotIndex, 
-            IContainerItem item)
-        {
-            SetSlotDirty(container.uuid, slotIndex);
         }
 
         #endregion

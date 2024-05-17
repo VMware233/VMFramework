@@ -1,7 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
@@ -20,5 +20,12 @@ namespace VMFramework.UI
         public string defaultContextMenuID;
 
         #endregion
+
+        public override void CheckSettings()
+        {
+            base.CheckSettings();
+            
+            defaultContextMenuID.AssertIsNotNullOrEmpty(nameof(defaultContextMenuID));
+        }
     }
 }

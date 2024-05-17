@@ -9,9 +9,7 @@ namespace VMFramework.Localization
     public interface ILocalizedStringOwnerConfig
     {
         public void AutoConfigureLocalizedString(LocalizedStringAutoConfigSettings settings);
-
-        public void CreateLocalizedStringKeys();
-
+        
         public void SetKeyValueByDefault();
     }
 }

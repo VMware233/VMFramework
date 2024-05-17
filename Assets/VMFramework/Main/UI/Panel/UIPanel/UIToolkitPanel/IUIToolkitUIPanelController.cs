@@ -1,6 +1,4 @@
-﻿using UnityEngine.UIElements;
-
-namespace VMFramework.UI
+﻿namespace VMFramework.UI
 {
     public interface IUIToolkitUIPanelController : IUIPanelController
     {

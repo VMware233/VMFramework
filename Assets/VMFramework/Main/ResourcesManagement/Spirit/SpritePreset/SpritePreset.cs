@@ -1,4 +1,5 @@
-﻿using VMFramework.GameLogicArchitecture;
+﻿using EnumsNET;
+using VMFramework.GameLogicArchitecture;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,40 +16,13 @@ namespace VMFramework.ResourcesManagement
         [HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP)]
         [PreviewField(40, ObjectFieldAlignment.Center)]
         public Sprite sprite;
+        
+        [LabelText("预加载的翻转类型"), HorizontalGroup(FLIP_GROUP)]
+        public FlipType2D preloadFlipType = FlipType2D.None;
 
-        [LabelText("是否翻转X轴"), HorizontalGroup(FLIP_GROUP)]
+        [LabelText("Pivot操作"), HorizontalGroup(FLIP_GROUP)]
         [SerializeField]
-        [OnValueChanged(nameof(OnValueChanged))]
-        public bool flipX = false;
-
-        [LabelText("是否翻转Y轴"), HorizontalGroup(FLIP_GROUP)]
-        [SerializeField]
-        [OnValueChanged(nameof(OnValueChanged))]
-        public bool flipY = false;
-
-        [LabelText("Pivot操作")]
-        [ShowIf(nameof(hasFlipOperation))]
-        [SerializeField]
-        [OnValueChanged(nameof(OnValueChanged))]
-        private SpriteUtility.SpritePivotOperationType spritePivotOperationType =
-            SpriteUtility.SpritePivotOperationType.Reversed;
-
-        [HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP)]
-        [ShowInInspector]
-        [ShowIf(nameof(hasFlipOperation))]
-        [PreviewField(40, ObjectFieldAlignment.Center)]
-        private Sprite spritePreview => SpriteManager.GetSprite(id);
-
-        private bool hasFlipOperation => flipX || flipY;
-
-        #region GUI
-
-        private void OnValueChanged()
-        {
-            SpriteManager.ResetSprite(id);
-        }
-
-        #endregion
+        private SpritePivotFlipType spritePivotFlipType = SpritePivotFlipType.NoChange;
 
         #region Init
 
@@ -64,24 +38,27 @@ namespace VMFramework.ResourcesManagement
         {
             base.OnPreInit();
 
-            SpriteManager.GetSprite(id);
+            foreach (var flipType in preloadFlipType.GetFlags())
+            {
+                SpriteManager.GetSprite(id, flipType);
+            }
         }
 
         #endregion
 
-        public Sprite GenerateSprite()
+        public Sprite GenerateSprite(FlipType2D flipType)
         {
             if (sprite is null)
             {
                 return null;
             }
 
-            if (flipX == false && flipY == false)
+            if (flipType == FlipType2D.None)
             {
                 return sprite;
             }
 
-            var resultSprite = sprite.Flip(flipX, flipY, spritePivotOperationType);
+            var resultSprite = sprite.Flip(flipType, spritePivotFlipType);
             resultSprite.name = id;
 
             return resultSprite;

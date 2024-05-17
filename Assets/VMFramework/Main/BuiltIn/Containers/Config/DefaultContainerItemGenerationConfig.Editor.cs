@@ -11,7 +11,7 @@ namespace VMFramework.Configuration
         {
             base.OnInspectorInit();
 
-            count ??= new SingleValueChooserConfig<int>(1);
+            count ??= new SingleVectorChooserConfig<int>(1);
         }
         
         protected virtual IEnumerable<ValueDropdownItem> GetItemPrefabNameList()

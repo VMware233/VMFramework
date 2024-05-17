@@ -5,7 +5,7 @@ using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
-    public partial class CircularSelectItemConfig<T> : BaseConfigClass, ICircularSelectItem<T>, ICloneable
+    public partial class CircularSelectItemConfig<T> : BaseConfig, ICircularSelectItem<T>, ICloneable
     {
 #if UNITY_EDITOR
         [LabelText("@" + nameof(valueLabel)), HorizontalGroup]

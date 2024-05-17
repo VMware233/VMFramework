@@ -7,7 +7,7 @@ namespace VMFramework.GameLogicArchitecture
 {
     public class VisualGameItem : GameItem, IVisualGameItem
     {
-        protected IDescribedGamePrefab describedGamePrefab => (IDescribedGamePrefab)origin;
+        protected IDescribedGamePrefab describedGamePrefab => (IDescribedGamePrefab)gamePrefab;
 
         public virtual string GetTooltipTitle()
         {

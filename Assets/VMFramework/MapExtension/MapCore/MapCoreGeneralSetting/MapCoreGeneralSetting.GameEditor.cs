@@ -14,9 +14,7 @@ namespace VMFramework.Map
             { "zh-CN", "地图核心" }
         };
 
-        EditorIconType IGameEditorMenuTreeNode.iconType => EditorIconType.SdfIcon;
-
-        SdfIconType IGameEditorMenuTreeNode.sdfIcon => SdfIconType.PinMap;
+        Icon IGameEditorMenuTreeNode.icon => SdfIconType.PinMap;
 
         string IGameEditorMenuTreeNode.folderPath => GameEditorNames.builtInCategoryName;
     }

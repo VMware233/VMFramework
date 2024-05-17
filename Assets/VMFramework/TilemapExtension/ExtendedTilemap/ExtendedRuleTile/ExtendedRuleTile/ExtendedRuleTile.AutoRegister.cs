@@ -2,7 +2,7 @@
 
 namespace VMFramework.ExtendedTilemap
 {
-    [GamePrefabAutoRegister(EMPTY_TILE_ID)]
+    [GamePrefabTypeAutoRegister(EMPTY_TILE_ID)]
     public partial class ExtendedRuleTile : IGamePrefabAutoRegisterProvider
     {
         public const string EMPTY_TILE_ID = "empty_tile";

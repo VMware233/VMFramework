@@ -1,9 +1,10 @@
 ﻿using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 using VMFramework.UI;
 using VMFramework.Core;
 using VMFramework.Containers;
 using VMFramework.Core.Linq;
-using VMFramework.GlobalEvent;
+using VMFramework.GameEvents;
 using VMFramework.Procedure;
 using VMFramework.Property;
 using VMFramework.Recipe;
@@ -26,6 +27,8 @@ namespace VMFramework.GameLogicArchitecture
         public override bool isSettingUnmovable => true;
 
         public override string forcedFileName => "GameSetting";
+        
+        // Core
 
         [LabelText("管理器创建设置"), TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
         [Required]
@@ -34,14 +37,17 @@ namespace VMFramework.GameLogicArchitecture
         [LabelText("游戏种类设置"), TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
         [Required]
         public GameTypeGeneralSetting gameTypeGeneralSetting;
-
-        [LabelText("全局事件通用设置"), TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
+        
+        [LabelText("游戏事件通用设置"), TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
         [Required]
-        public GlobalEventGeneralSetting globalEventGeneralSetting;
+        public GameEventGeneralSetting gameEventGeneralSetting;
 
+        [FormerlySerializedAs("mouseEventGeneralSetting")]
         [LabelText("鼠标事件通用设置"), TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
         [Required]
-        public MouseEventGeneralSetting mouseEventGeneralSetting;
+        public ColliderMouseEventGeneralSetting colliderMouseEventGeneralSetting;
+        
+        // Resources Management
 
         [LabelText("粒子生成器设置"), TabGroup(TAB_GROUP_NAME, RESOURCES_MANAGEMENT_CATEGORY)]
         [Required]
@@ -82,6 +88,8 @@ namespace VMFramework.GameLogicArchitecture
         [LabelText("配方通用设置"), TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
         [Required]
         public RecipeGeneralSetting recipeGeneralSetting;
+        
+        // UI
 
         [LabelText("UI通用设置"), TabGroup(TAB_GROUP_NAME, UI_CATEGORY)]
         [Required]
@@ -136,7 +144,7 @@ namespace VMFramework.GameLogicArchitecture
 
         void IManagerCreationProvider.HandleManagerCreation()
         {
-            ManagerCreatorContainers.GetManagerTypeContainer(ManagerType.SettingCore)
+            ManagerCreatorContainers.GetOrCreateManagerTypeContainer(ManagerType.SettingCore.ToString())
                 .GetOrAddComponent(GameCoreSettingBase.GetExtendedCoreSettingType());
         }
 

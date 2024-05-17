@@ -14,9 +14,7 @@ namespace VMFramework.ExtendedTilemap
             { "en-US", "Extended Rule Tile" }
         };
 
-        EditorIconType IGameEditorMenuTreeNode.iconType => EditorIconType.SdfIcon;
-
-        SdfIconType IGameEditorMenuTreeNode.sdfIcon => SdfIconType.Grid3x3;
+        public Icon icon => SdfIconType.Grid3x3;
 
         string IGameEditorMenuTreeNode.folderPath => GameEditorNames.builtInCategoryName;
     }

@@ -10,13 +10,7 @@ namespace VMFramework.Configuration
         {
             base.OnInspectorInit();
 
-            if (value == null)
-            {
-                if (typeof(T).IsClass && typeof(T).IsSubclassOf(typeof(Object)) == false)
-                {
-                    value = (T)typeof(T).CreateInstance();
-                }
-            }
+            ReflectionUtility.TryCreateInstance(ref value);
         }
     }
 }

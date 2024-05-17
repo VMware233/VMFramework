@@ -15,24 +15,24 @@ namespace VMFramework.GameLogicArchitecture
 
         [LabelText("GamePrefab")]
         [ShowInInspector]
-        protected IGameTypedGamePrefab origin { get; private set; }
+        protected IGameTypedGamePrefab gamePrefab { get; private set; }
         
         [LabelText("ID")]
         [ShowInInspector, DisplayAsString]
-        public string id => origin.id;
+        public string id => gamePrefab.id;
 
-        public string name => origin.name;
+        public string name => gamePrefab.name;
         
         [ShowInInspector]
-        public bool isDebugging => origin.isDebugging;
+        public bool isDebugging => gamePrefab.isDebugging;
         
         [LabelText("游戏种类")]
         [ShowInInspector]
-        public IReadOnlyGameTypeSet gameTypeSet => origin.gameTypeSet;
+        public IReadOnlyGameTypeSet gameTypeSet => gamePrefab.gameTypeSet;
     
         [LabelText("唯一游戏种类")]
         [ShowInInspector]
-        public GameType uniqueGameType => origin.uniqueGameType;
+        public GameType uniqueGameType => gamePrefab.uniqueGameType;
 
         #endregion
     
@@ -40,11 +40,11 @@ namespace VMFramework.GameLogicArchitecture
 
         IGameTypedGamePrefab IGameItem.origin
         {
-            get => origin;
-            set => origin = value;
+            get => gamePrefab;
+            set => gamePrefab = value;
         }
         
-        void IGameItem.OnCreate()
+        void IGameItem.OnCreateGameItem()
         {
             OnCreate();
         }
@@ -69,7 +69,7 @@ namespace VMFramework.GameLogicArchitecture
 
         protected virtual void OnCreate()
         {
-            
+            // Debug.LogError(233);
         }
 
         #endregion

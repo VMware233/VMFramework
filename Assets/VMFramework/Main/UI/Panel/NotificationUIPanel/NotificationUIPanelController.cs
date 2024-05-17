@@ -44,7 +44,7 @@ namespace VMFramework.UI
             var notification = new Label(message);
             notificationContainer.Add(notification);
 
-            notificationUIPanelPreset.notificationShowAnimation.Run(notification);
+            // notificationUIPanelPreset.notificationShowAnimation.Run(notification);
         }
     }
 }

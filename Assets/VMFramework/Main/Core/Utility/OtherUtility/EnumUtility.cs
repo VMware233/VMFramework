@@ -56,7 +56,7 @@ namespace VMFramework.Core
                 {
                     if (defaultValues == null || defaultValues.Count == 0 || defaultValues.ContainsKey(value) == false)
                     {
-                        dict[value] = (TValue)typeof(TValue).CreateInstance();
+                        dict[value] = (TValue)typeof(TValue).TryCreateInstance();
                     }
                     else
                     {

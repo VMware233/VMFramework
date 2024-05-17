@@ -12,8 +12,7 @@ namespace VMFramework.Configuration
     [Serializable]
     [HideDuplicateReferenceBox]
     [HideReferenceObjectPicker]
-
-    public class ContainerChooser : BaseConfigClass, IEnumerable<Transform>
+    public class ContainerChooser : BaseConfig, IEnumerable<Transform>
     {
         [LabelText("容器ID")]
         [IsNotNullOrEmpty]

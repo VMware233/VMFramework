@@ -48,7 +48,7 @@ namespace VMFramework.UI
             PostClose(source);
         }
 
-        public UniTask<bool> AwaitToClose(CancellationToken cts = default);
+        public UniTask<bool> AwaitToClose(CancellationToken token = default);
 
         void IUIPanelController.StopClosing()
         {

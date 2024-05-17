@@ -1,6 +1,5 @@
 ﻿using System;
 using VMFramework.GameLogicArchitecture;
-using VMFramework.Core;
 
 namespace VMFramework.ResourcesManagement
 { 

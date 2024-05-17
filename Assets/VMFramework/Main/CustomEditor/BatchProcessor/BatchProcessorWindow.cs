@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using VMFramework.Editor;
-using VMFramework.Core;
 using Sirenix.Utilities;
 using UnityEngine;
 using Sirenix.Utilities.Editor;

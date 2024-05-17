@@ -5,7 +5,7 @@ using System.Linq;
 using VMFramework.UI;
 using VMFramework.Core;
 using VMFramework.Containers;
-using VMFramework.GlobalEvent;
+using VMFramework.GameEvents;
 using VMFramework.Procedure;
 using VMFramework.Property;
 using VMFramework.Recipe;
@@ -37,14 +37,12 @@ namespace VMFramework.GameLogicArchitecture
 
         public static GameTypeGeneralSetting gameTypeGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.gameTypeGeneralSetting;
+        
+        public static GameEventGeneralSetting gameEventGeneralSetting =>
+            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.gameEventGeneralSetting;
 
-        public static GlobalEventGeneralSetting globalEventGeneralSetting =>
-            gameCoreSettingsFileBase == null
-                ? null
-                : gameCoreSettingsFileBase.globalEventGeneralSetting;
-
-        public static MouseEventGeneralSetting mouseEventGeneralSetting =>
-            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.mouseEventGeneralSetting;
+        public static ColliderMouseEventGeneralSetting colliderMouseEventGeneralSetting =>
+            gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.colliderMouseEventGeneralSetting;
 
 
         // Resources Management

@@ -29,7 +29,7 @@ namespace VMFramework.ResourcesManagement
             var prefab = GamePrefabManager.GetGamePrefabStrictly<ParticlePreset>(id);
 
             foreach (var particleSystem in
-                     prefab.particlePrefab.FindComponentsInChildren<ParticleSystem>(true))
+                     prefab.particlePrefab.QueryComponentsInChildren<ParticleSystem>(true))
             {
                 var main = particleSystem.main;
                 main.duration = duration;

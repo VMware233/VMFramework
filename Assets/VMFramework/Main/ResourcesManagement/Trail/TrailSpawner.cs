@@ -5,12 +5,13 @@ using VMFramework.Configuration;
 using VMFramework.Core;
 using UnityEngine;
 using Newtonsoft.Json;
+using VMFramework.Core.Pool;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.ResourcesManagement
 {
-    public class TrailSpawnConfig : BaseConfigClass
+    public class TrailSpawnConfig : BaseConfig
     {
         [LabelText("拖尾效果")]
         [GamePrefabID(typeof(TrailPreset))]

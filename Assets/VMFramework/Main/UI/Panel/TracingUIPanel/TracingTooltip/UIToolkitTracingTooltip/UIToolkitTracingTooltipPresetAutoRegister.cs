@@ -1,11 +1,10 @@
 ﻿using UnityEngine.UIElements;
-using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.UI
 {
-    [GamePrefabAutoRegister(DEFAULT_ID)]
+    [GamePrefabTypeAutoRegister(DEFAULT_ID)]
     public partial class UIToolkitTracingTooltipPreset : IGamePrefabAutoRegisterProvider
     {
         public const string DEFAULT_ID = "universal_ui_toolkit_tooltip_ui";

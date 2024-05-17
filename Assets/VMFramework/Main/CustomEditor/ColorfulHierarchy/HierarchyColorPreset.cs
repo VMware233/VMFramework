@@ -7,7 +7,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Editor
 {
-    public class HierarchyColorPreset : BaseConfigClass
+    public class HierarchyColorPreset : BaseConfig
     {
         [LabelText("关键字符")]
         [IsNotNullOrEmpty]

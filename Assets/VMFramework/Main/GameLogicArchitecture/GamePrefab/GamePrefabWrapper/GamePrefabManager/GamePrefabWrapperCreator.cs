@@ -19,7 +19,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
                 throw new ArgumentNullException(nameof(gamePrefabType));
             }
 
-            if (gamePrefabType.CreateInstance() is not IGamePrefab gamePrefab)
+            if (gamePrefabType.TryCreateInstance() is not IGamePrefab gamePrefab)
             {
                 throw new Exception($"Could not create instance of {gamePrefabType.Name}.");
             }

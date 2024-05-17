@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
-    public interface IChooserConfig : IBaseConfigClass
+    public interface IChooserConfig : IConfig, IChooser
     {
-        public void Init();
-        
         public void RegenerateObjectChooser();
-        
-        public object GetValue();
         
         public IChooser GetObjectChooser();
         
@@ -21,15 +16,8 @@ namespace VMFramework.Configuration
         public IEnumerable GetAvailableValues();
     }
     
-    public interface IChooserConfig<T> : IChooserConfig
+    public interface IChooserConfig<T> : IChooserConfig, IChooser<T>
     {
-        public new T GetValue();
-
-        object IChooserConfig.GetValue()
-        {
-            return GetValue();
-        }
-
         public new IChooser<T> GetObjectChooser();
 
         IChooser IChooserConfig.GetObjectChooser()

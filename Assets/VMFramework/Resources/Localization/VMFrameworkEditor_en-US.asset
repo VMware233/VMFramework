@@ -270,6 +270,10 @@ MonoBehaviour:
     m_Localized: Batch Processor
     m_Metadata:
       m_Items: []
+  - m_Id: 17273153570058240
+    m_Localized: Open Controller Script
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

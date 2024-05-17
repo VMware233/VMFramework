@@ -1,9 +1,6 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+﻿using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace VMFramework.Core
 {

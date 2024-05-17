@@ -94,6 +94,11 @@ namespace VMFramework.GameLogicArchitecture
         {
             base.CheckSettings();
 
+            if (initialGameTypesID == null)
+            {
+                return;
+            }
+
             foreach (var gameTypeID in initialGameTypesID)
             {
                 if (GameType.HasGameType(gameTypeID) == false)

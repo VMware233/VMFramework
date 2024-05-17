@@ -5,27 +5,25 @@ using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
-    public partial class WeightedSelectItemConfig<T> : BaseConfigClass, IWeightedSelectItem<T>, ICloneable
+    public partial class WeightedSelectItemConfig<T> : BaseConfig, IWeightedSelectItem<T>, ICloneable
     {
         [HideLabel]
+        [JsonProperty]
         public T value;
 
-        [LabelText("占比"), LabelWidth(30)]
-        [HorizontalGroup]
+        [LabelText("占比"), LabelWidth(30), HorizontalGroup]
+        [JsonProperty]
         public int ratio;
 
-        [LabelText("概率"), LabelWidth(30)]
-        [SuffixLabel("%", Overlay = true)]
-        [HorizontalGroup]
+        [LabelText("概率"), LabelWidth(30), SuffixLabel("%", Overlay = true), HorizontalGroup]
         [DisplayAsString]
-        [JsonIgnore]
+        [NonSerialized]
         public float probability;
 
-        [HideLabel]
-        [HorizontalGroup]
-        [DisplayAsString]
+        [HideLabel, HorizontalGroup]
         [GUIColor("@Color.yellow")]
-        [JsonIgnore]
+        [DisplayAsString]
+        [NonSerialized]
         public string tag;
 
         public object Clone()

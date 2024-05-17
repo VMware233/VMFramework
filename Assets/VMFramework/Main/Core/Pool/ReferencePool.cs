@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
-namespace VMFramework.Core
+namespace VMFramework.Core.Pool
 {
     #region Interface
 

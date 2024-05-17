@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace VMFramework.UI
@@ -60,9 +61,9 @@ namespace VMFramework.UI
 
             if (tooltipProvider != null)
             {
-                if (tooltipProvider.TryGetTooltipBindGlobalEvent(out var globalEvent))
+                if (tooltipProvider.TryGetTooltipBindGlobalEvent(out var gameEvent))
                 {
-                    globalEvent.OnEnabledStateChangedEvent -= OnGlobalEventEnabledStateChanged;
+                    gameEvent.OnEnabledChangedEvent -= OnGlobalEventEnabledStateChanged;
                 }
 
                 tooltipProvider = null;
@@ -76,6 +77,14 @@ namespace VMFramework.UI
 
         private void FixedUpdate()
         {
+            if (isOpened && isClosing == false)
+            {
+                if (tooltipProvider.isDestroyed)
+                {
+                    this.Close();
+                }
+            }
+            
             if (isOpened)
             {
                 if (dynamicPropertyInfos.Count > 0)
@@ -88,9 +97,9 @@ namespace VMFramework.UI
             }
         }
 
-        private void OnGlobalEventEnabledStateChanged(bool enabled)
+        private void OnGlobalEventEnabledStateChanged(bool previous, bool current)
         {
-            if (enabled == false)
+            if (current == false)
             {
                 this.Close();
             }
@@ -103,14 +112,14 @@ namespace VMFramework.UI
                 return;
             }
 
-            if (tooltipProvider.TryGetTooltipBindGlobalEvent(out var globalEvent))
+            if (tooltipProvider.TryGetTooltipBindGlobalEvent(out var gameEvent))
             {
-                if (globalEvent.enabled == false)
+                if (gameEvent.isEnabled == false)
                 {
                     return;
                 }
 
-                globalEvent.OnEnabledStateChangedEvent += OnGlobalEventEnabledStateChanged;
+                gameEvent.OnEnabledChangedEvent += OnGlobalEventEnabledStateChanged;
             }
 
             if (this.tooltipProvider != null)
@@ -169,10 +178,15 @@ namespace VMFramework.UI
 
         public void Close(ITracingTooltipProvider tooltipProvider)
         {
+            if (isClosing)
+            {
+                Debug.LogWarning("Tooltip is already closing.");
+                return;
+            }
+            
             if (this.tooltipProvider == tooltipProvider)
             {
                 this.Close();
-                this.tooltipProvider = null;
             }
         }
     }

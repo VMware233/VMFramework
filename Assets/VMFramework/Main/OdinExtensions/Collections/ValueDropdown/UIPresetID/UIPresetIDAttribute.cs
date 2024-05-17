@@ -3,34 +3,25 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public class UIPresetIDAttribute : GeneralValueDropdownAttribute
+    public class UIPresetIDAttribute : GamePrefabIDAttribute
     {
-        public readonly Type[] UIPresetTypes;
-
         public bool? IsUnique = null;
-        
-        public UIPresetIDAttribute(params Type[] uiPrefabTypes)
+
+        public UIPresetIDAttribute(params Type[] uiPrefabTypes) : base(uiPrefabTypes.Length == 0
+            ? new[] { typeof(IUIPanelPreset) }
+            : uiPrefabTypes)
         {
-            UIPresetTypes = uiPrefabTypes;
+
         }
 
-        public UIPresetIDAttribute()
+        public UIPresetIDAttribute() : this(typeof(IUIPanelPreset))
         {
-            UIPresetTypes = new[] { typeof(IUIPanelPreset) };
+            
         }
 
-        public UIPresetIDAttribute(bool isUnique, params Type[] uiPrefabTypes)
+        public UIPresetIDAttribute(bool isUnique, params Type[] uiPrefabTypes) : this(uiPrefabTypes)
         {
             IsUnique = isUnique;
-
-            if (uiPrefabTypes.Length == 0)
-            {
-                UIPresetTypes = new[] { typeof(IUIPanelPreset) };
-            }
-            else
-            {
-                UIPresetTypes = uiPrefabTypes;
-            }
         }
     }
 }

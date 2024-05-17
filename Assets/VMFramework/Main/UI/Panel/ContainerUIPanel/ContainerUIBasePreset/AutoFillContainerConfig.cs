@@ -6,7 +6,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public class AutoFillContainerConfig : BaseConfigClass
+    public class AutoFillContainerConfig : BaseConfig
     {
         [HideInInspector]
         public UIToolkitPanelPreset preset;

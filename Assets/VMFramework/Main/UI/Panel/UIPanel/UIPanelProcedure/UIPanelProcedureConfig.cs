@@ -6,7 +6,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
 {
-    public class UIPanelProcedureConfig : BaseConfigClass, IIDOwner
+    public class UIPanelProcedureConfig : BaseConfig, IIDOwner
     {
         [LabelText("流程")]
         [ProcedureID]

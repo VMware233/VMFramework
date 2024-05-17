@@ -270,6 +270,10 @@ MonoBehaviour:
     m_Localized: "\u6279\u5904\u7406"
     m_Metadata:
       m_Items: []
+  - m_Id: 17273153570058240
+    m_Localized: "\u6253\u5F00Controller\u811A\u672C"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

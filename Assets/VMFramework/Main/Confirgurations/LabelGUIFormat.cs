@@ -6,10 +6,11 @@ using VMFramework.Core;
 using VMFramework.Configuration;
 using UnityEngine;
 using UnityEngine.UIElements;
+using VMFramework.Localization;
 using VMFramework.OdinExtensions;
 
 [PreviewComposite]
-public class LabelGUIFormat : BaseConfigClass
+public class LabelGUIFormat : BaseConfig
 {
     [LabelText("覆盖字体风格")]
     public bool overrideFontStyle = false;
@@ -79,7 +80,7 @@ public class LabelGUIFormat : BaseConfigClass
 
         if (overrideFontColor)
         {
-            strList.Add(fontColor.ToString(ColorStringFormat.Name));
+            strList.Add(fontColor.ToLocalizedString(ColorStringFormat.Name));
         }
 
         if (overrideFontSize)

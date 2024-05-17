@@ -9,7 +9,7 @@ namespace VMFramework.Property
 {
     public abstract class PropertyOfGameItem : GameItem, ITracingTooltipProvider
     {
-        protected PropertyConfig propertyConfig => (PropertyConfig)origin;
+        protected PropertyConfig propertyConfig => (PropertyConfig)gamePrefab;
         
         private object _target;
 

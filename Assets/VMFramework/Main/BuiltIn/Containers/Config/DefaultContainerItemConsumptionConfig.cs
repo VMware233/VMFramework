@@ -5,7 +5,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
-    public abstract partial class DefaultContainerItemConsumptionConfig<TItem, TItemPrefab> : BaseConfigClass, 
+    public abstract partial class DefaultContainerItemConsumptionConfig<TItem, TItemPrefab> : BaseConfig, 
         IItemConsumption
         where TItem : IGameItem, IContainerItem
         where TItemPrefab : IGamePrefab

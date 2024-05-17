@@ -357,7 +357,7 @@ namespace VMFramework.UI
             }
         }
 
-        private void OnContainerSizeChanged()
+        private void OnContainerSizeChanged(IContainer container, int currentSize)
         {
             if (config.isDebugging)
             {
@@ -391,7 +391,6 @@ namespace VMFramework.UI
             if (bindContainer != null)
             {
                 bindContainer.OnAfterItemChangedEvent -= OnItemChanged;
-                bindContainer.OnDestroyOnClientEvent -= Close;
                 bindContainer.OnItemCountChangedEvent -= OnItemCountChanged;
                 bindContainer.OnSizeChangedEvent -= OnContainerSizeChanged;
 
@@ -405,7 +404,6 @@ namespace VMFramework.UI
             if (bindContainer != null)
             {
                 bindContainer.OnAfterItemChangedEvent += OnItemChanged;
-                bindContainer.OnDestroyOnClientEvent += Close;
                 bindContainer.OnItemCountChangedEvent += OnItemCountChanged;
                 bindContainer.OnSizeChangedEvent += OnContainerSizeChanged;
 

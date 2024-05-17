@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
-using UnityEngine;
 using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
@@ -10,9 +9,7 @@ namespace VMFramework.GameLogicArchitecture
     {
         public static string GetGameTypeName(string gameTypeId)
         {
-            var gameType = GameType.GetGameType(gameTypeId);
-            
-            return gameType.name;
+            return GameType.GetGameType(gameTypeId)?.name;
         }
         
         /// <summary>

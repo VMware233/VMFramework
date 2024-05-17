@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEngine;
 using VMFramework.Configuration;
-using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.ExtendedTilemap
 {
-    public partial class Limit : BaseConfigClass
+    public sealed partial class Limit : BaseConfig
     {
         [HideLabel]
 #if UNITY_EDITOR

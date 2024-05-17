@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Sirenix.OdinInspector;
-using VMFramework.Core;
 using VMFramework.Localization;
 
 namespace VMFramework.UI

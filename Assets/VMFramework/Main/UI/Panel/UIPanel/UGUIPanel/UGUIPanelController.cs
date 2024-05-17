@@ -67,14 +67,14 @@ namespace VMFramework.UI
         
         protected virtual void OnOpen(IUIPanelController source)
         {
-            
-        }
-        
-        protected override void OnOpenInstantly(IUIPanelController source)
-        {
-            base.OnOpenInstantly(source);
-
-            visualObject.SetActive(true);
+            if (visualObject != null)
+            {
+                visualObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("No visual object found for this panel.");
+            }
         }
 
         #endregion
@@ -91,16 +91,13 @@ namespace VMFramework.UI
 
         protected virtual void OnClose(IUIPanelController source)
         {
-            
-        }
-
-        protected override void OnCloseInstantly(IUIPanelController source)
-        {
-            base.OnCloseInstantly(source);
-
             if (visualObject != null)
             {
                 visualObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("No visual object found for this panel.");
             }
         }
 
