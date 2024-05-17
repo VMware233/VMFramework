@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Core.Pool;
 
-namespace Demo
+namespace VMFramework.Examples
 {
     public class AudioSpawner : UniqueMonoBehaviour<AudioSpawner>
     {

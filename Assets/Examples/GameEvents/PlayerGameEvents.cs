@@ -1,7 +1,7 @@
 ﻿using VMFramework.GameEvents;
 using VMFramework.GameLogicArchitecture;
 
-namespace TH.GameEvents
+namespace VMFramework.Examples
 {
     public static class PlayerGameEvents
     {
