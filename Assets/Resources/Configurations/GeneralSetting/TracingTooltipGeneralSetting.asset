@@ -52,6 +52,4 @@ MonoBehaviour:
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
   <defaultLocalizationTableName>k__BackingField: 
-  defaultTooltipFrameworkType: 0
-  defaultUIToolkitTooltipID: 
-  defaultUGUITooltipID: 
+  defaultTracingTooltipID: universal_ui_toolkit_tooltip_ui

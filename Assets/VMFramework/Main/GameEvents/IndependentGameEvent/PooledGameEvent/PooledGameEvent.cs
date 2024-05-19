@@ -1,10 +1,15 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.GameEvents
 {
-    public partial class GameEvent<TGameEvent>
+    public abstract class PooledGameEvent<TGameEvent> : IndependentGameEvent<TGameEvent>, IDisposable
+        where TGameEvent : PooledGameEvent<TGameEvent>, new()
     {
+        protected static readonly Stack<TGameEvent> pool = new();
+        
         private bool isPropagationStopped = false;
         
         private bool isPropagating = false;
@@ -18,7 +23,7 @@ namespace VMFramework.GameEvents
         {
             if (isEnabled == false)
             {
-                Debug.LogWarning($"GameEvent:{id} is disabled. Cannot propagate.");
+                Debug.LogWarning($"{typeof(TGameEvent)} is disabled. Cannot propagate.");
                 return false;
             }
             
@@ -30,7 +35,7 @@ namespace VMFramework.GameEvents
         {
             if (isPropagating)
             {
-                Debug.LogWarning($"GameEvent:{id} is already propagating. Cannot propagate.");
+                Debug.LogWarning($"Cannot propagate {typeof(TGameEvent)} while it is already propagating.");
                 return;
             }
             
@@ -40,9 +45,10 @@ namespace VMFramework.GameEvents
             }
             
             isPropagating = true;
+            
             isPropagationStopped = false;
 
-            foreach (var set in callbacks.Values)
+            foreach (var (_, set) in GetCallbacks())
             {
                 foreach (var callback in set)
                 {
@@ -63,6 +69,27 @@ namespace VMFramework.GameEvents
         protected virtual void OnPropagationStopped()
         {
             
+        }
+
+        [Button]
+        public static TGameEvent Get()
+        {
+            if (pool.Count > 0)
+            {
+                return pool.Pop();
+            }
+            
+            return new TGameEvent();
+        }
+        
+        public static void Release(TGameEvent gameEvent)
+        {
+            pool.Push(gameEvent);
+        }
+
+        void IDisposable.Dispose()
+        {
+            Release((TGameEvent)this);
         }
     }
 }

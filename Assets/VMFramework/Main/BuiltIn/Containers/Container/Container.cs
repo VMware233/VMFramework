@@ -61,9 +61,10 @@ namespace VMFramework.Containers
             base.OnCreate();
 
             isDestroyed = false;
-            
-            ContainerCreateEvent.SetContainer(this);
-            ContainerCreateEvent.Propagate();
+
+            using var containerCreateEvent = ContainerCreateEvent.Get();
+            containerCreateEvent.SetContainer(this);
+            containerCreateEvent.Propagate();
         }
 
         #endregion
@@ -97,8 +98,9 @@ namespace VMFramework.Containers
                 Debug.LogWarning($"{this} is Destroyed On Client!");
             }
             
-            ContainerDestroyEvent.SetContainer(this);
-            ContainerDestroyEvent.Propagate();
+            using var containerDestroyEvent = ContainerDestroyEvent.Get();
+            containerDestroyEvent.SetContainer(this);
+            containerDestroyEvent.Propagate();
             
             isDestroyed = true;
         }

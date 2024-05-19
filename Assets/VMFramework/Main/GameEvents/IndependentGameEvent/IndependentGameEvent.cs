@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace VMFramework.GameEvents
 {
-    public class SingletonGameEvent<TGameEvent> where TGameEvent : SingletonGameEvent<TGameEvent>, new()
+    public abstract class IndependentGameEvent<TGameEvent>
+        where TGameEvent : IndependentGameEvent<TGameEvent>
     {
-        protected static readonly TGameEvent instance;
-        
         [ShowInInspector]
-        private static readonly SortedDictionary<int, HashSet<Action<TGameEvent>>> callbacks = new();
+        private static readonly SortedDictionary<int, HashSet<Action<TGameEvent>>> _callbacks = new();
         [ShowInInspector]
         private static readonly Dictionary<Delegate, int> callbacksLookup = new();
 
@@ -20,11 +19,6 @@ namespace VMFramework.GameEvents
         public static bool isEnabled => disabledCount <= 0;
 
         public static event IGameEvent.EnabledChangedEventHandler OnEnabledChangedEvent;
-        
-        static SingletonGameEvent()
-        {
-            instance = new TGameEvent();
-        }
 
         #region Enabled
 
@@ -67,7 +61,7 @@ namespace VMFramework.GameEvents
                 return;
             }
             
-            if (callbacks.TryGetValue(priority, out var set))
+            if (_callbacks.TryGetValue(priority, out var set))
             {
                 if (set.Add(callback) == false)
                 {
@@ -82,7 +76,7 @@ namespace VMFramework.GameEvents
             }
 
             set = new() { callback };
-            callbacks.Add(priority, set);
+            _callbacks.Add(priority, set);
             callbacksLookup.Add(callback, priority);
         }
         
@@ -100,61 +94,16 @@ namespace VMFramework.GameEvents
                 return;
             }
             
-            callbacks[priority].Remove(callback);
+            _callbacks[priority].Remove(callback);
             callbacksLookup.Remove(callback);
         }
 
-        #endregion
-
-        #region Propagate
-
-        private static bool isPropagationStopped = false;
-        
-        public void StopPropagation()
+        protected static IEnumerable<(int priority, IEnumerable<Action<TGameEvent>> callbacks)> GetCallbacks()
         {
-            isPropagationStopped = true;
-        }
-
-        protected virtual bool CanPropagate()
-        {
-            if (isEnabled == false)
+            foreach (var (priority, set) in _callbacks)
             {
-                Debug.LogWarning($"{typeof(TGameEvent)} is disabled. Cannot propagate.");
-                return false;
+                yield return (priority, set);
             }
-            
-            return true;
-        }
-
-        [Button]
-        public static void Propagate()
-        {
-            if (instance.CanPropagate() == false)
-            {
-                return;
-            }
-            
-            isPropagationStopped = false;
-
-            foreach (var set in callbacks.Values)
-            {
-                foreach (var callback in set)
-                {
-                    callback(instance);
-                }
-                
-                if (isPropagationStopped)
-                {
-                    break;
-                }
-            }
-            
-            instance.OnPropagationStopped();
-        }
-
-        protected virtual void OnPropagationStopped()
-        {
-            
         }
 
         #endregion

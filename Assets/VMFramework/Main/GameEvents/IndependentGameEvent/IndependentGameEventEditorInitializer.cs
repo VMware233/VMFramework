@@ -6,13 +6,18 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.GameEvents
 {
-    internal sealed class SingleGameEventEditorInitializer : IEditorInitializer
+    internal sealed class IndependentGameEventEditorInitializer : IEditorInitializer
     {
         void IInitializer.OnPreInit(Action onDone)
         {
-            foreach (var derivedClass in typeof(SingletonGameEvent<>).GetDerivedClasses(true, true))
+            foreach (var derivedClass in typeof(IndependentGameEvent<>).GetDerivedClasses(true, true))
             {
                 if (derivedClass.IsGenericType)
+                {
+                    continue;
+                }
+
+                if (derivedClass.IsAbstract)
                 {
                     continue;
                 }

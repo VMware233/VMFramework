@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace VMFramework.GameEvents
 {
-    public partial class GameEvent<TGameEvent>
+    public abstract class SingletonGameEvent<TGameEvent> : IndependentGameEvent<TGameEvent>
+        where TGameEvent : SingletonGameEvent<TGameEvent>, new()
     {
-        private bool isPropagationStopped = false;
+        protected static readonly TGameEvent instance = new();
         
-        private bool isPropagating = false;
+        private static bool isPropagationStopped = false;
+        
+        private static bool isPropagating = false;
         
         public void StopPropagation()
         {
@@ -18,7 +21,7 @@ namespace VMFramework.GameEvents
         {
             if (isEnabled == false)
             {
-                Debug.LogWarning($"GameEvent:{id} is disabled. Cannot propagate.");
+                Debug.LogWarning($"{typeof(TGameEvent)} is disabled. Cannot propagate.");
                 return false;
             }
             
@@ -26,27 +29,28 @@ namespace VMFramework.GameEvents
         }
 
         [Button]
-        public void Propagate()
+        public static void Propagate()
         {
             if (isPropagating)
             {
-                Debug.LogWarning($"GameEvent:{id} is already propagating. Cannot propagate.");
+                Debug.LogWarning($"Cannot propagate {typeof(TGameEvent)} while it is already propagating.");
                 return;
             }
             
-            if (CanPropagate() == false)
+            if (instance.CanPropagate() == false)
             {
                 return;
             }
             
             isPropagating = true;
+            
             isPropagationStopped = false;
 
-            foreach (var set in callbacks.Values)
+            foreach (var (_, set) in GetCallbacks())
             {
                 foreach (var callback in set)
                 {
-                    callback((TGameEvent)this);
+                    callback(instance);
                 }
                 
                 if (isPropagationStopped)
@@ -55,7 +59,7 @@ namespace VMFramework.GameEvents
                 }
             }
             
-            OnPropagationStopped();
+            instance.OnPropagationStopped();
             
             isPropagating = false;
         }

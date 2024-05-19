@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 9197481963319205126, guid: c83e35872b94ba443ae87160918dca80, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -60,7 +61,7 @@ MonoBehaviour:
     - Name: autoOpenOnCreation
       Entry: 5
       Data: false
-    - Name: globalEventDisabledListOnOpen
+    - Name: gameEventDisabledOnOpen
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
@@ -72,21 +73,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: enableCloseInputMapping
+    - Name: enableUICloseGameEvent
       Entry: 5
       Data: false
-    - Name: closeInputMappingID
+    - Name: uiCloseGameEventID
       Entry: 6
       Data: 
-    - Name: enableToggleInputMapping
+    - Name: enableUIGameEvent
       Entry: 5
       Data: false
-    - Name: toggleInputMappingID
+    - Name: uiToggleGameEventID
       Entry: 6
       Data: 
     - Name: visualTree
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: useDefaultPanelSettings
       Entry: 5
       Data: true
@@ -95,7 +96,7 @@ MonoBehaviour:
       Data: 
     - Name: ignoreMouseEvents
       Entry: 5
-      Data: false
+      Data: true
     - Name: closeUIButtonName
       Entry: 6
       Data: 
