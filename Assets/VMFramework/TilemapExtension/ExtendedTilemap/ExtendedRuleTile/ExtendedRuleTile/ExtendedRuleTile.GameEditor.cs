@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using VMFramework.Core.Linq;
 using VMFramework.Editor;
+using VMFramework.Editor.GameEditor;
 
 namespace VMFramework.ExtendedTilemap
 {

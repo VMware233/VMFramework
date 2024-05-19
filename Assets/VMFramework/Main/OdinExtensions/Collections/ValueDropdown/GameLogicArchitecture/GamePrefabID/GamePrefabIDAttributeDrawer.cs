@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 using VMFramework.Editor;
+using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.OdinExtensions

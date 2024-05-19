@@ -5,10 +5,10 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using VMFramework.Core.Editor;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
     [Serializable]
-    public class AuxiliaryTools
+    internal class AuxiliaryTools
     {
         [PropertySpace(SpaceBefore = 50)]
         [Button("打开EditorIcons概览", ButtonSizes.Large)]

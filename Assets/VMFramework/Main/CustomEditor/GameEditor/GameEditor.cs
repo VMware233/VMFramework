@@ -11,9 +11,9 @@ using UnityEngine;
 using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
-    public class GameEditor : OdinMenuEditorWindow
+    internal class GameEditor : OdinMenuEditorWindow
     {
         private readonly AuxiliaryTools auxiliaryTools = new();
 

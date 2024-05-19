@@ -2,9 +2,9 @@
 
 namespace VMFramework.Examples
 {
-    public class UIOpenEvent : PooledGameEvent<UIOpenEvent>
+    public sealed class UIOpenEvent : PooledGameEvent<UIOpenEvent>
     {
-        public string uiID { get; private set; }
+        public string uiID { get; private set; } = null;
         
         public void SetParameters(string uiID)
         {

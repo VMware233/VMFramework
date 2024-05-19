@@ -16,8 +16,7 @@ namespace VMFramework.Editor
                 o is GameObject gameObject && gameObject.IsPrefabAsset());
         }
 
-        protected override IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects)
+        protected override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             return selectedObjects.Where(o =>
                 o is GameObject gameObject && gameObject.IsPrefabAsset());

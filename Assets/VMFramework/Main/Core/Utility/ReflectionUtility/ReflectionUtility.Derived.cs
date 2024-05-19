@@ -37,7 +37,7 @@ namespace VMFramework.Core
 
                     if (baseType.IsGenericTypeDefinition)
                     {
-                        if (t.GetBaseTypes(false, true).Contains(baseType))
+                        if (t.GetAllBaseTypes(false, false, true).Contains(baseType))
                         {
                             derivedTypes.Add(t);
                         }
@@ -213,7 +213,7 @@ namespace VMFramework.Core
 
         #endregion
 
-        #region TypeParents
+        #region Get Base Types
 
         public static IEnumerable<Type> GetBaseTypes(this Type type,
             bool includingInterfaces, bool includingGenericDefinition)

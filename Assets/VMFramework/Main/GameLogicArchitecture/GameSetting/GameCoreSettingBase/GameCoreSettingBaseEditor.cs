@@ -1,12 +1,13 @@
 ﻿#if UNITY_EDITOR
 using VMFramework.Editor;
+using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture.Editor;
 
 namespace VMFramework.GameLogicArchitecture
 {
     public partial class GameCoreSettingBase
     {
-        public static GameEditorGeneralSetting gameEditorGeneralSetting =>
+        internal static GameEditorGeneralSetting gameEditorGeneralSetting =>
             gameCoreSettingsFileBase == null ? null : gameCoreSettingsFileBase.gameEditorGeneralSetting;
 
         public static ColorfulHierarchyGeneralSetting colorfulHierarchyGeneralSetting =>

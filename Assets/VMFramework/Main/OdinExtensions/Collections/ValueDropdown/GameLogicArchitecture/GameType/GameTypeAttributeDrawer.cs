@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
-using VMFramework.Editor;
+using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.OdinExtensions

@@ -41,8 +41,7 @@ namespace VMFramework.Editor
             return selectedObjects.Any();
         }
 
-        protected override IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects)
+        protected override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             return selectedObjects.Where(o =>
                 o.GetType().IsDerivedFrom(queryType, true, false));

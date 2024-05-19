@@ -30,7 +30,7 @@ namespace VMFramework.Editor
             return false;
         }
 
-        protected override IEnumerable<object> OnProcess(IEnumerable<object> selectedObjects)
+        protected override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             foreach (var obj in selectedObjects)
             {

@@ -13,8 +13,7 @@ namespace VMFramework.Editor
             return selectedObjects.Distinct().Count() != selectedObjects.Count;
         }
 
-        protected override IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects)
+        protected override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             return selectedObjects.Distinct();
         }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using VMFramework.GameLogicArchitecture;
+using VMFramework.OdinExtensions;
 
 namespace VMFramework.Editor
 {
-    internal class GamePrefabViewerContainer : SerializedScriptableObject
+    internal class GamePrefabViewerContainer : SimpleOdinEditorWindowContainer
     {
         [Searchable]
         [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true)]
@@ -17,8 +18,10 @@ namespace VMFramework.Editor
         [ShowInInspector]
         public List<string> gamePrefabIDs = new();
 
-        public void Init()
+        public override void Init()
         {
+            base.Init();
+            
             gamePrefabs.AddRange(GamePrefabManager.GetAllGamePrefabs());
             gamePrefabIDs.AddRange(GamePrefabManager.GetAllIDs());
             

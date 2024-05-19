@@ -14,8 +14,7 @@ namespace VMFramework.Editor
             return selectedObjects.Any(o => o is Object);
         }
 
-        protected sealed override IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects)
+        protected sealed override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             foreach (var o in selectedObjects)
             {

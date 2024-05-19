@@ -6,7 +6,7 @@ using UnityEngine;
 using VMFramework.Procedure;
 using VMFramework.Procedure.Editor;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
     internal sealed class GameEditorInitializer : IEditorInitializer
     {

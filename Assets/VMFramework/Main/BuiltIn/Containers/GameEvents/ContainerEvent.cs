@@ -2,7 +2,7 @@
 
 namespace VMFramework.Containers
 {
-    public class ContainerEvent<TContainerEvent> : PooledGameEvent<TContainerEvent>
+    public abstract class ContainerEvent<TContainerEvent> : PooledGameEvent<TContainerEvent>
         where TContainerEvent : ContainerEvent<TContainerEvent>, new()
     {
         public IContainer container { get; private set; }

@@ -40,7 +40,6 @@ MonoBehaviour:
   debugUIPanelGeneralSetting: {fileID: 11400000, guid: 6bf79c83c07b6504b881f225569b8ded, type: 2}
   tracingTooltipGeneralSetting: {fileID: 11400000, guid: fa26d3fdb64fa9149b0afdc6e1c3f817, type: 2}
   contextMenuGeneralSetting: {fileID: 11400000, guid: 05e93a476eba2b44c86b2f7a8dfaccd7, type: 2}
-  gameEditorGeneralSetting: {fileID: 11400000, guid: 26eb054d572a052448f75d5ad15087d1, type: 2}
   colorfulHierarchyGeneralSetting: {fileID: 11400000, guid: 80681d922214ba447a23af1a198b4688, type: 2}
   hierarchyComponentIconGeneralSetting: {fileID: 11400000, guid: 7ef72e20a29a6ac48bc118acd4652db1, type: 2}
   textureImporterGeneralSetting: {fileID: 11400000, guid: 48d6dc05649e0284ba23cb651631a79d, type: 2}

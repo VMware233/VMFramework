@@ -1,6 +1,6 @@
-﻿using VMFramework.Core;
+﻿#if UNITY_EDITOR
+using VMFramework.Core;
 
-#if UNITY_EDITOR
 namespace VMFramework.Editor
 {
     public partial class ColorfulHierarchyGeneralSetting

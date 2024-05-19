@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using VMFramework.Localization;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
     public static class GameEditorNames
     {

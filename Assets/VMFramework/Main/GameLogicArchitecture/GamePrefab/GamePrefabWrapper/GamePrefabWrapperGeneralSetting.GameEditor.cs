@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using VMFramework.Editor;
+using VMFramework.Editor.GameEditor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {

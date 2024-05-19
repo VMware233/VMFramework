@@ -19,8 +19,7 @@ namespace VMFramework.Editor
             return selectedObjects.Any(obj => obj is Object);
         }
 
-        protected override IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects)
+        protected override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             return selectedObjects.Where(o =>
                 o is Object obj && obj.name.Contains(queryContent));

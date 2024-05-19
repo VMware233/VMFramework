@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Localization;
 

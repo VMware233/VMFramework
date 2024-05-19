@@ -23,7 +23,6 @@ namespace VMFramework.Editor
                 OnProcess(selectedObjects));
         }
 
-        protected abstract IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects);
+        protected abstract IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects);
     }
 }

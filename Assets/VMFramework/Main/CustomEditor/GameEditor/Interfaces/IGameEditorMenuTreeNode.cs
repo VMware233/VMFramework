@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
     public interface IGameEditorMenuTreeNode : INameOwner
     {

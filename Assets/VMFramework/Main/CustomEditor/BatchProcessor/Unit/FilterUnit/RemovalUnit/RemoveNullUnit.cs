@@ -13,8 +13,7 @@ namespace VMFramework.Editor
             return selectedObjects.Any(o => o == null);
         }
 
-        protected override IEnumerable<object> OnProcess(
-            IEnumerable<object> selectedObjects)
+        protected override IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects)
         {
             return selectedObjects.Where(o => o != null);
         }

@@ -1,9 +1,9 @@
 ﻿#if UNITY_EDITOR
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
-    public sealed partial class GameEditorGeneralSetting : GeneralSettingBase
+    internal sealed partial class GameEditorGeneralSetting : GeneralSettingBase
     {
         public int autoStackMenuTreeNodesMaxCount = 8;
     }

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿#if UNITY_EDITOR
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.Editor
@@ -46,3 +47,4 @@ namespace VMFramework.Editor
         public static implicit operator Icon(Texture textureIcon) => new(textureIcon);
     }
 }
+#endif

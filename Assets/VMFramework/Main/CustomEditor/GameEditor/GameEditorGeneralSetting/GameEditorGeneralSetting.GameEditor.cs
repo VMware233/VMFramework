@@ -2,9 +2,9 @@
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Localization;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
-    public partial class GameEditorGeneralSetting : IGameEditorMenuTreeNode
+    internal partial class GameEditorGeneralSetting : IGameEditorMenuTreeNode
     {
         string INameOwner.name => new LocalizedTempString()
         {

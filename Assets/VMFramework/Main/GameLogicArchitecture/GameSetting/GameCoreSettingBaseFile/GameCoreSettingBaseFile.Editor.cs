@@ -7,6 +7,7 @@ using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.Editor;
+using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture.Editor;
 using EditorUtility = UnityEditor.EditorUtility;
 
@@ -16,7 +17,7 @@ namespace VMFramework.GameLogicArchitecture
     {
         [LabelText("游戏编辑器"), TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
         [Required]
-        public GameEditorGeneralSetting gameEditorGeneralSetting;
+        internal GameEditorGeneralSetting gameEditorGeneralSetting;
 
         [LabelText("带颜色的层级"), TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
         [Required]

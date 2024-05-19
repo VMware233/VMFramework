@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VMFramework.Editor
+namespace VMFramework.Editor.GameEditor
 {
     public interface IGameEditorToolBarProvider
     {

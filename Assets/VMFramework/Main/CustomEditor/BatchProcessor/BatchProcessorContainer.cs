@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -83,3 +84,5 @@ namespace VMFramework.Editor
         }
     }
 }
+
+#endif
