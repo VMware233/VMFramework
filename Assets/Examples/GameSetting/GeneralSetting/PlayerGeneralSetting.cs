@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VMFramework.Configuration;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
@@ -9,5 +10,7 @@ namespace VMFramework.Examples
         [field: Layer]
         [field: SerializeField]
         public int playerLayer { get; private set; }
+        
+        public IVectorChooserConfig<int> defaultAttack;
     }
 }
