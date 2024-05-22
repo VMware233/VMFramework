@@ -1,4 +1,5 @@
 ﻿using UnityEngine.Localization;
+using VMFramework.Configuration;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.UI
@@ -14,12 +15,12 @@ namespace VMFramework.UI
 
         protected virtual void OnCurrentLanguageChanged(Locale currentLocale)
         {
-            if (GameCoreSettingBase.uiPanelGeneralSetting.enableLanguageConfigs)
+            if (GameCoreSetting.uiPanelGeneralSetting.enableLanguageConfigs)
             {
                 if (lastLocale != null)
                 {
                     var previousLanguageConfig =
-                        GameCoreSettingBase.uiPanelGeneralSetting.languageConfigs.GetConfig(currentLocale
+                        GameCoreSetting.uiPanelGeneralSetting.languageConfigs.GetConfig(currentLocale
                             .Identifier.Code);
         
                     if (previousLanguageConfig != null)
@@ -31,7 +32,7 @@ namespace VMFramework.UI
                 lastLocale = currentLocale;
         
                 var currentLanguageConfig =
-                    GameCoreSettingBase.uiPanelGeneralSetting.languageConfigs.GetConfig(currentLocale
+                    GameCoreSetting.uiPanelGeneralSetting.languageConfigs.GetConfig(currentLocale
                         .Identifier.Code);
         
                 if (currentLanguageConfig != null)

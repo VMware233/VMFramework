@@ -1,4 +1,4 @@
-﻿#if DOTWEEN
+﻿#if DOTWEEN && UNITASK_DOTWEEN_SUPPORT
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;

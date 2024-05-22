@@ -1,6 +1,9 @@
-﻿using VMFramework.Core;
+﻿using System;
+using VMFramework.Core;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.Procedure
@@ -8,6 +11,11 @@ namespace VMFramework.Procedure
     public abstract class LoadingProcedure : ProcedureBase
     { 
         public abstract string nextProcedureID { get; }
+        
+        private readonly HashSet<IGameInitializer> leftInitializers = new();
+        
+        [ShowInInspector]
+        private List<Type> leftInitializersTypes => leftInitializers.Select(i => i.GetType()).ToList();
         
         public sealed override void OnEnter()
         {
@@ -44,46 +52,18 @@ namespace VMFramework.Procedure
             {
                 Debug.Log($"初始化器 {initializer} 开始初始化");
             }
-            
-            int beforeInitDoneCount = 0;
-            foreach (var initializer in initializers)
+
+            foreach (InitializeType initializeType in Enum.GetValues(typeof(InitializeType)))
             {
-                initializer.OnBeforeInit(() => beforeInitDoneCount++);
+                leftInitializers.UnionWith(initializers);
+
+                foreach (var initializer in initializers)
+                {
+                    initializer.Initialize(initializeType, () => leftInitializers.Remove(initializer));
+                }
+                
+                await UniTask.WaitUntil(() => leftInitializers.Count == 0);
             }
-
-            await UniTask.WaitUntil(() => beforeInitDoneCount == initializers.Count);
-
-            int preInitDoneCount = 0;
-            foreach (var initializer in initializers)
-            {
-                initializer.OnPreInit(() => preInitDoneCount++);
-            }
-
-            await UniTask.WaitUntil(() => preInitDoneCount == initializers.Count);
-
-            int initDoneCount = 0;
-            foreach (var initializer in initializers)
-            {
-                initializer.OnInit(() => initDoneCount++);
-            }
-
-            await UniTask.WaitUntil(() => initDoneCount == initializers.Count);
-
-            int postInitDoneCount = 0;
-            foreach (var initializer in initializers)
-            {
-                initializer.OnPostInit(() => postInitDoneCount++);
-            }
-
-            await UniTask.WaitUntil(() => postInitDoneCount == initializers.Count);
-
-            int initCompleteDoneCount = 0;
-            foreach (var initializer in initializers)
-            {
-                initializer.OnInitComplete(() => initCompleteDoneCount++);
-            }
-
-            await UniTask.WaitUntil(() => initCompleteDoneCount == initializers.Count);
         }
 
         protected void EnterNextProcedure()

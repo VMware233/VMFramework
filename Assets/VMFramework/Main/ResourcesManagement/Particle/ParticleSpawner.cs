@@ -33,7 +33,7 @@ namespace VMFramework.ResourcesManagement
                 var id = allParticleIDs[particle];
                 var pool = allPools[id];
 
-                particle.transform.SetParent(GameCoreSettingBase.particleGeneralSetting.container);
+                particle.transform.SetParent(GameCoreSetting.particleGeneralSetting.container);
                 pool.Return(particle);
             }
         }
@@ -61,7 +61,7 @@ namespace VMFramework.ResourcesManagement
             }
 
             var container = parent == null
-                ? GameCoreSettingBase.particleGeneralSetting.container
+                ? GameCoreSetting.particleGeneralSetting.container
                 : parent;
 
             var newParticleSystem = pool.Get(registeredParticle.particlePrefab, container);
@@ -98,7 +98,7 @@ namespace VMFramework.ResourcesManagement
             [GamePrefabID(typeof(ParticlePreset))]
             string id, float duration)
         {
-            GameCoreSettingBase.particleGeneralSetting.SetDuration(id,
+            GameCoreSetting.particleGeneralSetting.SetDuration(id,
                 duration);
         }
     }

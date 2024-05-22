@@ -16,12 +16,12 @@ namespace VMFramework.Editor
                 return;
             }
 
-            if (GameCoreSettingBase.textureImporterGeneralSetting == null)
+            if (GameCoreSetting.textureImporterGeneralSetting == null)
             {
                 return;
             }
 
-            foreach (var configuration in GameCoreSettingBase.textureImporterGeneralSetting.configurations)
+            foreach (var configuration in GameCoreSetting.textureImporterGeneralSetting.configurations)
             {
                 if (configuration.isOn == false)
                 {

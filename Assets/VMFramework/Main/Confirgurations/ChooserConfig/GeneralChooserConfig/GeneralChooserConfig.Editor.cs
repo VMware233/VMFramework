@@ -1,4 +1,5 @@
-﻿namespace VMFramework.Configuration
+﻿#if UNITY_EDITOR
+namespace VMFramework.Configuration
 {
     public partial class GeneralChooserConfig<T>
     {
@@ -12,3 +13,4 @@
         }
     }
 }
+#endif

@@ -5,41 +5,42 @@ using UnityEngine;
 
 namespace VMFramework.GameLogicArchitecture
 {
-    public abstract partial class GamePrefabGeneralSetting : GeneralSettingBase, IInitialGamePrefabProvider
+    public abstract partial class GamePrefabGeneralSetting : GeneralSetting, IInitialGamePrefabProvider
     {
         #region Categories
 
-        protected const string INITIAL_GAME_PREFABS_CATEGORY = "初始GamePrefab";
+        protected const string INITIAL_GAME_PREFABS_CATEGORY = "Initial GamePrefabs";
 
-        protected const string GAME_TYPE_CATEGORY = "游戏种类";
+        protected const string GAME_TYPE_CATEGORY = "Game Type";
 
         #endregion
         
         #region Setting Metadata
 
-        [LabelText("GamePrefab名称"), TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
         public virtual string gamePrefabName => baseGamePrefabType.Name;
 
-        [LabelText("GameItem名称"), TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
         public virtual string gameItemName { get; } = "Undefined Game Item Name";
 
-        [LabelText("GamePrefab文件夹路径"), TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
         public string gamePrefabDirectoryPath =>
             ConfigurationPath.GAME_PREFAB_DIRECTORY_PATH + "/" + gamePrefabName;
         
-        [LabelText("GamePrefab类型"), TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
         public abstract Type baseGamePrefabType { get; }
 
         #endregion
 
 #if UNITY_EDITOR
-        [LabelText("初始GamePrefab"),
+        [LabelText("Initial GamePrefab"),
          TabGroup(TAB_GROUP_NAME, INITIAL_GAME_PREFABS_CATEGORY, SdfIconType.Info, TextColor = "blue")]
         [OnCollectionChanged(nameof(OnInitialGamePrefabWrappersChanged))]
+        [Searchable]
 #endif
         [SerializeField]
         private List<GamePrefabWrapper> initialGamePrefabWrappers = new();

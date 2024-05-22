@@ -15,11 +15,11 @@ namespace VMFramework.GameEvents
         
         private const string Y_CATEGORY = "Y";
         
-        [LabelText("参数模值不超过1"), TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
         [JsonProperty]
         public bool isMagnitudeLessThan1 = true;
 
-        [LabelText("是否输入传入Axis给X值"), TabGroup(XY_TAB_GROUP, X_CATEGORY)]
+        [TabGroup(XY_TAB_GROUP, X_CATEGORY)]
         [JsonProperty]
         public bool isXFromAxis = false;
 
@@ -29,7 +29,7 @@ namespace VMFramework.GameEvents
         public InputAxisType xInputAxisType;
 
 #if UNITY_EDITOR
-        [LabelText("X正值动作组"), TabGroup(XY_TAB_GROUP, X_CATEGORY)]
+        [TabGroup(XY_TAB_GROUP, X_CATEGORY)]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
         [HideIf(nameof(isXFromAxis))]
 #endif
@@ -37,14 +37,14 @@ namespace VMFramework.GameEvents
         public List<InputActionGroup> xPositiveActionGroups = new();
 
 #if UNITY_EDITOR
-        [LabelText("X负值动作组"), TabGroup(XY_TAB_GROUP, X_CATEGORY)]
+        [TabGroup(XY_TAB_GROUP, X_CATEGORY)]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
         [HideIf(nameof(isXFromAxis))]
 #endif
         [JsonProperty]
         public List<InputActionGroup> xNegativeActionGroups = new();
 
-        [LabelText("是否输入传入Axis给Y值"), TabGroup(XY_TAB_GROUP, Y_CATEGORY)]
+        [TabGroup(XY_TAB_GROUP, Y_CATEGORY)]
         [JsonProperty]
         public bool isYFromAxis = false;
 
@@ -54,7 +54,7 @@ namespace VMFramework.GameEvents
         public InputAxisType yInputAxisType;
 
 #if UNITY_EDITOR
-        [LabelText("Y正值动作组"), TabGroup(XY_TAB_GROUP, Y_CATEGORY)]
+        [TabGroup(XY_TAB_GROUP, Y_CATEGORY)]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
         [HideIf(nameof(isYFromAxis))]
 #endif
@@ -62,7 +62,7 @@ namespace VMFramework.GameEvents
         public List<InputActionGroup> yPositiveActionGroups = new();
 
 #if UNITY_EDITOR
-        [LabelText("Y负值动作组"), TabGroup(XY_TAB_GROUP, Y_CATEGORY)]
+        [TabGroup(XY_TAB_GROUP, Y_CATEGORY)]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
         [HideIf(nameof(isYFromAxis))]
 #endif

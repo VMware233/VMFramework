@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using VMFramework.GameEvents;
+using VMFramework.Network;
 using VMFramework.Procedure;
 
 namespace VMFramework.Containers
@@ -23,12 +24,6 @@ namespace VMFramework.Containers
                 Debug.LogError("Container is null in ContainerCreateEvent");
                 return;
             }
-
-            if (instance.IsServerStarted)
-            {
-                string uuid = Guid.NewGuid().ToString();
-                gameEvent.container.SetUUID(uuid);
-            }
             
             gameEvent.container.OnOpenEvent += OnContainerOpen;
             gameEvent.container.OnCloseEvent += OnContainerClose;
@@ -45,7 +40,7 @@ namespace VMFramework.Containers
             gameEvent.container.OnOpenEvent -= OnContainerOpen;
             gameEvent.container.OnCloseEvent -= OnContainerClose;
             
-            Unregister(gameEvent.container);
+            UUIDCoreManager.Unregister(gameEvent.container);
         }
         
         private static void OnContainerOpen(IContainer container)

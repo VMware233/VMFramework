@@ -7,11 +7,16 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial interface IGameItem : IIDOwner, INameOwner, IReadOnlyGameTypeOwner
     {
+        public static event Action<IGameItem> OnGameItemCreated;
+        public static event Action<IGameItem> OnGameItemDestroyed;
+        
         protected IGameTypedGamePrefab origin { get; set; }
 
         string INameOwner.name => origin.name;
         
         public bool isDebugging => origin.isDebugging;
+        
+        public bool isDestroyed { get; protected set; }
 
         #region Create
 
@@ -33,7 +38,11 @@ namespace VMFramework.GameLogicArchitecture
             
             gameItem.origin = gamePrefab;
             
+            gameItem.isDestroyed = false;
+            
             gameItem.OnCreateGameItem();
+            
+            OnGameItemCreated?.Invoke(gameItem);
             
             return gameItem;
         }
@@ -42,6 +51,33 @@ namespace VMFramework.GameLogicArchitecture
         public static TGameItem Create<TGameItem>(string id) where TGameItem : IGameItem
         {
             return (TGameItem)Create(id);
+        }
+
+        #endregion
+
+        #region Destroy
+
+        protected void OnDestroyGameItem();
+
+        public static void Destroy(IGameItem gameItem)
+        {
+            if (gameItem == null)
+            {
+                Debug.LogWarning("GameItem is null.");
+                return;
+            }
+            
+            if (gameItem.isDestroyed)
+            {
+                Debug.LogWarning($"GameItem with id: {gameItem.id} has already been destroyed.");
+                return;
+            }
+            
+            gameItem.OnDestroyGameItem();
+            
+            gameItem.isDestroyed = true;
+            
+            OnGameItemDestroyed?.Invoke(gameItem);
         }
 
         #endregion

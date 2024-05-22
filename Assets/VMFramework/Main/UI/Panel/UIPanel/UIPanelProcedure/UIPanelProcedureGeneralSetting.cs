@@ -5,7 +5,7 @@ using VMFramework.Procedure;
 
 namespace VMFramework.UI
 {
-    public sealed partial class UIPanelProcedureGeneralSetting : GeneralSettingBase
+    public sealed partial class UIPanelProcedureGeneralSetting : GeneralSetting
     {
         private const string PROCEDURE_CATEGORY = "流程配置";
         

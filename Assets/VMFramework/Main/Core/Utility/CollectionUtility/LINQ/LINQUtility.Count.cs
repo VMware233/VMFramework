@@ -17,6 +17,21 @@ namespace VMFramework.Core.Linq
         #endregion
 
         #region Unique Count
+        
+        public static bool IsUnique<T>(this IEnumerable<T> enumerable)
+        {
+            var hashSet = new HashSet<T>();
+
+            foreach (var item in enumerable)
+            {
+                if (hashSet.Add(item) == false)
+                {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
 
         public static int UniqueCount<T>(this IEnumerable<T> enumerable)
         {

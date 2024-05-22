@@ -1,12 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
 {
     public partial class GameType 
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetGameType(string typeID, out GameType gameType)
+        {
+            gameType = GetGameType(typeID);
+            return gameType != null;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetGameTypeWithWarning(string typeID, out GameType gameType)
+        {
+            gameType = GetGameType(typeID);
+            
+            if (gameType == null)
+            {
+                Debug.LogWarning($"The Game Type with ID:{typeID} does not exist!");
+                return false;
+            }
+            
+            return true;
+        }
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameType GetGameType(string typeID)
         {

@@ -9,7 +9,6 @@ namespace VMFramework.GameEvents
     public partial class InputActionGroup : BaseConfig
     {
 #if UNITY_EDITOR
-        [LabelText("输入动作")]
         [ListDrawerSettings(ShowFoldout = false, DefaultExpandedState = true,
             CustomAddFunction = nameof(AddInputActionToListGUI))]
 #endif

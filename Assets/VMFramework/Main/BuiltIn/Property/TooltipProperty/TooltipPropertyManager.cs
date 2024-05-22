@@ -43,7 +43,7 @@ namespace VMFramework.Property
             var result = new List<InstanceTooltipPropertyConfigRuntime>();
 
             foreach (var (instanceType, tooltipPropertyConfig) in
-                     GameCoreSettingBase.tooltipPropertyGeneralSetting.tooltipPropertyConfigs)
+                     GameCoreSetting.tooltipPropertyGeneralSetting.tooltipPropertyConfigs)
             {
                 if (currentInstanceType.IsDerivedFrom(instanceType, true))
                 {

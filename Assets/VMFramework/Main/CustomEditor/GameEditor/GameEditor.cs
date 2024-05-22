@@ -21,7 +21,7 @@ namespace VMFramework.Editor.GameEditor
         [Shortcut("Open Game Editor", KeyCode.G, ShortcutModifiers.Shift)]
         private static void OpenWindow()
         {
-            GameCoreSettingBaseFile.CheckGlobal();
+            GameCoreSettingFile.CheckGlobal();
 
             var editorName = GameEditorNames.gameEditorName;
             var window = CreateWindow<GameEditor>(editorName);
@@ -30,14 +30,14 @@ namespace VMFramework.Editor.GameEditor
         
         protected override OdinMenuTree BuildMenuTree()
         {
-            if (GameCoreSettingBase.gameCoreSettingsFileBase == null)
+            if (GameCoreSetting.gameCoreSettingsFile == null)
             {
                 return new OdinMenuTree(true);
             }
 
-            GameCoreSettingBase.gameCoreSettingsFileBase.AutoFindSetting();
+            GameCoreSetting.gameCoreSettingsFile.AutoFindSetting();
 
-            var gameEditorSetting = GameCoreSettingBase.gameEditorGeneralSetting;
+            var gameEditorSetting = GameCoreSetting.gameEditorGeneralSetting;
 
             var auxiliaryToolsCategoryName = GameEditorNames.auxiliaryToolsCategoryName;
             var generalSettingsCategoryName = GameEditorNames.generalSettingsCategoryName;
@@ -46,7 +46,7 @@ namespace VMFramework.Editor.GameEditor
             {
                 { auxiliaryToolsCategoryName, auxiliaryTools, EditorIcons.HamburgerMenu },
                 {
-                    generalSettingsCategoryName, GameCoreSettingBase.gameCoreSettingsFileBase,
+                    generalSettingsCategoryName, GameCoreSetting.gameCoreSettingsFile,
                     SdfIconType.GearFill
                 },
                 {
@@ -71,9 +71,9 @@ namespace VMFramework.Editor.GameEditor
             tree.DefaultMenuStyle.IconSize = 24.00f;
             tree.Config.DrawSearchToolbar = true;
 
-            var generalSettingsPathDict = new Dictionary<GeneralSettingBase, string>();
+            var generalSettingsPathDict = new Dictionary<GeneralSetting, string>();
 
-            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
             {
                 if (generalSetting is not IGameEditorMenuTreeNode generalSettingNode)
                 {

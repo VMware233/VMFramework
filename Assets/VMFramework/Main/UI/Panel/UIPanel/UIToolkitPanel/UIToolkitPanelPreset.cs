@@ -11,7 +11,7 @@ namespace VMFramework.UI
 {
     public class UIToolkitPanelPreset : UIPanelPreset, IUIToolkitUIPanelPreset
     {
-        public const string UI_TOOLKIT_PANEL_CATEGORY = "UI Toolkit面板设置";
+        public const string UI_TOOLKIT_PANEL_CATEGORY = "UI Toolkit";
 
         public override Type controllerType => typeof(UIToolkitPanelController);
 
@@ -22,36 +22,31 @@ namespace VMFramework.UI
             {
                 if (useDefaultPanelSettings)
                 {
-                    return GameCoreSettingBase.uiPanelGeneralSetting.GetPanelSetting(sortingOrder);
+                    return GameCoreSetting.uiPanelGeneralSetting.GetPanelSetting(sortingOrder);
                 }
 
                 return customPanelSettings;
             }
         }
 
-        [LabelText("UI模板")]
-        [SuffixLabel("UXML文件")]
+        [SuffixLabel("UXML File")]
         [TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY, SdfIconType.ColumnsGap, TextColor = "red")]
         [Required]
         public VisualTreeAsset visualTree;
 
-        [LabelText("使用默认的面板设置")]
         [TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
         [JsonProperty]
         public bool useDefaultPanelSettings = true;
 
-        [LabelText("自定义的面板设置")]
         [TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
         [HideIf(nameof(useDefaultPanelSettings))]
         [Required]
         public PanelSettings customPanelSettings;
 
-        [LabelText("所有节点忽略鼠标事件")]
         [TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
         [JsonProperty]
         public bool ignoreMouseEvents;
 
-        [LabelText("关闭按钮名称")]
         [TabGroup(TAB_GROUP_NAME, UI_TOOLKIT_PANEL_CATEGORY)]
         [VisualElementName(typeof(Button), typeof(BasicButton))]
         [JsonProperty]

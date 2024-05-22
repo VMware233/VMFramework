@@ -7,7 +7,7 @@ namespace VMFramework.UI
     {
         public override Type controllerType => typeof(UGUIPopupTextController);
 
-        [LabelText("文本名称"), TabGroup(TAB_GROUP_NAME, POPUP_SETTING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, POPUP_SETTING_CATEGORY)]
         [ValueDropdown(nameof(GetPrefabChildrenNamesOfTextMeshProUGUI))]
         public string textName;
     }

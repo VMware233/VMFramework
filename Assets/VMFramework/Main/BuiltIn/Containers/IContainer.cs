@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using VMFramework.GameLogicArchitecture;
-using VMFramework.Network;
 
 namespace VMFramework.Containers
 {
     public partial interface IContainer : IGameItem
     {
         public bool isOpen { get; }
-
-        public bool isDestroyed { get; }
 
         public int size { get; }
 

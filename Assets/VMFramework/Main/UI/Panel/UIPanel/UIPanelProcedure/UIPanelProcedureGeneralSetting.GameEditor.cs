@@ -15,7 +15,7 @@ namespace VMFramework.UI
         };
 
         string IGameEditorMenuTreeNode.folderPath =>
-            (GameCoreSettingBase.uiPanelGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
+            (GameCoreSetting.uiPanelGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
     }
 }
 #endif

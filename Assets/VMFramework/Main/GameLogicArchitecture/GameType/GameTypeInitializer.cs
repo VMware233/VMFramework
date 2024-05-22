@@ -10,8 +10,8 @@ namespace VMFramework.GameLogicArchitecture
     {
         public void OnBeforeInit(Action onDone)
         {
-            GameCoreSettingBase.gameTypeGeneralSetting.CheckGameTypeInfo();
-            GameCoreSettingBase.gameTypeGeneralSetting.InitGameTypeInfo();
+            GameCoreSetting.gameTypeGeneralSetting.CheckGameTypeInfo();
+            GameCoreSetting.gameTypeGeneralSetting.InitGameTypeInfo();
             
             onDone();
         }

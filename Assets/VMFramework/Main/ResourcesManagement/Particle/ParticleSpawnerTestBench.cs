@@ -1,11 +1,12 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.OdinExtensions;
 
 namespace VMFramework.ResourcesManagement
 {
     public class ParticleSpawnerTestBench : MonoBehaviour
     {
-        [ValueDropdown("@GameCoreSettingBase.particleSpawnerGeneralSetting.GetPrefabNameList()")]
+        [GamePrefabID(typeof(ParticlePreset))]
         public string id;
 
         public Vector3 pos;

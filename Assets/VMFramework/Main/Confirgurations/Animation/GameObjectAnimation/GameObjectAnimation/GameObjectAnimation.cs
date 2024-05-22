@@ -25,7 +25,7 @@ namespace VMFramework.Configuration.Animation
                 return 0;
             }
 
-            return clips.Max(clip => clip.GetStartTime() + clip.GetDuration());
+            return clips.Max(clip => clip != null ? clip.GetStartTime() + clip.GetDuration() : 0);
         }
         
         public void Run(Transform target, CancellationToken token = default)

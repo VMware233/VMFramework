@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -47,3 +48,4 @@ namespace VMFramework.Editor
         protected abstract string ProcessAssetNameTwo(string oldName);
     }
 }
+#endif

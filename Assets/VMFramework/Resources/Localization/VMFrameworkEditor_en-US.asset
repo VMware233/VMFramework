@@ -247,31 +247,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 11488716261535744
-    m_Localized: Save
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488772188385280
-    m_Localized: Save All
+    m_Localized: Save{0}
     m_Metadata:
       m_Items: []
   - m_Id: 11488820183805952
-    m_Localized: Open Script
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488909107245056
-    m_Localized: Open Game Prefab Script
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488994314530816
-    m_Localized: Open Game Item Script
+    m_Localized: Open{0}Script
     m_Metadata:
       m_Items: []
   - m_Id: 12586154460295168
     m_Localized: Batch Processor
-    m_Metadata:
-      m_Items: []
-  - m_Id: 17273153570058240
-    m_Localized: Open Controller Script
     m_Metadata:
       m_Items: []
   references:

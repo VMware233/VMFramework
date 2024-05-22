@@ -20,14 +20,14 @@ namespace VMFramework.GameLogicArchitecture
 
         protected override IEnumerable<IGameEditorToolBarProvider.ToolbarButtonConfig> GetToolbarButtons()
         {
-            yield return new(GameEditorNames.openGamePrefabScriptButtonName, OpenGamePrefabScript);
+            yield return new(EditorNames.openGamePrefabScriptButtonName, OpenGamePrefabScript);
             
             foreach (var config in base.GetToolbarButtons())
             {
                 yield return config;
             }
 
-            yield return new(GameEditorNames.saveAllButtonName, SaveAllGamePrefabs);
+            yield return new(EditorNames.saveAllButtonName, SaveAllGamePrefabs);
         }
 
         private void OpenGamePrefabScript()

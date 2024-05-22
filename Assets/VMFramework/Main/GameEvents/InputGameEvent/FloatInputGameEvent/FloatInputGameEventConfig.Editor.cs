@@ -20,12 +20,12 @@ namespace VMFramework.GameEvents
             isFromAxis = false;
 
             positiveActionGroups.Clear();
-            positiveActionGroups.Add(new(KeyCode.D, KeyBoardTriggerType.KeyStay));
-            positiveActionGroups.Add(new(KeyCode.RightArrow, KeyBoardTriggerType.KeyStay));
+            positiveActionGroups.Add(new(KeyCode.D, KeyBoardTriggerType.IsPressing));
+            positiveActionGroups.Add(new(KeyCode.RightArrow, KeyBoardTriggerType.IsPressing));
 
             negativeActionGroups.Clear();
-            negativeActionGroups.Add(new(KeyCode.A, KeyBoardTriggerType.KeyStay));
-            negativeActionGroups.Add(new(KeyCode.LeftArrow, KeyBoardTriggerType.KeyStay));
+            negativeActionGroups.Add(new(KeyCode.A, KeyBoardTriggerType.IsPressing));
+            negativeActionGroups.Add(new(KeyCode.LeftArrow, KeyBoardTriggerType.IsPressing));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace VMFramework.GameLogicArchitecture
     {
         #region Configs
 
-        [LabelText("名称", SdfIconType.FileEarmarkPersonFill),
+        [LabelText(SdfIconType.FileEarmarkPersonFill),
          TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [JsonProperty(Order = -5000), PropertyOrder(-5000)]
         public LocalizedStringReference name = new();

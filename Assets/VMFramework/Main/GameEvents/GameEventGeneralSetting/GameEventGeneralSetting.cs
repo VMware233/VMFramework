@@ -35,9 +35,9 @@ namespace VMFramework.GameEvents
             keyCodeTranslations.CheckSettings();
         }
 
-        protected override void OnPostInit()
+        protected override void OnInit()
         {
-            base.OnPostInit();
+            base.OnInit();
             
             keyCodeTranslations.Init();
         }

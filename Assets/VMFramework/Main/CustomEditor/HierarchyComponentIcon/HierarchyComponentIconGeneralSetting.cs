@@ -5,7 +5,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Editor
 {
-    public sealed partial class HierarchyComponentIconGeneralSetting : GeneralSettingBase
+    public sealed partial class HierarchyComponentIconGeneralSetting : GeneralSetting
     {
         [LabelText("最大图标数量")]
         [PropertyRange(1, 10)]

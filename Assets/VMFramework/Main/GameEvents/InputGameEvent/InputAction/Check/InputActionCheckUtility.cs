@@ -54,7 +54,7 @@ namespace VMFramework.GameEvents
 
                     switch (action.inputAction.keyBoardTriggerType)
                     {
-                        case KeyBoardTriggerType.KeyStay:
+                        case KeyBoardTriggerType.IsPressing:
 
                             if (Input.GetKey(keyCode) == false)
                             {
@@ -62,7 +62,7 @@ namespace VMFramework.GameEvents
                             }
 
                             break;
-                        case KeyBoardTriggerType.KeyDown:
+                        case KeyBoardTriggerType.PressedDown:
 
                             if (Input.GetKeyDown(keyCode) == false)
                             {
@@ -70,7 +70,7 @@ namespace VMFramework.GameEvents
                             }
 
                             break;
-                        case KeyBoardTriggerType.KeyUp:
+                        case KeyBoardTriggerType.PressedUp:
 
                             if (Input.GetKeyUp(keyCode) == false)
                             {
@@ -78,7 +78,7 @@ namespace VMFramework.GameEvents
                             }
 
                             break;
-                        case KeyBoardTriggerType.OnHolding:
+                        case KeyBoardTriggerType.IsHolding:
                             if (Input.GetKey(keyCode) == false)
                             {
                                 action.heldTime = 0;
@@ -93,7 +93,7 @@ namespace VMFramework.GameEvents
                             }
 
                             break;
-                        case KeyBoardTriggerType.HoldDown:
+                        case KeyBoardTriggerType.IsHoldingAfterThreshold:
                             if (Input.GetKey(keyCode) == false)
                             {
                                 action.heldTime = 0;

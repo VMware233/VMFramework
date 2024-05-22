@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -26,3 +27,4 @@ namespace VMFramework.Editor
         protected abstract IEnumerable<object> OnProcess(IReadOnlyList<object> selectedObjects);
     }
 }
+#endif

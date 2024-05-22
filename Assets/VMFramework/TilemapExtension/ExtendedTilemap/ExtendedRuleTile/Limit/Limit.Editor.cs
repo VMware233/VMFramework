@@ -41,7 +41,7 @@ namespace VMFramework.ExtendedTilemap
                 if (specificTiles == null || specificTiles.Count == 0)
                 {
                     specificTiles = new();
-                    specificTiles.AddRange(GameCoreSettingBase.extendedRuleTileGeneralSetting
+                    specificTiles.AddRange(GameCoreSetting.extendedRuleTileGeneralSetting
                         .defaultSpecificTiles);
                 }
             }
@@ -51,7 +51,7 @@ namespace VMFramework.ExtendedTilemap
                 if (specificTiles == null || specificTiles.Count == 0)
                 {
                     specificTiles = new();
-                    specificTiles.AddRange(GameCoreSettingBase.extendedRuleTileGeneralSetting
+                    specificTiles.AddRange(GameCoreSetting.extendedRuleTileGeneralSetting
                         .defaultNotSpecificTiles);
                 }
             }

@@ -17,13 +17,14 @@ namespace VMFramework.Procedure
         [ShowInInspector]
         private static List<IManagerBehaviour> managerBehaviours = new();
 
+        private static Dictionary<string, IProcedure> _procedures = new();
+        
         [ShowInInspector]
-        private static Dictionary<string, IProcedure> procedures = new();
+        public static IReadOnlyList<IProcedure> procedures => _procedures.Values.ToList();
 
         [ShowInInspector]
         [ListDrawerSettings(ShowFoldout = false)]
-        public static IReadOnlyList<string> currentProcedureIDs =>
-            fsm?.currentStatesID.ToList();
+        public static IReadOnlyList<string> currentProcedureIDs => fsm?.currentStatesID.ToList();
 
         [ShowInInspector]
         private static readonly Queue<(string fromProcedureID, string toProcedureID)> procedureSwitchQueue =
@@ -52,7 +53,7 @@ namespace VMFramework.Procedure
 
                 var procedure = (IProcedure)derivedClass.CreateInstance();
 
-                procedures.Add(procedure.id, procedure);
+                _procedures.Add(procedure.id, procedure);
 
                 procedure.OnEnterEvent += () =>
                 {
@@ -109,12 +110,12 @@ namespace VMFramework.Procedure
 
         public static void AddToSwitchQueue(string fromProcedureID, string toProcedureID)
         {
-            if (procedures.ContainsKey(fromProcedureID) == false)
+            if (_procedures.ContainsKey(fromProcedureID) == false)
             {
                 throw new ArgumentException($"不存在的流程ID:{fromProcedureID}");
             }
 
-            if (procedures.ContainsKey(toProcedureID) == false)
+            if (_procedures.ContainsKey(toProcedureID) == false)
             {
                 throw new ArgumentException($"不存在的流程ID:{toProcedureID}");
             }
@@ -128,12 +129,12 @@ namespace VMFramework.Procedure
 
         public static IProcedure GetProcedure(string procedureID)
         {
-            if (procedures.ContainsKey(procedureID) == false)
+            if (_procedures.TryGetValue(procedureID, out var procedure) == false)
             {
                 throw new ArgumentException($"不存在的流程ID:{procedureID}");
             }
 
-            return procedures[procedureID];
+            return procedure;
         }
 
         #endregion

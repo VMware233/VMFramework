@@ -1,6 +1,7 @@
 ﻿#if FISHNET
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using VMFramework.Network;
 
 namespace VMFramework.Containers
 {
@@ -9,7 +10,7 @@ namespace VMFramework.Containers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryGetItem(string containerUUID, int slotIndex, out IContainerItem item)
         {
-            if (TryGetOwner(containerUUID, out var container) == false)
+            if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container) == false)
             {
                 Debug.LogError($"Container with UUID {containerUUID} does not exist.");
                 item = null;

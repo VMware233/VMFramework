@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 namespace VMFramework.Editor
@@ -17,3 +18,5 @@ namespace VMFramework.Editor
         public abstract bool IsValid(IList<object> selectedObjects);
     }
 }
+
+#endif

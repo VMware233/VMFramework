@@ -2,7 +2,7 @@
 
 namespace VMFramework.GameLogicArchitecture
 {
-    public interface IVisualGameItem : IGameItem, ITracingTooltipProvider
+    public interface IVisualGameItem : IGameItem, ITooltipProvider
     {
         
     }

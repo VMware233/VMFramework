@@ -10,18 +10,18 @@ namespace VMFramework.ResourcesManagement
     {
         protected override string idSuffix => "particle";
 
-        [LabelText("粒子预制体"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [AssetList]
         [AssetSelector(Paths = "Assets")]
         [AssetsOnly]
         [Required]
         public ParticleSystem particlePrefab;
 
-        [LabelText("持续时间限制"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
-        [ToggleButtons("是", "否")]
+        [TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
+        [ToggleButtons("Enable", "Disable")]
         public bool enableDurationLimitation = false;
 
-        [LabelText("持续时间"), TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY)]
         [ShowIf(nameof(enableDurationLimitation))]
         public IChooserConfig<float> duration = new SingleValueChooserConfig<float>();
     }

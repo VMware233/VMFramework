@@ -6,7 +6,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Editor
 {
-    public sealed partial class TextureImporterGeneralSetting : GeneralSettingBase
+    public sealed partial class TextureImporterGeneralSetting : GeneralSetting
     {
         private const string TEXTURE_IMPORTER_CATEGORY = "图片导入设置";
         

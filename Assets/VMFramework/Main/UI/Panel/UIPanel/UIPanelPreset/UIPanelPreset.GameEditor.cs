@@ -9,7 +9,7 @@ namespace VMFramework.UI
     {
         public IEnumerable<IGameEditorToolBarProvider.ToolbarButtonConfig> GetToolbarButtons()
         {
-            yield return new(GameEditorNames.openControllerScriptButtonName, OpenControllerScript);
+            yield return new(EditorNames.openControllerScriptButtonName, OpenControllerScript);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR && DOTWEEN
+﻿#if UNITY_EDITOR && DOTWEEN && UNITASK_DOTWEEN_SUPPORT
 using UnityEngine;
 using VMFramework.Configuration;
 

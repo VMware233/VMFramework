@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
+using VMFramework.Configuration;
 using VMFramework.Localization;
 
 namespace VMFramework.GameEvents
@@ -17,7 +18,7 @@ namespace VMFramework.GameEvents
         {
             keyCodeTranslations ??= new();
 
-            keyCodeTranslations.AddConfig(new KeyCodeTranslation(KeyCode.Mouse0,
+            keyCodeTranslations.TryAddConfig(new KeyCodeTranslation(KeyCode.Mouse0,
                 new LocalizedStringReference()
                 {
                     defaultValue = "Left Mouse",
@@ -25,7 +26,7 @@ namespace VMFramework.GameEvents
                     tableName = defaultLocalizationTableName
                 }));
 
-            keyCodeTranslations.AddConfig(new KeyCodeTranslation(KeyCode.Mouse1,
+            keyCodeTranslations.TryAddConfig(new KeyCodeTranslation(KeyCode.Mouse1,
                 new LocalizedStringReference()
                 {
                     defaultValue = "Right Mouse",
@@ -33,7 +34,7 @@ namespace VMFramework.GameEvents
                     tableName = defaultLocalizationTableName
                 }));
 
-            keyCodeTranslations.AddConfig(new KeyCodeTranslation(KeyCode.Mouse2,
+            keyCodeTranslations.TryAddConfig(new KeyCodeTranslation(KeyCode.Mouse2,
                 new LocalizedStringReference()
                 {
                     defaultValue = "Middle Mouse",

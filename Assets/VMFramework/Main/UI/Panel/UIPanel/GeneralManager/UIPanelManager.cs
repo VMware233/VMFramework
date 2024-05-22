@@ -11,7 +11,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class UIPanelManager : ManagerBehaviour<UIPanelManager>
     {
-        private static UIPanelGeneralSetting setting => GameCoreSettingBase.uiPanelGeneralSetting;
+        private static UIPanelGeneralSetting setting => GameCoreSetting.uiPanelGeneralSetting;
 
         public static Transform uiContainer { get; private set; }
 

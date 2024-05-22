@@ -39,7 +39,7 @@ namespace VMFramework.ResourcesManagement
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ReturnTrailToDefaultContainer(TrailRenderer trail)
         {
-            trail.transform.SetParent(GameCoreSettingBase.trailGeneralSetting
+            trail.transform.SetParent(GameCoreSetting.trailGeneralSetting
                 .container);
         }
 
@@ -54,7 +54,7 @@ namespace VMFramework.ResourcesManagement
                 var id = allTrailIDs[trail];
                 var pool = allPools[id];
 
-                trail.transform.SetParent(GameCoreSettingBase.trailGeneralSetting
+                trail.transform.SetParent(GameCoreSetting.trailGeneralSetting
                     .container);
                 pool.Return(trail);
             }
@@ -80,7 +80,7 @@ namespace VMFramework.ResourcesManagement
             }
 
             var container = parent == null
-                ? GameCoreSettingBase.trailGeneralSetting.container
+                ? GameCoreSetting.trailGeneralSetting.container
                 : parent;
 
             var newTrail = pool.Get(registeredTrail.trailPrefab, container);

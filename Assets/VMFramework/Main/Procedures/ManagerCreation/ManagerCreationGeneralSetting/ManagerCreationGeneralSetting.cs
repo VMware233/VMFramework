@@ -6,7 +6,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Procedure
 {
-    public sealed partial class ManagerCreationGeneralSetting : GeneralSettingBase
+    public sealed partial class ManagerCreationGeneralSetting : GeneralSetting
     {
         #region Categories
 

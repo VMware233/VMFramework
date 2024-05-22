@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using VMFramework.Configuration;
 using VMFramework.Localization;
 
 namespace VMFramework.GameEvents

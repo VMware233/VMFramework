@@ -18,7 +18,9 @@ namespace VMFramework.Configuration
 
         [LabelText("乒乓循环")]
         [PropertyTooltip("循环到底后，从后往前遍历")]
+#if UNITY_EDITOR
         [ShowIf(nameof(showPingPongOption))]
+#endif
         [JsonProperty]
         public bool pingPong = false;
 

@@ -49,5 +49,5 @@ MonoBehaviour:
   defaultJSONFileSuffix: txt
   <defaultLocalizationTableName>k__BackingField: 
   initialGamePrefabWrappers:
-  - {fileID: 11400000, guid: 63025713ebb4a2d45a8a55cf1162cb50, type: 2}
+  - {fileID: 11400000, guid: 08abb14f564ea4548a358ec900950553, type: 2}
   <defaultGameType>k__BackingField: 

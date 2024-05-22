@@ -18,7 +18,7 @@ namespace VMFramework.GameEvents
         Icon IGameEditorMenuTreeNode.icon => new(SdfIconType.Mouse2);
 
         string IGameEditorMenuTreeNode.folderPath =>
-            (GameCoreSettingBase.gameEventGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
+            (GameCoreSetting.gameEventGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
     }
 }
 #endif

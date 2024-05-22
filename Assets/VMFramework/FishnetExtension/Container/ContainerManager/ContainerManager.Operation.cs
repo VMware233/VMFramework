@@ -2,6 +2,7 @@
 using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
+using VMFramework.Network;
 
 namespace VMFramework.Containers
 {
@@ -28,20 +29,15 @@ namespace VMFramework.Containers
         public void RequestAddOrSwapItem(string fromContainerUUID, int fromSlotIndex, string toContainerUUID,
             int toSlotIndex, NetworkConnection connection = null)
         {
-            if (TryGetInfo(fromContainerUUID, out var fromContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
             {
-                Debug.LogWarning($"不存在此{fromContainerUUID}对应的Container");
                 return;
             }
 
-            if (TryGetInfo(toContainerUUID, out var toContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(toContainerUUID, out IContainer toContainer) == false)
             {
-                Debug.LogWarning($"不存在此{toContainerUUID}对应的Container");
                 return;
             }
-
-            var fromContainer = fromContainerInfo.owner;
-            var toContainer = toContainerInfo.owner;
 
             if (connection.IsHost == false)
             {
@@ -79,20 +75,15 @@ namespace VMFramework.Containers
         private void RequestSplitItemTo(string fromContainerUUID, int fromSlotIndex, int count,
             string toContainerUUID, int toSlotIndex, NetworkConnection connection = null)
         {
-            if (TryGetInfo(fromContainerUUID, out var fromContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
             {
-                Debug.LogWarning($"不存在此{fromContainerUUID}对应的Container");
                 return;
             }
 
-            if (TryGetInfo(toContainerUUID, out var toContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(toContainerUUID, out IContainer toContainer) == false)
             {
-                Debug.LogWarning($"不存在此{toContainerUUID}对应的Container");
                 return;
             }
-
-            var fromContainer = fromContainerInfo.owner;
-            var toContainer = toContainerInfo.owner;
 
             if (connection.IsHost == false)
             {
@@ -110,7 +101,7 @@ namespace VMFramework.Containers
         /// <param name="fromContainer"></param>
         /// <param name="count"></param>
         /// <param name="toContainer"></param>
-        public static void PopItemsTo(Container fromContainer, int count, Container toContainer)
+        public static void PopItemsTo(IContainer fromContainer, int count, IContainer toContainer)
         {
             if (fromContainer == null || toContainer == null)
             {
@@ -135,20 +126,15 @@ namespace VMFramework.Containers
         private void RequestPopItemsTo(string fromContainerUUID, int count, string toContainerUUID,
             NetworkConnection connection = null)
         {
-            if (TryGetInfo(fromContainerUUID, out var fromContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
             {
-                Debug.LogWarning($"不存在此{fromContainerUUID}对应的Container");
                 return;
             }
 
-            if (TryGetInfo(toContainerUUID, out var toContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(toContainerUUID, out IContainer toContainer) == false)
             {
-                Debug.LogWarning($"不存在此{toContainerUUID}对应的Container");
                 return;
             }
-
-            var fromContainer = fromContainerInfo.owner;
-            var toContainer = toContainerInfo.owner;
 
             if (connection.IsHost == false)
             {
@@ -161,7 +147,7 @@ namespace VMFramework.Containers
         #region Pop All Items To
 
         [Client]
-        public static void PopAllItemsTo(Container fromContainer, Container toContainer)
+        public static void PopAllItemsTo(IContainer fromContainer, IContainer toContainer)
         {
             if (fromContainer == null || toContainer == null)
             {
@@ -178,20 +164,15 @@ namespace VMFramework.Containers
         private void RequestPopAllItemsTo(string fromContainerUUID, string toContainerUUID,
             NetworkConnection connection = null)
         {
-            if (TryGetInfo(fromContainerUUID, out var fromContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
             {
-                Debug.LogWarning($"不存在此{fromContainerUUID}对应的Container");
                 return;
             }
 
-            if (TryGetInfo(toContainerUUID, out var toContainerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(toContainerUUID, out IContainer toContainer) == false)
             {
-                Debug.LogWarning($"不存在此{toContainerUUID}对应的Container");
                 return;
             }
-
-            var fromContainer = fromContainerInfo.owner;
-            var toContainer = toContainerInfo.owner;
 
             if (connection.IsHost == false)
             {
@@ -204,7 +185,7 @@ namespace VMFramework.Containers
         #region Stack Item
 
         [Client]
-        public static void StackItem(Container container)
+        public static void StackItem(IContainer container)
         {
             if (container == null)
             {
@@ -220,13 +201,10 @@ namespace VMFramework.Containers
         [ServerRpc(RequireOwnership = false)]
         private void StackItemRequest(string containerUUID, NetworkConnection connection = null)
         {
-            if (TryGetInfo(containerUUID, out var containerInfo) == false)
+            if (UUIDCoreManager.TryGetOwnerWithWarning(containerUUID, out IContainer container) == false)
             {
-                Debug.LogWarning($"不存在此{containerUUID}对应的Container");
                 return;
             }
-
-            var container = containerInfo.owner;
 
             if (connection.IsHost == false)
             {

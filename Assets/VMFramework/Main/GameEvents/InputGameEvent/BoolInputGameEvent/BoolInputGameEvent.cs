@@ -52,7 +52,7 @@ namespace VMFramework.GameEvents
                 {
                     var keyCode = action.inputAction.keyCode;
                     contentList.Add(
-                        GameCoreSettingBase.gameEventGeneralSetting.GetKeyCodeName(keyCode, mode));
+                        GameCoreSetting.gameEventGeneralSetting.GetKeyCodeName(keyCode, mode));
                 }
 
                 yield return "+".Join(contentList);

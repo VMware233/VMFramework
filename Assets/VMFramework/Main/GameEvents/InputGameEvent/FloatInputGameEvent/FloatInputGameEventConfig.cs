@@ -9,7 +9,7 @@ namespace VMFramework.GameEvents
     {
         public override Type gameItemType => typeof(FloatInputGameEvent);
 
-        [LabelText("是否输入传入Axis"), TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
         [JsonProperty]
         public bool isFromAxis = false;
 
@@ -19,7 +19,7 @@ namespace VMFramework.GameEvents
         public InputAxisType inputAxisType;
 
 #if UNITY_EDITOR
-        [LabelText("正值动作组"), TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
         [HideIf(nameof(isFromAxis))]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
 #endif
@@ -27,7 +27,7 @@ namespace VMFramework.GameEvents
         public List<InputActionGroup> positiveActionGroups = new();
 
 #if UNITY_EDITOR
-        [LabelText("负值动作组"), TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
         [HideIf(nameof(isFromAxis))]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
 #endif

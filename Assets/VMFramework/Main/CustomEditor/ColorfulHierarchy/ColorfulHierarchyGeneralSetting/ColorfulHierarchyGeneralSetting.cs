@@ -7,7 +7,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Editor
 {
-    public sealed partial class ColorfulHierarchyGeneralSetting : GeneralSettingBase
+    public sealed partial class ColorfulHierarchyGeneralSetting : GeneralSetting
     {
         private const string HIERARCHY_CATEGORY = "层级设置";
         

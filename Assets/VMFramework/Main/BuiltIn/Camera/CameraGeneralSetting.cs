@@ -3,7 +3,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework
 {
-    public sealed partial class CameraGeneralSetting : GeneralSettingBase
+    public sealed partial class CameraGeneralSetting : GeneralSetting
     {
         [LabelText("FOV插值速度")]
         [MinValue(0)]

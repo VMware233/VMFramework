@@ -18,7 +18,7 @@ namespace VMFramework.UI
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Bug;
 
         string IGameEditorMenuTreeNode.folderPath =>
-            (GameCoreSettingBase.uiPanelGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
+            (GameCoreSetting.uiPanelGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
     }
 }
 #endif

@@ -8,7 +8,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
     {
         public void OnPreInit(Action onDone)
         {
-            GameCoreSettingBase.gameTypeGeneralSetting.InitGameTypeInfo();
+            GameCoreSetting.gameTypeGeneralSetting.InitGameTypeInfo();
             
             onDone();
         }

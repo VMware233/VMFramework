@@ -11,7 +11,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class CanvasManager : ManagerBehaviour<CanvasManager>
     {
-        private static UIPanelGeneralSetting setting => GameCoreSettingBase.uiPanelGeneralSetting;
+        private static UIPanelGeneralSetting setting => GameCoreSetting.uiPanelGeneralSetting;
         
         [ShowInInspector]
         private static Transform canvasContainer;
@@ -23,7 +23,7 @@ namespace VMFramework.UI
         {
             base.OnBeforeInit();
             
-            canvasContainer = GameCoreSettingBase.uiPanelGeneralSetting.container;
+            canvasContainer = GameCoreSetting.uiPanelGeneralSetting.container;
         }
 
         public static Canvas GetCanvas(int sortingOrder)

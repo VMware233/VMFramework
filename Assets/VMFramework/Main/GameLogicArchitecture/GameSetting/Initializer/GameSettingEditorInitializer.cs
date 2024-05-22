@@ -8,11 +8,11 @@ namespace VMFramework.GameLogicArchitecture.Editor
     {
         public void OnBeforeInit(Action onDone)
         {
-            GameCoreSettingBaseFile.CheckGlobal();
+            GameCoreSettingFile.CheckGlobal();
             
-            GameCoreSettingBase.gameCoreSettingsFileBase.AutoFindSetting();
+            GameCoreSetting.gameCoreSettingsFile.AutoFindSetting();
             
-            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
             {
                 if (generalSetting == null)
                 {

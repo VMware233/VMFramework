@@ -12,6 +12,8 @@ namespace VMFramework.Examples
         {
             ColliderMouseEventManager.AddCallback(MouseEventType.PointerEnter, OnPointerEnter);
             ColliderMouseEventManager.AddCallback(MouseEventType.PointerLeave, OnPointerLeave);
+            
+            onDone();
         }
 
         private void OnPointerEnter(ColliderMouseEvent gameEvent)

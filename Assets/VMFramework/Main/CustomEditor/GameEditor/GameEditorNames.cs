@@ -60,52 +60,6 @@ namespace VMFramework.Editor.GameEditor
                 RESOURCES_MANAGEMENT_CATEGORY_DEFAULT_NAME);
 
         #endregion
-
-        #region Tool Bar Names
-
-        public const string OPEN_SCRIPT_BUTTON_DEFAULT_NAME = "Open Script";
-        public const string OPEN_SCRIPT_BUTTON_NAME_KEY = "OpenScriptButtonName";
-        
-        public static string openScriptButtonName =>
-            LocalizationEditorManager.GetStringOfEditorTable(OPEN_SCRIPT_BUTTON_NAME_KEY,
-                OPEN_SCRIPT_BUTTON_DEFAULT_NAME);
-        
-        public const string OPEN_GAME_PREFAB_SCRIPT_BUTTON_DEFAULT_NAME = "Open Game Prefab Script";
-        public const string OPEN_GAME_PREFAB_SCRIPT_BUTTON_NAME_KEY = "OpenGamePrefabScriptButtonName";
-        
-        public static string openGamePrefabScriptButtonName =>
-            LocalizationEditorManager.GetStringOfEditorTable(OPEN_GAME_PREFAB_SCRIPT_BUTTON_NAME_KEY,
-                OPEN_GAME_PREFAB_SCRIPT_BUTTON_DEFAULT_NAME);
-        
-        public const string OPEN_GAME_ITEM_SCRIPT_BUTTON_DEFAULT_NAME = "Open Game Item Script";
-        public const string OPEN_GAME_ITEM_SCRIPT_BUTTON_NAME_KEY = "OpenGameItemScriptButtonName";
-        
-        public static string openGameItemScriptButtonName =>
-            LocalizationEditorManager.GetStringOfEditorTable(OPEN_GAME_ITEM_SCRIPT_BUTTON_NAME_KEY,
-                OPEN_GAME_ITEM_SCRIPT_BUTTON_DEFAULT_NAME);
-        
-        public const string OPEN_CONTROLLER_SCRIPT_BUTTON_DEFAULT_NAME = "Open Controller Script";
-        public const string OPEN_CONTROLLER_SCRIPT_BUTTON_NAME_KEY = "OpenControllerScriptButtonName";
-        
-        public static string openControllerScriptButtonName =>
-            LocalizationEditorManager.GetStringOfEditorTable(OPEN_CONTROLLER_SCRIPT_BUTTON_NAME_KEY,
-                OPEN_CONTROLLER_SCRIPT_BUTTON_DEFAULT_NAME);
-        
-        public const string SAVE_BUTTON_DEFAULT_NAME = "Save";
-        public const string SAVE_BUTTON_NAME_KEY = "SaveButtonName";
-        
-        public static string saveButtonName =>
-            LocalizationEditorManager.GetStringOfEditorTable(SAVE_BUTTON_NAME_KEY,
-                SAVE_BUTTON_DEFAULT_NAME);
-        
-        public const string SAVE_ALL_BUTTON_DEFAULT_NAME = "Save All";
-        public const string SAVE_ALL_BUTTON_NAME_KEY = "SaveAllButtonName";
-        
-        public static string saveAllButtonName =>
-            LocalizationEditorManager.GetStringOfEditorTable(SAVE_ALL_BUTTON_NAME_KEY,
-                SAVE_ALL_BUTTON_DEFAULT_NAME);
-
-        #endregion
     }
 }
 #endif

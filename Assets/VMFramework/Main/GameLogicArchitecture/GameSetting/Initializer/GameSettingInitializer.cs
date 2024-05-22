@@ -10,7 +10,7 @@ namespace VMFramework.GameLogicArchitecture
     {
         void IInitializer.OnInit(Action onDone)
         {
-            GameCoreSettingBase.Init();
+            GameCoreSetting.Init();
             onDone();
         }
     }

@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VMFramework.GameLogicArchitecture;
+using VMFramework.OdinExtensions;
 
 namespace VMFramework.ExtendedTilemap
 {
@@ -33,7 +34,7 @@ namespace VMFramework.ExtendedTilemap
     public class ExtendedTilemap : SerializedMonoBehaviour
     {
         protected ExtendedRuleTileGeneralSetting setting =>
-            GameCoreSettingBase.extendedRuleTileGeneralSetting;
+            GameCoreSetting.extendedRuleTileGeneralSetting;
 
         [LabelText("运行时一开始清除地图")]
         [SerializeField]
@@ -356,8 +357,7 @@ namespace VMFramework.ExtendedTilemap
         /// <param name="id"></param>
         [Button("放置瓦片", ButtonStyle.Box)]
         public void SetTile([LabelText("坐标")] Vector2Int pos,
-            [ValueDropdown(
-                "@GameCoreSettingBase.extendedRuleTileGeneralSetting.GetPrefabNameList()")]
+            [GamePrefabID(typeof(ExtendedRuleTile))]
             [HideLabel]
             string id)
         {
@@ -407,8 +407,7 @@ namespace VMFramework.ExtendedTilemap
         [Button("在矩形区域放置特定ID的瓦片", ButtonStyle.Box)]
         public void SetTiles([HideLabel] 
             RectangleInteger rectangle,
-            [ValueDropdown(
-                "@GameCoreSettingBase.extendedRuleTileGeneralSetting.GetPrefabNameList()")]
+            [GamePrefabID(typeof(ExtendedRuleTile))]
             [HideLabel]
             string id, bool renderInstantly)
         {
@@ -511,8 +510,7 @@ namespace VMFramework.ExtendedTilemap
         /// <param name="number"></param>
         [Button("在矩形区域内放置随机数量的特定ID的瓦片", ButtonStyle.Box)]
         public void SetRandomTiles([HideLabel] RectangleInteger rectangle,
-            [ValueDropdown(
-                "@GameCoreSettingBase.extendedRuleTileGeneralSetting.GetPrefabNameList()")]
+            [GamePrefabID(typeof(ExtendedRuleTile))]
             [HideLabel]
             string id,
             [MinValue(1)] int number)
@@ -531,8 +529,7 @@ namespace VMFramework.ExtendedTilemap
         /// <param name="rate"></param>
         [Button("在矩形区域内随机放置特定面积占比数量的特定ID的瓦片", ButtonStyle.Box)]
         public void SetRandomTiles([HideLabel] RectangleInteger rectangle,
-            [ValueDropdown(
-                "@GameCoreSettingBase.extendedRuleTileGeneralSetting.GetPrefabNameList()")]
+            [GamePrefabID(typeof(ExtendedRuleTile))]
             [HideLabel]
             string id,
             [PropertyRange(0, 1)] float rate)

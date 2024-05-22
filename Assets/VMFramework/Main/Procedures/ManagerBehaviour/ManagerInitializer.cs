@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Scripting;
 using Object = UnityEngine.Object;
@@ -15,6 +16,9 @@ namespace VMFramework.Procedure
 
         public static IReadOnlyList<IManagerBehaviour> managerBehaviours =>
             _managerBehaviours;
+        
+        [ShowInInspector]
+        private static readonly HashSet<IManagerBehaviour> leftManagers = new();
 
         async void IInitializer.OnBeforeInit(Action onDone)
         {
@@ -33,65 +37,65 @@ namespace VMFramework.Procedure
                 }
             }
             
-            int beforeInitDoneCount = 0;
+            leftManagers.UnionWith(_managerBehaviours);
             foreach (var managerBehaviour in _managerBehaviours)
             {
-                managerBehaviour.OnBeforeInit(() => beforeInitDoneCount++);
+                managerBehaviour.OnBeforeInit(() => leftManagers.Remove(managerBehaviour));
             }
 
-            await UniTask.WaitUntil(() => beforeInitDoneCount == _managerBehaviours.Count);
+            await UniTask.WaitUntil(() => leftManagers.Count == 0);
             
             onDone();
         }
 
         async void IInitializer.OnPreInit(Action onDone)
         {
-            int preInitDoneCount = 0;
+            leftManagers.UnionWith(_managerBehaviours);
             foreach (var managerBehaviour in _managerBehaviours)
             {
-                managerBehaviour.OnPreInit(() => preInitDoneCount++);
+                managerBehaviour.OnPreInit(() => leftManagers.Remove(managerBehaviour));
             }
 
-            await UniTask.WaitUntil(() => preInitDoneCount == _managerBehaviours.Count);
+            await UniTask.WaitUntil(() => leftManagers.Count == 0);
             
             onDone();
         }
 
         async void IInitializer.OnInit(Action onDone)
         {
-            int initDoneCount = 0;
+            leftManagers.UnionWith(_managerBehaviours);
             foreach (var managerBehaviour in _managerBehaviours)
             {
-                managerBehaviour.OnInit(() => initDoneCount++);
+                managerBehaviour.OnInit(() => leftManagers.Remove(managerBehaviour));
             }
 
-            await UniTask.WaitUntil(() => initDoneCount == _managerBehaviours.Count);
+            await UniTask.WaitUntil(() => leftManagers.Count == 0);
             
             onDone();
         }
 
         async void IInitializer.OnPostInit(Action onDone)
         {
-            int postInitDoneCount = 0;
+            leftManagers.UnionWith(_managerBehaviours);
             foreach (var managerBehaviour in _managerBehaviours)
             {
-                managerBehaviour.OnPostInit(() => postInitDoneCount++);
+                managerBehaviour.OnPostInit(() => leftManagers.Remove(managerBehaviour));
             }
 
-            await UniTask.WaitUntil(() => postInitDoneCount == _managerBehaviours.Count);
+            await UniTask.WaitUntil(() => leftManagers.Count == 0);
             
             onDone();
         }
 
         async void IInitializer.OnInitComplete(Action onDone)
         {
-            int initCompleteDoneCount = 0;
+            leftManagers.UnionWith(_managerBehaviours);
             foreach (var managerBehaviour in _managerBehaviours)
             {
-                managerBehaviour.OnInitComplete(() => initCompleteDoneCount++);
+                managerBehaviour.OnInitComplete(() => leftManagers.Remove(managerBehaviour));
             }
 
-            await UniTask.WaitUntil(() => initCompleteDoneCount == _managerBehaviours.Count);
+            await UniTask.WaitUntil(() => leftManagers.Count == 0);
             
             onDone();
         }

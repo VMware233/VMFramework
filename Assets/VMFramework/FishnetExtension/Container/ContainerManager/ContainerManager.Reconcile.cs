@@ -7,6 +7,7 @@ using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Network;
 
 namespace VMFramework.Containers
 {
@@ -14,9 +15,9 @@ namespace VMFramework.Containers
     {
         #region Reconcile Item On Observers
 
-        private static void ReconcileItemOnObservers(ContainerInfo containerInfo, int slotIndex)
+        private static void ReconcileItemOnObservers(IContainer container, UUIDInfo info, int slotIndex)
         {
-            foreach (var observer in containerInfo.observers)
+            foreach (var observer in info.observers)
             {
                 var observerConn = InstanceFinder.ServerManager.Clients[observer];
 
@@ -30,37 +31,25 @@ namespace VMFramework.Containers
                     Debug.LogWarning($"准备Reconcile客户端：{observer}");
                 }
 
-                instance.ReconcileOnTarget(observerConn, containerInfo.owner.uuid,
-                    slotIndex, containerInfo.owner.GetItem(slotIndex) as ContainerItem);
+                instance.ReconcileOnTarget(observerConn, container.uuid, slotIndex,
+                    container.GetItem(slotIndex));
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected static void ReconcileItemOnObservers(string containerUUID, int slotIndex)
-        {
-            if (TryGetInfo(containerUUID, out var info) == false)
-            {
-                Debug.LogWarning($"不存在此{containerUUID}对应的{nameof(info)}");
-                return;
-            }
-
-            ReconcileItemOnObservers(info, slotIndex);
         }
 
         #endregion
 
         #region Reconcile Some Items On Observers
 
-        private static void ReconcileSomeItemsOnObservers(ContainerInfo containerInfo, HashSet<int> slotIndices)
+        private static void ReconcileSomeItemsOnObservers(IContainer container, UUIDInfo info, HashSet<int> slotIndices)
         {
             var items = new Dictionary<int, IContainerItem>();
 
             foreach (var slotIndex in slotIndices)
             {
-                items.Add(slotIndex, containerInfo.owner.GetItem(slotIndex));
+                items.Add(slotIndex, container.GetItem(slotIndex));
             }
 
-            foreach (var observer in containerInfo.observers)
+            foreach (var observer in info.observers)
             {
                 var observerConn = InstanceFinder.ServerManager.Clients[observer];
 
@@ -74,27 +63,15 @@ namespace VMFramework.Containers
                     Debug.LogWarning($"准备Reconcile客户端：{observer}");
                 }
 
-                instance.ReconcileSomeOnTarget(observerConn, containerInfo.owner.uuid, items);
+                instance.ReconcileSomeOnTarget(observerConn, container.uuid, items);
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected static void ReconcileSomeItemsOnObservers(string containerUUID, HashSet<int> slotIndices)
-        {
-            if (TryGetInfo(containerUUID, out var info) == false)
-            {
-                Debug.LogWarning($"不存在此{containerUUID}对应的{nameof(info)}");
-                return;
-            }
-
-            ReconcileSomeItemsOnObservers(info, slotIndices);
         }
 
         #endregion
         
         #region Reconcile On Observers
 
-        private static void ReconcileAllItemsOnObservers(ContainerInfo containerInfo)
+        private static void ReconcileAllItemsOnObservers(IContainer container, UUIDInfo containerInfo)
         {
             foreach (var observer in containerInfo.observers)
             {
@@ -111,20 +88,8 @@ namespace VMFramework.Containers
                 }
 
                 instance.ReconcileAllOnTarget(observerConn, containerInfo.owner.uuid,
-                    containerInfo.owner.GetItemArray());
+                    container.GetItemArray());
             }
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Button]
-        protected static void ReconcileAllItemsOnObservers(string containerUUID)
-        {
-            if (TryGetInfo(containerUUID, out var info) == false)
-            {
-                Debug.LogWarning($"不存在此{containerUUID}对应的{nameof(info)}");
-                return;
-            }
-
-            ReconcileAllItemsOnObservers(info);
         }
 
         #endregion
@@ -141,7 +106,7 @@ namespace VMFramework.Containers
                 Debug.LogWarning($"正在恢复{containerUUID}的第{slotIndex}个物品，恢复为：{item}");
             }
 
-            if (TryGetOwner(containerUUID, out var container))
+            if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
             {
                 container.SetItem(slotIndex, item);
             }
@@ -157,7 +122,7 @@ namespace VMFramework.Containers
         private void ReconcileSomeOnTarget(NetworkConnection connection, string containerUUID,
             Dictionary<int, IContainerItem> items)
         {
-            if (TryGetOwner(containerUUID, out var container))
+            if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
             {
                 foreach (var (slotIndex, item) in items)
                 {
@@ -176,7 +141,7 @@ namespace VMFramework.Containers
         private void ReconcileAllOnTarget(NetworkConnection connection, string containerUUID,
             IContainerItem[] items)
         {
-            if (TryGetOwner(containerUUID, out var container))
+            if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
             {
                 container.LoadFromItemArray(items);
             }
@@ -187,14 +152,9 @@ namespace VMFramework.Containers
             }
         }
 
-        private static void ReconcileAllOnTarget(NetworkConnection connection,
-            string containerUUID)
+        private static void ReconcileAllOnTarget(NetworkConnection connection, IContainer container)
         {
-            if (TryGetInfo(containerUUID, out var info))
-            {
-                instance.ReconcileAllOnTarget(connection, containerUUID,
-                    info.owner.GetItemArray());
-            }
+            instance.ReconcileAllOnTarget(connection, container.uuid, container.GetItemArray());
         }
 
         #endregion
@@ -213,7 +173,7 @@ namespace VMFramework.Containers
         private void RequestReconcile(string containerUUID, int slotIndex,
             NetworkConnection connection = null)
         {
-            if (TryGetOwner(containerUUID, out var container))
+            if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
             {
                 var item = container.GetItem(slotIndex);
 
@@ -238,10 +198,9 @@ namespace VMFramework.Containers
         private void RequestReconcileAll(string containerUUID,
             NetworkConnection connection = null)
         {
-            if (TryGetOwner(containerUUID, out var container))
+            if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
             {
-                ReconcileAllOnTarget(connection, containerUUID,
-                    container.GetItemArray());
+                ReconcileAllOnTarget(connection, containerUUID, container.GetItemArray());
             }
         }
 

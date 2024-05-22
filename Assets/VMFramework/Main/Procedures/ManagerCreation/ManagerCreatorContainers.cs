@@ -20,7 +20,7 @@ namespace VMFramework.Procedure
         {
             _managerTypeContainers.Clear();
             
-            var managerContainerName = GameCoreSettingBase.managerCreationGeneralSetting.managerContainerName;
+            var managerContainerName = GameCoreSetting.managerCreationGeneralSetting.managerContainerName;
 
             managerContainerName.AssertIsNotNullOrWhiteSpace(nameof(managerContainerName));
 

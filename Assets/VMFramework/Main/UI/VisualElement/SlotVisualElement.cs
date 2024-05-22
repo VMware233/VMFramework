@@ -245,6 +245,8 @@ namespace VMFramework.UI
                 {
                     style.display = DisplayStyle.None;
                 }
+                
+                SetTooltip(default(ITooltipProvider));
             }
             else
             {
@@ -272,6 +274,8 @@ namespace VMFramework.UI
 
                 icon.style.backgroundImage = slotProvider.GetIconImage();
                 description.text = slotProvider.GetDescriptionText();
+                
+                SetTooltip(slotProvider as ITooltipProvider);
             }
 
             currentSlotProvider = slotProvider;

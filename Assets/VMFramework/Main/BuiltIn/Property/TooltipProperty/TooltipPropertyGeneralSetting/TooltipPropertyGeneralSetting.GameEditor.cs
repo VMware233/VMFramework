@@ -15,7 +15,7 @@ namespace VMFramework.Property
         };
 
         string IGameEditorMenuTreeNode.folderPath =>
-            (GameCoreSettingBase.propertyGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
+            (GameCoreSetting.propertyGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
     }
 }
 #endif

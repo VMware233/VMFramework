@@ -4,7 +4,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.GameEvents
 {
-    public sealed partial class ColliderMouseEventGeneralSetting : GeneralSettingBase
+    public sealed partial class ColliderMouseEventGeneralSetting : GeneralSetting
     {
         [LabelText("优先检测哪个维度的物体")]
         public ObjectDimensions dimensionsDetectPriority = ObjectDimensions.TWO_D;

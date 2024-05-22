@@ -11,7 +11,7 @@ namespace VMFramework.GameEvents
             {
                 type = InputType.KeyBoardOrMouseOrJoyStick,
                 keyCode = KeyCode.None,
-                keyBoardTriggerType = KeyBoardTriggerType.KeyDown,
+                keyBoardTriggerType = KeyBoardTriggerType.PressedDown,
                 holdThreshold = 0.3f,
             };
         }

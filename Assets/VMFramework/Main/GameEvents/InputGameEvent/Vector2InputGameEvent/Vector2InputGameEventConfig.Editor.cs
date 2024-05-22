@@ -23,20 +23,20 @@ namespace VMFramework.GameEvents
             isYFromAxis = false;
 
             xPositiveActionGroups.Clear();
-            xPositiveActionGroups.Add(new(KeyCode.D, KeyBoardTriggerType.KeyStay));
-            xPositiveActionGroups.Add(new(KeyCode.RightArrow, KeyBoardTriggerType.KeyStay));
+            xPositiveActionGroups.Add(new(KeyCode.D, KeyBoardTriggerType.IsPressing));
+            xPositiveActionGroups.Add(new(KeyCode.RightArrow, KeyBoardTriggerType.IsPressing));
 
             xNegativeActionGroups.Clear();
-            xNegativeActionGroups.Add(new(KeyCode.A, KeyBoardTriggerType.KeyStay));
-            xNegativeActionGroups.Add(new(KeyCode.LeftArrow, KeyBoardTriggerType.KeyStay));
+            xNegativeActionGroups.Add(new(KeyCode.A, KeyBoardTriggerType.IsPressing));
+            xNegativeActionGroups.Add(new(KeyCode.LeftArrow, KeyBoardTriggerType.IsPressing));
 
             yPositiveActionGroups.Clear();
-            yPositiveActionGroups.Add(new(KeyCode.W, KeyBoardTriggerType.KeyStay));
-            yPositiveActionGroups.Add(new(KeyCode.UpArrow, KeyBoardTriggerType.KeyStay));
+            yPositiveActionGroups.Add(new(KeyCode.W, KeyBoardTriggerType.IsPressing));
+            yPositiveActionGroups.Add(new(KeyCode.UpArrow, KeyBoardTriggerType.IsPressing));
 
             yNegativeActionGroups.Clear();
-            yNegativeActionGroups.Add(new(KeyCode.S, KeyBoardTriggerType.KeyStay));
-            yNegativeActionGroups.Add(new(KeyCode.DownArrow, KeyBoardTriggerType.KeyStay));
+            yNegativeActionGroups.Add(new(KeyCode.S, KeyBoardTriggerType.IsPressing));
+            yNegativeActionGroups.Add(new(KeyCode.DownArrow, KeyBoardTriggerType.IsPressing));
         }
     }
 }

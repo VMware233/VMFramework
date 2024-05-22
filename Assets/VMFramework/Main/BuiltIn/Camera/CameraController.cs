@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
         if (currentFOV.Distance(targetFOV) > 0.1f)
         {
             camera.fieldOfView = currentFOV.Lerp(targetFOV,
-                GameCoreSettingBase.cameraGeneralSetting.fovLerpSpeed *
+                GameCoreSetting.cameraGeneralSetting.fovLerpSpeed *
                 Time.deltaTime);
         }
 
@@ -74,18 +74,18 @@ public class CameraController : MonoBehaviour
         var targetPosition = targetTransform.position + GetRelativeDisplacement();
 
         transform.position = transform.position.Lerp(targetPosition,
-            GameCoreSettingBase.cameraGeneralSetting.positionLerpSpeed *
+            GameCoreSetting.cameraGeneralSetting.positionLerpSpeed *
             Time.deltaTime);
 
         if (_isCameraRotationLocal)
         {
             transform.localRotation = transform.localRotation.Lerp(cameraRotation,
-                GameCoreSettingBase.cameraGeneralSetting.angleLerpSpeed *
+                GameCoreSetting.cameraGeneralSetting.angleLerpSpeed *
                 Time.deltaTime);
         }
 
         transform.rotation = transform.rotation.Lerp(cameraRotation,
-            GameCoreSettingBase.cameraGeneralSetting.angleLerpSpeed *
+            GameCoreSetting.cameraGeneralSetting.angleLerpSpeed *
             Time.deltaTime);
     }
 

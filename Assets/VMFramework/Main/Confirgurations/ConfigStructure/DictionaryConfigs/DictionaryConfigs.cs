@@ -2,83 +2,43 @@
 using System.Linq;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
-using UnityEngine;
-using VMFramework.Core.Linq;
-using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
     [PreviewComposite]
-    public partial class DictionaryConfigs<TID, TConfig> : BaseConfig 
+    public sealed partial class DictionaryConfigs<TID, TConfig> : StructureConfigs<TConfig>,
+        IDictionaryConfigs<TID, TConfig>
         where TConfig : IConfig, IIDOwner<TID>
     {
-        [LabelText("设置")]
-        [ListDrawerSettings(ShowFoldout = false)]
-        [SerializeField]
-        private List<TConfig> configs = new();
-
         [ShowInInspector]
         [HideInEditorMode]
         private Dictionary<TID, TConfig> configsRuntime = new();
 
-        #region Init & CheckSettings
+        #region CheckSettings
 
         public override void CheckSettings()
         {
             base.CheckSettings();
-
-            configs.CheckSettings();
-        }
-
-        protected override void OnInit()
-        {
-            base.OnInit();
-
-            configs.Init();
-
+            
             configsRuntime = new();
-
-            foreach (var config in configs)
-            {
-                if (configsRuntime.TryAdd(config.id, config) == false)
-                {
-                    Debug.LogWarning($"{config.id}重复");
-                }
-            }
         }
 
         #endregion
 
         #region Add Config
 
-        public bool AddConfig(TConfig config)
+        public override bool TryAddConfigRuntime(TConfig config)
         {
-            if (initDone)
-            {
-                return configsRuntime.TryAdd(config.id, config);
-            }
-
-            if (HasConfig(config.id) == false)
-            {
-                configs.Add(config);
-                return true;
-            }
-                
-            return false;
+            return configsRuntime.TryAdd(config.id, config);
         }
 
         #endregion
 
         #region Remove Config
 
-        public bool RemoveConfig(TID id)
+        public bool RemoveConfigEditor(TID id)
         {
-            if (initDone)
-            {
-                return configsRuntime.Remove(id);
-            }
-
             foreach (var config in configs)
             {
                 if (config.id.Equals(id))
@@ -91,27 +51,22 @@ namespace VMFramework.Configuration
             return false;
         }
 
+        public bool RemoveConfigRuntime(TID id)
+        {
+            return configsRuntime.Remove(id);
+        }
+
         #endregion
 
         #region Get Config
 
-        public IEnumerable<TConfig> GetAllConfigs()
+        public override IEnumerable<TConfig> GetAllConfigsRuntime()
         {
-            if (initDone)
-            {
-                return configsRuntime.Values;
-            }
-
-            return configs;
+            return configsRuntime.Values;
         }
 
-        public TConfig GetConfig(TID id)
+        public TConfig GetConfigEditor(TID id)
         {
-            if (initDone)
-            {
-                return configsRuntime.GetValueOrDefault(id);
-            }
-
             foreach (var config in configs)
             {
                 if (config.id.Equals(id))
@@ -123,44 +78,33 @@ namespace VMFramework.Configuration
             return default;
         }
 
-        public bool HasConfig(TID id)
+        public TConfig GetConfigRuntime(TID id)
         {
-            if (initDone)
-            {
-                return configsRuntime.ContainsKey(id);
-            }
-
-            return configs.Any(config => config.id.Equals(id));
-        }
-
-        public bool TryGetConfig(TID id, out TConfig config)
-        {
-            if (initDone)
-            {
-                return configsRuntime.TryGetValue(id, out config);
-            }
-
-            foreach (var c in configs)
-            {
-                if (c.id.Equals(id))
-                {
-                    config = c;
-                    return true;
-                }
-            }
-
-            config = default;
-            return false;
+            return configsRuntime.GetValueOrDefault(id);
         }
 
         #endregion
 
-        #region To String
+        #region Has Config
 
-        public override string ToString()
+        public override bool HasConfigEditor(TConfig config)
         {
-            return configs.Select<TConfig, INameOwner>()
-                .Select(nameOwner => nameOwner.name).Join(",");
+            if (config == null)
+            {
+                return false;
+            }
+            
+            return GetConfigEditor(config.id) != null;
+        }
+
+        public override bool HasConfigRuntime(TConfig config)
+        {
+            if (config == null)
+            {
+                return false;
+            }
+            
+            return GetConfigRuntime(config.id)!= null;
         }
 
         #endregion

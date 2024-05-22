@@ -3,9 +3,8 @@ using Sirenix.OdinInspector;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
-    public sealed partial class GamePrefabWrapperGeneralSetting : GeneralSettingBase
+    public sealed partial class GamePrefabWrapperGeneralSetting : GeneralSetting
     {
-        [LabelText("单包装模板")]
         public GamePrefabSingleWrapper singleWrapperTemplate;
     }
 }

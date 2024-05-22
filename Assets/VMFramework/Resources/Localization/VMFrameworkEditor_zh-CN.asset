@@ -247,31 +247,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 11488716261535744
-    m_Localized: "\u4FDD\u5B58"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488772188385280
-    m_Localized: "\u4FDD\u5B58\u6240\u6709"
+    m_Localized: "\u4FDD\u5B58{0}"
     m_Metadata:
       m_Items: []
   - m_Id: 11488820183805952
-    m_Localized: "\u6253\u5F00\u811A\u672C"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488909107245056
-    m_Localized: "\u6253\u5F00GamePrefab\u811A\u672C"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488994314530816
-    m_Localized: "\u6253\u5F00GameItem\u811A\u672C"
+    m_Localized: "\u6253\u5F00{0}\u811A\u672C"
     m_Metadata:
       m_Items: []
   - m_Id: 12586154460295168
     m_Localized: "\u6279\u5904\u7406"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 17273153570058240
-    m_Localized: "\u6253\u5F00Controller\u811A\u672C"
     m_Metadata:
       m_Items: []
   references:

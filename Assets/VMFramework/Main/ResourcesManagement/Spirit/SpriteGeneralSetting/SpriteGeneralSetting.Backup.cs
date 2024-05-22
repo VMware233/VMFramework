@@ -6,7 +6,7 @@ namespace VMFramework.ResourcesManagement
 {
     public partial class SpriteGeneralSetting
     {
-        [Button("备份所有"), TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
         private void BackupAll()
         {
             foreach (var prefab in GamePrefabManager.GetAllGamePrefabs<SpritePreset>())
@@ -15,7 +15,7 @@ namespace VMFramework.ResourcesManagement
             }
         }
 
-        [Button("从备份恢复所有"), TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
         private void RestoreAllFromBackup()
         {
             foreach (var prefab in GamePrefabManager.GetAllGamePrefabs<SpritePreset>())

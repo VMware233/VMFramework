@@ -101,7 +101,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
             var absoluteDirectoryPath = absoluteFilePath.GetDirectoryPath();
             absoluteDirectoryPath.CreateDirectory();
             
-            var gamePrefabWrapper = GameCoreSettingBase.gamePrefabWrapperGeneralSetting
+            var gamePrefabWrapper = GameCoreSetting.gamePrefabWrapperGeneralSetting
                 .singleWrapperTemplate.CopyAssetTo(path);
 
             if (gamePrefabWrapper == null)

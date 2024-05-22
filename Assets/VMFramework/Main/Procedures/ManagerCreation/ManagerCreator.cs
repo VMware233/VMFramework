@@ -24,7 +24,7 @@ namespace VMFramework.Procedure
 
         public static void CreateManagers()
         {
-            if (GameCoreSettingBase.managerCreationGeneralSetting == null)
+            if (GameCoreSetting.managerCreationGeneralSetting == null)
             {
                 Debug.LogWarning("No Manager Creation Settings found.");
                 return;
@@ -121,15 +121,15 @@ namespace VMFramework.Procedure
 
             var managerCreationList = new List<IManagerCreationProvider>();
 
-            if (GameCoreSettingBase.gameCoreSettingsFileBase != null)
+            if (GameCoreSetting.gameCoreSettingsFile != null)
             {
-                if (GameCoreSettingBase.gameCoreSettingsFileBase is IManagerCreationProvider managerCreation)
+                if (GameCoreSetting.gameCoreSettingsFile is IManagerCreationProvider managerCreation)
                 {
                     managerCreationList.Add(managerCreation);
                 }
             }
 
-            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
             {
                 if (generalSetting is IManagerCreationProvider managerCreation)
                 {

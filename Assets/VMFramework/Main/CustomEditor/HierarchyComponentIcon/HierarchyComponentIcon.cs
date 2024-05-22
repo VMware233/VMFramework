@@ -20,7 +20,7 @@ namespace VMFramework.Editor
         {
             get
             {
-                var setting = GameCoreSettingBase
+                var setting = GameCoreSetting
                     .hierarchyComponentIconGeneralSetting;
 
                 if (setting != null)
@@ -36,7 +36,7 @@ namespace VMFramework.Editor
         {
             get
             {
-                var setting = GameCoreSettingBase
+                var setting = GameCoreSetting
                     .hierarchyComponentIconGeneralSetting;
 
                 if (setting != null)

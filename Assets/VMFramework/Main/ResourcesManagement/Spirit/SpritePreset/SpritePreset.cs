@@ -17,10 +17,10 @@ namespace VMFramework.ResourcesManagement
         [PreviewField(40, ObjectFieldAlignment.Center)]
         public Sprite sprite;
         
-        [LabelText("预加载的翻转类型"), HorizontalGroup(FLIP_GROUP)]
+        [HorizontalGroup(FLIP_GROUP)]
         public FlipType2D preloadFlipType = FlipType2D.None;
 
-        [LabelText("Pivot操作"), HorizontalGroup(FLIP_GROUP)]
+        [HorizontalGroup(FLIP_GROUP)]
         [SerializeField]
         private SpritePivotFlipType spritePivotFlipType = SpritePivotFlipType.NoChange;
 

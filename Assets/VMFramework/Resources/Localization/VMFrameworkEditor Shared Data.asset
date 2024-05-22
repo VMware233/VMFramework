@@ -244,31 +244,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 11488716261535744
-    m_Key: SaveButtonName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488772188385280
-    m_Key: SaveAllButtonName
+    m_Key: GeneralSaveName
     m_Metadata:
       m_Items: []
   - m_Id: 11488820183805952
-    m_Key: OpenScriptButtonName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488909107245056
-    m_Key: OpenGamePrefabScriptButtonName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11488994314530816
-    m_Key: OpenGameItemScriptButtonName
+    m_Key: GeneralOpenScriptName
     m_Metadata:
       m_Items: []
   - m_Id: 12586154460295168
     m_Key: BatchProcessorName
-    m_Metadata:
-      m_Items: []
-  - m_Id: 17273153570058240
-    m_Key: OpenControllerScriptButtonName
     m_Metadata:
       m_Items: []
   m_Metadata:

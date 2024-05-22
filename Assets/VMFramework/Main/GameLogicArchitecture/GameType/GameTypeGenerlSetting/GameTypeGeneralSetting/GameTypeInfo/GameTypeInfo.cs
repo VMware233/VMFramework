@@ -18,7 +18,7 @@ namespace VMFramework.GameLogicArchitecture
             [JsonProperty]
             public string id;
 
-            [LabelText("子种类")]
+            [LabelText("Sub Game Types")]
             [JsonProperty]
             public List<GameTypeInfo> subtypes = new();
 

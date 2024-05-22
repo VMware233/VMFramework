@@ -7,7 +7,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Property
 {
-    public sealed partial class TooltipPropertyGeneralSetting : GeneralSettingBase
+    public sealed partial class TooltipPropertyGeneralSetting : GeneralSetting
     {
         #region Categories
 

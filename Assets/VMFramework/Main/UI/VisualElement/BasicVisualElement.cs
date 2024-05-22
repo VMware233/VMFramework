@@ -19,7 +19,7 @@ namespace VMFramework.UI
         }
 
         [ShowInInspector]
-        protected ITracingTooltipProvider tooltipProvider;
+        protected ITooltipProvider tooltipProvider { get; private set; }
 
         protected UIPanelController source;
 
@@ -32,7 +32,7 @@ namespace VMFramework.UI
             {
                 if (tooltipProvider != null)
                 {
-                    TracingTooltipManager.Open(tooltipProvider, null);
+                    TooltipManager.Open(tooltipProvider, null);
                 }
 
                 OnMouseEnter?.Invoke();
@@ -42,16 +42,21 @@ namespace VMFramework.UI
             {
                 if (tooltipProvider != null)
                 {
-                    TracingTooltipManager.Close(tooltipProvider);
+                    TooltipManager.Close(tooltipProvider);
                 }
 
                 OnMouseLeave?.Invoke();
             });
         }
 
+        public void SetTooltip(ITooltipProvider provider)
+        {
+            tooltipProvider = provider;
+        }
+
         public void SetTooltip(LocalizedStringReference newTooltip)
         {
-            tooltipProvider = new TempTracingTooltipProvider(newTooltip);
+            tooltipProvider = new TempTooltipProvider(newTooltip);
         }
 
         public void SetSource(UIPanelController source)

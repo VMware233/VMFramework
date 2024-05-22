@@ -14,7 +14,7 @@ namespace VMFramework.GameLogicArchitecture
             return describedGamePrefab.name;
         }
 
-        public virtual IEnumerable<ITracingTooltipProvider.PropertyConfig> GetTooltipProperties()
+        public virtual IEnumerable<TooltipPropertyInfo> GetTooltipProperties()
         {
             foreach (var config in TooltipPropertyManager.GetTooltipPropertyConfigsRuntime(id))
             {

@@ -50,7 +50,7 @@ namespace VMFramework.Configuration
 
                 if (SpriteManager.HasSpritePreset(value) == false)
                 {
-                    GameCoreSettingBase.spriteGeneralSetting.AddSpritePreset(value);
+                    GameCoreSetting.spriteGeneralSetting.AddSpritePreset(value);
                 }
 
                 spritePresetID = SpriteManager.GetSpritePreset(value)?.id;
@@ -71,7 +71,7 @@ namespace VMFramework.Configuration
 
             if (SpriteManager.HasSpritePreset(sprite) == false)
             {
-                GameCoreSettingBase.spriteGeneralSetting.AddSpritePreset(sprite);
+                GameCoreSetting.spriteGeneralSetting.AddSpritePreset(sprite);
             }
 
             var spritePreset = SpriteManager.GetSpritePreset(sprite);

@@ -11,7 +11,7 @@ namespace VMFramework.GameEvents
                 {
                     new()
                     {
-                        keyBoardTriggerType = KeyBoardTriggerType.KeyDown,
+                        keyBoardTriggerType = KeyBoardTriggerType.PressedDown,
                         holdThreshold = 0.3f
                     }
                 }

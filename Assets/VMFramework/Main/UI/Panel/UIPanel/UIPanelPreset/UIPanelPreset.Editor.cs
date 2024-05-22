@@ -13,7 +13,7 @@ namespace VMFramework.UI
             gameEventDisabledOnOpen ??= new();
         }
 
-        [Button("打开控制器脚本"), TabGroup(TAB_GROUP_NAME, TOOLS_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, TOOLS_CATEGORY)]
         private void OpenControllerScript()
         {
             controllerType.OpenScriptOfType();

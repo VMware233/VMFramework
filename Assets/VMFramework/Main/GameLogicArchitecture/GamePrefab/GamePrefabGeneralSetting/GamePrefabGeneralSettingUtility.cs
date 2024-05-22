@@ -10,7 +10,7 @@ namespace VMFramework.GameLogicArchitecture
     {
         public static GamePrefabGeneralSetting GetGamePrefabGeneralSetting(Type gamePrefabType)
         {
-            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
             {
                 if (generalSetting is not GamePrefabGeneralSetting gamePrefabSetting)
                 {
@@ -52,7 +52,7 @@ namespace VMFramework.GameLogicArchitecture
 
         public static IEnumerable<ValueDropdownItem> GetGamePrefabGeneralSettingNameList()
         {
-            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
             {
                 if (generalSetting is not GamePrefabGeneralSetting gamePrefabSetting)
                 {

@@ -14,7 +14,7 @@ namespace VMFramework.GameLogicArchitecture
         {
             GamePrefabManager.Clear();
             
-            foreach (var generalSetting in GameCoreSettingBase.GetAllGeneralSettings())
+            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
             {
                 if (generalSetting is IInitialGamePrefabProvider initialGamePrefabProvider)
                 {

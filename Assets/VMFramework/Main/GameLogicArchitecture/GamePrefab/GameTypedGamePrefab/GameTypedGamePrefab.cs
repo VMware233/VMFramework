@@ -13,11 +13,11 @@ namespace VMFramework.GameLogicArchitecture
         #region Configs
 
 #if UNITY_EDITOR
-        [LabelText("游戏种类"),
+        [LabelText("Game Types"),
          TabGroup(TAB_GROUP_NAME, BASIC_SETTING_CATEGORY, SdfIconType.Info, TextColor = "blue")]
         [OnCollectionChanged(nameof(OnInitialGameTypesIDChangedGUI))]
         [PropertyOrder(-6000)]
-        [GameType]
+        [GameTypeID]
         [ListDrawerSettings(ShowFoldout = false)]
 #endif
         [SerializeField, JsonProperty(Order = -6000)]
@@ -37,8 +37,7 @@ namespace VMFramework.GameLogicArchitecture
 
         #region Game Type
 
-        [LabelText("游戏种类集合"), TabGroup(TAB_GROUP_NAME, RUNTIME_DATA_CATEGORY, SdfIconType.Bug,
-             TextColor = "orange")]
+        [TabGroup(TAB_GROUP_NAME, RUNTIME_DATA_CATEGORY, SdfIconType.Bug, TextColor = "orange")]
         [ShowInInspector]
         private GameTypeSet _gameTypeSet;
 
@@ -62,7 +61,7 @@ namespace VMFramework.GameLogicArchitecture
             }
         }
 
-        [LabelText("唯一种类"), TabGroup(TAB_GROUP_NAME, RUNTIME_DATA_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, RUNTIME_DATA_CATEGORY)]
         [ShowInInspector]
         [HideInEditorMode]
         [JsonIgnore]

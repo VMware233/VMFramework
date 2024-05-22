@@ -7,24 +7,18 @@ using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
 {
-    public sealed partial class GameTypeGeneralSetting : GeneralSettingBase
+    public sealed partial class GameTypeGeneralSetting : GeneralSetting
     {
         #region Categories
 
-        private const string GAME_TYPE_CATEGORY = "游戏种类";
-
-        #endregion
-
-        #region Meta Data
-
-        public override bool localizationEnabled => true;
+        private const string GAME_TYPE_CATEGORY = "Game Type";
 
         #endregion
 
         #region Configs
 
 #if UNITY_EDITOR
-        [LabelText("游戏种类"), TabGroup(TAB_GROUP_NAME, GAME_TYPE_CATEGORY)]
+        [LabelText("Game Types"), TabGroup(TAB_GROUP_NAME, GAME_TYPE_CATEGORY)]
         [OnValueChanged(nameof(OnSubrootGameTypeInfosChanged), true)]
         [OnCollectionChanged(nameof(OnSubrootGameTypeInfosChanged))]
 #endif

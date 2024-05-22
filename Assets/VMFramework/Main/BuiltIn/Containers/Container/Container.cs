@@ -16,8 +16,6 @@ namespace VMFramework.Containers
 
         public bool isOpen { get; private set; } = false;
 
-        public bool isDestroyed { get; private set; } = false;
-
         public abstract int size { get; }
 
         public int validItemsSize
@@ -60,8 +58,6 @@ namespace VMFramework.Containers
         {
             base.OnCreate();
 
-            isDestroyed = false;
-
             using var containerCreateEvent = ContainerCreateEvent.Get();
             containerCreateEvent.SetContainer(this);
             containerCreateEvent.Propagate();
@@ -86,23 +82,18 @@ namespace VMFramework.Containers
 
         #region Destroy
 
-        public void Destroy()
+        protected override void OnDestroy()
         {
-            if (isDestroyed)
-            {
-                return;
-            }
-
+            base.OnDestroy();
+            
             if (isDebugging)
             {
-                Debug.LogWarning($"{this} is Destroyed On Client!");
+                Debug.LogWarning($"{this} is Destroyed");
             }
             
             using var containerDestroyEvent = ContainerDestroyEvent.Get();
             containerDestroyEvent.SetContainer(this);
             containerDestroyEvent.Propagate();
-            
-            isDestroyed = true;
         }
 
         #endregion

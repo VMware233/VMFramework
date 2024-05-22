@@ -7,6 +7,8 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial class GameTypeGeneralSetting
     {
+        public override bool localizationEnabled => true;
+        
         public override void AutoConfigureLocalizedString(LocalizedStringAutoConfigSettings settings)
         {
             base.AutoConfigureLocalizedString(settings);

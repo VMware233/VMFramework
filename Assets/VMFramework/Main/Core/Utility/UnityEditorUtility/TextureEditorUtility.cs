@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 namespace VMFramework.Core.Editor
@@ -11,3 +12,4 @@ namespace VMFramework.Core.Editor
         }
     }
 }
+#endif

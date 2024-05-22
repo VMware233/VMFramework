@@ -8,8 +8,6 @@ namespace VMFramework.Containers
     {
         public event Action<IContainer> OnOpenOnServerEvent;
         public event Action<IContainer> OnCloseOnServerEvent;
-
-        public void SetUUID(string uuid);
         
         public void OpenOnServer();
 

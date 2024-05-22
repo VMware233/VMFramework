@@ -15,15 +15,19 @@ namespace VMFramework.Property
         #region Configs
 
         [LabelText("实例类型")]
+#if UNITY_EDITOR
         [OnValueChanged(nameof(OnInstanceTypeChangedGUI))]
         [IsNotNullOrEmpty]
         [TypeValueDropdown(typeof(IGameItem), IncludingInterfaces = false, IncludingAbstract = true,
             IncludingGeneric = false)]
+#endif
         [SerializeField]
         private Type _instanceType;
         
         [LabelText("属性")]
+#if UNITY_EDITOR
         [OnCollectionChanged(nameof(OnInstanceTypeChangedGUI))]
+#endif
         [SerializeField]
         private List<InstanceTooltipPropertyConfig> tooltipPropertyConfigs = new();
 

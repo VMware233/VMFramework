@@ -34,6 +34,8 @@ namespace VMFramework.GameLogicArchitecture
         [ShowInInspector]
         public GameType uniqueGameType => gamePrefab.uniqueGameType;
 
+        public bool isDestroyed { get; private set; } = false;
+
         #endregion
     
         #region Interface Implementation
@@ -54,6 +56,12 @@ namespace VMFramework.GameLogicArchitecture
             OnClone(other);
         }
 
+        bool IGameItem.isDestroyed
+        {
+            get => isDestroyed;
+            set => isDestroyed = value;
+        }
+
         #endregion
 
         #region Clone
@@ -65,11 +73,21 @@ namespace VMFramework.GameLogicArchitecture
 
         #endregion
 
-        #region Create
+        #region Create & Destroy
 
         protected virtual void OnCreate()
         {
             // Debug.LogError(233);
+        }
+
+        void IGameItem.OnDestroyGameItem()
+        {
+            OnDestroy();
+        }
+
+        protected virtual void OnDestroy()
+        {
+            
         }
 
         #endregion

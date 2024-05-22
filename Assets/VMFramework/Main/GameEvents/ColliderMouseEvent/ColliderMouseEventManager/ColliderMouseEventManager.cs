@@ -19,10 +19,10 @@ namespace VMFramework.GameEvents
         [HideInEditorMode]
         public static Camera bindCamera;
 
-        public static float detectDistance2D => GameCoreSettingBase.colliderMouseEventGeneralSetting.detectDistance2D;
+        public static float detectDistance2D => GameCoreSetting.colliderMouseEventGeneralSetting.detectDistance2D;
 
         public static ObjectDimensions dimensionsDetectPriority =>
-            GameCoreSettingBase.colliderMouseEventGeneralSetting.dimensionsDetectPriority;
+            GameCoreSetting.colliderMouseEventGeneralSetting.dimensionsDetectPriority;
 
         [BoxGroup(DEBUGGING_CATEGORY), ReadOnly, ShowInInspector]
         private static ColliderMouseEventTrigger currentHoverTrigger;

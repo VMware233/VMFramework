@@ -12,7 +12,7 @@ namespace VMFramework.GameEvents
         public override Type gameItemType => typeof(BoolInputGameEvent);
 
 #if UNITY_EDITOR
-        [LabelText("输入动作组"), TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
         [ListDrawerSettings(CustomAddFunction = nameof(AddActionGroupGUI))]
 #endif
         [JsonProperty]

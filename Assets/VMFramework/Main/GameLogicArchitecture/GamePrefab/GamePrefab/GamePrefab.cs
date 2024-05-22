@@ -18,16 +18,11 @@ namespace VMFramework.GameLogicArchitecture
 
         protected const string TAB_GROUP_NAME = "TabGroup";
 
-        protected const string BASIC_SETTING_CATEGORY = "基本设置";
+        protected const string BASIC_SETTING_CATEGORY = "Basic";
 
-        protected const string TOOLS_CATEGORY = "工具";
+        protected const string TOOLS_CATEGORY = "Tools";
 
-        protected const string EXTENDED_CLASS_CATEGORY = "扩展类";
-
-        protected const string RUNTIME_DATA_CATEGORY = "运行时数据";
-
-        protected const string OPEN_SCRIPT_CATEGORY =
-            TAB_GROUP_NAME + "/" + TOOLS_CATEGORY + "/打开脚本";
+        protected const string RUNTIME_DATA_CATEGORY = "Runtime Data";
 
         #endregion
 
@@ -37,12 +32,12 @@ namespace VMFramework.GameLogicArchitecture
         [SerializeField, JsonProperty(Order = -10000)]
         private string _id;
 
-        [LabelText("是否启用", SdfIconType.Activity)]
+        [LabelText(SdfIconType.Activity)]
         [JsonProperty(Order = -9000), PropertyOrder(-9000)]
         [HorizontalGroup(ACTIVE_STATE_AND_DEBUGGING_MODE_HORIZONTAL_GROUP)]
         public bool isActive = true;
 
-        [LabelText("调试模式", SdfIconType.BugFill)]
+        [LabelText(SdfIconType.BugFill)]
         [JsonProperty(Order = -8000), PropertyOrder(-8000)]
         [HorizontalGroup(ACTIVE_STATE_AND_DEBUGGING_MODE_HORIZONTAL_GROUP)]
         public bool isDebugging = false;

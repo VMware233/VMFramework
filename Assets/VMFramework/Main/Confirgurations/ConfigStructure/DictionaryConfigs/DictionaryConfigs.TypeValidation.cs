@@ -1,20 +1,23 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
-    [TypeValidation]
-    public partial class DictionaryConfigs<TID, TConfig> : ITypeValidationProvider
+    public partial class DictionaryConfigs<TID, TConfig>
     {
-        IEnumerable<ValidationResult> ITypeValidationProvider.
-            GetValidationResults(GUIContent label)
+        protected override IEnumerable<ValidationResult> GetValidationResults(GUIContent label)
         {
-            if (configs.Count == 0)
+            foreach (var result in base.GetValidationResults(label))
             {
-                var labelName = label?.text;
-                yield return new("缺少配置", ValidateType.Info);
+                yield return result;
+            }
+
+            if (configs.Any(config => config.id == null || config.id is ""))
+            {
+                yield return new("All Configs must have a non-empty ID.", ValidateType.Error);
             }
         }
     }

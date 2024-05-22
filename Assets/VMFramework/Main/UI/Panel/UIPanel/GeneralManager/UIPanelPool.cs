@@ -39,7 +39,8 @@ namespace VMFramework.UI
             {
                 if (allUniquePanelControllers.ContainsKey(id))
                 {
-                    Debug.LogWarning($"ID为{id}的唯一UI面板已经创建，旧的面板将被覆盖");
+                    Debug.LogWarning($"The unique UI panel with ID {id} has already been created, " +
+                                     "the old panel will be overwritten");
                 }
 
                 allUniquePanelControllers[id] = controller;
@@ -62,13 +63,14 @@ namespace VMFramework.UI
 
             if (allUIPanelControllers.TryGetValue(id, out var controllerList) == false)
             {
-                Debug.LogWarning($"ID为{id}的UI面板不存在于池中，无法注销: {controller}");
+                Debug.LogWarning($"The {id} does not exist in the pool, cannot unregister: {controller}");
                 return;
             }
 
             if (controllerList.Remove(controller) == false)
             {
-                Debug.LogWarning($"ID为{id}的UI面板不存在于池中，无法注销: {controller}");
+                Debug.LogWarning(
+                    $"The panel wit ID {id} does not exist in the pool, cannot unregister: {controller}");
                 return;
             }
 
@@ -76,7 +78,8 @@ namespace VMFramework.UI
             {
                 if (allUniquePanelControllers.Remove(id) == false)
                 {
-                    Debug.LogWarning($"ID为{id}的唯一UI面板不存在于池中，无法注销: {controller}");
+                    Debug.LogWarning(
+                        $"The unique UI panel with ID {id} does not exist, cannot unregister: {controller}");
                 }
             }
             else
@@ -218,6 +221,19 @@ namespace VMFramework.UI
         #region Unique Panels
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<TController> GetUniquePanels<TController>()
+            where TController : IUIPanelController
+        {
+            foreach (var panelController in allUniquePanelControllers.Values)
+            {
+                if (panelController is TController controller)
+                {
+                    yield return controller;
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IUIPanelController GetUniquePanel(string id)
         {
             return allUniquePanelControllers.GetValueOrDefault(id);
@@ -255,7 +271,7 @@ namespace VMFramework.UI
 
             if (panelController == null)
             {
-                throw new Exception($"ID为{id}的唯一UI面板不存在");
+                throw new Exception($"The unique panel with ID {id} does not exist");
             }
             
             return panelController;
@@ -282,6 +298,29 @@ namespace VMFramework.UI
             
             panelController = default;
             return false;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetUniquePanelWithWarning<TController>(string id, out TController panelController)
+            where TController : IUIPanelController
+        {
+            if (allUniquePanelControllers.TryGetValue(id, out var panelControllerInterface) == false)
+            {
+                Debug.LogWarning($"The unique panel with ID {id} does not exist");
+                panelController = default;
+                return false;
+            }
+            
+            if (panelControllerInterface is not TController controller)
+            {
+                Debug.LogWarning($"The unique panel with ID {id} is {panelControllerInterface.GetType()} " +
+                                 $"instead of {typeof(TController)}");
+                panelController = default;
+                return false;
+            }
+            
+            panelController = controller;
+            return true;
         }
 
         #endregion

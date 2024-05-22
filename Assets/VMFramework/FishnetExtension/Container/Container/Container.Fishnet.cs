@@ -13,13 +13,19 @@ namespace VMFramework.Containers
         public string uuid { get; private set; }
         
         public bool isDirty = true;
-        
+
         public event Action<IUUIDOwner, bool, NetworkConnection> OnObservedEvent;
         public event Action<IUUIDOwner, NetworkConnection> OnUnobservedEvent;
         
         public event Action<IContainer> OnOpenOnServerEvent;
         public event Action<IContainer> OnCloseOnServerEvent;
-        
+
+        string IUUIDOwner.uuid
+        {
+            get => uuid;
+            set => uuid = value;
+        }
+
         bool IUUIDOwner.isDirty
         {
             get => isDirty;
@@ -34,25 +40,6 @@ namespace VMFramework.Containers
         void IUUIDOwner.OnUnobserved(NetworkConnection connection)
         {
             OnUnobservedEvent?.Invoke(this, connection);
-        }
-        
-        public void SetUUID(string uuid)
-        {
-            if (string.IsNullOrEmpty(uuid))
-            {
-                Debug.LogWarning("试图设置UUID为null或空字符串");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(this.uuid))
-            {
-                this.uuid = uuid;
-                ContainerManager.Register(this);
-            }
-            else
-            {
-                Debug.LogWarning("试图修改已经生成的容器UUID");
-            }
         }
 
         #region Open & Close
