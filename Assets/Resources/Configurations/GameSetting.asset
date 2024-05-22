@@ -47,4 +47,4 @@ MonoBehaviour:
   gamePrefabWrapperGeneralSetting: {fileID: 11400000, guid: 5515826852218bb46a7b88a5be876648, type: 2}
   mapCoreGeneralSetting: {fileID: 11400000, guid: 97ff2ca2d44d25e46b8885a3ce535707, type: 2}
   extendedRuleTileGeneralSetting: {fileID: 11400000, guid: e95bf21a40f23874cbe7ee8a3b1ea6e8, type: 2}
-  playerGeneralSetting: {fileID: 0}
+  playerGeneralSetting: {fileID: 11400000, guid: 2ed62d2a9bc08174faba6c89d226dde6, type: 2}
