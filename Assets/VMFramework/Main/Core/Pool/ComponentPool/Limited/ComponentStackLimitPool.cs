@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentStackLimitPool<T> : ComponentReadOnlyLimitedCollectionPool<T, Stack<T>> 
+    public sealed class ComponentStackLimitPool<T> : ComponentReadOnlyLimitedCollectionPool<T, Stack<T>> 
         where T : Component
     {
         public ComponentStackLimitPool(int maxCapacity, Action<T> hideAction = null,

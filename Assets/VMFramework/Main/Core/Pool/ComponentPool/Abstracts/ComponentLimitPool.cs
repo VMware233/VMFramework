@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public abstract class ComponentLimitPool<T> : ComponentPool<T>, IComponentLimitPool<T>
-        where T : Component
+    public abstract partial class ComponentLimitPool<TComponent> : ComponentPool<TComponent>, 
+        IComponentLimitPool<TComponent>
+        where TComponent : Component
     {
-        [ShowInInspector]
         public int maxCapacity { get; private set; }
 
-        protected ComponentLimitPool(int maxCapacity, Action<T> hideAction = null,
-            Action<T> showAction = null, Action<T> destroyAction = null) : base(
+        protected ComponentLimitPool(int maxCapacity, Action<TComponent> hideAction = null,
+            Action<TComponent> showAction = null, Action<TComponent> destroyAction = null) : base(
             hideAction, showAction, destroyAction)
         {
             this.maxCapacity = maxCapacity;

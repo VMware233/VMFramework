@@ -24,12 +24,6 @@ namespace VMFramework.Procedure
 
         public static void CreateManagers()
         {
-            if (GameCoreSetting.managerCreationGeneralSetting == null)
-            {
-                Debug.LogWarning("No Manager Creation Settings found.");
-                return;
-            }
-
             ManagerCreatorContainers.Init();
 
             var eventCoreContainer =

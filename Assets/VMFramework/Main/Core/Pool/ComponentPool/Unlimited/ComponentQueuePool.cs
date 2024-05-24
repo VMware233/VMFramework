@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentQueuePool<T> : ComponentReadOnlyCollectionPool<T, Queue<T>>
+    public sealed class ComponentQueuePool<T> : ComponentReadOnlyCollectionPool<T, Queue<T>>
         where T : Component
     {
         public ComponentQueuePool(Action<T> hideAction = null,

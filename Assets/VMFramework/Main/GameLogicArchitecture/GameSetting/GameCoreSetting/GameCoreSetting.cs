@@ -32,9 +32,6 @@ namespace VMFramework.GameLogicArchitecture
                 return _gameCoreSettingsFile;
             }
         }
-        
-        public static ManagerCreationGeneralSetting managerCreationGeneralSetting =>
-            gameCoreSettingsFile == null ? null : gameCoreSettingsFile.managerCreationGeneralSetting;
 
         public static GameTypeGeneralSetting gameTypeGeneralSetting =>
             gameCoreSettingsFile == null ? null : gameCoreSettingsFile.gameTypeGeneralSetting;

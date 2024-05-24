@@ -31,10 +31,6 @@ namespace VMFramework.GameLogicArchitecture
 
         [TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
         [Required]
-        public ManagerCreationGeneralSetting managerCreationGeneralSetting;
-
-        [TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]
-        [Required]
         public GameTypeGeneralSetting gameTypeGeneralSetting;
         
         [TabGroup(TAB_GROUP_NAME, CORE_CATEGORY)]

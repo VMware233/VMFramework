@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using VMFramework.Core;
+using VMFramework.Core.JSON;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.GameLogicArchitecture
@@ -80,7 +81,7 @@ namespace VMFramework.GameLogicArchitecture
             }
             
             string json =
-                JsonConvert.SerializeObject(this, Formatting.Indented, CustomJSONConverter.converters);
+                JsonConvert.SerializeObject(this, Formatting.Indented, JSONConverters.converters);
 
             jsonFileAbsolutePath.OverWriteFile(json);
         }
@@ -101,7 +102,7 @@ namespace VMFramework.GameLogicArchitecture
             
             JsonConvert.PopulateObject(json, this, new JsonSerializerSettings()
             {
-                Converters = CustomJSONConverter.converters,
+                Converters = JSONConverters.converters,
             });
         }
     }

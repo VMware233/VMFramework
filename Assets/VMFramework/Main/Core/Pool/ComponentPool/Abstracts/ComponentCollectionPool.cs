@@ -5,19 +5,19 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentCollectionPool<T, TCollection> : 
-        ComponentReadOnlyCollectionPool<T, TCollection>
-        where T : Component
-        where TCollection : IReadOnlyCollection<T>, ICollection<T>, new()
+    public class ComponentCollectionPool<TComponent, TCollection> : 
+        ComponentReadOnlyCollectionPool<TComponent, TCollection>
+        where TComponent : Component
+        where TCollection : IReadOnlyCollection<TComponent>, ICollection<TComponent>, new()
     {
-        public ComponentCollectionPool(Action<T> hideAction = null,
-            Action<T> showAction = null, Action<T> destroyAction = null) : base(
+        public ComponentCollectionPool(Action<TComponent> hideAction = null,
+            Action<TComponent> showAction = null, Action<TComponent> destroyAction = null) : base(
             hideAction, showAction, destroyAction)
         {
 
         }
 
-        public override T Get(Func<T> creator, out bool isFreshlyCreated)
+        public override TComponent Get(Func<TComponent> creator, out bool isFreshlyCreated)
         {
             if (IsEmpty() == false)
             {
@@ -34,7 +34,7 @@ namespace VMFramework.Core.Pool
             return creator();
         }
 
-        public override void Return(T item)
+        public override void Return(TComponent item)
         {
             item.AssertIsNotNull(nameof(item));
             

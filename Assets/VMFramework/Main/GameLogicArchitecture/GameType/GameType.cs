@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
-using Newtonsoft.Json;
 using UnityEngine;
 using VMFramework.Localization;
 using VMFramework.OdinExtensions;
@@ -13,7 +12,6 @@ namespace VMFramework.GameLogicArchitecture
 {
     [HideReferenceObjectPicker]
     [HideDuplicateReferenceBox]
-    [JsonConverter(typeof(GameTypeConverter))]
     [PreviewComposite]
     public partial class GameType : ITreeNode<GameType>, ICloneable, INameOwner
     {

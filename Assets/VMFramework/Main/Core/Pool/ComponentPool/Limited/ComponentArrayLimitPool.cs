@@ -3,21 +3,21 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentArrayLimitPool<T> : ComponentLimitPool<T>
-        where T : Component
+    public sealed partial class ComponentArrayLimitPool<TComponent> : ComponentLimitPool<TComponent>
+        where TComponent : Component
     {
-        private readonly T[] pool;
+        private readonly TComponent[] pool;
 
         private int count;
 
-        public ComponentArrayLimitPool(int maxCapacity, Action<T> hideAction = null,
-            Action<T> showAction = null, Action<T> destroyAction = null) : base(
+        public ComponentArrayLimitPool(int maxCapacity, Action<TComponent> hideAction = null,
+            Action<TComponent> showAction = null, Action<TComponent> destroyAction = null) : base(
             maxCapacity, hideAction, showAction, destroyAction)
         {
-            pool = new T[maxCapacity];
+            pool = new TComponent[maxCapacity];
         }
 
-        public override T Get(Func<T> creator, out bool isFreshlyCreated)
+        public override TComponent Get(Func<TComponent> creator, out bool isFreshlyCreated)
         {
             if (count > 0)
             {
@@ -32,7 +32,7 @@ namespace VMFramework.Core.Pool
             return creator();
         }
 
-        public override void Return(T item)
+        public override void Return(TComponent item)
         {
             item.AssertIsNotNull(nameof(item));
             

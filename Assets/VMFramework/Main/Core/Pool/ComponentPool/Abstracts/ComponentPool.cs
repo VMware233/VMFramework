@@ -5,14 +5,14 @@ using Object = UnityEngine.Object;
 
 namespace VMFramework.Core.Pool
 {
-    public abstract class ComponentPool<T> : IComponentPool<T> where T : Component
+    public abstract class ComponentPool<TComponent> : IComponentPool<TComponent> where TComponent : Component
     {
-        private readonly Action<T> hideAction;
-        private readonly Action<T> showAction;
-        private readonly Action<T> destroyAction;
+        private readonly Action<TComponent> hideAction;
+        private readonly Action<TComponent> showAction;
+        private readonly Action<TComponent> destroyAction;
 
-        protected ComponentPool(Action<T> hideAction = null,
-            Action<T> showAction = null, Action<T> destroyAction = null)
+        protected ComponentPool(Action<TComponent> hideAction = null,
+            Action<TComponent> showAction = null, Action<TComponent> destroyAction = null)
         {
             this.hideAction = hideAction;
             this.showAction = showAction;
@@ -20,10 +20,10 @@ namespace VMFramework.Core.Pool
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public abstract T Get(Func<T> creator, out bool isFreshlyCreated);
+        public abstract TComponent Get(Func<TComponent> creator, out bool isFreshlyCreated);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public abstract void Return(T item);
+        public abstract void Return(TComponent item);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract bool IsEmpty();
@@ -32,7 +32,7 @@ namespace VMFramework.Core.Pool
         public abstract void Clear();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void Show(T item)
+        protected void Show(TComponent item)
         {
             if (showAction != null)
             {
@@ -45,7 +45,7 @@ namespace VMFramework.Core.Pool
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void Hide(T item)
+        protected void Hide(TComponent item)
         {
             if (hideAction != null)
             {
@@ -58,7 +58,7 @@ namespace VMFramework.Core.Pool
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void Destroy(T item)
+        protected void Destroy(TComponent item)
         {
             if (destroyAction != null)
             {

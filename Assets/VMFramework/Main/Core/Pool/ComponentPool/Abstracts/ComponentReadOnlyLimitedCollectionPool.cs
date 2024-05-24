@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public abstract class ComponentReadOnlyLimitedCollectionPool<T, TCollection> :
+    public abstract partial class ComponentReadOnlyLimitedCollectionPool<T, TCollection> :
         ComponentLimitPool<T>, IComponentCheckableLimitPool<T>
         where T : Component
         where TCollection : IReadOnlyCollection<T>, new()
     {
-        [ShowInInspector]
         protected TCollection pool = new();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

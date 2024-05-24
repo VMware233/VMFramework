@@ -10,6 +10,7 @@
         TestingCore,
         EnvironmentCore,
         OtherCore,
-        ResourcesCore
+        ResourcesCore,
+        TimerCore
     }
 }

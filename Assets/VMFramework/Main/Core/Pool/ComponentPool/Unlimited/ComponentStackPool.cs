@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentStackPool<T> : ComponentReadOnlyCollectionPool<T, Stack<T>>
+    public sealed class ComponentStackPool<T> : ComponentReadOnlyCollectionPool<T, Stack<T>>
         where T : Component
     {
         public ComponentStackPool(Action<T> hideAction = null,

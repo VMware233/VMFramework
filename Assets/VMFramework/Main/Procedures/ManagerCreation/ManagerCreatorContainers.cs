@@ -9,6 +9,8 @@ namespace VMFramework.Procedure
 {
     public static class ManagerCreatorContainers
     {
+        public const string CONTAINER_NAME = "^Core";
+        
         public static Transform managerContainer { get; private set; }
         
         private static readonly Dictionary<string, Transform> _managerTypeContainers = new();
@@ -19,12 +21,8 @@ namespace VMFramework.Procedure
         public static void Init()
         {
             _managerTypeContainers.Clear();
-            
-            var managerContainerName = GameCoreSetting.managerCreationGeneralSetting.managerContainerName;
 
-            managerContainerName.AssertIsNotNullOrWhiteSpace(nameof(managerContainerName));
-
-            var managerContainerGameObject = managerContainerName.FindOrCreateGameObject();
+            var managerContainerGameObject = CONTAINER_NAME.FindOrCreateGameObject();
             
             managerContainerGameObject.AssertIsNotNull(nameof(managerContainerGameObject));
             

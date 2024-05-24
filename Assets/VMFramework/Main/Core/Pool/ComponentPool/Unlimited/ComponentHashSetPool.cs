@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentHashSetPool<T> : ComponentCollectionPool<T, HashSet<T>>
+    public sealed class ComponentHashSetPool<T> : ComponentCollectionPool<T, HashSet<T>>
         where T : Component
     {
         public ComponentHashSetPool(Action<T> hideAction = null,

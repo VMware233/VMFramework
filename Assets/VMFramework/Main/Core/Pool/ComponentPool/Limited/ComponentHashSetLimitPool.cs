@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VMFramework.Core.Pool
 {
-    public class ComponentHashSetLimitPool<T> : ComponentLimitedCollectionPool<T, HashSet<T>>
+    public sealed class ComponentHashSetLimitPool<T> : ComponentLimitedCollectionPool<T, HashSet<T>>
         where T : Component
     {
         public ComponentHashSetLimitPool(int maxCapacity,
