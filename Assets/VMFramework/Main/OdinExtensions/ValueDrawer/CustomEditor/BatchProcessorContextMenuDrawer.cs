@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +8,7 @@ using UnityEditor;
 namespace VMFramework.Editor
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    public sealed class BatchProcessorContextMenuDrawer<T> : OdinValueDrawer<T>,
+    internal sealed class BatchProcessorContextMenuDrawer<T> : OdinValueDrawer<T>,
         IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
@@ -35,19 +35,19 @@ namespace VMFramework.Editor
 
                 genericMenu.AddSeparator("");
 
-                genericMenu.AddItem(new GUIContent("批处理"), false, () =>
+                genericMenu.AddItem(new GUIContent("Batch Process"), false, () =>
                 {
                     BatchProcessorWindow.OpenWindow(collection.Cast<object>());
                 });
 
-                genericMenu.AddItem(new GUIContent("添加到批处理"), false, () =>
+                genericMenu.AddItem(new GUIContent("Add to Batch Processor"), false, () =>
                 {
                     BatchProcessorWindow.AddToWindow(collection.Cast<object>());
                 });
             }
             else
             {
-                genericMenu.AddItem(new GUIContent("添加到批处理"), false, () =>
+                genericMenu.AddItem(new GUIContent("Add to Batch Processor"), false, () =>
                 {
                     BatchProcessorWindow.AddToWindow(new[] { value });
                 });

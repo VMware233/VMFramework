@@ -1,11 +1,11 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace VMFramework.OdinExtensions
 {
-    public class PathContextMenuDrawer : OdinValueDrawer<string>, IDefinesGenericMenuItems
+    internal sealed class PathContextMenuDrawer : OdinValueDrawer<string>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
@@ -47,7 +47,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddItem(new GUIContent("打开文件夹"), false, () =>
+            genericMenu.AddItem(new GUIContent("Open in Explorer"), false, () =>
             {
                 path.OpenDirectory(false);
             });

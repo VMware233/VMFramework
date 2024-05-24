@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -8,7 +8,7 @@ using VMFramework.Core;
 
 namespace VMFramework.OdinExtensions
 {
-    public class ColorChooserConfigContextMenuDrawer<T> : OdinValueDrawer<T>, IDefinesGenericMenuItems
+    internal sealed class ColorChooserConfigContextMenuDrawer<T> : OdinValueDrawer<T>, IDefinesGenericMenuItems
         where T : IChooserConfig<Color>
     {
         private const float COLOR_ALPHA_THRESHOLD = 0.3f;
@@ -29,12 +29,12 @@ namespace VMFramework.OdinExtensions
 
             if (chooser.GetAvailableValues().Any(color => color.a < COLOR_ALPHA_THRESHOLD))
             {
-                genericMenu.AddItem(new GUIContent("设置Alpha为1"), false, SetAlphaTo1);
+                genericMenu.AddItem(new GUIContent("Set Alpha to 1"), false, SetAlphaTo1);
             }
 
             if (chooser.GetAvailableValues().Any(color => color.a < 1))
             {
-                genericMenu.AddItem(new GUIContent("设置所有Alpha为1"), false, SetAllAlphaTo1);
+                genericMenu.AddItem(new GUIContent("Set All Alpha to 1"), false, SetAllAlphaTo1);
             }
 
             void SetAlphaTo1()

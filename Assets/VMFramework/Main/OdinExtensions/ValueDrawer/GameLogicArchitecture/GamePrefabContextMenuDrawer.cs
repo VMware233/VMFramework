@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -9,7 +9,7 @@ using VMFramework.GameLogicArchitecture;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    public class GamePrefabContextMenuDrawer : OdinValueDrawer<GamePrefab>, IDefinesGenericMenuItems
+    internal sealed class GamePrefabContextMenuDrawer : OdinValueDrawer<GamePrefab>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
@@ -22,7 +22,7 @@ namespace VMFramework.OdinExtensions
             {
                 genericMenu.AddSeparator("");
                 
-                genericMenu.AddItem(new GUIContent($"打开{nameof(GameItem)}脚本"), false, () =>
+                genericMenu.AddItem(new GUIContent($"Open {nameof(GameItem)} Script"), false, () =>
                 {
                     ValueEntry.SmartValue.gameItemType.OpenScriptOfType();
                 });

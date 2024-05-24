@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -8,7 +8,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.OdinExtensions
 {
-    public class GamePrefabWrapperContextMenuDrawer : OdinValueDrawer<GamePrefabWrapper>, IDefinesGenericMenuItems
+    internal sealed class GamePrefabWrapperContextMenuDrawer : OdinValueDrawer<GamePrefabWrapper>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {

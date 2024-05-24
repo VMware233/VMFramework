@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+#if UNITY_EDITOR && ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    public class IntContextMenuDrawer : OdinValueDrawer<int>, IDefinesGenericMenuItems
+    internal sealed class IntContextMenuDrawer : OdinValueDrawer<int>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
@@ -17,12 +17,12 @@ namespace VMFramework.OdinExtensions
         {
             genericMenu.AddSeparator("");
             
-            genericMenu.AddItem(new GUIContent($"设为{int.MaxValue}"), false, () =>
+            genericMenu.AddItem(new GUIContent($"Set to {int.MaxValue}"), false, () =>
             {
                 ValueEntry.SmartValue = int.MaxValue;
             });
             
-            genericMenu.AddItem(new GUIContent($"设为{int.MinValue}"), false, () =>
+            genericMenu.AddItem(new GUIContent($"Set to {int.MinValue}"), false, () =>
             {
                 ValueEntry.SmartValue = int.MinValue;
             });

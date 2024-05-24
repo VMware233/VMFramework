@@ -33,7 +33,7 @@ namespace VMFramework.Core.JSON
                 throw new JsonSerializationException("Error deserializing RectangleInteger. Expected EndArray token.");
             }
             
-            return new RectangleInteger(min, max);
+            return new(min, max);
         }
     }
 }

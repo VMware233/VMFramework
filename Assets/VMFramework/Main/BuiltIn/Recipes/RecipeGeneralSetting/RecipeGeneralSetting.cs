@@ -1,7 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
-using UnityEngine;
-using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Recipe

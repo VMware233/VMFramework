@@ -13,6 +13,7 @@ namespace VMFramework.Core.JSON
             new Vector4Converter(),
             new ColorConverter(),
             new RectangleIntegerConverter(),
+            new RectangleFloatConverter(),
             new GameTypeConverter(),
             new StringEnumConverter(),
         };

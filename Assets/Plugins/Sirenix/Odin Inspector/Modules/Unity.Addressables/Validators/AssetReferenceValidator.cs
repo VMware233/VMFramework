@@ -160,11 +160,13 @@ namespace Sirenix.OdinInspector.Modules.Addressables.Editor
                 }
             }
 
-            // Check AssetReference.Validate
-            if (mainAsset != null && assetReference.ValidateAsset(mainAsset) == false)
-            {
-                result.AddError($"{assetReference.GetType().GetNiceFullName()}.ValidateAsset failed to validate assigned asset.");
-            }
+            if (assetReference.ValidateAsset(mainAsset) || assetReference.ValidateAsset(assetPath))
+                return;
+
+            if (assetReference is AssetReferenceSprite && assetReference.editorAsset is Sprite)
+                return;
+
+            result.AddError($"{assetReference.GetType().GetNiceFullName()}.ValidateAsset failed to validate assigned asset.");
         }
 
         private static void SetLabels(UnityEngine.Object obj, List<AssetLabel> assetLabels)

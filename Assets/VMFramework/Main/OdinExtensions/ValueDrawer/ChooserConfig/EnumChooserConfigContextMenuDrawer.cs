@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using System;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -7,7 +7,7 @@ using VMFramework.Configuration;
 
 namespace VMFramework.OdinExtensions
 {
-    public class EnumChooserConfigContextMenuDrawer<T, TEnum> : OdinValueDrawer<T>, IDefinesGenericMenuItems
+    internal sealed class EnumChooserConfigContextMenuDrawer<T, TEnum> : OdinValueDrawer<T>, IDefinesGenericMenuItems
         where T : ICollectionChooserConfig<TEnum>
         where TEnum : struct, Enum
     {

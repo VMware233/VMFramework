@@ -89,7 +89,7 @@ namespace Sirenix.OdinInspector.Modules.Addressables.Editor
     /// <typeparam name="T">The concrete type of AssetReference to be drawn. For example, <c>AssetReferenceTexture</c>.</typeparam>
 	[DrawerPriority(0, 1, 0)]
     public class AssetReferenceDrawer<T> : OdinValueDrawer<T>, IDefinesGenericMenuItems
-        where T: AssetReference
+        where T : AssetReference
     {
         private bool hideAssetReferenceField;
         private Type targetType;
@@ -218,16 +218,33 @@ namespace Sirenix.OdinInspector.Modules.Addressables.Editor
 
                 // Drag and drop
                 EditorGUI.BeginChangeCheck();
-                var drop = DragAndDropUtilities.DropZone<T>(rect, null, false, controlId);
+                var drop = DragAndDropUtilities.DropZone(rect, null, typeof(object), false, controlId);
                 if (EditorGUI.EndChangeCheck())
                 {
-                    if (this.disallowSubAssets && string.IsNullOrEmpty(drop.SubObjectName) == false)
+                    T dropValue;
+
+                    if (!object.ReferenceEquals(drop, null) 
+                        && ConvertUtility.TryWeakConvert(drop, targetType, out object converted) 
+                        && converted is UnityEngine.Object obj 
+                        && obj != null)
                     {
-                        drop.SubObjectName = null;
+                        dropValue = CreateAssetReferenceFrom(obj);
+                    }
+                    else
+                    {
+                        dropValue = drop as T;
                     }
 
-                    this.updateShowSubAssetField = true; 
-                    this.ValueEntry.SmartValue = drop;
+                    if (dropValue != null)
+                    {
+                        if (this.disallowSubAssets && string.IsNullOrEmpty(dropValue.SubObjectName) == false)
+                        {
+                            dropValue.SubObjectName = null;
+                        }
+
+                        this.updateShowSubAssetField = true; 
+                        this.ValueEntry.SmartValue = dropValue;
+                    }
                 }
 
                 // Drawing

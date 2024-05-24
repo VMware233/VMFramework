@@ -12,7 +12,7 @@ using VMFramework.Localization;
 
 namespace VMFramework.OdinExtensions
 {
-    public class TableNameAttributeDrawer : GeneralValueDropdownAttributeDrawer<TableNameAttribute>, 
+    internal sealed class TableNameAttributeDrawer : GeneralValueDropdownAttributeDrawer<TableNameAttribute>, 
         IDefinesGenericMenuItems
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()
@@ -53,29 +53,30 @@ namespace VMFramework.OdinExtensions
                 collection = LocalizationEditorSettings.GetStringTableCollection(tableName);
             }
             
-            if (Button("编辑", SdfIconType.PencilSquare))
+            if (Button("Edit Table", SdfIconType.PencilSquare))
             {
                 if (collection == null)
                 {
-                    LocalizationTablesWindow.ShowTableCreator();
+                    OdinLocalizationEditorWindowUtility.ShowTableCreator();
                 }
                 else
                 {
-                    LocalizationTablesWindow.ShowWindow(collection);
+                    OdinLocalizationEditorWindowUtility.ShowTable(collection);
+                    // LocalizationTablesWindow.ShowWindow(collection);
                 }
             }
             
             if (collection != null)
             {
-                if (Button("选中表资源", SdfIconType.Search))
+                if (Button("Select Table Resource", SdfIconType.Search))
                 {
                     Selection.activeObject = collection;
                 }
             }
             
-            if (Button("创建新表", SdfIconType.Plus))
+            if (Button("Create New Table", SdfIconType.Plus))
             {
-                LocalizationTablesWindow.ShowTableCreator();
+                OdinLocalizationEditorWindowUtility.ShowTableCreator();
             }
         }
 
@@ -102,21 +103,18 @@ namespace VMFramework.OdinExtensions
 
             void ShowWindow(LocalizationTableCollection collection)
             {
-                if (collection == null)
+                genericMenu.AddSeparator("");
+                
+                if (collection != null)
                 {
-                    genericMenu.AddItem(new GUIContent("打开表格编辑器"), false,
-                        LocalizationTablesWindow.ShowWindow);
-                }
-                else
-                {
-                    genericMenu.AddItem(new GUIContent("打开表"), false, () =>
+                    genericMenu.AddItem(new GUIContent("Open Table"), false, () =>
                     {
-                        LocalizationTablesWindow.ShowWindow(collection);
+                        OdinLocalizationEditorWindowUtility.ShowTable(collection);
                     });
                 }
                 
-                genericMenu.AddItem(new GUIContent("创建新表"), false,
-                    LocalizationTablesWindow.ShowTableCreator);
+                genericMenu.AddItem(new GUIContent("Create New Table"), false,
+                    OdinLocalizationEditorWindowUtility.ShowTableCreator);
             }
         }
     }

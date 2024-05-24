@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using System;
 using VMFramework.Core;
 using Sirenix.OdinInspector.Editor;
@@ -9,7 +9,7 @@ using VMFramework.Core.Editor;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    public sealed class OpenScriptContextMenuDrawer<T> : OdinValueDrawer<T>,
+    internal sealed class OpenScriptContextMenuDrawer<T> : OdinValueDrawer<T>,
         IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
@@ -32,7 +32,7 @@ namespace VMFramework.OdinExtensions
             
             genericMenu.AddSeparator("");
 
-            genericMenu.AddItem(new GUIContent("打开脚本"), false, () =>
+            genericMenu.AddItem(new GUIContent("Open Script"), false, () =>
             {
                 typeOfValue.OpenScriptOfType();
             });

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +8,7 @@ using VMFramework.Localization;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    public class ColorContextMenuDrawer : OdinValueDrawer<Color>, IDefinesGenericMenuItems
+    internal sealed class ColorContextMenuDrawer : OdinValueDrawer<Color>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
