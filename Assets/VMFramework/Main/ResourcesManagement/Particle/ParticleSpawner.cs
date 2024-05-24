@@ -17,6 +17,21 @@ namespace VMFramework.ResourcesManagement
 
         private static readonly Dictionary<ParticleSystem, string> allParticleIDs = new();
 
+        private static IComponentPool<ParticleSystem> CreatePool(string id)
+        {
+            return new StackComponentPool<ParticleSystem>(() =>
+            {
+                var registeredParticle = GamePrefabManager.GetGamePrefabStrictly<ParticlePreset>(id);
+                var prefab = registeredParticle.particlePrefab;
+                var particleSystem = Instantiate(prefab, GameCoreSetting.particleGeneralSetting.container);
+                return particleSystem;
+            }, onReturnCallback: particle =>
+            {
+                particle.SetActive(false);
+                particle.transform.SetParent(GameCoreSetting.particleGeneralSetting.container);
+            });
+        }
+        
         /// <summary>
         /// 回收粒子
         /// </summary>
@@ -32,8 +47,7 @@ namespace VMFramework.ResourcesManagement
             {
                 var id = allParticleIDs[particle];
                 var pool = allPools[id];
-
-                particle.transform.SetParent(GameCoreSetting.particleGeneralSetting.container);
+                
                 pool.Return(particle);
             }
         }
@@ -56,15 +70,11 @@ namespace VMFramework.ResourcesManagement
             
             if (allPools.TryGetValue(id, out var pool) == false)
             {
-                pool = new ComponentStackPool<ParticleSystem>();
+                pool = CreatePool(id);
                 allPools[id] = pool;
             }
 
-            var container = parent == null
-                ? GameCoreSetting.particleGeneralSetting.container
-                : parent;
-
-            var newParticleSystem = pool.Get(registeredParticle.particlePrefab, container);
+            var newParticleSystem = pool.Get(parent);
 
             allParticleIDs[newParticleSystem] = id;
 

@@ -75,15 +75,17 @@ namespace VMFramework.ResourcesManagement
             
             if (allPools.TryGetValue(id, out var pool) == false)
             {
-                pool = new ComponentStackPool<TrailRenderer>();
+                pool = new StackComponentPool<TrailRenderer>(() =>
+                {
+                    var registeredTrail = GamePrefabManager.GetGamePrefabStrictly<TrailPreset>(id);
+                    var prefab = registeredTrail.trailPrefab;
+                    var newTrail = Object.Instantiate(prefab, GameCoreSetting.trailGeneralSetting.container);
+                    return newTrail;
+                });
                 allPools[id] = pool;
             }
 
-            var container = parent == null
-                ? GameCoreSetting.trailGeneralSetting.container
-                : parent;
-
-            var newTrail = pool.Get(registeredTrail.trailPrefab, container);
+            var newTrail = pool.Get(parent);
 
             allTrailIDs[newTrail] = id;
 

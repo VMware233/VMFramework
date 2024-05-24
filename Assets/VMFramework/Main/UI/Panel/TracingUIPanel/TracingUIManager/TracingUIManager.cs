@@ -10,14 +10,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed partial class TracingUIManager : ManagerBehaviour<TracingUIManager>, IManagerBehaviour
     {
-        private enum TracingType
-        {
-            MousePosition,
-            Transform,
-            Position
-        }
-
-        private class TracingConfig
+        private class TracingInfo
         {
             public TracingType tracingType;
             public Vector3 tracingPosition = Vector3.zero;
@@ -36,7 +29,7 @@ namespace VMFramework.UI
         private static readonly Dictionary<ITracingUIPanel, Vector3> tracingPositions = new();
 
         [ShowInInspector]
-        private static readonly Dictionary<ITracingUIPanel, TracingConfig> allTracingConfigs = new();
+        private static readonly Dictionary<ITracingUIPanel, TracingInfo> allTracingInfos = new();
 
         private static readonly List<ITracingUIPanel> tracingUIPanelsToRemove = new();
 
@@ -65,7 +58,7 @@ namespace VMFramework.UI
 
                 if (tracingUIPanel.TryUpdatePosition(screenPos))
                 {
-                    allTracingConfigs[tracingUIPanel].tracingCount++;
+                    allTracingInfos[tracingUIPanel].tracingCount++;
                 }
             }
 
@@ -78,7 +71,7 @@ namespace VMFramework.UI
 
                 if (tracingUIPanel.TryUpdatePosition(mousePosition))
                 {
-                    allTracingConfigs[tracingUIPanel].tracingCount++;
+                    allTracingInfos[tracingUIPanel].tracingCount++;
                 }
             }
 
@@ -106,12 +99,12 @@ namespace VMFramework.UI
 
                     if (tracingUIPanel.TryUpdatePosition(screenPos))
                     {
-                        allTracingConfigs[tracingUIPanel].tracingCount++;
+                        allTracingInfos[tracingUIPanel].tracingCount++;
                     }
                 }
             }
 
-            foreach (var (tracingUIPanel, config) in allTracingConfigs)
+            foreach (var (tracingUIPanel, config) in allTracingInfos)
             {
                 if (config.tracingCount > config.maxTracingCount)
                 {

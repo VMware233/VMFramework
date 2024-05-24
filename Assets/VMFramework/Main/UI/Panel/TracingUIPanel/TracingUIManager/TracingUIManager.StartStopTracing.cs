@@ -22,14 +22,19 @@ namespace VMFramework.UI
 
         #endregion
 
+        public static void StartTracing(ITracingUIPanel tracingUIPanel, TracingConfig tracingConfig)
+        {
+            
+        }
+
         #region Start Tracing
 
         public static void StartTracingPosition(ITracingUIPanel tracingUIPanel, Vector3 position,
             int maxTracingCount = int.MaxValue)
         {
-            if (allTracingConfigs.TryGetValue(tracingUIPanel, out var existedConfig))
+            if (allTracingInfos.TryGetValue(tracingUIPanel, out var existedConfig))
             {
-                if (existedConfig.tracingType != TracingType.Position)
+                if (existedConfig.tracingType != TracingType.WorldPosition)
                 {
                     WarningAlreadyTracing(tracingUIPanel, existedConfig.tracingType);
                     return;
@@ -37,9 +42,9 @@ namespace VMFramework.UI
             }
 
             tracingPositions[tracingUIPanel] = position;
-            allTracingConfigs[tracingUIPanel] = new TracingConfig
+            allTracingInfos[tracingUIPanel] = new TracingInfo
             {
-                tracingType = TracingType.Position,
+                tracingType = TracingType.WorldPosition,
                 tracingPosition = position,
                 maxTracingCount = maxTracingCount
             };
@@ -48,9 +53,9 @@ namespace VMFramework.UI
         public static void StartTracingMousePosition(ITracingUIPanel tracingUIPanel,
             int maxTracingCount = int.MaxValue)
         {
-            if (allTracingConfigs.TryGetValue(tracingUIPanel, out var existedConfig))
+            if (allTracingInfos.TryGetValue(tracingUIPanel, out var existedConfig))
             {
-                if (existedConfig.tracingType != TracingType.Position)
+                if (existedConfig.tracingType != TracingType.WorldPosition)
                 {
                     WarningAlreadyTracing(tracingUIPanel, existedConfig.tracingType);
                     return;
@@ -58,7 +63,7 @@ namespace VMFramework.UI
             }
 
             tracingMousePositionUIPanels.Add(tracingUIPanel);
-            allTracingConfigs[tracingUIPanel] = new TracingConfig
+            allTracingInfos[tracingUIPanel] = new TracingInfo
             {
                 tracingType = TracingType.MousePosition,
                 maxTracingCount = maxTracingCount
@@ -85,9 +90,9 @@ namespace VMFramework.UI
                 return;
             }
 
-            if (allTracingConfigs.TryGetValue(tracingUIPanel, out var existedConfig))
+            if (allTracingInfos.TryGetValue(tracingUIPanel, out var existedConfig))
             {
-                if (existedConfig.tracingType != TracingType.Position)
+                if (existedConfig.tracingType != TracingType.WorldPosition)
                 {
                     WarningAlreadyTracing(tracingUIPanel, existedConfig.tracingType);
                     return;
@@ -103,7 +108,7 @@ namespace VMFramework.UI
 
             tracingUIPanels.Add(tracingUIPanel);
 
-            allTracingConfigs[tracingUIPanel] = new TracingConfig
+            allTracingInfos[tracingUIPanel] = new TracingInfo
             {
                 tracingType = TracingType.Transform,
                 tracingTransform = target,
@@ -130,7 +135,7 @@ namespace VMFramework.UI
 
         public static void StopTracing(ITracingUIPanel tracingUIPanel)
         {
-            if (allTracingConfigs.TryGetValue(tracingUIPanel, out var config))
+            if (allTracingInfos.TryGetValue(tracingUIPanel, out var config))
             {
                 switch (config.tracingType)
                 {
@@ -153,14 +158,14 @@ namespace VMFramework.UI
                         }
 
                         break;
-                    case TracingType.Position:
+                    case TracingType.WorldPosition:
                         tracingPositions.Remove(tracingUIPanel);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
 
-                allTracingConfigs.Remove(tracingUIPanel);
+                allTracingInfos.Remove(tracingUIPanel);
             }
         }
 

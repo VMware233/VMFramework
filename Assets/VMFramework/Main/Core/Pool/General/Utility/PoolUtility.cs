@@ -1,35 +1,50 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace VMFramework.Core.Pool
 {
     public static class PoolUtility
     {
-        /// <summary>
-        /// 从池中获取一个对象，如果池中没有对象则使用creator函数创建一个对象
-        /// </summary>
-        /// <param name="pool"></param>
-        /// <param name="creator"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Get<T>(this IPool<T> pool, Func<T> creator)
+        public static bool IsEmpty<TItem>(this IPool<TItem> pool)
         {
-            return pool.Get(creator, out _);
+            return pool.count == 0;
         }
         
         /// <summary>
-        /// 对池进行预热，创建count个对象并放入池中
+        /// Get an item from the pool.
+        /// If the pool is empty, a new item will be created using the provided creator.
         /// </summary>
         /// <param name="pool"></param>
-        /// <param name="creator"></param>
-        /// <param name="count"></param>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TItem"></typeparam>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Prewarm<T>(this IPool<T> pool, int count, Func<T> creator)
+        public static TItem Get<TItem>(this IPool<TItem> pool)
         {
+            return pool.Get(out _);
+        }
+        
+        /// <summary>
+        /// prewarm the pool with the specified number of items.
+        /// i.e. create the specified number of items and add them to the pool.
+        /// </summary>
+        /// <param name="pool"></param>
+        /// <param name="count"></param>
+        /// <typeparam name="TItem"></typeparam>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Prewarm<TItem>(this IPool<TItem> pool, int count)
+        {
+            var temp = new List<TItem>();
             for (int i = 0; i < count; i++)
             {
-                pool.Return(creator());
+                var item = pool.Get();
+                temp.Add(item);
+            }
+            
+            foreach (var item in temp)
+            {
+                pool.Return(item);
             }
         }
     }

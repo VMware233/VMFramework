@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.Pool;
 
 namespace VMFramework.Examples
@@ -11,26 +12,32 @@ namespace VMFramework.Examples
         #region Config
 
         /// <summary>
-        /// AudioSource组件的默认容器
+        /// The default transform parent for the AudioSource components.
         /// </summary>
         [SerializeField]
         private Transform audioSourceDefaultContainer;
 
         #endregion
 
-        // 音频对象池
+        // The pool dictionary for the AudioSource components.
         [ShowInInspector]
         private static Dictionary<AudioClip, IComponentPool<AudioSource>>
             audioSourcePoolDictionary = new();
 
-        /// <summary>
-        /// 播放音效
-        /// </summary>
-        /// <param name="audioClip"></param>
-        /// <param name="position">AudioSource组件所在的位置</param>
-        /// <param name="autoCheckStop">是否在音频播放结束时自动Return给对象池</param>
-        /// <param name="parent">AudioSource组件的父Transform</param>
-        /// <returns></returns>
+        private static IComponentPool<AudioSource> CreatePool(AudioClip audioClip)
+        {
+            return new StackComponentPool<AudioSource>(() =>
+            {
+                var audioSource = new GameObject(audioClip.name).AddComponent<AudioSource>();
+                audioSource.clip = audioClip;
+                return audioSource;
+            }, onReturnCallback: audioSource =>
+            {
+                audioSource.transform.SetParent(instance.audioSourceDefaultContainer);
+                audioSource.SetActive(false);
+            });
+        }
+        
         [Button]
         public static AudioSource Play(AudioClip audioClip, Vector3 position,
             bool autoCheckStop, Transform parent = null)
@@ -41,24 +48,13 @@ namespace VMFramework.Examples
                 return null;
             }
 
-            var container = parent != null
-                ? parent
-                : instance.audioSourceDefaultContainer;
-
-            if (audioSourcePoolDictionary.TryGetValue(audioClip,
-                    out var audioSourcePool) == false)
+            if (audioSourcePoolDictionary.TryGetValue(audioClip, out var audioSourcePool) == false)
             {
-                audioSourcePool = new ComponentStackPool<AudioSource>();
+                audioSourcePool = CreatePool(audioClip);
                 audioSourcePoolDictionary.Add(audioClip, audioSourcePool);
             }
 
-            var audioSource =
-                audioSourcePool.Get(container, false, out var isFreshlyCreated);
-
-            if (isFreshlyCreated)
-            {
-                audioSource.clip = audioClip;
-            }
+            var audioSource = audioSourcePool.Get(parent);
 
             audioSource.transform.position = position;
             audioSource.loop = false;
@@ -73,10 +69,6 @@ namespace VMFramework.Examples
             return audioSource;
         }
 
-        /// <summary>
-        /// 回收音效
-        /// </summary>
-        /// <param name="audioSource"></param>
         [Button]
         public static void Return(AudioSource audioSource)
         {
@@ -96,7 +88,7 @@ namespace VMFramework.Examples
                 if (audioSourcePoolDictionary.TryGetValue(audioSource.clip,
                         out var audioSourcePool) == false)
                 {
-                    audioSourcePool = new ComponentStackPool<AudioSource>();
+                    audioSourcePool = CreatePool(audioSource.clip);
                     audioSourcePoolDictionary.Add(audioSource.clip, audioSourcePool);
                 }
 
@@ -105,7 +97,7 @@ namespace VMFramework.Examples
         }
 
         /// <summary>
-        /// 检查音频是否播放结束，如果结束则回收
+        /// Check if the audio has ended and return it if it has.
         /// </summary>
         /// <param name="audioSource"></param>
         /// <returns></returns>

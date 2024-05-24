@@ -23,7 +23,7 @@ namespace VMFramework.OdinExtensions
                 {
                     continue;
                 }
-            
+
                 bool isTableCollection = false;
                 if (menuItem.Value is OdinStringTableCollectionEditor stringTableEditor)
                 {
@@ -32,7 +32,7 @@ namespace VMFramework.OdinExtensions
                         isTableCollection = true;
                     }
                 }
-            
+
                 if (menuItem.Value is OdinAssetTableCollectionEditor assetTableEditor)
                 {
                     if (assetTableEditor.Collection == collection)
@@ -40,12 +40,12 @@ namespace VMFramework.OdinExtensions
                         isTableCollection = true;
                     }
                 }
-            
+
                 if (isTableCollection == false)
                 {
                     continue;
                 }
-            
+
                 window.MenuTree.Selection.Clear();
                 window.MenuTree.Selection.Add(menuItem);
                 
