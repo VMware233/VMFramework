@@ -1,27 +1,25 @@
-﻿using System;
-
-namespace VMFramework.Core.Pool
+﻿namespace VMFramework.Core.Pool
 {
     public interface IPool<T>
     {
         public int count { get; }
         
         /// <summary>
-        /// 从池中获取一个对象，如果池中没有对象则会自动创建一个对象,
-        /// 并通过isFreshlyCreated变量返回是否是新创建的对象
+        /// Get an object from the pool, if there is no object in the pool, a new object will be created automatically,
+        /// and the isFreshlyCreated variable will be returned to indicate whether it is a newly created object.
         /// </summary>
         /// <param name="isFreshlyCreated"></param>
         /// <returns></returns>
         public T Get(out bool isFreshlyCreated);
 
         /// <summary>
-        /// 将对象归还到池中
+        /// Return an object to the pool.
         /// </summary>
         /// <param name="item"></param>
         public void Return(T item);
 
         /// <summary>
-        /// 清空池
+        /// Clear the pool, all objects in the pool will be destroyed.
         /// </summary>
         public void Clear();
     }
