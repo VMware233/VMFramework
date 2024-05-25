@@ -21,8 +21,7 @@ namespace VMFramework.Examples
 
         // The pool dictionary for the AudioSource components.
         [ShowInInspector]
-        private static Dictionary<AudioClip, IComponentPool<AudioSource>>
-            audioSourcePoolDictionary = new();
+        private static Dictionary<AudioClip, IComponentPool<AudioSource>> audioSourcePoolDictionary = new();
 
         private static IComponentPool<AudioSource> CreatePool(AudioClip audioClip)
         {
@@ -37,10 +36,10 @@ namespace VMFramework.Examples
                 audioSource.SetActive(false);
             });
         }
-        
+
         [Button]
-        public static AudioSource Play(AudioClip audioClip, Vector3 position,
-            bool autoCheckStop, Transform parent = null)
+        public static AudioSource Play(AudioClip audioClip, Vector3 position, bool autoCheckStop,
+            Transform parent = null)
         {
             if (audioClip == null)
             {
@@ -76,8 +75,7 @@ namespace VMFramework.Examples
 
             if (audioSource.gameObject.activeSelf)
             {
-                audioSource.transform.SetParent(instance
-                    .audioSourceDefaultContainer);
+                audioSource.transform.SetParent(instance.audioSourceDefaultContainer);
 
                 if (audioSource.clip == null)
                 {
@@ -85,8 +83,7 @@ namespace VMFramework.Examples
                     return;
                 }
 
-                if (audioSourcePoolDictionary.TryGetValue(audioSource.clip,
-                        out var audioSourcePool) == false)
+                if (audioSourcePoolDictionary.TryGetValue(audioSource.clip, out var audioSourcePool) == false)
                 {
                     audioSourcePool = CreatePool(audioSource.clip);
                     audioSourcePoolDictionary.Add(audioSource.clip, audioSourcePool);
