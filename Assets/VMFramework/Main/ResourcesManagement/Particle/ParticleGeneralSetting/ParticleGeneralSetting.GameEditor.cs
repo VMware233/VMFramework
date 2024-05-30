@@ -9,15 +9,11 @@ namespace VMFramework.ResourcesManagement
 {
     public partial class ParticleGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "粒子生成器" },
-            { "en-US", "Particle Spawner" }
-        };
+        string INameOwner.name => "Particle Preset";
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Flower1;
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.resourcesManagementCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.RESOURCES_MANAGEMENT_CATEGORY;
     }
 }
 #endif

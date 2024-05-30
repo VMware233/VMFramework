@@ -30,8 +30,11 @@ namespace VMFramework.UI
         public override void CheckSettings()
         {
             base.CheckSettings();
-            
-            defaultContextMenuID.AssertIsNotNullOrEmpty(nameof(defaultContextMenuID));
+
+            if (defaultContextMenuID.IsNullOrEmpty())
+            {
+                Debug.LogWarning($"{nameof(defaultContextMenuID)} is not set.");
+            }
             
             contextMenuIDBindConfigs.CheckSettings();
         }

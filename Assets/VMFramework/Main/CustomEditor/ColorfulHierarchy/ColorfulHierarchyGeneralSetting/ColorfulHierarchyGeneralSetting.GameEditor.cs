@@ -8,13 +8,9 @@ namespace VMFramework.Editor
 {
     public partial class ColorfulHierarchyGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "彩色层级" },
-            { "en-US", "Colorful Hierarchy" }
-        };
+        string INameOwner.name => "Colorful Hierarchy";
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.editorCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.EDITOR_CATEGORY;
 
         Icon IGameEditorMenuTreeNode.icon => new(SdfIconType.FileEarmarkRichtextFill);
     }

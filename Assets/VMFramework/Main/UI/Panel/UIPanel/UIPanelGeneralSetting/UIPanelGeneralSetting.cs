@@ -28,7 +28,6 @@ namespace VMFramework.UI
         public ContainerChooser container;
 
         [LabelText("默认主题"), TabGroup(TAB_GROUP_NAME, PANEL_SETTING_CATEGORY)]
-        [Required]
         public ThemeStyleSheet defaultTheme;
 
         [LabelText("默认屏幕匹配模式"), TabGroup(TAB_GROUP_NAME, PANEL_SETTING_CATEGORY)]

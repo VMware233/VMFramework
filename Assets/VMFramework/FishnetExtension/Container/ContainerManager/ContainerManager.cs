@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using FishNet.Connection;
 using UnityEngine;
+using VMFramework.GameEvents;
 using VMFramework.Network;
 using VMFramework.Procedure;
 
@@ -31,8 +32,8 @@ namespace VMFramework.Containers
             if (_instance.IsServerStarted)
             {
                 container.OnItemCountChangedEvent += OnContainerItemCountChanged;
-                container.OnItemAddedEvent += OnItemAdded;
-                container.OnItemRemovedEvent += OnItemRemoved;
+                container.ItemAddedEvent.AddCallback(OnItemAdded, GameEventPriority.TINY);
+                container.ItemRemovedEvent.AddCallback(OnItemRemoved, GameEventPriority.TINY);
                 container.OnObservedEvent += OnObserved;
                 container.OnUnobservedEvent += OnUnobserved;
             }
@@ -43,8 +44,8 @@ namespace VMFramework.Containers
             if (_instance.IsServerStarted)
             {
                 container.OnItemCountChangedEvent -= OnContainerItemCountChanged;
-                container.OnItemAddedEvent -= OnItemAdded;
-                container.OnItemRemovedEvent -= OnItemRemoved;
+                container.ItemAddedEvent.RemoveCallback(OnItemAdded);
+                container.ItemRemovedEvent.RemoveCallback(OnItemRemoved);
                 container.OnObservedEvent -= OnObserved;
                 container.OnUnobservedEvent -= OnUnobserved;
                 

@@ -9,15 +9,11 @@ namespace VMFramework.Containers
 {
     public partial class ContainerGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "容器" },
-            { "en-US", "Container" }
-        };
+        string INameOwner.name => "Container";
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Archive;
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.builtInCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.BUILT_IN_CATEGORY;
     }
 }
 #endif

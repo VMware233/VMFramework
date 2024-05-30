@@ -99,16 +99,14 @@ namespace VMFramework.Containers
             }
         }
 
-        private static void OnItemRemoved(IContainer container, int slotIndex, 
-            IContainerItem item)
+        private static void OnItemRemoved(ContainerItemRemovedEvent e)
         {
-            SetSlotDirty(container, slotIndex);
+            SetSlotDirty(e.container, e.slotIndex);
         }
 
-        private static void OnItemAdded(IContainer container, int slotIndex, 
-            IContainerItem item)
+        private static void OnItemAdded(ContainerItemAddedEvent e)
         {
-            SetSlotDirty(container, slotIndex);
+            SetSlotDirty(e.container, e.slotIndex);
         }
 
         #endregion

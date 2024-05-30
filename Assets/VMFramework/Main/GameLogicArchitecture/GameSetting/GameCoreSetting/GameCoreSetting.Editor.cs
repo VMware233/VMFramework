@@ -7,7 +7,7 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial class GameCoreSetting
     {
-        internal static GameEditorGeneralSetting gameEditorGeneralSetting =>
+        public static GameEditorGeneralSetting gameEditorGeneralSetting =>
             gameCoreSettingsFile == null ? null : gameCoreSettingsFile.gameEditorGeneralSetting;
 
         public static ColorfulHierarchyGeneralSetting colorfulHierarchyGeneralSetting =>

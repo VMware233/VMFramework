@@ -40,7 +40,7 @@ namespace VMFramework.UI
 
             UIPanelPointerEventManager.OnPanelOnMouseClickChanged += (oldPanel, currentPanel) =>
             {
-                if ((UIToolkitContextMenuUIController)currentPanel != this)
+                if (this != currentPanel)
                 {
                     this.Close();
                 }
@@ -50,7 +50,7 @@ namespace VMFramework.UI
             {
                 foreach (var gameEventID in contextMenuUIPreset.gameEventIDsToClose)
                 {
-                    GameEventManager.AddCallback(gameEventID, Close);
+                    GameEventManager.AddCallback(gameEventID, Close, GameEventPriority.TINY);
                 }
             }
         }

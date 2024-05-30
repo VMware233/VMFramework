@@ -7,13 +7,9 @@ namespace VMFramework.Editor
 {
     public partial class TextureImporterGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "图片导入" },
-            { "en-US", "Texture Importer" }
-        };
+        string INameOwner.name => "Texture Importer";
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.editorCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.EDITOR_CATEGORY;
     }
 }
 #endif

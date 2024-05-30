@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.GameEvents
@@ -6,9 +8,11 @@ namespace VMFramework.GameEvents
     public partial class GameEvent<TGameEvent>
     {
         private bool isPropagationStopped = false;
-        
-        private bool isPropagating = false;
-        
+
+        public bool isPropagating { get; private set; } = false;
+
+        private List<(int priority, Action<TGameEvent> callback)> tempCallbacks = new();
+
         public void StopPropagation()
         {
             isPropagationStopped = true;
@@ -42,18 +46,30 @@ namespace VMFramework.GameEvents
             isPropagating = true;
             isPropagationStopped = false;
 
-            foreach (var set in callbacks.Values)
+            foreach (var (priority, set) in callbacks)
             {
                 foreach (var callback in set)
                 {
-                    callback((TGameEvent)this);
-                }
-                
-                if (isPropagationStopped)
-                {
-                    break;
+                    tempCallbacks.Add((priority, callback));
                 }
             }
+
+            int currentPriority = 0;
+            foreach (var (priority, callback) in tempCallbacks)
+            {
+                if (priority != currentPriority)
+                {
+                    currentPriority = priority;
+                    if (isPropagationStopped)
+                    {
+                        break;
+                    }
+                }
+                
+                callback((TGameEvent)this);
+            }
+            
+            tempCallbacks.Clear();
             
             OnPropagationStopped();
             

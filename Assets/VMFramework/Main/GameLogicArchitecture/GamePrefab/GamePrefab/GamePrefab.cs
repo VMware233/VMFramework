@@ -18,7 +18,7 @@ namespace VMFramework.GameLogicArchitecture
 
         protected const string TAB_GROUP_NAME = "TabGroup";
 
-        protected const string BASIC_SETTING_CATEGORY = "Basic";
+        protected const string BASIC_CATEGORY = "Basic";
 
         protected const string TOOLS_CATEGORY = "Tools";
 
@@ -78,8 +78,16 @@ namespace VMFramework.GameLogicArchitecture
 
         #region ID Prefix and Suffix
 
+        /// <summary>
+        /// The prefix of the ID.
+        /// This id should start with this prefix.
+        /// </summary>
         protected virtual string idPrefix => null;
         
+        /// <summary>
+        /// The suffix of the ID.
+        /// This id should end with this suffix.
+        /// </summary>
         protected virtual string idSuffix => null;
 
         public bool isIDStartsWithPrefix

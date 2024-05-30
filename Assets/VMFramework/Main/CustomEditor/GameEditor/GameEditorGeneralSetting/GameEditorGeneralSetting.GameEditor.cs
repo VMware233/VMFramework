@@ -4,15 +4,11 @@ using VMFramework.Localization;
 
 namespace VMFramework.Editor.GameEditor
 {
-    internal partial class GameEditorGeneralSetting : IGameEditorMenuTreeNode
+    public partial class GameEditorGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "游戏编辑器" },
-            { "en-US", "Game Editor" }
-        };
+        string INameOwner.name => "Game Editor";
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.editorCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.EDITOR_CATEGORY;
     }
 }
 #endif

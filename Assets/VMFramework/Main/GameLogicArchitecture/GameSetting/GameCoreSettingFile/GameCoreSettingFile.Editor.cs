@@ -17,8 +17,7 @@ namespace VMFramework.GameLogicArchitecture
     {
         [TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
         [Required]
-        [SerializeField]
-        internal GameEditorGeneralSetting gameEditorGeneralSetting;
+        public GameEditorGeneralSetting gameEditorGeneralSetting;
 
         [TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
         [Required]

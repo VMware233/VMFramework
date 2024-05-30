@@ -7,7 +7,7 @@ namespace VMFramework.UI
 {
     public partial class UIPanelGeneralSetting
     {
-        private const string DEFAULT_THEME_STYLE_SHEET_NAME = "UnityDefaultRuntimeTheme";
+        // private const string DEFAULT_THEME_STYLE_SHEET_NAME = "UnityDefaultRuntimeTheme";
         
         protected override void OnInspectorInit()
         {
@@ -21,10 +21,10 @@ namespace VMFramework.UI
 
             testContainer.AssertIsNotNull(nameof(testContainer));
 
-            if (defaultTheme == null)
-            {
-                defaultTheme = DEFAULT_THEME_STYLE_SHEET_NAME.FindAssetOfName<ThemeStyleSheet>();
-            }
+            // if (defaultTheme == null)
+            // {
+            //     defaultTheme = DEFAULT_THEME_STYLE_SHEET_NAME.FindAssetOfName<ThemeStyleSheet>();
+            // }
         }
     }
 }

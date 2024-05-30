@@ -12,7 +12,7 @@ namespace VMFramework.GameLogicArchitecture
     public partial class GeneralSetting
     {
 #if UNITY_EDITOR
-        [LabelText("数据存储文件夹相对路径"), TabGroup(TAB_GROUP_NAME, DATA_STORAGE_CATEGORY, TextColor = "orange")]
+        [TabGroup(TAB_GROUP_NAME, DATA_STORAGE_CATEGORY, TextColor = "orange")]
         [InfoBox("@" + nameof(dataFolderAbsolutePath))]
         [FolderPath(ParentFolder = "Assets")]
         [IsNotNullOrEmpty]
@@ -24,11 +24,11 @@ namespace VMFramework.GameLogicArchitecture
             get => IOUtility.assetsFolderPath.PathCombine(dataFolderRelativePath);
         }
         
-        [LabelText("默认JSON文件后缀"), TabGroup(TAB_GROUP_NAME, JSON_CATEGORY, TextColor = "orange")]
+        [TabGroup(TAB_GROUP_NAME, JSON_CATEGORY, TextColor = "orange")]
         [IsNotNullOrEmpty]
         public string defaultJSONFileSuffix = "txt";
 
-        [LabelText("JSON存储路径"), TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
+        [TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
         [ShowInInspector, DisplayAsString]
         public string jsonFilePath
         {
@@ -36,25 +36,25 @@ namespace VMFramework.GameLogicArchitecture
             get => dataFolderAbsolutePath.PathCombine($"{GetType().Name}.{defaultJSONFileSuffix}");
         }
         
-        [Button("打开数据存储文件夹"), TabGroup(TAB_GROUP_NAME, DATA_STORAGE_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, DATA_STORAGE_CATEGORY)]
         private void OpenDataStorageFolder()
         {
             dataFolderAbsolutePath.OpenDirectory(true);
         }
         
-        [Button("写入JSON文件"), TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
         private void WriteToJSON()
         {
             WriteToJSON(jsonFilePath);
         }
         
-        [Button("读取JSON文件"), TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
         public void ReadFromJSON()
         {
             ReadFromJSON(jsonFilePath);
         }
 
-        [Button("打开JSON文件"), TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]
         public void OpenJSON()
         {
             jsonFilePath.OpenFile();

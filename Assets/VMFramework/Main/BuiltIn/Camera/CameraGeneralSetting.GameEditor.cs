@@ -9,15 +9,11 @@ namespace VMFramework
 {
     public partial class CameraGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "相机" },
-            { "en-US", "Camera" }
-        };
+        string INameOwner.name => "Camera";
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Camera;
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.builtInCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.BUILT_IN_CATEGORY;
     }
 }
 #endif

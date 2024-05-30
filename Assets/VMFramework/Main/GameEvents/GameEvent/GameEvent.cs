@@ -12,7 +12,7 @@ namespace VMFramework.GameEvents
         [ShowInInspector]
         private readonly SortedDictionary<int, HashSet<Action<TGameEvent>>> callbacks = new();
         [ShowInInspector]
-        private readonly Dictionary<Delegate, int> callbacksLookup = new();
+        private readonly Dictionary<Action<TGameEvent>, int> callbacksLookup = new();
 
         [ShowInInspector]
         private int disabledCount = 0;
@@ -27,7 +27,7 @@ namespace VMFramework.GameEvents
 
             if (isDebugging)
             {
-                AddCallback(gameEvent => Debug.LogWarning($"{gameEvent} was triggered."));
+                AddCallback(gameEvent => Debug.LogWarning($"{gameEvent} was triggered."), GameEventPriority.SUPER);
             }
         }
 
@@ -58,7 +58,7 @@ namespace VMFramework.GameEvents
             }
         }
         
-        public void AddCallback(Action<TGameEvent> callback, int priority = GameEventPriority.TINY)
+        public void AddCallback(Action<TGameEvent> callback, int priority)
         {
             if (callback == null)
             {
@@ -68,7 +68,7 @@ namespace VMFramework.GameEvents
             
             if (callbacks.TryGetValue(priority, out var set))
             {
-                if (set.Add(callback) == false)
+                if (set.Add(callback))
                 {
                     callbacksLookup.Add(callback, priority);
                     return;

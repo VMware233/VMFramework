@@ -11,6 +11,31 @@ namespace VMFramework.Containers
         #region Get Item
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<IContainerItem> GetItems(this IContainer container, string itemID)
+        {
+            if (container.TryGetSlotIndices(itemID, out var slotIndices))
+            {
+                foreach (var slotIndex in slotIndices)
+                {
+                    yield return container.GetItem(slotIndex);
+                }
+            }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<TItem> GetItems<TItem>(this IContainer container, string itemID)
+            where TItem : IContainerItem
+        {
+            foreach (var containerItem in container.GetItems(itemID))
+            {
+                if (containerItem is TItem item)
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TItem GetItem<TItem>(this IContainer container, int index)
         {
             return (TItem) container.GetItem(index);
@@ -170,7 +195,7 @@ namespace VMFramework.Containers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetSlotIndices(this IContainer container, string itemID,
+        public static bool TryGetSlotIndices(this IContainer container, string itemID, 
             out IReadOnlyList<int> slotIndices)
         {
             if (LINQUtility.IsNullOrEmpty(itemID))

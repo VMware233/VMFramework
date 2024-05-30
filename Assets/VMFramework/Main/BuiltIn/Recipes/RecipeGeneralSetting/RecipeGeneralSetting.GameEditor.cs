@@ -9,15 +9,11 @@ namespace VMFramework.Recipe
 {
     public partial class RecipeGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "配方" },
-            { "en-US", "Recipe" }
-        };
+        string INameOwner.name => "Recipe";
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Grid3x3GapFill;
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.builtInCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.BUILT_IN_CATEGORY;
     }
 }
 #endif

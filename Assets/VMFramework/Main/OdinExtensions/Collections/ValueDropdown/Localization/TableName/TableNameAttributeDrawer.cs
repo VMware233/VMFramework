@@ -57,12 +57,11 @@ namespace VMFramework.OdinExtensions
             {
                 if (collection == null)
                 {
-                    OdinLocalizationEditorWindowUtility.ShowTableCreator();
+                    LocalizationTablesWindow.ShowTableCreator();
                 }
                 else
                 {
                     OdinLocalizationEditorWindowUtility.ShowTable(collection);
-                    // LocalizationTablesWindow.ShowWindow(collection);
                 }
             }
             
@@ -76,7 +75,7 @@ namespace VMFramework.OdinExtensions
             
             if (Button("Create New Table", SdfIconType.Plus))
             {
-                OdinLocalizationEditorWindowUtility.ShowTableCreator();
+                LocalizationTablesWindow.ShowTableCreator();
             }
         }
 
@@ -114,7 +113,7 @@ namespace VMFramework.OdinExtensions
                 }
                 
                 genericMenu.AddItem(new GUIContent("Create New Table"), false,
-                    OdinLocalizationEditorWindowUtility.ShowTableCreator);
+                    LocalizationTablesWindow.ShowTableCreator);
             }
         }
     }

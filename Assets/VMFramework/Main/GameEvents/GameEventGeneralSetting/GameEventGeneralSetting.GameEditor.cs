@@ -9,15 +9,11 @@ namespace VMFramework.GameEvents
 {
     public partial class GameEventGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "游戏事件" },
-            { "en-US", "Game Event" }
-        };
+        string INameOwner.name => "Game Event";
 
         Icon IGameEditorMenuTreeNode.icon => new(SdfIconType.Dpad);
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.coreCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.CORE_CATEGORY;
     }
 }
 #endif

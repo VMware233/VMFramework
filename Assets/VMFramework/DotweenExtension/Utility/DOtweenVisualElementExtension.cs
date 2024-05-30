@@ -1,4 +1,5 @@
-﻿using DG.Tweening.Core;
+﻿#if DOTWEEN
+using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using DG.Tweening;
 using System.Runtime.CompilerServices;
@@ -26,3 +27,5 @@ namespace VMFramework.DOTweenExtension
         }
     }
 }
+
+#endif

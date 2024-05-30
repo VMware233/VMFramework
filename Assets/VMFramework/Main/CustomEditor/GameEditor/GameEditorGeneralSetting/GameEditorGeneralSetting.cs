@@ -3,7 +3,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Editor.GameEditor
 {
-    internal sealed partial class GameEditorGeneralSetting : GeneralSetting
+    public sealed partial class GameEditorGeneralSetting : GeneralSetting
     {
         public int autoStackMenuTreeNodesMaxCount = 8;
     }

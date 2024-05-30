@@ -21,14 +21,14 @@ namespace VMFramework.GameLogicArchitecture
             InitGameTypeInfo();
         }
 
-        [Button("添加默认游戏类型"), TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
+        [Button, TabGroup(TAB_GROUP_NAME, DEBUGGING_CATEGORY)]
         private void AddDefaultGameType(
             [GamePrefabGeneralSetting]
             GamePrefabGeneralSetting gamePrefabGeneralSetting)
         {
             var name = gamePrefabGeneralSetting.gameItemName;
 
-            if (name.IsNullOrEmpty())
+            if (name.IsNullOrEmpty() || name == GamePrefabGeneralSetting.UNDEFINED_GAME_ITEM_NAME)
             {
                 name = gamePrefabGeneralSetting.gamePrefabName;
             }

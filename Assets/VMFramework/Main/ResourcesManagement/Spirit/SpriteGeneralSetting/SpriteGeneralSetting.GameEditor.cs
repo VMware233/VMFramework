@@ -9,15 +9,11 @@ namespace VMFramework.ResourcesManagement
 {
     public partial class SpriteGeneralSetting : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => new LocalizedTempString()
-        {
-            { "zh-CN", "精灵预设" },
-            { "en-US", "Sprite Preset" }
-        };
+        string INameOwner.name => "Sprite Preset";
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.CardImage;
 
-        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.resourcesManagementCategoryName;
+        string IGameEditorMenuTreeNode.folderPath => GameEditorNames.RESOURCES_MANAGEMENT_CATEGORY;
     }
 }
 #endif

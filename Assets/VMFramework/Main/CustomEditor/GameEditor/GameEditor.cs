@@ -17,17 +17,16 @@ namespace VMFramework.Editor.GameEditor
     {
         private readonly AuxiliaryTools auxiliaryTools = new();
 
-        [MenuItem("Tools/" + GameEditorNames.GAME_EDITOR_DEFAULT_NAME + " #G")]
-        [Shortcut("Open Game Editor", KeyCode.G, ShortcutModifiers.Shift)]
+        [MenuItem("Tools/" + GameEditorNames.GAME_EDITOR_NAME + " #G")]
+        [Shortcut("Open " + GameEditorNames.GAME_EDITOR_NAME, KeyCode.G, ShortcutModifiers.Shift)]
         private static void OpenWindow()
         {
             GameCoreSettingFile.CheckGlobal();
 
-            var editorName = GameEditorNames.gameEditorName;
-            var window = CreateWindow<GameEditor>(editorName);
+            var window = CreateWindow<GameEditor>(GameEditorNames.GAME_EDITOR_NAME);
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
-        
+
         protected override OdinMenuTree BuildMenuTree()
         {
             if (GameCoreSetting.gameCoreSettingsFile == null)
@@ -38,34 +37,18 @@ namespace VMFramework.Editor.GameEditor
             GameCoreSetting.gameCoreSettingsFile.AutoFindSetting();
 
             var gameEditorSetting = GameCoreSetting.gameEditorGeneralSetting;
-
-            var auxiliaryToolsCategoryName = GameEditorNames.auxiliaryToolsCategoryName;
-            var generalSettingsCategoryName = GameEditorNames.generalSettingsCategoryName;
-
+            
             OdinMenuTree tree = new(true)
             {
-                { auxiliaryToolsCategoryName, auxiliaryTools, EditorIcons.HamburgerMenu },
+                { GameEditorNames.AUXILIARY_TOOLS_CATEGORY, auxiliaryTools, EditorIcons.HamburgerMenu },
                 {
-                    generalSettingsCategoryName, GameCoreSetting.gameCoreSettingsFile,
+                    GameEditorNames.GENERAL_SETTINGS_CATEGORY, GameCoreSetting.gameCoreSettingsFile,
                     SdfIconType.GearFill
                 },
-                {
-                    $"{generalSettingsCategoryName}/{GameEditorNames.editorCategoryName}", null,
-                    EditorIcons.UnityLogo
-                },
-                {
-                    $"{generalSettingsCategoryName}/{GameEditorNames.coreCategoryName}", null,
-                    EditorIcons.StarPointer
-                },
-                {
-                    $"{generalSettingsCategoryName}/{GameEditorNames.resourcesManagementCategoryName}", null,
-                    SdfIconType.Boxes
-                },
-                {
-                    $"{generalSettingsCategoryName}/{GameEditorNames.builtInCategoryName}", null,
-                    SdfIconType.Inboxes
-                },
-                { "具体设置", null, SdfIconType.GearFill }
+                { GameEditorNames.EDITOR_CATEGORY, null, EditorIcons.UnityLogo },
+                { GameEditorNames.CORE_CATEGORY, null, EditorIcons.StarPointer },
+                { GameEditorNames.RESOURCES_MANAGEMENT_CATEGORY, null, SdfIconType.Boxes },
+                { GameEditorNames.BUILT_IN_CATEGORY, null, SdfIconType.Inboxes },
             };
 
             tree.DefaultMenuStyle.IconSize = 24.00f;
@@ -84,15 +67,15 @@ namespace VMFramework.Editor.GameEditor
                 folderPath = folderPath.Replace("\\", "/");
                 folderPath = folderPath.Trim('/');
 
-                var totalPath = generalSettingsCategoryName;
+                var totalPath = string.Empty;
 
                 if (folderPath.IsNullOrEmptyAfterTrim() == false)
                 {
-                    totalPath += $"/{folderPath}";
+                    totalPath += folderPath;
                 }
 
                 totalPath += $"/{generalSettingNode.name}";
-                
+
                 tree.Add(totalPath, generalSetting, generalSettingNode.icon);
 
                 generalSettingsPathDict.Add(generalSetting, totalPath);
@@ -108,7 +91,7 @@ namespace VMFramework.Editor.GameEditor
                     var path = totalPath;
 
                     var allNodes = menuTreeNodeProvider.GetAllMenuTreeNodes()?.ToList();
-                    
+
                     if (allNodes == null)
                     {
                         Debug.LogWarning($"{menuTreeNodeProvider}获取的节点列表为Null");
@@ -145,11 +128,11 @@ namespace VMFramework.Editor.GameEditor
         {
             menuItem.OnDrawItem += menuItem =>
             {
-                if (menuItem.Value is not IGameEditorContextMenuProvider contextMenuProvider )
+                if (menuItem.Value is not IGameEditorContextMenuProvider contextMenuProvider)
                 {
                     return;
                 }
-                
+
                 if (Event.current.type == EventType.MouseDown && Event.current.button == 1 &&
                     menuItem.Rect.Contains(Event.current.mousePosition))
                 {
@@ -179,24 +162,54 @@ namespace VMFramework.Editor.GameEditor
             var toolbarHeight = MenuTree.Config.SearchToolbarHeight;
 
             SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
+            
+            if (selected is not { Value: not null })
             {
-                if (selected is { Value: not null })
-                {
-                    GUILayout.Label(selected.Name);
+                SirenixEditorGUI.EndHorizontalToolbar();
+                return;
+            }
+            
+            GUILayout.Label(selected.Name);
 
-                    if (selected.Value is IGameEditorToolBarProvider toolBarProvider)
+            if (selected.Value is not IGameEditorToolBarProvider toolBarProvider)
+            {
+                SirenixEditorGUI.EndHorizontalToolbar();
+                return;
+            }
+            
+            var tree = new StringPathTree<IGameEditorToolBarProvider.ToolbarButtonConfig>();
+                        
+            foreach (var buttonConfig in toolBarProvider.GetToolbarButtons())
+            {
+                tree.Add(buttonConfig.path, buttonConfig);
+            }
+
+            foreach (var buttonNode in tree.root.children.Values)
+            {
+                if (SirenixEditorGUI.ToolbarButton(new GUIContent(buttonNode.pathPart,
+                        buttonNode.data.tooltip)))
+                {
+                    if (buttonNode.children.Count <= 0)
                     {
-                        foreach (var buttonConfig in toolBarProvider.GetToolbarButtons())
+                        buttonNode.data.onClick?.Invoke();
+                    }
+                    else
+                    {
+                        GenericMenu menu = new GenericMenu();
+
+                        foreach (var leaf in buttonNode.GetAllLeaves(true))
                         {
-                            if (SirenixEditorGUI.ToolbarButton(new GUIContent(buttonConfig.name,
-                                    buttonConfig.tooltip)))
+                            menu.AddItem(new GUIContent(leaf.pathPart, leaf.data.tooltip), false, () =>
                             {
-                                buttonConfig.onClick?.Invoke();
-                            }
+                                leaf.data.onClick?.Invoke();
+                            });
                         }
+                        
+                        menu.ShowAsContext();
                     }
                 }
             }
+            
             SirenixEditorGUI.EndHorizontalToolbar();
         }
     }
