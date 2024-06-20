@@ -12,7 +12,7 @@ namespace VMFramework.GameEvents
     public sealed partial class ColliderMouseEventManager : ManagerBehaviour<ColliderMouseEventManager>
     {
         private const string DEBUGGING_CATEGORY = "Only For Debugging";
-        
+
         [SerializeField]
         private Camera fixedBindCamera;
 
@@ -20,10 +20,14 @@ namespace VMFramework.GameEvents
         [HideInEditorMode]
         public static Camera bindCamera;
 
-        public static float detectDistance2D => GameCoreSetting.colliderMouseEventGeneralSetting.detectDistance2D;
+        private static float detectDistance2D =>
+            GameCoreSetting.colliderMouseEventGeneralSetting.detectDistance2D;
 
-        public static ObjectDimensions dimensionsDetectPriority =>
+        private static ObjectDimensions dimensionsDetectPriority =>
             GameCoreSetting.colliderMouseEventGeneralSetting.dimensionsDetectPriority;
+
+        private static LayerMask layerMask =>
+            GameCoreSetting.colliderMouseEventGeneralSetting.detectLayerMask;
 
         [BoxGroup(DEBUGGING_CATEGORY), ReadOnly, ShowInInspector]
         private static ColliderMouseEventTrigger currentHoverTrigger;
@@ -46,7 +50,7 @@ namespace VMFramework.GameEvents
         protected override void OnBeforeInit()
         {
             base.OnBeforeInit();
-            
+
             if (fixedBindCamera != null)
             {
                 bindCamera = fixedBindCamera;
@@ -59,6 +63,11 @@ namespace VMFramework.GameEvents
 
         private void Update()
         {
+            if (bindCamera == null)
+            {
+                return;
+            }
+
             currentHoverTrigger = DetectTrigger();
 
             var currentHoverTriggerIsNull = currentHoverTrigger == null;
@@ -71,7 +80,7 @@ namespace VMFramework.GameEvents
                 // Pointer Leave
                 if (lastHoverTriggerIsNull == false)
                 {
-                    Invoke(MouseEventType.PointerLeave, lastHoverTrigger);
+                    Invoke(MouseEventType.PointerExit, lastHoverTrigger);
                 }
             }
             else
@@ -81,7 +90,7 @@ namespace VMFramework.GameEvents
                 {
                     if (lastHoverTriggerIsNull == false)
                     {
-                        Invoke(MouseEventType.PointerLeave, lastHoverTrigger);
+                        Invoke(MouseEventType.PointerExit, lastHoverTrigger);
                     }
 
                     Invoke(MouseEventType.PointerEnter, currentHoverTrigger);
@@ -367,19 +376,21 @@ namespace VMFramework.GameEvents
         private static ColliderMouseEventTrigger Detect3DTrigger()
         {
             Vector3 mousePos = Input.mousePosition;
-            
-            if (mousePos.IsInfinity())
+
+            if (mousePos.IsInfinity() || mousePos.IsNaN())
             {
                 return default;
             }
-            
+
             var ray = bindCamera.ScreenPointToRay(mousePos);
 
             Debug.DrawRay(ray.origin, ray.direction, Color.green);
 
-            if (Physics.Raycast(ray, out var hit3D))
+            if (Physics.Raycast(ray, out var hit3D,
+                    GameCoreSetting.colliderMouseEventGeneralSetting.detectDistance3D, layerMask))
             {
-                ColliderMouseEventTrigger detectResult = hit3D.collider.gameObject.GetComponent<ColliderMouseEventTrigger>();
+                ColliderMouseEventTrigger detectResult =
+                    hit3D.collider.gameObject.GetComponent<ColliderMouseEventTrigger>();
 
                 return detectResult;
             }
@@ -387,35 +398,34 @@ namespace VMFramework.GameEvents
             return default;
         }
 
+        private static readonly List<Vector2> hitDirections = new()
+        {
+            Vector2.left,
+            Vector2.right,
+            Vector2.down,
+            Vector2.up
+        };
+
         private static ColliderMouseEventTrigger Detect2DTrigger()
         {
             Vector3 mousePos = Input.mousePosition;
-            
+
             if (mousePos.IsInfinity())
             {
                 return default;
             }
-            
+
             RaycastHit2D hit2D = default;
 
             Ray ray = bindCamera.ScreenPointToRay(mousePos);
 
             float distance = -1;
 
-            //2D射线检测
-            var hitDirections = new List<Vector2>
-            {
-                Vector2.left,
-                Vector2.right,
-                Vector2.down,
-                Vector2.up
-            };
-
             foreach (Vector2 direction in hitDirections)
             {
 
                 RaycastHit2D newHit = Physics2D.Raycast(new Vector2(ray.origin.x, ray.origin.y), direction,
-                    detectDistance2D);
+                    detectDistance2D, layerMask);
                 if (newHit.collider)
                 {
                     Vector3 colliderPos =
@@ -430,12 +440,12 @@ namespace VMFramework.GameEvents
                         hit2D = newHit;
                     }
                 }
-
             }
 
             if (distance >= 0)
             {
-                ColliderMouseEventTrigger detectResult = hit2D.collider.gameObject.GetComponent<ColliderMouseEventTrigger>();
+                ColliderMouseEventTrigger detectResult =
+                    hit2D.collider.gameObject.GetComponent<ColliderMouseEventTrigger>();
 
                 return detectResult;
             }

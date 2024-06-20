@@ -12,7 +12,7 @@ namespace VMFramework.Procedure
             base.OnStartServer();
 
             Debug.Log("启动服务器");
-            ProcedureManager.AddToSwitchQueue(MainMenuProcedure.ID, ServerLoadingProcedure.ID);
+            ProcedureManager.EnterProcedure(MainMenuProcedure.ID, ServerRunningProcedure.ID);
         }
 
         public override void OnStartClient()
@@ -20,18 +20,28 @@ namespace VMFramework.Procedure
             base.OnStartClient();
 
             Debug.Log("启动客户端");
-            ProcedureManager.AddToSwitchQueue(MainMenuProcedure.ID, ClientLoadingProcedure.ID);
+
+            if (ProcedureManager.HasCurrentProcedure(MainMenuProcedure.ID))
+            {
+                ProcedureManager.EnterProcedure(MainMenuProcedure.ID, ClientRunningProcedure.ID);
+            }
+            else
+            {
+                ProcedureManager.EnterProcedure(ClientRunningProcedure.ID);
+            }
         }
 
         public override void OnStopClient()
         {
             base.OnStopClient();
 
-            ProcedureManager.ExitProcedure(ClientRunningProcedure.ID);
-
             if (IsServerStarted == false)
             {
-                ProcedureManager.EnterProcedure(MainMenuProcedure.ID);
+                ProcedureManager.EnterProcedure(ClientRunningProcedure.ID, MainMenuProcedure.ID);
+            }
+            else
+            {
+                ProcedureManager.ExitProcedureImmediately(ClientRunningProcedure.ID);
             }
         }
 
@@ -39,11 +49,13 @@ namespace VMFramework.Procedure
         {
             base.OnStopServer();
 
-            ProcedureManager.ExitProcedure(ServerRunningProcedure.ID);
-
             if (IsClientStarted == false)
             {
-                ProcedureManager.EnterProcedure(MainMenuProcedure.ID);
+                ProcedureManager.EnterProcedure(ServerRunningProcedure.ID, MainMenuProcedure.ID);
+            }
+            else
+            {
+                ProcedureManager.ExitProcedureImmediately(ServerRunningProcedure.ID);
             }
         }
     }

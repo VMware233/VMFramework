@@ -39,6 +39,11 @@ namespace VMFramework.OdinExtensions
         {
             base.DrawCustomButtons();
             
+            if (Button("Create New Table", SdfIconType.Plus))
+            {
+                LocalizationTablesWindow.ShowTableCreator();
+            }
+            
             var value = Property.ValueEntry.WeakSmartValue;
 
             if (value is not string tableName)
@@ -71,11 +76,6 @@ namespace VMFramework.OdinExtensions
                 {
                     Selection.activeObject = collection;
                 }
-            }
-            
-            if (Button("Create New Table", SdfIconType.Plus))
-            {
-                LocalizationTablesWindow.ShowTableCreator();
             }
         }
 

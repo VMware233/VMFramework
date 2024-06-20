@@ -21,10 +21,10 @@ public static class IOUtility
     /// 【功能特点】:资源根目录，所有资源都在这里。
     /// 【Editor路径】:Assets
     /// 【平台路径】:
-    /// Win:E:/myGame/Assets
-    /// Mac:/myGame/Assets/
-    /// Android:/data/app/com.myCompany.myGame-1/base.apk! 
-    /// ios:/var/containers/Application/E32134…3B123/myGame.app/Data
+    /// <para>Win: E:/myGame/Assets</para>
+    /// <para>Mac: /myGame/Assets/</para>
+    /// <para>Android: /data/app/com.myCompany.myGame-1/base.apk!</para> 
+    /// <para>ios: /var/containers/Application/E32134…3B123/myGame.app/Data</para>
     /// </summary>
     public static string assetsFolderPath
     {
@@ -49,10 +49,10 @@ public static class IOUtility
     /// 【功能特点】:不压缩，外部可访问资源内容
     /// 【Editor路径】:Assets/StreamingAssets
     /// 【平台路径】:
-    /// Win:D:/myGame/Assets/StreamingAssets
-    /// Mac:/myGame/Assets/StreamingAssets
-    /// Android:jar:file:///data/app/com.myCompany.myGame-1/base.apk!/assets
-    /// ios:/var/containers/Application/E32134…3B123/myGame.app/Data/Raw
+    /// Win: D:/myGame/Assets/StreamingAssets
+    /// Mac: /myGame/Assets/StreamingAssets
+    /// Android: jar:file:///data/app/com.myCompany.myGame-1/base.apk!/assets
+    /// ios: /var/containers/Application/E32134…3B123/myGame.app/Data/Raw
     /// </summary>
     public static string streamingDataPath
     {
@@ -66,10 +66,10 @@ public static class IOUtility
     /// 【功能特点】:不压缩，外部可任意体位访问。一般热更新、热补丁、热加载、存档的资源会选择存在这里。
     /// 【Editor路径】:Assets/PersistentDataPath
     /// 【平台路径】:
-    /// Win:C:/Users/Administrator/Appdata/LocalLow/myCompany/myGame
-    /// Mac:/Users/lodypig/Library/Application Support/myCompany/myGame
-    /// Android:/data/data/com.myCompany.myGame/files
-    /// ios:/var/mobile/Containers/Data/Application/E32134…3B123/Documents
+    /// Win: C:/Users/Administrator/Appdata/LocalLow/myCompany/myGame
+    /// Mac: /Users/lodypig/Library/Application Support/myCompany/myGame
+    /// Android: /data/data/com.myCompany.myGame/files
+    /// ios: /var/mobile/Containers/Data/Application/E32134…3B123/Documents
     /// </summary>
     public static string persistentDataPath
     {
@@ -83,9 +83,9 @@ public static class IOUtility
     /// 【功能特点】:临时缓存目录，用于存储缓存文件
     /// 【Editor路径】:Assets/TemporaryCachePath
     /// 【平台路径】:
-    /// Win:C:/Users/Administrator/Appdata/Temp/myCompany/myGame
-    /// Android:/data/data/com.myCompany.myGame/cache
-    /// ios:/var/mobile/Containers/Data/Application/E32134…3B123/Library/Catches
+    /// Win: C:/Users/Administrator/Appdata/Temp/myCompany/myGame
+    /// Android: /data/data/com.myCompany.myGame/cache
+    /// ios: /var/mobile/Containers/Data/Application/E32134…3B123/Library/Catches
     /// </summary>
     public static string cachePath
     {

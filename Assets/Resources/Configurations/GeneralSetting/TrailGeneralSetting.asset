@@ -27,5 +27,5 @@ MonoBehaviour:
   initialGamePrefabWrappers: []
   <defaultGameType>k__BackingField: 
   container:
-    containerID: 
+    containerID: TrailContainer
     container: {fileID: 0}

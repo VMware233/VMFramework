@@ -14,7 +14,9 @@ namespace VMFramework.Timers
         
         private static readonly GenericArrayPriorityQueue<ITimer, double> queue = new(INITIAL_QUEUE_SIZE);
         
-        private static double currentTime = 0;
+        private static double _currentTime = 0;
+
+        public static double currentTime => _currentTime;
 
         /// <summary>
         /// Adds a timer to the queue with a delay.
@@ -31,15 +33,17 @@ namespace VMFramework.Timers
                 queue.Resize(capacity + QUEUE_SIZE_GAP);
             }
             
-            double expectedTime = currentTime + delay;
+            double expectedTime = _currentTime + delay;
             queue.Enqueue(timer, expectedTime);
             
-            timer.OnStart(currentTime, expectedTime);
+            timer.OnStart(_currentTime, expectedTime);
         }
 
         /// <summary>
         /// Removes a timer from the queue.
         /// O(log n)
+        /// if the timer is not in the queue, it will throw an exception.
+        /// So it's better to use Contains() before calling this method.
         /// </summary>
         /// <param name="timer"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -47,7 +51,7 @@ namespace VMFramework.Timers
         {
             queue.Remove(timer);
             
-            timer.OnStopped(currentTime);
+            timer.OnStopped(_currentTime);
         }
         
         /// <summary>
@@ -64,11 +68,11 @@ namespace VMFramework.Timers
 
         private void Update()
         {
-            currentTime += Time.deltaTime;
+            _currentTime += Time.deltaTime;
 
             while (queue.count > 0)
             {
-                if (currentTime < queue.first.Priority)
+                if (_currentTime < queue.first.Priority)
                 {
                     break;
                 }

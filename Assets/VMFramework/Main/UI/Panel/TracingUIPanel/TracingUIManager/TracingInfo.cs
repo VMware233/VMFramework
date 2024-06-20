@@ -4,10 +4,13 @@ namespace VMFramework.UI
 {
     internal class TracingInfo
     {
-        public TracingType tracingType;
-        public Vector3 tracingPosition = Vector3.zero;
-        public Transform tracingTransform;
+        public TracingConfig config {get; private set; }
+        
         public int tracingCount = 1;
-        public int maxTracingCount = int.MaxValue;
+
+        public void SetConfig(TracingConfig config)
+        {
+            this.config = config;
+        }
     }
 }

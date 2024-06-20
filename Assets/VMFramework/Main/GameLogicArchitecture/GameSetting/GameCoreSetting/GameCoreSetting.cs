@@ -8,7 +8,7 @@ using VMFramework.Core;
 using VMFramework.Containers;
 using VMFramework.GameEvents;
 using VMFramework.Procedure;
-using VMFramework.Property;
+using VMFramework.Properties;
 using VMFramework.Recipe;
 using VMFramework.ResourcesManagement;
 using Debug = UnityEngine.Debug;

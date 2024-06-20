@@ -30,7 +30,7 @@ namespace VMFramework.UI
             base.OnInit(preset);
 
             defaultPivot = tracingUIPanelPreset.defaultPivot;
-            enableOverflow = tracingUIPanelPreset.enableOverflow;
+            enableOverflow = tracingUIPanelPreset.enableScreenOverflow;
             autoPivotCorrection = tracingUIPanelPreset.autoPivotCorrection;
         }
 
@@ -43,7 +43,7 @@ namespace VMFramework.UI
 
             if (tracingUIPanelPreset.enableAutoMouseTracing)
             {
-                TracingUIManager.StartTracingMousePosition(this, tracingUIPanelPreset.persistentTracing);
+                TracingUIManager.StartTracing(this, tracingUIPanelPreset.persistentTracing);
             }
         }
 
@@ -57,8 +57,6 @@ namespace VMFramework.UI
         }
 
         #region IUIToolkitTracingUIPanel
-
-        bool ITracingUIPanel.persistentTracing => tracingUIPanelPreset.persistentTracing;
 
         Vector2 IUIToolkitTracingUIPanel.referenceResolution =>
             uiDocument.panelSettings.referenceResolution;

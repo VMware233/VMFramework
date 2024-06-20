@@ -119,6 +119,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &155421388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 155421390}
+  - component: {fileID: 155421389}
+  - component: {fileID: 155421391}
+  m_Layer: 0
+  m_Name: TestBench
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &155421389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155421388}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388576ae92e2493ea2df320526929284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 3
+  axis: {x: 0, y: 0, z: 1}
+  rotateDirection: 0
+  direction: {x: 1, y: 0, z: 0}
+  angle: 40
+--- !u!4 &155421390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155421388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.7, y: 0, z: 0.71}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &155421391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155421388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e716d9446e44a288db90d5b3a0b21b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 3
+  vector: {x: 0, y: 1, z: 2}
+  nearVector: {x: 0, y: 1, z: 0}
+  angle: 90
 --- !u!1 &460305056
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,15 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9002c7201e486d9469c59b0e7c173d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!114 &1220113331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,8 +633,88 @@ Transform:
   - {fileID: 950337424}
   - {fileID: 1220113329}
   - {fileID: 1577807011}
+  - {fileID: 1332863967}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1332863966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1332863967}
+  - component: {fileID: 1332863970}
+  - component: {fileID: 1332863969}
+  - component: {fileID: 1332863968}
+  m_Layer: 0
+  m_Name: TimerCore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1332863967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332863966}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1275962107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1332863968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332863966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2418fdc8b32de746974cebf534a6a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+--- !u!114 &1332863969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332863966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7dd73b73f984d59bb65b3c8712f0324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1332863970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332863966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbe9ac2548a4921956f3169ab2d59ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1347773803
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,7 +726,6 @@ GameObject:
   - component: {fileID: 1347773804}
   - component: {fileID: 1347773811}
   - component: {fileID: 1347773810}
-  - component: {fileID: 1347773809}
   - component: {fileID: 1347773808}
   - component: {fileID: 1347773807}
   - component: {fileID: 1347773806}
@@ -665,27 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3522bb0d475627946b4cea2fdfb7422f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1347773809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347773803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2418fdc8b32de746974cebf534a6a9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!114 &1347773810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,7 +1238,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1837632629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81fb8f088624dc84bb466a3a7f2c1289, type: 3}
+  m_Script: {fileID: 11500000, guid: 2712974a8dfc4d3a8596dc453f878d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -1187,10 +1302,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: root
-      Entry: 6
-      Data: 
+    SerializationNodes: []
 --- !u!1 &2121337876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,3 +1437,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1825527916}
   - {fileID: 1026662588}
+  - {fileID: 155421390}

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core.Linq;
@@ -13,30 +14,35 @@ namespace VMFramework.Core.Editor
     {
         #region Find By Type And By Name
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAsset FindAssetOfName<TAsset>(this string assetName,
             string[] searchInFolders = null) where TAsset : Object
         {
-            return assetName.FindAssetOfName(typeof(TAsset), searchInFolders) as TAsset;
+            return (TAsset)assetName.FindAssetOfName(typeof(TAsset), searchInFolders);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAsset FindAssetOfName<TAsset>(this string assetName,
             string searchInFolder) where TAsset : Object
         {
-            return assetName.FindAssetOfName(typeof(TAsset), searchInFolder) as TAsset;
+            return (TAsset)assetName.FindAssetOfName(typeof(TAsset), searchInFolder);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Object FindAssetOfName(this string assetName, Type type,
             string searchInFolder)
         {
             return assetName.FindAssetsOfName(type, searchInFolder).FirstOrDefault();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Object FindAssetOfName(this string assetName, Type type,
             string[] searchInFolders = null)
         {
             return assetName.FindAssetsOfName(type, searchInFolders).FirstOrDefault();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<Object> FindAssetsOfName(this string assetName,
             Type type, string searchInFolder)
         {
@@ -46,6 +52,14 @@ namespace VMFramework.Core.Editor
             }
 
             return FindAssetsOfName(assetName, type, new[] {searchInFolder});
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<TAsset> FindAssetsOfName<TAsset>(this string assetName,
+            string searchInFolder)
+            where TAsset : Object
+        {
+            return FindAssetsOfName(assetName, typeof(TAsset), searchInFolder).Cast<TAsset>();
         }
 
         public static IEnumerable<Object> FindAssetsOfName(this string assetName,

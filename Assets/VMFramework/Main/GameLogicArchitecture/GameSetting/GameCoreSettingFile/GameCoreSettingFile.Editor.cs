@@ -4,6 +4,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.Editor;
@@ -19,13 +20,10 @@ namespace VMFramework.GameLogicArchitecture
         [Required]
         public GameEditorGeneralSetting gameEditorGeneralSetting;
 
+        [FormerlySerializedAs("colorfulHierarchyGeneralSetting")]
         [TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
         [Required]
-        public ColorfulHierarchyGeneralSetting colorfulHierarchyGeneralSetting;
-
-        [TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
-        [Required]
-        public HierarchyComponentIconGeneralSetting hierarchyComponentIconGeneralSetting;
+        public HierarchyGeneralSetting hierarchyGeneralSetting;
         
         [TabGroup(TAB_GROUP_NAME, EDITOR_EXTENSION_CATEGORY)]
         [Required]

@@ -246,7 +246,7 @@ namespace VMFramework.Core
 
         #endregion
 
-        #region Rotate
+        #region Clockwise & Counterclockwise Rotate
 
         /// <summary>
         /// 绕原点以指定角度（以度为单位）顺时针旋转一个二维向量。
@@ -274,6 +274,85 @@ namespace VMFramework.Core
             return rotation * reference;
         }
 
+        /// <summary>
+        /// 绕指定轴以指定角度（以度为单位）顺时针旋转一个三维向量。
+        /// </summary>
+        /// <param name="reference"></param>
+        /// <param name="angle"></param>
+        /// <param name="axis"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 ClockwiseRotate(this Vector3 reference, float angle, Vector3 axis)
+        {
+            var rotation = Quaternion.AngleAxis(angle, axis);
+            return rotation * reference;
+        }
+        
+        /// <summary>
+        /// 绕指定轴以指定角度（以度为单位）逆时针旋转一个三维向量。
+        /// </summary>
+        /// <param name="reference"></param>
+        /// <param name="angle"></param>
+        /// <param name="axis"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 CounterclockwiseRotate(this Vector3 reference, float angle, Vector3 axis)
+        {
+            var rotation = Quaternion.AngleAxis(-angle, axis);
+            return rotation * reference;
+        }
+
         #endregion
+
+        #region Rotate
+
+        /// <summary>
+        /// 绕原点以指定角度（以度为单位）按指定方向旋转一个二维向量。
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="angle"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 Rotate(this Vector2 vector, float angle, RotateDirection direction)
+        {
+            return direction switch
+            {
+                RotateDirection.Clockwise => vector.ClockwiseRotate(angle),
+                RotateDirection.CounterClockwise => vector.CounterclockwiseRotate(angle),
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            };
+        }
+        
+        /// <summary>
+        /// 绕指定轴以指定角度（以度为单位）按指定方向旋转一个三维向量。
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="angle"></param>
+        /// <param name="axis"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 Rotate(this Vector3 vector, float angle, Vector3 axis, RotateDirection direction)
+        {
+            return direction switch
+            {
+                RotateDirection.Clockwise => vector.ClockwiseRotate(angle, axis),
+                RotateDirection.CounterClockwise => vector.CounterclockwiseRotate(angle, axis),
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            };
+        }
+
+        #endregion
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 RotateWithinPlane(this Vector3 vector, Vector3 nearVector, float angle)
+        {
+            var normal = Vector3.Cross(nearVector, vector);
+            var rotation = Quaternion.AngleAxis(-angle, normal);
+            return rotation * vector;
+        }
     }
 }

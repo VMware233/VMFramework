@@ -76,7 +76,7 @@ namespace VMFramework.GameEvents
 
                 if (xNegativeActionGroups.Check())
                 {
-                    vector.y -= 1;
+                    vector.x -= 1;
                 }
             }
             

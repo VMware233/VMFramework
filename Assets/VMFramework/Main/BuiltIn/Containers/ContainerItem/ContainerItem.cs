@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using VMFramework.GameLogicArchitecture;
-using VMFramework.Property;
+using VMFramework.Properties;
 
 namespace VMFramework.Containers
 {

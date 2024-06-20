@@ -6,7 +6,7 @@ using VMFramework.Containers;
 using VMFramework.Core.Linq;
 using VMFramework.GameEvents;
 using VMFramework.Procedure;
-using VMFramework.Property;
+using VMFramework.Properties;
 using VMFramework.Recipe;
 using VMFramework.ResourcesManagement;
 

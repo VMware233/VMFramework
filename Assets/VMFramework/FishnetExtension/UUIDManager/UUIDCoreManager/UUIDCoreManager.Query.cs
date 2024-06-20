@@ -10,12 +10,14 @@ namespace VMFramework.Network
 {
     public partial class UUIDCoreManager
     {
+        #region Try Get Info
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryGetInfo(string uuid, out UUIDInfo info)
         {
             if (uuid.IsNullOrEmpty())
             {
-                Debug.LogWarning($"试图获取一个空uuid的{typeof(UUIDInfo)}");
+                Debug.LogWarning($"Try to get {nameof(UUIDInfo)} with empty uuid");
                 info = default;
                 return false;
             }
@@ -23,12 +25,16 @@ namespace VMFramework.Network
             return uuidInfos.TryGetValue(uuid, out info);
         }
 
+        #endregion
+
+        #region Try Get Owner
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryGetOwner(string uuid, out IUUIDOwner owner)
         {
             if (uuid.IsNullOrEmpty())
             {
-                Debug.LogWarning($"试图获取一个空uuid的{typeof(IUUIDOwner)}");
+                Debug.LogWarning($"Try to get {typeof(IUUIDOwner)} with empty uuid");
                 owner = null;
                 return false;
             }
@@ -49,7 +55,7 @@ namespace VMFramework.Network
         {
             if (uuid.IsNullOrEmpty())
             {
-                Debug.LogWarning($"试图获取一个空uuid的{typeof(TUUIDOwner)}");
+                Debug.LogWarning($"Try to get {typeof(TUUIDOwner)} with empty uuid");
                 owner = default;
                 return false;
             }
@@ -73,12 +79,48 @@ namespace VMFramework.Network
         {
             if (TryGetOwner(uuid, out owner) == false)
             {
-                Debug.LogWarning($"不存在此{uuid}对应的{typeof(TUUIDOwner)}");
+                Debug.LogWarning($"The {typeof(TUUIDOwner)} with uuid {uuid} does not exist");
                 return false;
             }
             
             return true;
         }
+
+        #endregion
+
+        #region Has UUID
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasUUID(string uuid)
+        {
+            if (uuid.IsNullOrEmpty())
+            {
+                Debug.LogWarning($"Try to check if uuid exists with empty uuid");
+                return false;
+            }
+            
+            return uuidInfos.ContainsKey(uuid);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasUUIDWithWarning(string uuid)
+        {
+            if (uuid.IsNullOrEmpty())
+            {
+                Debug.LogWarning($"Try to check if uuid exists with empty uuid");
+                return false;
+            }
+            
+            if (uuidInfos.ContainsKey(uuid) == false)
+            {
+                Debug.LogWarning($"The uuid {uuid} does not exist");
+                return false;
+            }
+            
+            return true;
+        }
+
+        #endregion
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IReadOnlyCollection<UUIDInfo> GetAllOwnerInfos()

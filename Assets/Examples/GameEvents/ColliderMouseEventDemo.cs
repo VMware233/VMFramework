@@ -11,7 +11,7 @@ namespace VMFramework.Examples
         void IInitializer.OnInitComplete(Action onDone)
         {
             ColliderMouseEventManager.AddCallback(MouseEventType.PointerEnter, OnPointerEnter);
-            ColliderMouseEventManager.AddCallback(MouseEventType.PointerLeave, OnPointerLeave);
+            ColliderMouseEventManager.AddCallback(MouseEventType.PointerExit, OnPointerLeave);
             
             onDone();
         }

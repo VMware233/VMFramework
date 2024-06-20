@@ -14,8 +14,8 @@ namespace VMFramework.Core
             derivedClassesCache = new();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<Type> GetDerivedClasses(this Type baseType,
-            Assembly assembly, bool includingSelf, bool includingGenericDefinition)
+        public static IEnumerable<Type> GetDerivedClasses(this Type baseType, Assembly assembly,
+            bool includingSelf, bool includingGenericDefinition)
         {
             if (derivedClassesCache.TryGetValue(assembly, out var cache) == false)
             {
@@ -26,24 +26,37 @@ namespace VMFramework.Core
             if (cache.TryGetValue(baseType, out var derivedTypes) == false)
             {
                 derivedTypes = new List<Type>();
-                
-                foreach (Type t in assembly.GetAllClasses())
-                {
-                    if (baseType.IsAssignableFrom(t))
-                    {
-                        derivedTypes.Add(t);
-                        continue;
-                    }
 
-                    if (baseType.IsGenericTypeDefinition)
+                if (baseType.IsInterface)
+                {
+                    foreach (var t in assembly.GetTypes())
                     {
-                        if (t.GetAllBaseTypes(false, false, true).Contains(baseType))
+                        if (t.GetInterfaces().Contains(baseType))
                         {
                             derivedTypes.Add(t);
                         }
                     }
                 }
-                
+                else
+                {
+                    foreach (Type t in assembly.GetAllClasses())
+                    {
+                        if (baseType.IsAssignableFrom(t))
+                        {
+                            derivedTypes.Add(t);
+                            continue;
+                        }
+
+                        if (baseType.IsGenericTypeDefinition)
+                        {
+                            if (t.GetAllBaseTypes(false, false, true).Contains(baseType))
+                            {
+                                derivedTypes.Add(t);
+                            }
+                        }
+                    }
+                }
+
                 cache[baseType] = derivedTypes;
             }
 
@@ -54,20 +67,18 @@ namespace VMFramework.Core
                     continue;
                 }
 
-                if (includingGenericDefinition == false &&
-                    t.IsGenericTypeDefinition)
+                if (includingGenericDefinition == false && t.IsGenericTypeDefinition)
                 {
                     continue;
                 }
-                
+
                 yield return t;
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<Type> GetDerivedClasses(this Type baseType,
-            IEnumerable<Assembly> assemblies, bool includingSelf,
-            bool includingGenericDefinition)
+            IEnumerable<Assembly> assemblies, bool includingSelf, bool includingGenericDefinition)
         {
             foreach (var assembly in assemblies)
             {
@@ -80,8 +91,8 @@ namespace VMFramework.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<Type> GetDerivedClasses(this Type baseType,
-            bool includingSelf, bool includingGenericDefinition)
+        public static IEnumerable<Type> GetDerivedClasses(this Type baseType, bool includingSelf,
+            bool includingGenericDefinition)
         {
             return GetDerivedClasses(baseType, AppDomain.CurrentDomain.GetAssemblies(), includingSelf,
                 includingGenericDefinition);
@@ -144,8 +155,7 @@ namespace VMFramework.Core
         /// <param name="includingSelf"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsDerivedFrom(this Type derivedType, Type parentType,
-            bool includingSelf)
+        public static bool IsDerivedFrom(this Type derivedType, Type parentType, bool includingSelf)
         {
             return derivedType.IsDerivedFrom(parentType, includingSelf, false);
         }
@@ -168,7 +178,7 @@ namespace VMFramework.Core
             return parentTypes.Any(parentType =>
                 derivedType.IsDerivedFrom(parentType, includingSelf, includingGenericDefinition));
         }
-        
+
         /// <summary>
         /// Determines whether the specified derivedType is derived from all of the specified parentTypes.
         /// If includingSelf is true, the derivedType is also considered to be derived from itself.
@@ -197,26 +207,24 @@ namespace VMFramework.Core
         /// <typeparam name="TParent"></typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsDerivedFrom<TParent>(this Type derivedType,
-            bool includingSelf)
+        public static bool IsDerivedFrom<TParent>(this Type derivedType, bool includingSelf)
         {
             return derivedType.IsDerivedFrom(typeof(TParent), includingSelf);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsDerivedFrom<TParent>(this Type derivedType,
-            bool includingSelf, bool includingGenericDefinition)
+        public static bool IsDerivedFrom<TParent>(this Type derivedType, bool includingSelf,
+            bool includingGenericDefinition)
         {
-            return derivedType.IsDerivedFrom(typeof(TParent), includingSelf,
-                includingGenericDefinition);
+            return derivedType.IsDerivedFrom(typeof(TParent), includingSelf, includingGenericDefinition);
         }
 
         #endregion
 
         #region Get Base Types
 
-        public static IEnumerable<Type> GetBaseTypes(this Type type,
-            bool includingInterfaces, bool includingGenericDefinition)
+        public static IEnumerable<Type> GetBaseTypes(this Type type, bool includingInterfaces,
+            bool includingGenericDefinition)
         {
             if (type == null)
             {
@@ -247,9 +255,8 @@ namespace VMFramework.Core
             }
         }
 
-        public static IEnumerable<Type> GetAllBaseTypes(this Type type,
-            bool includingSelf, bool includingInterfaces,
-            bool includingGenericDefinition)
+        public static IEnumerable<Type> GetAllBaseTypes(this Type type, bool includingSelf,
+            bool includingInterfaces, bool includingGenericDefinition)
         {
             if (type == null)
             {
@@ -287,19 +294,17 @@ namespace VMFramework.Core
                 yield return type.GetGenericTypeDefinition();
             }
 
-            foreach (var parentType in
-                     type.PreorderTraverse(includingSelf, GetParents))
+            foreach (var parentType in type.PreorderTraverse(includingSelf, GetParents))
             {
                 yield return parentType;
             }
         }
 
-        public static IEnumerable<Type> GetAllBaseTypes(this Type type,
-            bool includingSelf, bool includingInterfaces,
-            bool includingGenericDefinitions, bool includingGeneric)
+        public static IEnumerable<Type> GetAllBaseTypes(this Type type, bool includingSelf,
+            bool includingInterfaces, bool includingGenericDefinitions, bool includingGeneric)
         {
-            foreach (var baseType in type.GetAllBaseTypes(includingSelf,
-                         includingInterfaces, includingGenericDefinitions))
+            foreach (var baseType in type.GetAllBaseTypes(includingSelf, includingInterfaces,
+                         includingGenericDefinitions))
             {
                 if (baseType.IsGenericType && includingGeneric == false)
                 {

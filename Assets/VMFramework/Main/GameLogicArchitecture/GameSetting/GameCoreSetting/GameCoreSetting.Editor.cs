@@ -10,15 +10,10 @@ namespace VMFramework.GameLogicArchitecture
         public static GameEditorGeneralSetting gameEditorGeneralSetting =>
             gameCoreSettingsFile == null ? null : gameCoreSettingsFile.gameEditorGeneralSetting;
 
-        public static ColorfulHierarchyGeneralSetting colorfulHierarchyGeneralSetting =>
+        public static HierarchyGeneralSetting hierarchyGeneralSetting =>
             gameCoreSettingsFile == null
                 ? null
-                : gameCoreSettingsFile.colorfulHierarchyGeneralSetting;
-
-        public static HierarchyComponentIconGeneralSetting hierarchyComponentIconGeneralSetting =>
-            gameCoreSettingsFile == null
-                ? null
-                : gameCoreSettingsFile.hierarchyComponentIconGeneralSetting;
+                : gameCoreSettingsFile.hierarchyGeneralSetting;
 
         public static GamePrefabWrapperGeneralSetting gamePrefabWrapperGeneralSetting =>
             gameCoreSettingsFile == null

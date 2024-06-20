@@ -40,7 +40,7 @@ namespace VMFramework.UI
 
             UIPanelPointerEventManager.OnPanelOnMouseClickChanged += (oldPanel, currentPanel) =>
             {
-                if (this != currentPanel)
+                if (currentPanel != this)
                 {
                     this.Close();
                 }

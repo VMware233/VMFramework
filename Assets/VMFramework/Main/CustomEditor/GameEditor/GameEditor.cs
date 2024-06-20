@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -18,7 +19,7 @@ namespace VMFramework.Editor.GameEditor
         private readonly AuxiliaryTools auxiliaryTools = new();
 
         [MenuItem("Tools/" + GameEditorNames.GAME_EDITOR_NAME + " #G")]
-        [Shortcut("Open " + GameEditorNames.GAME_EDITOR_NAME, KeyCode.G, ShortcutModifiers.Shift)]
+        // [Shortcut("Open " + GameEditorNames.GAME_EDITOR_NAME, KeyCode.G, ShortcutModifiers.Shift)]
         private static void OpenWindow()
         {
             GameCoreSettingFile.CheckGlobal();
@@ -197,15 +198,25 @@ namespace VMFramework.Editor.GameEditor
                     {
                         GenericMenu menu = new GenericMenu();
 
+                        Action action = null;
                         foreach (var leaf in buttonNode.GetAllLeaves(true))
                         {
                             menu.AddItem(new GUIContent(leaf.pathPart, leaf.data.tooltip), false, () =>
                             {
                                 leaf.data.onClick?.Invoke();
                             });
+                            
+                            action = leaf.data.onClick;
                         }
-                        
-                        menu.ShowAsContext();
+
+                        if (menu.GetItemCount() > 1)
+                        {
+                            menu.ShowAsContext();
+                        }
+                        else
+                        {
+                            action?.Invoke();
+                        }
                     }
                 }
             }

@@ -44,8 +44,8 @@ namespace VMFramework.Containers
             if (_instance.IsServerStarted)
             {
                 container.OnItemCountChangedEvent -= OnContainerItemCountChanged;
-                container.ItemAddedEvent.RemoveCallback(OnItemAdded);
-                container.ItemRemovedEvent.RemoveCallback(OnItemRemoved);
+                container.ItemAddedEvent.AddCallback(OnItemAdded, GameEventPriority.TINY);
+                container.ItemRemovedEvent.AddCallback(OnItemRemoved, GameEventPriority.TINY);
                 container.OnObservedEvent -= OnObserved;
                 container.OnUnobservedEvent -= OnUnobserved;
                 

@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Cameras;
 
 public class FaceCamera : MonoBehaviour
 {

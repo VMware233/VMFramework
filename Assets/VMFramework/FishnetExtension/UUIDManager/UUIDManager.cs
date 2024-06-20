@@ -16,7 +16,8 @@ namespace VMFramework.Network
         where TUUIDOwner : IUUIDOwner
     {
         [ShowInInspector]
-        private static HashSet<TUUIDOwner> allInfos = new();
+        [ListDrawerSettings(DefaultExpandedState = false)]
+        private static readonly HashSet<TUUIDOwner> allInfos = new();
         
         public static Action<TUUIDOwner> OnRegisterEvent;
         public static Action<TUUIDOwner> OnUnregisterEvent;

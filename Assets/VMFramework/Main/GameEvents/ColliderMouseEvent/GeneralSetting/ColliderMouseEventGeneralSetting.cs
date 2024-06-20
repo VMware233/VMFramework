@@ -6,11 +6,20 @@ namespace VMFramework.GameEvents
 {
     public sealed partial class ColliderMouseEventGeneralSetting : GeneralSetting
     {
-        [LabelText("优先检测哪个维度的物体")]
+        private const string COLLIDER_MOUSE_EVENT_CATEGORY = "Collider Mouse Event";
+        
+        [TabGroup(TAB_GROUP_NAME, COLLIDER_MOUSE_EVENT_CATEGORY)]
         public ObjectDimensions dimensionsDetectPriority = ObjectDimensions.TWO_D;
         
-        [LabelText("2D检测的射线长度")]
+        [TabGroup(TAB_GROUP_NAME, COLLIDER_MOUSE_EVENT_CATEGORY)]
         [Range(0, 100)]
-        public float detectDistance2D = 100;
+        public float detectDistance2D = 30;
+        
+        [TabGroup(TAB_GROUP_NAME, COLLIDER_MOUSE_EVENT_CATEGORY)]
+        [Range(0, 5000)]
+        public float detectDistance3D = 1000;
+        
+        [TabGroup(TAB_GROUP_NAME, COLLIDER_MOUSE_EVENT_CATEGORY)]
+        public LayerMask detectLayerMask = -1;
     }
 }

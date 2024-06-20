@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Configuration;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
@@ -12,17 +13,14 @@ namespace VMFramework.UI
     [PreviewComposite]
     public struct TooltipPriority
     {
-        [PropertyTooltip("优先级类型")]
         [JsonProperty, SerializeField]
         private TooltipPriorityType priorityType;
 
-        [PropertyTooltip("优先级预设")]
         [TooltipPriorityPresetID]
         [ShowIf(nameof(priorityType), TooltipPriorityType.Preset)]
         [JsonProperty, SerializeField]
         private string presetID;
 
-        [PropertyTooltip("优先级")]
         [ShowIf(nameof(priorityType), TooltipPriorityType.Custom)]
         [JsonProperty, SerializeField]
         private int priority;
@@ -56,6 +54,12 @@ namespace VMFramework.UI
             switch (priorityType)
             {
                 case TooltipPriorityType.Preset:
+                    if (presetID.IsNullOrEmpty())
+                    {
+                        Debug.LogWarning("No Tooltip Priority Preset ID set.");
+                        return 0;
+                    }
+                    
                     if (GameCoreSetting.tooltipGeneralSetting.tooltipPriorityPresets.TryGetConfigRuntime(
                             presetID, out var config))
                     {

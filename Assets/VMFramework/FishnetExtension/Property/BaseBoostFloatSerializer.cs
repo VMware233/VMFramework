@@ -2,7 +2,7 @@
 using FishNet.Serializing;
 using UnityEngine.Scripting;
 
-namespace VMFramework.Property
+namespace VMFramework.Properties
 {
     [Preserve]
     public static class BaseBoostFloatSerializer

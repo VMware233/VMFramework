@@ -14,16 +14,14 @@ namespace VMFramework.Configuration
     [HideReferenceObjectPicker]
     public class ContainerChooser : BaseConfig, IEnumerable<Transform>
     {
-        [LabelText("容器ID")]
         [IsNotNullOrEmpty]
         [SerializeField]
         private string containerID;
 
-        [LabelText("容器")]
         [SerializeField]
         private Transform container;
 
-        [Button("测试获取容器", ButtonStyle.Box)]
+        [Button(ButtonStyle.Box)]
         public Transform GetContainer()
         {
             if (containerID.IsNullOrEmpty())

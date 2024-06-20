@@ -9,12 +9,19 @@ namespace VMFramework.Core.Editor
 {
     public static class EditorUtility
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MonoScript MonoScriptFromScriptName(string scriptName)
         {
-            return AssetDatabase.FindAssets($"{scriptName} t:MonoScript")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .Select(AssetDatabase.LoadAssetAtPath<MonoScript>)
-                .FirstOrDefault();
+            foreach (var monoScript in scriptName.FindAssetsOfName<MonoScript>(null))
+            {
+                return monoScript;
+            }
+
+            return null;
+            // return AssetDatabase.FindAssets($"{scriptName} t:MonoScript")
+            //     .Select(AssetDatabase.GUIDToAssetPath)
+            //     .Select(AssetDatabase.LoadAssetAtPath<MonoScript>)
+            //     .FirstOrDefault();
         }
 
         public static bool OpenScriptOfType(this Type type)

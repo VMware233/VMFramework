@@ -4,15 +4,13 @@ using Sirenix.OdinInspector;
 namespace VMFramework.GameEvents
 {
     [DisallowMultipleComponent]
-    public sealed class ColliderMouseEventTrigger : MonoBehaviour
+    public sealed partial class ColliderMouseEventTrigger : MonoBehaviour
     {
-        [LabelText("是否允许拖拽")]
         public bool draggable = false;
 
-        [LabelText("触发拖拽的键"), ShowIf(nameof(draggable))]
+        [ShowIf(nameof(draggable))]
         public MouseButtonType dragButton = MouseButtonType.LeftButton;
         
-        [field: LabelText("拥有者Transform")]
         [field: Required]
         [field: SerializeField]
         public Transform owner { get; private set; }

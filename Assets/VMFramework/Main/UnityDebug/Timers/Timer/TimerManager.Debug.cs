@@ -11,7 +11,7 @@ namespace VMFramework.Timers
     public partial class TimerManager
     {
         [ShowInInspector]
-        private static double currentTimeDebug => currentTime;
+        private static double currentTimeDebug => _currentTime;
         
         [ShowInInspector]
         private static List<ITimer> allTimers => queue.ToList();

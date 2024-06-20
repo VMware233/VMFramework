@@ -21,7 +21,7 @@ namespace VMFramework.UI
             useDefaultPanelSettings = true;
             ignoreMouseEvents = false;
             defaultPivot = new(0, 1);
-            enableOverflow = false;
+            enableScreenOverflow = false;
             autoPivotCorrection = true;
             persistentTracing = false;
             useRightPosition = false;

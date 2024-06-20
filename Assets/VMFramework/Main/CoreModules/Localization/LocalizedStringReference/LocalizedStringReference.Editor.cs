@@ -136,19 +136,19 @@ namespace VMFramework.Localization
 
             if (table == null)
             {
-                return $"(Table not found: {tableName})" + defaultValue;
+                return $"{defaultValue}(Table not found: {tableName})";
             }
                 
             if (key.IsNullOrEmptyAfterTrim())
             {
-                return $"Key cannot be empty." + defaultValue;
+                return $"{defaultValue}(Key cannot be empty)";
             }
                 
             var entryEditor = table.GetEntry(key);
 
             if (entryEditor == null)
             {
-                return $"(Key not found: {key})" + defaultValue;
+                return $"{defaultValue}(Key not found: {key})";
             }
                 
             return entryEditor.GetLocalizedString();

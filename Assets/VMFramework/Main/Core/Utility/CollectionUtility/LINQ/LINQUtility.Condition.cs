@@ -29,9 +29,18 @@ namespace VMFramework.Core.Linq
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAllNull<T>(this IEnumerable<T> enumerable)
-            where T : class
         {
             return enumerable.All(item => item == null);
+        }
+
+        #endregion
+
+        #region Is Any Null
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsAnyNull<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.Any(item => item == null);
         }
 
         #endregion

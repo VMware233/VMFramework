@@ -13,8 +13,7 @@ namespace VMFramework.UI
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.CardHeading;
 
-        string IGameEditorMenuTreeNode.folderPath =>
-            (GameCoreSetting.uiPanelGeneralSetting as IGameEditorMenuTreeNode)?.nodePath;
+        string IGameEditorMenuTreeNode.folderPath => GameCoreSetting.uiPanelGeneralSetting.GetNodePath();
     }
 }
 #endif

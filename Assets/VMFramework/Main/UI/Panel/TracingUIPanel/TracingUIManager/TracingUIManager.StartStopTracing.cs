@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.UI
@@ -22,153 +24,40 @@ namespace VMFramework.UI
 
         #endregion
 
+        [ShowInInspector]
+        private static readonly Queue<TracingInfo> infoCaches = new();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void StartTracing(ITracingUIPanel tracingUIPanel, TracingConfig tracingConfig)
         {
+            StopTracing(tracingUIPanel);
+
+            TracingInfo info;
+
+            if (infoCaches.Count > 0)
+            {
+                info = infoCaches.Dequeue();
+            }
+            else
+            {
+                info = new();
+            }
             
+            info.SetConfig(tracingConfig);
+            
+            allTracingInfos.Add(tracingUIPanel, info);
         }
 
-        #region Start Tracing
-
-        public static void StartTracingPosition(ITracingUIPanel tracingUIPanel, Vector3 position,
-            int maxTracingCount = int.MaxValue)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool StopTracing(ITracingUIPanel tracingUIPanel)
         {
-            if (allTracingInfos.TryGetValue(tracingUIPanel, out var existedConfig))
+            if (allTracingInfos.Remove(tracingUIPanel, out var info))
             {
-                if (existedConfig.tracingType != TracingType.WorldPosition)
-                {
-                    WarningAlreadyTracing(tracingUIPanel, existedConfig.tracingType);
-                    return;
-                }
+                infoCaches.Enqueue(info);
+                return true;
             }
-
-            tracingPositions[tracingUIPanel] = position;
-            allTracingInfos[tracingUIPanel] = new TracingInfo
-            {
-                tracingType = TracingType.WorldPosition,
-                tracingPosition = position,
-                maxTracingCount = maxTracingCount
-            };
+            
+            return false;
         }
-
-        public static void StartTracingMousePosition(ITracingUIPanel tracingUIPanel,
-            int maxTracingCount = int.MaxValue)
-        {
-            if (allTracingInfos.TryGetValue(tracingUIPanel, out var existedConfig))
-            {
-                if (existedConfig.tracingType != TracingType.WorldPosition)
-                {
-                    WarningAlreadyTracing(tracingUIPanel, existedConfig.tracingType);
-                    return;
-                }
-            }
-
-            tracingMousePositionUIPanels.Add(tracingUIPanel);
-            allTracingInfos[tracingUIPanel] = new TracingInfo
-            {
-                tracingType = TracingType.MousePosition,
-                maxTracingCount = maxTracingCount
-            };
-        }
-
-        public static void StartTracingMousePosition(ITracingUIPanel tracingUIPanel, bool persistentTracing)
-        {
-            if (persistentTracing)
-            {
-                StartTracingMousePosition(tracingUIPanel);
-            }
-            else
-            {
-                StartTracingMousePosition(tracingUIPanel, 1);
-            }
-        }
-
-        public static void StartTracingTransform(ITracingUIPanel tracingUIPanel, Transform target,
-            int maxTracingCount = int.MaxValue)
-        {
-            if (target == null)
-            {
-                return;
-            }
-
-            if (allTracingInfos.TryGetValue(tracingUIPanel, out var existedConfig))
-            {
-                if (existedConfig.tracingType != TracingType.WorldPosition)
-                {
-                    WarningAlreadyTracing(tracingUIPanel, existedConfig.tracingType);
-                    return;
-                }
-            }
-
-            if (tracingTransforms.ContainsKey(target) == false)
-            {
-                tracingTransforms[target] = new List<ITracingUIPanel>();
-            }
-
-            var tracingUIPanels = tracingTransforms[target];
-
-            tracingUIPanels.Add(tracingUIPanel);
-
-            allTracingInfos[tracingUIPanel] = new TracingInfo
-            {
-                tracingType = TracingType.Transform,
-                tracingTransform = target,
-                maxTracingCount = maxTracingCount
-            };
-        }
-
-        public static void StartTracingTransform(ITracingUIPanel tracingUIPanel, Transform target,
-            bool persistentTracing)
-        {
-            if (persistentTracing)
-            {
-                StartTracingTransform(tracingUIPanel, target);
-            }
-            else
-            {
-                StartTracingTransform(tracingUIPanel, target, 1);
-            }
-        }
-
-        #endregion
-
-        #region Stop Tracing
-
-        public static void StopTracing(ITracingUIPanel tracingUIPanel)
-        {
-            if (allTracingInfos.TryGetValue(tracingUIPanel, out var config))
-            {
-                switch (config.tracingType)
-                {
-                    case TracingType.MousePosition:
-                        tracingMousePositionUIPanels.Remove(tracingUIPanel);
-                        break;
-                    case TracingType.Transform:
-                        var tracingTransform = config.tracingTransform;
-
-                        if (tracingTransforms.ContainsKey(tracingTransform))
-                        {
-                            var tracingUIPanels = tracingTransforms[tracingTransform];
-
-                            tracingUIPanels.Remove(tracingUIPanel);
-
-                            if (tracingUIPanels.Count == 0)
-                            {
-                                tracingTransforms.Remove(tracingTransform);
-                            }
-                        }
-
-                        break;
-                    case TracingType.WorldPosition:
-                        tracingPositions.Remove(tracingUIPanel);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                allTracingInfos.Remove(tracingUIPanel);
-            }
-        }
-
-        #endregion
     }
 }
