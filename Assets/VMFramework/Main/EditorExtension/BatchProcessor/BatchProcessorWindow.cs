@@ -27,7 +27,7 @@ namespace VMFramework.Editor.BatchProcessor
             return window;
         }
 
-        [MenuItem(UnityMenuItemNames.VMFRAMEWORK + BatchProcessorNames.BATCH_PROCESSOR_NAME)]
+        [MenuItem(UnityMenuItemNames.VMFRAMEWORK + BatchProcessorNames.BATCH_PROCESSOR_NAME + " #B", false, 200)]
         public static void OpenWindow()
         {
             GetWindow();
