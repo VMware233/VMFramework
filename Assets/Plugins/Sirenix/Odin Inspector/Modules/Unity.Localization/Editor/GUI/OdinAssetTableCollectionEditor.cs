@@ -407,18 +407,34 @@ namespace Sirenix.OdinInspector.Modules.Localization.Editor
 
 			// TODO: some caveats to just adding this
 #if true
-			var dragId = 0;
+			var dragAndDropId = 0;
 
-			if (!isDraggingControls)
+			if (!isDraggingControls && !(asset is DefaultAsset))
 			{
 				EditorGUI.BeginChangeCheck();
-				var dragValue = DragAndDropUtilities.DragAndDropZone(fullRect, asset, entryAssetType, true, false, false) as UnityEngine.Object;
-				dragId = DragAndDropUtilities.PrevDragAndDropId;
-				if (EditorGUI.EndChangeCheck() && dragValue != asset)
+
+				var dropValue = DragAndDropUtilities.DragAndDropZone(fullRect, asset, entryAssetType, true, false, false) as UnityEngine.Object;
+
+				dragAndDropId = DragAndDropUtilities.PrevDragAndDropId;
+
+				if (EditorGUI.EndChangeCheck() && dropValue != asset)
 				{
-					entry = this.AssignObjectToSharedEntry(sharedEntry, table.Asset, dragValue);
-					asset = dragValue;
-					entryAssetType = this.Collection.GetEntryAssetType(sharedEntry.Id);
+					if (!(dropValue is DefaultAsset))
+					{
+						entry = this.AssignObjectToSharedEntry(sharedEntry, table.Asset, dropValue);
+
+						asset = dropValue;
+
+						entryAssetType = this.Collection.GetEntryAssetType(sharedEntry.Id);
+					}
+					else
+					{
+						this.RelatedWindow.ShowToast(ToastPosition.BottomLeft,
+															  SdfIconType.ExclamationTriangleFill,
+															  "Default Assets (such as Folders) cannot be used for Asset Entries.",
+															  SirenixGUIStyles.RedErrorColor,
+															  10.0f);
+					}
 				}
 			}
 #endif
@@ -469,7 +485,7 @@ namespace Sirenix.OdinInspector.Modules.Localization.Editor
 					{
 						string assetAbsPath = Path.GetFullPath(AssetDatabase.GetAssetPath(asset));
 
-						if (File.Exists(assetAbsPath))
+						if (Directory.Exists(assetAbsPath) || File.Exists(assetAbsPath))
 						{
 							EditorUtility.RevealInFinder(assetAbsPath);
 
@@ -584,7 +600,7 @@ namespace Sirenix.OdinInspector.Modules.Localization.Editor
 				{
 					string assetAbsPath = Path.GetFullPath(AssetDatabase.GetAssetPath(asset));
 
-					if (File.Exists(assetAbsPath))
+					if (Directory.Exists(assetAbsPath) || File.Exists(assetAbsPath))
 					{
 						EditorUtility.RevealInFinder(assetAbsPath);
 
@@ -625,7 +641,7 @@ namespace Sirenix.OdinInspector.Modules.Localization.Editor
 			GUI.Label(pickerRect, GUIHelper.TempContent(string.Empty, "Select Object"));
 
 #if true
-			if (!isDraggingControls && DragAndDropUtilities.IsDragging && DragAndDropUtilities.HoveringAcceptedDropZone == dragId)
+			if (!isDraggingControls && dragAndDropId != 0 && DragAndDropUtilities.IsDragging && DragAndDropUtilities.HoveringAcceptedDropZone == dragAndDropId)
 			{
 				GUI.DrawTexture(fullRect, Texture2D.whiteTexture, ScaleMode.StretchToFill, false, 1, new Color(0, 0.5f, 0.8f, 0.25f), 0, 2.5f);
 			}
@@ -725,7 +741,20 @@ namespace Sirenix.OdinInspector.Modules.Localization.Editor
 			{
 				if (OdinObjectSelector.IsReadyToClaim(this.RelatedWindow, OdinObjectSelectorIds.LOCALIZATION_EDITOR))
 				{
-					this.AssignObjectToSelectorEntry(OdinObjectSelector.Claim() as UnityEngine.Object);
+					object claimedObject = OdinObjectSelector.Claim();
+
+					if (!(claimedObject is DefaultAsset))
+					{
+						this.AssignObjectToSelectorEntry(claimedObject as UnityEngine.Object);
+					}
+					else
+					{
+						this.RelatedWindow.ShowToast(ToastPosition.BottomLeft,
+															  SdfIconType.ExclamationTriangleFill,
+															  "Default Assets (such as Folders) cannot be used for Asset Entries.",
+															  SirenixGUIStyles.RedErrorColor,
+															  10.0f);
+					}
 
 					Event.current.Use();
 				}

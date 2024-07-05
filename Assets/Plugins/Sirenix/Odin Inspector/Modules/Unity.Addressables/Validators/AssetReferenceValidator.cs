@@ -141,7 +141,7 @@ namespace Sirenix.OdinInspector.Modules.Addressables.Editor
             // The assigned item had a sub object, but it's missing.
             if (!string.IsNullOrEmpty(assetReference.SubObjectName))
             {
-                var subObjects = AssetDatabase.LoadAllAssetRepresentationsAtPath(assetPath);
+                var subObjects = OdinAddressableUtility.EnumerateAllActualAndVirtualSubAssets(mainAsset, assetPath);
 
                 var hasMissingSubObject = true;
 

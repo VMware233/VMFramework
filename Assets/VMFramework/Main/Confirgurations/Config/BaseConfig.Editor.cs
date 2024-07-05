@@ -6,7 +6,7 @@ namespace VMFramework.Configuration
     [HideDuplicateReferenceBox]
     [HideReferenceObjectPicker]
     [OnInspectorInit("@((IInspectorConfig)$value)?.OnInspectorInit()")]
-    public partial class BaseConfig : IInspectorConfig
+    public partial class BaseConfig
     {
         protected virtual void OnInspectorInit()
         {

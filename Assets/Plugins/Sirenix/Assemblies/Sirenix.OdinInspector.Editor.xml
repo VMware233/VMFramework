@@ -8135,6 +8135,15 @@
             To safely change anything in the type cache, you must be holding this lock.
             </summary>
         </member>
+        <member name="M:Sirenix.OdinInspector.Editor.TypeRegistry.GetInstantiableInheritors(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="includeUnityTypes"></param>
+            <param name="excludeTypesWithoutDefaultConstructor">This is checked using <see cref="M:Sirenix.Utilities.TypeExtensions.HasDefaultConstructor(System.Type)"/>.</param>
+            <returns></returns>
+        </member>
         <member name="T:Sirenix.OdinInspector.Editor.UniqueDrawerKey">
              <summary>
              Gets a unique key for any given property within a drawer.
@@ -8847,12 +8856,11 @@
             Gets or sets the icon getter.
             </summary>
         </member>
-        <member name="M:Sirenix.OdinInspector.Editor.OdinMenuItem.DrawMenuItems(System.Int32,System.Boolean)">
+        <member name="M:Sirenix.OdinInspector.Editor.OdinMenuItem.DrawMenuItems(System.Int32)">
             <summary>
             Draws this menu item followed by all of its child menu items
             </summary>
             <param name="indentLevel">The indent level.</param>
-            <param name="recursive">Specifies whether the item should draw only itself or continue drawing its children recursively when expanded.</param>
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.OdinMenuItem.DrawMenuItem(System.Int32)">
             <summary>
@@ -10244,7 +10252,7 @@
             <para>Either '<paramref name="key"/>' or '<paramref name="id"/>' must be set, but both can also be set for more consistent results.</para>
             </remarks>
         </member>
-        <member name="M:Sirenix.OdinInspector.Editor.OdinObjectSelector.Show(UnityEngine.Rect,System.Object,System.Int32,Sirenix.OdinInspector.Editor.InspectorProperty,System.Boolean)">
+        <member name="M:Sirenix.OdinInspector.Editor.OdinObjectSelector.Show(UnityEngine.Rect,System.Object,System.Int32,Sirenix.OdinInspector.Editor.InspectorProperty,System.Boolean,System.Boolean)">
             <summary>
             Shows a selector.
             </summary>

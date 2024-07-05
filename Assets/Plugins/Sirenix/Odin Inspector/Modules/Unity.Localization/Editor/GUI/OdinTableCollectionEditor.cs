@@ -1052,14 +1052,14 @@ namespace Sirenix.OdinInspector.Modules.Localization.Editor
 
 			if (isMouseOverKeyRect)
 			{
-				GUI.Label(copyKeyIdRect, GUIHelper.TempContent(string.Empty, sharedEntry.Id.ToString()));
+				GUI.Label(copyKeyIdRect, GUIHelper.TempContent(string.Empty, "Copy Shared Entry Id"));
 			}
 
 			if (Event.current.OnMouseDown(copyKeyIdRect, 0))
 			{
 				this.RelatedWindow.ShowToast(ToastPosition.BottomLeft,
 													  SdfIconType.Clipboard,
-													  $"Copied Key ID '{sharedEntry.Id}' to the clipboard.",
+													  $"Copied Shared Entry Id '{sharedEntry.Id}' to the clipboard.",
 													  new Color(0.23f, 0.36f, 0.68f),
 													  8.0f);
 
