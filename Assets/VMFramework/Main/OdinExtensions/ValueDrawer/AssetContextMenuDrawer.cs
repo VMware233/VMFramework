@@ -6,14 +6,14 @@ using VMFramework.Core.Editor;
 
 namespace VMFramework.OdinExtensions
 {
-    public class AssetContextMenuDrawer : OdinValueDrawer<Object>, IDefinesGenericMenuItems
+    internal sealed class AssetContextMenuDrawer : OdinValueDrawer<Object>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
             CallNextDrawer(label);
         }
 
-        public void PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
+        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
             var value = property.ValueEntry.WeakSmartValue;
 
@@ -32,7 +32,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddItem(new GUIContent("Delete Asset"), false, () =>
+            genericMenu.AddItem("Delete Asset", () =>
             {
                 if (UnityEditor.EditorUtility.DisplayDialog("警告", "你确定要删除资源吗？", "确定", "取消"))
                 {

@@ -1,7 +1,7 @@
-﻿namespace VMFramework.Recipe
+﻿namespace VMFramework.Recipes
 {
     public interface IRecipeOutputQueryPattern
     {
-        public void RegisterCache(Recipe recipe);
+        public void RegisterCache(IRecipe recipe);
     }
 }

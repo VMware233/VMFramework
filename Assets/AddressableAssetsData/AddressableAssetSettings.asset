@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 0918122c0d5559e4d97297830c1a0243
   m_currentHash:
     serializedVersion: 2
-    Hash: 08875fa406c1a9e52fd33c90b33c20b3
+    Hash: 6e519f3eb03851452d3579a01c4987fd
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -68,9 +68,9 @@ MonoBehaviour:
       - m_Id: 4c8fb85e9d9d5a646a1780652818b884
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 7c24b0fdebdced74097f678610e3efbf
-        m_Value: ServerData/[BuildTarget]
+        m_Value: 'ServerData/[BuildTarget]'
       - m_Id: 1ab9ca1d21375a04a90092f8c0c99e14
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: 'http://[PrivateIpAddress]:[HostingServicePort]'
     m_ProfileEntryNames:
     - m_Id: 1f5352950ed7c8142bbb0c483d745445
       m_Name: BuildTarget

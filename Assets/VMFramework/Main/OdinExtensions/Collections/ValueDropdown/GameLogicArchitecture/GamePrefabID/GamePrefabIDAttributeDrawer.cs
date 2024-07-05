@@ -6,6 +6,7 @@ using UnityEngine;
 using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture;
+using VMFramework.GameLogicArchitecture.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -50,7 +51,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
 
-            if (GamePrefabWrapperQuery.TryGetGamePrefabWrapper(id, out var wrapper) == false)
+            if (GamePrefabWrapperQueryTools.TryGetGamePrefabWrapper(id, out var wrapper) == false)
             {
                 return;
             }

@@ -2,7 +2,7 @@
 using System.Linq;
 using VMFramework.Containers;
 
-namespace VMFramework.Recipe
+namespace VMFramework.Recipes
 {
     public readonly struct RecipeOutputQueryIDPattern : IRecipeOutputQueryPattern
     {
@@ -15,9 +15,9 @@ namespace VMFramework.Recipe
 
         #region Cache
 
-        private static Dictionary<string, HashSet<Recipe>> cache = new();
+        private static readonly Dictionary<string, HashSet<IRecipe>> cache = new();
 
-        public void RegisterCache(Recipe recipe)
+        public void RegisterCache(IRecipe recipe)
         {
             cache.TryAdd(id, new());
 
@@ -25,7 +25,7 @@ namespace VMFramework.Recipe
         }
 
         [RecipeOutputQueryHandler]
-        private static IEnumerable<Recipe> GetRecipes(object item)
+        private static IEnumerable<IRecipe> GetRecipes(object item)
         {
             if (item is IContainerItem containerItem)
             {
@@ -35,7 +35,7 @@ namespace VMFramework.Recipe
                 }
             }
 
-            return Enumerable.Empty<Recipe>();
+            return Enumerable.Empty<IRecipe>();
         }
 
         #endregion

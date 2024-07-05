@@ -69,6 +69,8 @@ namespace VMFramework.UI
 
         bool IUIPanelPreset.isUnique => isUnique;
 
+        int IUIPanelPreset.sortingOrder => sortingOrder;
+
         int IUIPanelPreset.prewarmCount => prewarmCount;
 
         #endregion

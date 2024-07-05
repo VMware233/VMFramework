@@ -11,21 +11,18 @@ namespace VMFramework.Procedure
     public partial class ProcedureManager
     {
         [ShowInInspector]
-        public static bool isLoading { get; private set; } = false;
+        public static bool isLoading => initializerManager.isInitializing;
 
         [ShowInInspector]
         private static Dictionary<string, Dictionary<ProcedureLoadingType, List<IGameInitializer>>>
             gameInitializers = new();
 
         [ShowInInspector]
-        private static HashSet<IGameInitializer> leftInitializers = new();
-        
-        [ShowInInspector]
-        private static InitializeType currentLoadingType = InitializeType.BeforeInit;
+        private static readonly InitializerManager initializerManager = new();
 
         public static void CollectGameInitializers()
         {
-            foreach (var derivedClass in typeof(IGameInitializer).GetDerivedClasses(false, false))
+            foreach (var derivedClass in typeof(IGameInitializer).GetDerivedInstantiableClasses(false))
             {
                 if (derivedClass.TryGetAttribute<GameInitializerRegister>(false,
                         out var register) == false)
@@ -44,7 +41,8 @@ namespace VMFramework.Procedure
                 if (HasProcedure(register.ProcedureID) == false)
                 {
                     Debug.LogError(
-                        $"ProcedureManager does not have a Procedure with ID {register.ProcedureID} " +
+                        $"{nameof(ProcedureManager)} does not have a {nameof(IProcedure)} " +
+                        $"with ID {register.ProcedureID} " +
                         $"required by {derivedClass}'s {nameof(GameInitializerRegister)} Attribute");
                     continue;
                 }
@@ -52,21 +50,13 @@ namespace VMFramework.Procedure
                 if (derivedClass.CreateInstance() is not IGameInitializer initializer)
                 {
                     Debug.LogError(
-                        $"Failed to create instance of {derivedClass} as an IGameInitializer");
+                        $"Failed to create instance of {derivedClass} as an {nameof(IGameInitializer)}");
                     continue;
                 }
 
-                if (gameInitializers.TryGetValue(register.ProcedureID, out var initializersByLoadingType) == false)
-                {
-                    initializersByLoadingType = new();
-                    gameInitializers.Add(register.ProcedureID, initializersByLoadingType);
-                }
+                var initializersByLoadingType = gameInitializers.GetValueOrAddNew(register.ProcedureID);
 
-                if (initializersByLoadingType.TryGetValue(register.LoadingType, out var initializers) == false)
-                {
-                    initializers = new();
-                    initializersByLoadingType.Add(register.LoadingType, initializers);
-                }
+                var initializers = initializersByLoadingType.GetValueOrAddNew(register.LoadingType);
                 
                 initializers.Add(initializer);
             }
@@ -97,24 +87,8 @@ namespace VMFramework.Procedure
                 return;
             }
             
-            foreach (var initializer in initializers)
-            {
-                Debug.Log($"Initializer: <color=green>{initializer}</color> started.");
-            }
-
-            foreach (InitializeType initializeType in Enum.GetValues(typeof(InitializeType)))
-            {
-                currentLoadingType = initializeType;
-                
-                leftInitializers.UnionWith(initializers);
-
-                foreach (var initializer in initializers)
-                {
-                    initializer.Initialize(initializeType, () => leftInitializers.Remove(initializer));
-                }
-                
-                await UniTask.WaitUntil(() => leftInitializers.Count == 0);
-            }
+            initializerManager.Set(initializers);
+            await initializerManager.Initialize();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

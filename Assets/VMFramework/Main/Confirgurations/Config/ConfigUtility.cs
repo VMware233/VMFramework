@@ -6,7 +6,7 @@ namespace VMFramework.Configuration
     public static class ConfigUtility
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Init(this IEnumerable<IConfig> configs)
+        public static void Init(this IEnumerable<IInitializableConfig> configs)
         {
             foreach (var config in configs)
             {
@@ -15,7 +15,7 @@ namespace VMFramework.Configuration
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Init<TConfig>(this IEnumerable<TConfig> configs) where TConfig : IConfig
+        public static void Init<TConfig>(this IEnumerable<TConfig> configs) where TConfig : IInitializableConfig
         {
             foreach (var config in configs)
             {
@@ -24,7 +24,7 @@ namespace VMFramework.Configuration
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CheckSettings(this IEnumerable<IConfig> configs)
+        public static void CheckSettings(this IEnumerable<ICheckableConfig> configs)
         {
             foreach (var config in configs)
             {
@@ -33,7 +33,7 @@ namespace VMFramework.Configuration
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CheckSettings<TConfig>(this IEnumerable<TConfig> configs) where TConfig : IConfig
+        public static void CheckSettings<TConfig>(this IEnumerable<TConfig> configs) where TConfig : ICheckableConfig
         {
             foreach (var config in configs)
             {

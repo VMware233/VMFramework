@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameEvents;
-using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.UI
 {
-    public interface ITooltipProvider
+    public interface ITooltipProvider : IReadOnlyDestructible
     {
-        public bool isDestroyed => false;
+        bool IReadOnlyDestructible.isDestroyed => false;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGetTooltipBindGlobalEvent(out IGameEvent gameEvent)

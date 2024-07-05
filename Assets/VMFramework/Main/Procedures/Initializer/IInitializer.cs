@@ -1,32 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 namespace VMFramework.Procedure
 {
     public interface IInitializer
     {
-        public void OnBeforeInit(Action onDone)
-        {
-            onDone();
-        }
+        public bool enableInitializationDebugLog => true;
         
-        public void OnPreInit(Action onDone)
-        {
-            onDone();
-        }
+        public delegate void InitAction(Action onDone);
 
-        public void OnInit(Action onDone)
-        {
-            onDone();
-        }
-
-        public void OnPostInit(Action onDone)
-        {
-            onDone();
-        }
-
-        public void OnInitComplete(Action onDone)
-        {
-            onDone();
-        }
+        public IEnumerable<InitializationAction> GetInitializationActions();
     }
 }

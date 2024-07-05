@@ -1,9 +1,10 @@
 ﻿#if UNITY_EDITOR
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEditor;
+using VMFramework.Core.Linq;
 
 namespace VMFramework.Core.Editor
 {
@@ -53,6 +54,12 @@ namespace VMFramework.Core.Editor
         public static void OpenScriptOfObject(this object obj)
         {
             obj.GetType().OpenScriptOfType();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OpenScriptOfObjects<TObject>(this IEnumerable<TObject> objects)
+        {
+            objects.Examine(obj => obj.OpenScriptOfObject());
         }
     }
 }

@@ -1,14 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using VMFramework.Core.Linq;
 using VMFramework.GameEvents;
 using VMFramework.Procedure;
 
 namespace VMFramework.Examples
 {
     [ManagerCreationProvider("Demo")]
-    public class GameStartEventDemo : ManagerBehaviour<GameStartEventDemo>, IManagerBehaviour
+    public sealed class GameStartEventDemo : ManagerBehaviour<GameStartEventDemo>
     {
-        void IInitializer.OnInitComplete(Action onDone)
+        protected override IEnumerable<InitializationAction> GetInitializationActions()
+        {
+            return base.GetInitializationActions()
+                .Concat(new(InitializationOrder.InitComplete, OnInitComplete, this));
+        }
+
+        private void OnInitComplete(Action onDone)
         {
             // Add a callback to the GameStartEvent
             GameEventManager.AddCallback(GameStartEventConfig.ID, (GameStartEvent gameEvent) =>

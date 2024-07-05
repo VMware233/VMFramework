@@ -14,9 +14,9 @@ namespace VMFramework.Cameras
         public static CameraController mainCameraController =>
             mainCamera.GetComponent<CameraController>();
 
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
 
             if (_mainCamera == null)
             {

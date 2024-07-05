@@ -10,19 +10,19 @@ namespace VMFramework.Core
     {
         #region Static
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<FieldInfo> GetStaticFields(this Type type)
         {
-            return type.GetFields(BindingFlags.Public | BindingFlags.NonPublic |
-                                  BindingFlags.Static);
+            return type.GetFields(ALL_STATIC_FIELDS_FLAGS);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo GetStaticFieldByName(this Type type, string fieldName)
         {
-            return type.GetFieldByName(fieldName,
-                BindingFlags.Public | BindingFlags.NonPublic |
-                BindingFlags.Static);
+            return type.GetFieldByName(fieldName, ALL_STATIC_FIELDS_FLAGS);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetStaticFieldValueByName<T>(this Type type, string fieldName)
         {
             T result = default;
@@ -37,24 +37,38 @@ namespace VMFramework.Core
 
         #endregion
 
-        #region GetByReturnType
+        #region Get By Return Type
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<TReturnType> GetFieldsValueByReturnType<TReturnType>(this object obj,
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS) where TReturnType : class
+        {
+            foreach (var fieldInfo in obj.GetType().GetFieldsByReturnType(typeof(TReturnType), bindingFlags))
+            {
+                yield return fieldInfo.GetValue(obj) as TReturnType;
+            }
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<FieldInfo> GetFieldsByReturnType(this Type type,
             Type returnType,
-            BindingFlags bindingFlags =
-                BindingFlags.NonPublic | BindingFlags.Instance |
-                BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             return type.GetFields(bindingFlags).Where(fieldInfo =>
                 fieldInfo.FieldType.IsDerivedFrom(returnType, true));
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<FieldInfo> GetFieldsByReturnType<TReturnType>(this Type type,
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
+        {
+            return type.GetFields(bindingFlags).Where(fieldInfo =>
+                fieldInfo.FieldType.IsDerivedFrom(typeof(TReturnType), true));
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo GetFieldByReturnType(this Type type, Type returnType,
-            BindingFlags bindingFlags =
-                BindingFlags.NonPublic | BindingFlags.Instance |
-                BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             return type.GetFieldsByReturnType(returnType, bindingFlags)
                 .FirstOrDefault();
@@ -62,9 +76,7 @@ namespace VMFramework.Core
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasFieldByReturnType(this Type type, Type returnType,
-            BindingFlags bindingFlags =
-                BindingFlags.NonPublic | BindingFlags.Instance |
-                BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             return type.GetFieldByReturnType(returnType, bindingFlags) != null;
         }
@@ -72,9 +84,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object GetFieldValueByReturnType(this Type type,
             Type returnType, object targetObject,
-            BindingFlags bindingFlags =
-                BindingFlags.NonPublic | BindingFlags.Instance |
-                BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             var field = type.GetFieldByReturnType(returnType, bindingFlags);
 
@@ -97,16 +107,14 @@ namespace VMFramework.Core
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo GetFieldByName(this Type type, string fieldName,
-            BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance |
-                                        BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             return type.GetField(fieldName, bindingFlags);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetFieldValueByName<T>(this object obj, string fieldName,
-            BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance |
-                                        BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             T result = default;
             var field = obj.GetType().GetFieldByName(fieldName, bindingFlags);
@@ -119,8 +127,7 @@ namespace VMFramework.Core
         }
 
         public static bool HasFieldByName(this Type type, string fieldName,
-            BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance |
-                                        BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             return type.GetField(fieldName, bindingFlags) != null;
         }
@@ -149,9 +156,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<(FieldInfo, object)> GetAllFieldValues(
             this object obj,
-            BindingFlags bindingFlags =
-                BindingFlags.NonPublic | BindingFlags.Instance |
-                BindingFlags.Public | BindingFlags.Static)
+            BindingFlags bindingFlags = ALL_FIELDS_FLAGS)
         {
             foreach (var fieldInfo in obj.GetType().GetFields(bindingFlags))
             {

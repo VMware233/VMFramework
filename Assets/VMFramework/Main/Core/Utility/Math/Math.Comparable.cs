@@ -12,16 +12,16 @@ namespace VMFramework.Core
         /// 从enumerable中选择出扔到selector中产生的值里最小的元素
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TSelector"></typeparam>
+        /// <typeparam name="TComparable"></typeparam>
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static T SelectMin<T, TSelector>(this IEnumerable<T> enumerable,
-            Func<T, TSelector> selector)
-            where TSelector : IComparable<TSelector>
+        public static T SelectMin<T, TComparable>(this IEnumerable<T> enumerable,
+            Func<T, TComparable> selector)
+            where TComparable : IComparable<TComparable>
         {
             int count = 0;
-            TSelector minValue = default;
+            TComparable minValue = default;
             T minItem = default;
 
             foreach (var item in enumerable)
@@ -47,15 +47,15 @@ namespace VMFramework.Core
         /// 从enumerable中选择出扔到selector中产生的值里最大的元素
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TSelector"></typeparam>
+        /// <typeparam name="TComparable"></typeparam>
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static T SelectMax<T, TSelector>(this IEnumerable<T> enumerable,
-            Func<T, TSelector> selector) where TSelector : IComparable<TSelector>
+        public static T SelectMax<T, TComparable>(this IEnumerable<T> enumerable,
+            Func<T, TComparable> selector) where TComparable : IComparable<TComparable>
         {
             int count = 0;
-            TSelector maxValue = default;
+            TComparable maxValue = default;
             T maxItem = default;
 
             foreach (var item in enumerable)

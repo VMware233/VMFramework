@@ -14,32 +14,36 @@ namespace VMFramework.OdinExtensions
         {
             CallNextDrawer(label);
         }
-        
-        public void PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
+
+        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
             var value = ValueEntry.SmartValue;
         
-            if (value.GetGamePrefabs().Any())
+            if (value.GetGamePrefabs().Any() == false)
             {
-                var firstPrefab = value.GetGamePrefabs().First();
+                return;
+            }
+            
+            var firstPrefab = value.GetGamePrefabs().First();
 
-                if (firstPrefab != null)
+            if (firstPrefab == null)
+            {
+                return;
+            }
+            
+            genericMenu.AddSeparator();
+                
+            genericMenu.AddItem($"Open {nameof(GamePrefab)} Script", () =>
+            {
+                firstPrefab.GetType().OpenScriptOfType();
+            });
+                
+            if (firstPrefab.gameItemType != null)
+            {
+                genericMenu.AddItem($"Open {nameof(GameItem)} Script", () =>
                 {
-                    genericMenu.AddSeparator("");
-                
-                    genericMenu.AddItem(new GUIContent($"打开{nameof(GamePrefab)}脚本"), false, () =>
-                    {
-                        firstPrefab.GetType().OpenScriptOfType();
-                    });
-                
-                    if (firstPrefab.gameItemType != null)
-                    {
-                        genericMenu.AddItem(new GUIContent($"打开{nameof(GameItem)}脚本"), false, () =>
-                        {
-                            firstPrefab.gameItemType.OpenScriptOfType();
-                        });
-                    }
-                }
+                    firstPrefab.gameItemType.OpenScriptOfType();
+                });
             }
         }
     }

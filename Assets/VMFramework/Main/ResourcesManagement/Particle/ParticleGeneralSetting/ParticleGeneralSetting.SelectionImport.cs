@@ -59,7 +59,7 @@ namespace VMFramework.ResourcesManagement
                 particlePrefab = particleSystem,
                 enableDurationLimitation = enableDurationLimitation,
                 duration = new SingleValueChooserConfig<float>(duration)
-            });
+            }, GamePrefabWrapperType.Single);
         }
 
         protected override void OnHandleUnregisterGameItemPrefabFromSelectedObject(Object obj)

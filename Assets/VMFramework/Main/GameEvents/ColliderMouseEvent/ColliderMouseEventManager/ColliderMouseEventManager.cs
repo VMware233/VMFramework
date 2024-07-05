@@ -21,13 +21,13 @@ namespace VMFramework.GameEvents
         public static Camera bindCamera;
 
         private static float detectDistance2D =>
-            GameCoreSetting.colliderMouseEventGeneralSetting.detectDistance2D;
+            CoreSetting.colliderMouseEventGeneralSetting.detectDistance2D;
 
         private static ObjectDimensions dimensionsDetectPriority =>
-            GameCoreSetting.colliderMouseEventGeneralSetting.dimensionsDetectPriority;
+            CoreSetting.colliderMouseEventGeneralSetting.dimensionsDetectPriority;
 
         private static LayerMask layerMask =>
-            GameCoreSetting.colliderMouseEventGeneralSetting.detectLayerMask;
+            CoreSetting.colliderMouseEventGeneralSetting.detectLayerMask;
 
         [BoxGroup(DEBUGGING_CATEGORY), ReadOnly, ShowInInspector]
         private static ColliderMouseEventTrigger currentHoverTrigger;
@@ -47,9 +47,9 @@ namespace VMFramework.GameEvents
         [BoxGroup(DEBUGGING_CATEGORY), ReadOnly, ShowInInspector]
         private static ColliderMouseEventTrigger dragTrigger;
 
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
 
             if (fixedBindCamera != null)
             {
@@ -387,7 +387,7 @@ namespace VMFramework.GameEvents
             Debug.DrawRay(ray.origin, ray.direction, Color.green);
 
             if (Physics.Raycast(ray, out var hit3D,
-                    GameCoreSetting.colliderMouseEventGeneralSetting.detectDistance3D, layerMask))
+                    CoreSetting.colliderMouseEventGeneralSetting.detectDistance3D, layerMask))
             {
                 ColliderMouseEventTrigger detectResult =
                     hit3D.collider.gameObject.GetComponent<ColliderMouseEventTrigger>();

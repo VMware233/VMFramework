@@ -5,9 +5,9 @@ using VMFramework.Editor.GameEditor;
 
 namespace VMFramework.UI
 {
-    public partial class UIPanelPreset : IGameEditorToolBarProvider
+    public partial class UIPanelPreset : IGameEditorToolbarProvider
     {
-        public IEnumerable<IGameEditorToolBarProvider.ToolbarButtonConfig> GetToolbarButtons()
+        public IEnumerable<ToolbarButtonConfig> GetToolbarButtons()
         {
             yield return new(EditorNames.OPEN_CONTROLLER_SCRIPT_BUTTON_PATH, OpenControllerScript);
         }

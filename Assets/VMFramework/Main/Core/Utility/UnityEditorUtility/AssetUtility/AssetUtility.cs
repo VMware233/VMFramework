@@ -20,8 +20,12 @@ namespace VMFramework.Core.Editor
             }
             
             obj.SetEditorDirty();
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+
+            if (EditorApplication.isUpdating == false)
+            {
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -63,7 +67,7 @@ namespace VMFramework.Core.Editor
                 return null;
             }
 
-            var absoluteDirectoryPath = IOUtility.projectFolderPath.PathCombine(newPath).GetDirectoryPath();
+            var absoluteDirectoryPath = newPath.ConvertAssetPathToAbsolutePath().GetDirectoryPath();
 
             if (absoluteDirectoryPath.ExistsDirectory() == false)
             {
@@ -89,7 +93,69 @@ namespace VMFramework.Core.Editor
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ExistsAsset(this string path)
         {
-            return AssetDatabase.AssetPathToGUID(path).IsNullOrWhiteSpace() == false;
+            path = path.MakeAssetPath();
+            
+            var absolutePath = path.ConvertAssetPathToAbsolutePath();
+            
+            return absolutePath.ExistsFile();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ExistsAssetWithWarning(this string path)
+        {
+            if (path.ExistsAsset())
+            {
+                Debug.LogWarning($"The asset already exists at {path}");
+                return true;
+            }
+            
+            return false;
+        }
+
+        #endregion
+
+        #region Move Asset
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void MoveAssetToNewFolder(this Object obj, string newFolder)
+        {
+            if (obj == null)
+            {
+                Debug.LogWarning($"Object is null, cannot move to {newFolder}");
+                return;
+            }
+            
+            var sourcePath = obj.GetAssetPath();
+            
+            if (sourcePath.IsNullOrEmpty())
+            {
+                Debug.LogWarning($"Object path is null, cannot move to {newFolder}");
+                return;
+            }
+            
+            if (newFolder.IsNullOrEmpty())
+            {
+                Debug.LogWarning($"New folder path is null or empty, cannot move to {newFolder}");
+                return;
+            }
+
+            newFolder = newFolder.MakeAssetPath();
+            
+            if (newFolder.IsAssetPath() == false)
+            {
+                Debug.LogWarning($"New folder path {newFolder} is not an asset path, cannot move!");
+                return;
+            }
+            
+            var absoluteDirectoryPath = newFolder.ConvertAssetPathToAbsolutePath();
+            absoluteDirectoryPath.CreateDirectory();
+
+            var fileName = sourcePath.GetFileNameFromPath();
+            var newPath = newFolder.PathCombine(fileName);
+            
+            AssetDatabase.MoveAsset(sourcePath, newPath);
+            
+            obj.EnforceSave();
         }
 
         #endregion
@@ -98,7 +164,7 @@ namespace VMFramework.Core.Editor
 
         public static bool TryCreateAsset(this Object obj, string path)
         {
-            if (IOUtility.projectFolderPath.TryMakeRelative(path, out path) == false)
+            if (CommonFolders.projectFolderPath.TryMakeRelative(path, out path) == false)
             {
                 Debug.LogWarning($"保存路径{path}不在Assets文件夹下，创建{obj.GetType()}失败");
 
@@ -129,8 +195,7 @@ namespace VMFramework.Core.Editor
                 return;
             }
             
-            Undo.DestroyObjectImmediate(obj);
-            AssetDatabase.Refresh();
+            AssetDatabase.DeleteAsset(obj.GetAssetPath());
         }
 
         #endregion
@@ -140,6 +205,16 @@ namespace VMFramework.Core.Editor
         public static bool IsAsset(this Object obj)
         {
             return AssetDatabase.Contains(obj);
+        }
+
+        #endregion
+
+        #region Get Asset GUID
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetAssetGUID(this Object obj)
+        {
+            return AssetDatabase.AssetPathToGUID(obj.GetAssetPath());
         }
 
         #endregion

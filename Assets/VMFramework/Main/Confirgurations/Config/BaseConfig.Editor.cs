@@ -5,15 +5,15 @@ namespace VMFramework.Configuration
 {
     [HideDuplicateReferenceBox]
     [HideReferenceObjectPicker]
-    [OnInspectorInit("@((IConfig)$value)?.OnInspectorInit()")]
-    public partial class BaseConfig
+    [OnInspectorInit("@((IInspectorConfig)$value)?.OnInspectorInit()")]
+    public partial class BaseConfig : IInspectorConfig
     {
         protected virtual void OnInspectorInit()
         {
             
         }
         
-        void IConfig.OnInspectorInit()
+        void IInspectorConfig.OnInspectorInit()
         {
             OnInspectorInit();
         }

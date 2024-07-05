@@ -10,8 +10,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class TooltipManager : ManagerBehaviour<TooltipManager>
     {
-        private static TooltipGeneralSetting tooltipGeneralSetting =>
-            GameCoreSetting.tooltipGeneralSetting;
+        private static TooltipGeneralSetting tooltipGeneralSetting => UISetting.tooltipGeneralSetting;
         
         public static void Open(ITooltipProvider tooltipProvider, IUIPanelController source)
         {

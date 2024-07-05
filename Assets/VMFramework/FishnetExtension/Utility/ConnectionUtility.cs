@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿#if FISHNET
+using System.Runtime.CompilerServices;
 using FishNet;
 using FishNet.Connection;
 using UnityEngine;
@@ -26,3 +27,4 @@ namespace VMFramework.Network
         }
     }
 }
+#endif

@@ -4,6 +4,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Configuration;
+using VMFramework.Core.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -25,7 +26,9 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddItem(new GUIContent("添加所有枚举值"), false, AddAllEnumValues);
+            genericMenu.AddItem("Add All Enum Values", AddAllEnumValues);
+            
+            return;
 
             void AddAllEnumValues()
             {

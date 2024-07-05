@@ -9,7 +9,7 @@ using VMFramework.Procedure;
 namespace VMFramework.UI
 {
     [ManagerCreationProvider(ManagerType.UICore)]
-    public sealed partial class TracingUIManager : ManagerBehaviour<TracingUIManager>, IManagerBehaviour
+    public sealed partial class TracingUIManager : ManagerBehaviour<TracingUIManager>
     {
         [ShowInInspector]
         private static readonly Dictionary<ITracingUIPanel, TracingInfo> allTracingInfos = new();
@@ -18,13 +18,14 @@ namespace VMFramework.UI
 
         [ShowInInspector]
         private new static Camera camera;
-
+        
         #region Init
 
-        void IInitializer.OnPostInit(Action onDone)
+        protected override void OnBeforeInitStart()
         {
+            base.OnBeforeInitStart();
+            
             camera = CameraManager.mainCamera;
-            onDone();
         }
 
         #endregion

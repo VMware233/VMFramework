@@ -51,8 +51,7 @@ namespace VMFramework.GameEvents
                 foreach (var action in actionGroup.actions)
                 {
                     var keyCode = action.inputAction.keyCode;
-                    contentList.Add(
-                        GameCoreSetting.gameEventGeneralSetting.GetKeyCodeName(keyCode, mode));
+                    contentList.Add(CoreSetting.gameEventGeneralSetting.GetKeyCodeName(keyCode, mode));
                 }
 
                 yield return "+".Join(contentList);

@@ -15,14 +15,14 @@ namespace VMFramework.OdinExtensions
         {
             CallNextDrawer(label);
         }
-        
-        public void PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
+
+        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
             if (ValueEntry.SmartValue.gameItemType != null)
             {
-                genericMenu.AddSeparator("");
+                genericMenu.AddSeparator();
                 
-                genericMenu.AddItem(new GUIContent($"Open {nameof(GameItem)} Script"), false, () =>
+                genericMenu.AddItem($"Open {nameof(GameItem)} Script", () =>
                 {
                     ValueEntry.SmartValue.gameItemType.OpenScriptOfType();
                 });

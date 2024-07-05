@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 

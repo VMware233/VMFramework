@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
+using VMFramework.Core.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -39,7 +40,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            path = IOUtility.projectFolderPath + path;
+            path = path.ConvertAssetPathToAbsolutePath();
             path = path.GetDirectoryPath();
 
             if (path.ExistsDirectory() == false)
@@ -47,7 +48,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddItem(new GUIContent("Open in Explorer"), false, () =>
+            genericMenu.AddItem("Open in Explorer", () =>
             {
                 path.OpenDirectory(false);
             });

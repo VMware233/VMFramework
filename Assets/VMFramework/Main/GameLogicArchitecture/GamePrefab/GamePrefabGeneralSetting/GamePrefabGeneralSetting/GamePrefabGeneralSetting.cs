@@ -26,11 +26,6 @@ namespace VMFramework.GameLogicArchitecture
         [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
         public virtual string gameItemName { get; } = UNDEFINED_GAME_ITEM_NAME;
-
-        [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
-        [ShowInInspector]
-        public string gamePrefabDirectoryPath =>
-            ConfigurationPath.GAME_PREFAB_DIRECTORY_PATH + "/" + gamePrefabName;
         
         [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]

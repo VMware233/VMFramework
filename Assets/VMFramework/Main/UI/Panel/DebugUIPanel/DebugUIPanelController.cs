@@ -69,7 +69,7 @@ namespace VMFramework.UI
 
             debugUIPanelPreset.AssertIsNotNull(nameof(debugUIPanelPreset));
 
-            updateInterval = GameCoreSetting.debugUIPanelGeneralSetting.updateInterval;
+            updateInterval = UISetting.debugUIPanelGeneralSetting.updateInterval;
         }
 
         protected override void OnOpenInstantly(IUIPanelController source)

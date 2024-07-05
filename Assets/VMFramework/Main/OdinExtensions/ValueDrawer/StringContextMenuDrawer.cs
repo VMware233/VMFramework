@@ -37,26 +37,26 @@ namespace VMFramework.OdinExtensions
             
             if (property.Info.IsEditable)
             {
-                genericMenu.AddSeparator("");
+                genericMenu.AddSeparator();
 
-                genericMenu.AddItem(new GUIContent("Pascal Case"), false, () =>
+                genericMenu.AddItem("Pascal Case", () =>
                 {
                     property.ValueEntry.WeakSmartValue = str.ToPascalCase(" ");
                 });
 
-                genericMenu.AddItem(new GUIContent("Snake Case"), false, () =>
+                genericMenu.AddItem("Snake Case", () =>
                 {
                     property.ValueEntry.WeakSmartValue = str.ToSnakeCase();
                 });
             
-                genericMenu.AddItem(new GUIContent("Camel Case"), false, () =>
+                genericMenu.AddItem("Camel Case", () =>
                 {
                     property.ValueEntry.WeakSmartValue = str.ToCamelCase();
                 });
 
                 if (str.Contains(' '))
                 {
-                    genericMenu.AddItem(new GUIContent("Remove Spaces"), false, () =>
+                    genericMenu.AddItem("Remove Spaces", () =>
                     {
                         property.ValueEntry.WeakSmartValue = str.Replace(" ", "");
                     });
@@ -66,7 +66,7 @@ namespace VMFramework.OdinExtensions
             var type = Type.GetType(str);
             if (type != null)
             {
-                genericMenu.AddItem(new GUIContent("Open Script"), false, () =>
+                genericMenu.AddItem("Open Script", () =>
                 {
                     type.OpenScriptOfType();
                 });

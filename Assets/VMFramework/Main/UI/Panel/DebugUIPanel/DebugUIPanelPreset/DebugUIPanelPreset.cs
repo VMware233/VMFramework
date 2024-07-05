@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
-using UnityEngine.Localization;
 using VMFramework.Core;
 using VMFramework.OdinExtensions;
 

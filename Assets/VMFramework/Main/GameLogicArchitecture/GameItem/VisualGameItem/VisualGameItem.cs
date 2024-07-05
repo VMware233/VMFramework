@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using VMFramework.Properties;
 using VMFramework.UI;
 

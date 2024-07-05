@@ -33,7 +33,7 @@ namespace VMFramework.ResourcesManagement
 #if UNITY_EDITOR
             if (Application.isPlaying == false)
             {
-                GamePrefabWrapperCreator.CreateGamePrefabWrapper(spritePreset);
+                GamePrefabWrapperCreator.CreateGamePrefabWrapper(spritePreset, GamePrefabWrapperType.Single);
                 
                 return;
             }

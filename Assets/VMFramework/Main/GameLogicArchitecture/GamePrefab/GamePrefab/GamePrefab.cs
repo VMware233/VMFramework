@@ -7,8 +7,6 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.GameLogicArchitecture
 {
-    [HideDuplicateReferenceBox]
-    [HideReferenceObjectPicker]
     public abstract partial class GamePrefab : IGamePrefab
     {
         #region Constants
@@ -51,7 +49,9 @@ namespace VMFramework.GameLogicArchitecture
         [IsNotNullOrEmpty(DrawCurrentRect = true)]
         [IsGamePrefabID]
         [ValidateIsNot(content: IGamePrefab.NULL_ID, DrawCurrentRect = true)]
-        [Placeholder("@GetIDPlaceholderText()")]
+#if UNITY_EDITOR
+        [Placeholder("@"+ nameof(GetIDPlaceholderText) + "()")]
+#endif
         [PropertyOrder(-10000)]
         public string id
         {

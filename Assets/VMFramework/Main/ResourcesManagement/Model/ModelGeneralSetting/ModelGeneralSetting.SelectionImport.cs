@@ -36,7 +36,7 @@ namespace VMFramework.ResourcesManagement
             {
                 id = gameObject.name.ToSnakeCase(),
                 readyMadeModelPrefab = gameObject
-            });
+            }, GamePrefabWrapperType.Single);
         }
 
         protected override void OnHandleUnregisterGameItemPrefabFromSelectedObject(Object obj)

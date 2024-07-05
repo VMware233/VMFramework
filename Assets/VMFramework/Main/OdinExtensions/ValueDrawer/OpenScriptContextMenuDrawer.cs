@@ -9,8 +9,7 @@ using VMFramework.Core.Editor;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    internal sealed class OpenScriptContextMenuDrawer<T> : OdinValueDrawer<T>,
-        IDefinesGenericMenuItems
+    internal sealed class OpenScriptContextMenuDrawer<T> : OdinValueDrawer<T>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
@@ -34,9 +33,9 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddSeparator("");
+            genericMenu.AddSeparator();
 
-            genericMenu.AddItem(new GUIContent("Open Script"), false, () =>
+            genericMenu.AddItem("Open Script", () =>
             {
                 typeOfValue.OpenScriptOfType();
             });

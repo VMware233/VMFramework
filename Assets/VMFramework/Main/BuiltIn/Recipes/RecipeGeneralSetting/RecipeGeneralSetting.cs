@@ -1,7 +1,7 @@
 ﻿using System;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Recipe
+namespace VMFramework.Recipes
 {
     public sealed partial class RecipeGeneralSetting : GamePrefabGeneralSetting
     {

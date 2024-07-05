@@ -17,5 +17,16 @@ namespace VMFramework.Core
 
             return results.FirstOrDefault(result => result.name == name);
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsUnityNull(this object obj)
+        {
+            if (obj is Object unityObj)
+            {
+                return unityObj == null;
+            }
+            
+            return obj == null;
+        }
     }
 }

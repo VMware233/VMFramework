@@ -108,14 +108,22 @@ namespace VMFramework.Core.Editor
         /// <param name="searchInFolder"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> FindAssetsOfType<T>(this string searchInFolder)
         {
             return FindAssetsOfType(typeof(T), searchInFolder).Cast<T>();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Object FindAssetOfType(this Type type)
         {
             return type.FindAssetsOfType().FirstOrDefault();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Object FindAssetOfType(this Type type, string searchInFolder)
+        {
+            return type.FindAssetsOfType(searchInFolder).FirstOrDefault();
         }
 
         public static IEnumerable<Object> FindAssetsOfType(this Type type,

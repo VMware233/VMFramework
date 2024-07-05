@@ -42,13 +42,8 @@ namespace VMFramework.Procedure
             string startProcedureID = null;
             int startProcedurePriority = 0;
             
-            foreach (var procedureType in typeof(IProcedure).GetDerivedClasses(false, false))
+            foreach (var procedureType in typeof(IProcedure).GetDerivedInstantiableClasses(false))
             {
-                if (procedureType.IsAbstract || procedureType.IsInterface)
-                {
-                    continue;
-                }
-
                 var procedure = (IProcedure)procedureType.CreateInstance();
 
                 _procedures.Add(procedure.id, procedure);

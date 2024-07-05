@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using VMFramework.Containers;
-using VMFramework.GameEvents;
+using VMFramework.Core.Linq;
 using VMFramework.Procedure;
 
 namespace VMFramework.UI
 {
-    public partial class ContainerUIManager : IManagerBehaviour
+    public partial class ContainerUIManager : IInitializer
     {
-        void IInitializer.OnInitComplete(Action onDone)
+        protected override IEnumerable<InitializationAction> GetInitializationActions()
+        {
+            return base.GetInitializationActions()
+                .Concat(new(InitializationOrder.InitComplete, OnInitComplete, this));
+        }
+
+        private static void OnInitComplete(Action onDone)
         {
             ContainerDestroyEvent.AddCallback(OnContainerDestroy);
             

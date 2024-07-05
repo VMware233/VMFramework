@@ -7,10 +7,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
+using VMFramework.Procedure;
 
 namespace VMFramework.UI
 {
-    public sealed partial class UIPanelGeneralSetting : GamePrefabGeneralSetting
+    public sealed partial class UIPanelGeneralSetting : GamePrefabGeneralSetting, IInitializer
     {
         #region Category
 
@@ -58,15 +59,15 @@ namespace VMFramework.UI
 
         #region Init
 
-        protected override void OnPreInit()
+        protected override void OnInit()
         {
-            base.OnPreInit();
+            base.OnInit();
             
             languageConfigs.Init();
 
             panelSettingsBySortingOrder.Clear();
 
-            foreach (var prefab in GamePrefabManager.GetAllGamePrefabs<UIPanelPreset>())
+            foreach (var prefab in GamePrefabManager.GetAllGamePrefabs<IUIPanelPreset>())
             {
                 if (panelSettingsBySortingOrder.ContainsKey(prefab.sortingOrder) == false)
                 {

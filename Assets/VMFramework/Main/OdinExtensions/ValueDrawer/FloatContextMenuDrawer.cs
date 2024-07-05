@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
+using VMFramework.Core.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -15,14 +16,14 @@ namespace VMFramework.OdinExtensions
 
         void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
-            genericMenu.AddSeparator("");
+            genericMenu.AddSeparator();
             
-            genericMenu.AddItem(new GUIContent($"Set to {float.MaxValue}"), false, () =>
+            genericMenu.AddItem($"Set to {float.MaxValue}", () =>
             {
                 ValueEntry.SmartValue = float.MaxValue;
             });
             
-            genericMenu.AddItem(new GUIContent($"Set to {float.MinValue}"), false, () =>
+            genericMenu.AddItem($"Set to {float.MinValue}", () =>
             {
                 ValueEntry.SmartValue = float.MinValue;
             });

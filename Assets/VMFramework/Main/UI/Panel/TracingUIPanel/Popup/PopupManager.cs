@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using VMFramework.Core;
 using VMFramework.OdinExtensions;
 using VMFramework.Procedure;
 

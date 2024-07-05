@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,112 +27,122 @@ namespace VMFramework.Core.Editor
         {
             if (type.IsDerivedFrom<ScriptableObject>(false) == false)
             {
-                Debug.LogWarning($"{type}不是{nameof(ScriptableObject)}的子类");
+                Debug.LogWarning($"{type} is not a subclass of {nameof(ScriptableObject)}");
                 return default;
             }
-
-            newPath.CreateDirectory();
             
             var result = type.FindAssetOfType() as ScriptableObject;
 
             if (result == null)
             {
                 var temp = ScriptableObject.CreateInstance(type);
-                AssetDatabase.CreateAsset(temp, Path.Combine(newPath, $"{newName}.asset"));
+                
+                newPath.CreateDirectory();
+                
+                if (newName.EndsWith(".asset") == false)
+                {
+                    newName += ".asset";
+                }
+                
+                AssetDatabase.CreateAsset(temp, Path.Combine(newPath, newName));
                 AssetDatabase.Refresh();
-                //DestroyImmediate(temp, true);
 
                 result = type.FindAssetOfType() as ScriptableObject;
 
                 if (result == null)
                 {
                     Debug.LogWarning($"种类为:{type}" +
-                                     $"的{nameof(ScriptableObject)}在{newPath}/{newName}.asset下创建失败");
+                                     $"的{nameof(ScriptableObject)}在{newPath}/{newName}下创建失败");
                 }
             }
 
             return result;
         }
 
+        #region Find Or Create Scriptable Object At Path
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T FindOrCreateScriptableObjectAtPath<T>(this string path) where T : ScriptableObject
         {
-            if (path.EndsWith(".asset") == false)
+            return FindOrCreateScriptableObjectAtPath(typeof(T), path, out _) as T;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ScriptableObject FindOrCreateScriptableObjectAtPath(this Type type, string path)
+        {
+            return FindOrCreateScriptableObjectAtPath(type, path, out _);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T FindOrCreateScriptableObjectAtPath<T>(this string path, out bool isNewlyCreated) where T : ScriptableObject
+        {
+            return FindOrCreateScriptableObjectAtPath(typeof(T), path, out isNewlyCreated) as T;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ScriptableObject FindOrCreateScriptableObjectAtPath(this Type type, string path, out bool isNewlyCreated)
+        {
+            if (CheckAssetTypeIsScriptableObject(type) == false)
             {
-                path += ".asset";
+                isNewlyCreated = false;
+                return null;
             }
             
-            var result = AssetDatabase.LoadAssetAtPath<T>(path);
+            path = path.MakeAssetPath(".asset");
 
-            if (result == null)
+            if (path.TryGetAssetByPath(type, out var existedAsset))
             {
-                result = path.CreateScriptableObject<T>();
+                isNewlyCreated = false;
+                return (ScriptableObject)existedAsset;
             }
+            
+            var result = type.CreateScriptableObjectAsset(path);
+
+            isNewlyCreated = result != null;
 
             return result;
         }
 
-        public static T CreateScriptableObject<T>(this string path) where T : ScriptableObject
+        #endregion
+
+        #region Create Scriptable Object Asset
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T CreateScriptableObjectAsset<T>(this string path) where T : ScriptableObject
         {
-            if (path.EndsWith(".asset") == false)
-            {
-                path += ".asset";
-            }
-            
-            var directoryPath = path.GetDirectoryPath();
-            var absoluteDirectoryPath = IOUtility.projectFolderPath.PathCombine(directoryPath);
+            var asset = CreateScriptableObjectAsset(typeof(T), path);
 
-            if (absoluteDirectoryPath.ExistsDirectory())
+            if (asset == null)
             {
-                var existedAsset = AssetDatabase.LoadAssetAtPath<T>(path);
-
-                if (existedAsset != null)
-                {
-                    Debug.LogWarning($"{path}下的资源已存在{typeof(T)}，无法创建{typeof(T)}");
-                    return null;
-                }
+                return null;
             }
-            else
-            {
-                absoluteDirectoryPath.CreateDirectory();
-            }
-            
-            var result = ScriptableObject.CreateInstance<T>();
 
-            if (result == null)
+            if (asset is T result)
             {
-                Debug.LogWarning($"创建{typeof(T)}失败");
-                
                 return result;
             }
             
-            AssetDatabase.CreateAsset(result, path);
-            AssetDatabase.Refresh();
+            Debug.LogWarning($"Failed to cast {asset} of type {asset.GetType()} to target type {typeof(T)}");
             
-            if (result == null)
-            {
-                Debug.LogWarning($"种类为:{typeof(T)}的资源在{path}下创建失败");
-            }
-            
-            return result;
+            return null;
         }
 
-        public static ScriptableObject CreateScriptableObject(this Type type, string path)
+        public static ScriptableObject CreateScriptableObjectAsset(this Type type, string path)
         {
-            if (path.EndsWith(".asset") == false)
+            if (CheckAssetTypeIsScriptableObject(type) == false)
             {
-                path += ".asset";
+                return null;
             }
             
+            path = path.MakeAssetPath(".asset");
+            
             var directoryPath = path.GetDirectoryPath();
-            var absoluteDirectoryPath = IOUtility.projectFolderPath.PathCombine(directoryPath);
+            var absoluteDirectoryPath = directoryPath.ConvertAssetPathToAbsolutePath();
 
             if (absoluteDirectoryPath.ExistsDirectory())
             {
-                var existedAsset = AssetDatabase.LoadAssetAtPath(path, type);
-
-                if (existedAsset != null)
+                if (path.ExistsAssetWithWarning())
                 {
-                    Debug.LogWarning($"{path}下的资源已存在{type}，无法创建{type}");
                     return null;
                 }
             }
@@ -141,11 +152,43 @@ namespace VMFramework.Core.Editor
             }
             
             var result = ScriptableObject.CreateInstance(type);
+
+            if (result == null)
+            {
+                Debug.LogWarning($"Failed to create {type} instance");
+                
+                return null;
+            }
+            
             AssetDatabase.CreateAsset(result, path);
             AssetDatabase.Refresh();
             
+            if (result == null)
+            {
+                Debug.LogWarning($"Failed to create {type} asset at {path}");
+                return null;
+            }
+            
             return result;
         }
+
+        #endregion
+
+        #region Utility
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool CheckAssetTypeIsScriptableObject(Type type)
+        {
+            if (type.IsDerivedFrom<ScriptableObject>(false) == false)
+            {
+                Debug.LogWarning($"{type} is not a subclass of {nameof(ScriptableObject)}");
+                return false;
+            }
+            
+            return true;
+        }
+
+        #endregion
     }
 }
 #endif

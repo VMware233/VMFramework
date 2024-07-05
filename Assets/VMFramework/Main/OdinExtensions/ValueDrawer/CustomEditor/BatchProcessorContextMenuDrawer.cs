@@ -4,20 +4,19 @@ using System.Linq;
 using UnityEngine;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using VMFramework.Editor.BatchProcessor;
 
 namespace VMFramework.Editor
 {
     [DrawerPriority(DrawerPriorityLevel.SuperPriority)]
-    internal sealed class BatchProcessorContextMenuDrawer<T> : OdinValueDrawer<T>,
-        IDefinesGenericMenuItems
+    internal sealed class BatchProcessorContextMenuDrawer<T> : OdinValueDrawer<T>, IDefinesGenericMenuItems
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
             CallNextDrawer(label);
         }
 
-        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property,
-            GenericMenu genericMenu)
+        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
             var value = property.ValueEntry.WeakSmartValue;
 
@@ -35,22 +34,16 @@ namespace VMFramework.Editor
 
                 genericMenu.AddSeparator("");
 
-                genericMenu.AddItem(new GUIContent("Batch Process"), false, () =>
-                {
-                    BatchProcessorWindow.OpenWindow(collection.Cast<object>());
-                });
+                genericMenu.AddItem(new GUIContent(BatchProcessorNames.BATCH_PROCESS_NAME), false,
+                    () => { BatchProcessorWindow.OpenWindow(collection.Cast<object>()); });
 
-                genericMenu.AddItem(new GUIContent("Add to Batch Processor"), false, () =>
-                {
-                    BatchProcessorWindow.AddToWindow(collection.Cast<object>());
-                });
+                genericMenu.AddItem(new GUIContent(BatchProcessorNames.ADD_TO_BATCH_PROCESSOR_NAME), false,
+                    () => { BatchProcessorWindow.AddToWindow(collection.Cast<object>()); });
             }
             else
             {
-                genericMenu.AddItem(new GUIContent("Add to Batch Processor"), false, () =>
-                {
-                    BatchProcessorWindow.AddToWindow(new[] { value });
-                });
+                genericMenu.AddItem(new GUIContent(BatchProcessorNames.ADD_TO_BATCH_PROCESSOR_NAME), false,
+                    () => { BatchProcessorWindow.AddToWindow(value); });
             }
         }
     }

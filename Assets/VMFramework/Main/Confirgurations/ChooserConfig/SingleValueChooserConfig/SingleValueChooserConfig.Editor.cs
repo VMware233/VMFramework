@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using UnityEngine;
 using VMFramework.Core;
 
 namespace VMFramework.Configuration

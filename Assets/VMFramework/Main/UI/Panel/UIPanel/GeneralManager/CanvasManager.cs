@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using VMFramework.Core;
-using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
 namespace VMFramework.UI
@@ -11,7 +10,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class CanvasManager : ManagerBehaviour<CanvasManager>
     {
-        private static UIPanelGeneralSetting setting => GameCoreSetting.uiPanelGeneralSetting;
+        private static UIPanelGeneralSetting setting => UISetting.uiPanelGeneralSetting;
         
         [ShowInInspector]
         private static Transform canvasContainer;
@@ -19,11 +18,11 @@ namespace VMFramework.UI
         [ShowInInspector]
         private static readonly Dictionary<int, Canvas> canvasDict = new();
 
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
             
-            canvasContainer = GameCoreSetting.uiPanelGeneralSetting.container;
+            canvasContainer = UISetting.uiPanelGeneralSetting.container;
         }
 
         public static Canvas GetCanvas(int sortingOrder)

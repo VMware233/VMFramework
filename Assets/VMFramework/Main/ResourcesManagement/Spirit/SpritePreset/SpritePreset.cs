@@ -1,17 +1,19 @@
-﻿using EnumsNET;
-using VMFramework.GameLogicArchitecture;
+﻿using VMFramework.GameLogicArchitecture;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Procedure;
 
 namespace VMFramework.ResourcesManagement
 {
-    public partial class SpritePreset : GameTypedGamePrefab
+    public partial class SpritePreset : GameTypedGamePrefab, IInitializer
     {
         protected const string SPRITE_PREVIEW_GROUP =
             TAB_GROUP_NAME + "/" + BASIC_CATEGORY + "/Sprite Preview Group";
 
         protected const string FLIP_GROUP = TAB_GROUP_NAME + "/" + BASIC_CATEGORY + "/Flip Group";
+
+        public bool enableInitializationDebugLog => false;
 
         [HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP)]
         [PreviewField(40, ObjectFieldAlignment.Center)]
@@ -23,28 +25,6 @@ namespace VMFramework.ResourcesManagement
         [HorizontalGroup(FLIP_GROUP)]
         [SerializeField]
         private SpritePivotFlipType spritePivotFlipType = SpritePivotFlipType.NoChange;
-
-        #region Init
-
-        public override bool isPreInitializationRequired => true;
-
-        public override bool isInitializationRequired => false;
-
-        public override bool isPostInitializationRequired => false;
-
-        public override bool isInitializationCompleteRequired => false;
-
-        protected override void OnPreInit()
-        {
-            base.OnPreInit();
-
-            foreach (var flipType in preloadFlipType.GetFlags())
-            {
-                SpriteManager.GetSprite(id, flipType);
-            }
-        }
-
-        #endregion
 
         public Sprite GenerateSprite(FlipType2D flipType)
         {

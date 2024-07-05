@@ -9,8 +9,6 @@ namespace VMFramework.Network
 
         public HashSet<int> observers { get; }
 
-        public bool isObserver { get; set; }
-
         public UUIDInfo(IUUIDOwner owner, bool asServer)
         {
             this.owner = owner;
@@ -22,8 +20,6 @@ namespace VMFramework.Network
             {
                 observers = null;
             }
-            
-            isObserver = false;
         }
     }
 }

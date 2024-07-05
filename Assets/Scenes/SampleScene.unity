@@ -1207,6 +1207,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1837632630}
   - component: {fileID: 1837632631}
+  - component: {fileID: 1837632636}
+  - component: {fileID: 1837632635}
+  - component: {fileID: 1837632634}
+  - component: {fileID: 1837632633}
+  - component: {fileID: 1837632632}
   m_Layer: 0
   m_Name: SettingCore
   m_TagString: Untagged
@@ -1241,15 +1246,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2712974a8dfc4d3a8596dc453f878d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
+--- !u!114 &1837632632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837632629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3c6354168a47d4aacf5d3cc0522675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1837632633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837632629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924e586485ad4cc0af7f343928cab0f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1837632634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837632629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b8148b35f0f4b8f8e989135b58eca72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1837632635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837632629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79428b9861ed4746a943d705744050f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1837632636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837632629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2d5512714a429284487afbf5e1690d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2102842621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1372,7 @@ GameObject:
   - component: {fileID: 2121337880}
   - component: {fileID: 2121337879}
   - component: {fileID: 2121337878}
+  - component: {fileID: 2121337882}
   m_Layer: 0
   m_Name: NetworkCore
   m_TagString: Untagged
@@ -1403,6 +1460,7 @@ MonoBehaviour:
   - {fileID: 2121337880}
   - {fileID: 2121337879}
   - {fileID: 2121337878}
+  - {fileID: 2121337882}
   <SerializedRootNetworkBehaviour>k__BackingField: {fileID: 0}
   <NestedRootNetworkBehaviours>k__BackingField: []
   SerializedTransformProperties:
@@ -1428,13 +1486,28 @@ MonoBehaviour:
   _scenePathHash: 584410112
   <SceneId>k__BackingField: 2510022319279426399
   <AssetPathHash>k__BackingField: 0
+--- !u!114 &2121337882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121337876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98bb5c82b5c4940988c91d0da82ee1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 2121337881}
+  _networkObjectCache: {fileID: 2121337881}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1275962107}
+  - {fileID: 1026662588}
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1825527916}
-  - {fileID: 1026662588}
   - {fileID: 155421390}

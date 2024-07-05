@@ -2,7 +2,6 @@
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core;
-using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
 
 namespace VMFramework.ResourcesManagement

@@ -1,7 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using UnityEngine;
-
-namespace VMFramework.GameEvents
+﻿namespace VMFramework.GameEvents
 {
     public enum KeyBoardTriggerType
     {

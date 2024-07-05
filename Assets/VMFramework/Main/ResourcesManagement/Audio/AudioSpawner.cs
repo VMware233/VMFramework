@@ -24,12 +24,12 @@ namespace VMFramework.ResourcesManagement
 
             if (audioSource.gameObject.activeSelf)
             {
-                audioSource.transform.SetParent(GameCoreSetting.audioGeneralSetting.container);
+                audioSource.transform.SetParent(ResourcesManagementSetting.audioGeneralSetting.container);
                 pool.Return(audioSource);
             }
         }
 
-        [Button("生成音效")]
+        [Button]
         public static AudioSource Spawn([GamePrefabID(typeof(AudioPreset))] string id, Vector3 pos = default,
             Transform parent = null)
         {
@@ -43,7 +43,7 @@ namespace VMFramework.ResourcesManagement
             audioSource.loop = false;
             audioSource.time = 0;
 
-            var container = parent == null ? GameCoreSetting.audioGeneralSetting.container : parent;
+            var container = parent == null ? ResourcesManagementSetting.audioGeneralSetting.container : parent;
 
             audioSource.transform.SetParent(container);
             audioSource.transform.position = pos;

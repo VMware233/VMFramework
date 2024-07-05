@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
@@ -14,17 +13,17 @@ namespace VMFramework.Configuration
             {
                 return dictionaryConfigs.GetConfigRuntime(id);
             }
-            
+
             return dictionaryConfigs.GetConfigEditor(id);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetConfigEditor<TID, TConfig>(this IDictionaryConfigs<TID, TConfig> dictionaryConfigs,
-            TID id, out TConfig config)
+        public static bool TryGetConfigEditor<TID, TConfig>(
+            this IDictionaryConfigs<TID, TConfig> dictionaryConfigs, TID id, out TConfig config)
             where TConfig : IConfig
         {
             config = dictionaryConfigs.GetConfigEditor(id);
-            return config!= null;
+            return config != null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -44,11 +43,11 @@ namespace VMFramework.Configuration
             if (dictionaryConfigs.initDone)
             {
                 config = dictionaryConfigs.GetConfigRuntime(id);
-                return config!= null;
+                return config != null;
             }
-            
+
             config = dictionaryConfigs.GetConfigEditor(id);
-            return config!= null;
+            return config != null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -60,10 +59,10 @@ namespace VMFramework.Configuration
             {
                 return dictionaryConfigs.GetConfigRuntime(id) != null;
             }
-            
+
             return dictionaryConfigs.GetConfigEditor(id) != null;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RemoveConfig<TID, TConfig>(this IDictionaryConfigs<TID, TConfig> dictionaryConfigs,
             TID id)
@@ -73,7 +72,7 @@ namespace VMFramework.Configuration
             {
                 return dictionaryConfigs.RemoveConfigRuntime(id);
             }
-            
+
             return dictionaryConfigs.RemoveConfigEditor(id);
         }
     }

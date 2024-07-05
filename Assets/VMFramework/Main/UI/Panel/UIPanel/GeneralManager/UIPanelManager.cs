@@ -11,28 +11,26 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class UIPanelManager : ManagerBehaviour<UIPanelManager>
     {
-        private static UIPanelGeneralSetting setting => GameCoreSetting.uiPanelGeneralSetting;
+        private static UIPanelGeneralSetting setting => UISetting.uiPanelGeneralSetting;
 
         public static Transform uiContainer { get; private set; }
 
         public static event Action<IUIPanelController> OnPanelCreatedEvent;
 
-        //public static event Action<UIPanelController> OnPanelDestroyedEvent;
-
         #region Init
 
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
 
             uiContainer = setting.container;
         }
 
         #endregion
 
-        [Button("重建面板")]
+        [Button]
         public static IUIPanelController RecreateUniquePanel(
-            [GamePrefabID(typeof(UIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(IUIPanelPreset))] string presetID)
         {
             if (GamePrefabManager.GetGamePrefabStrictly<IUIPanelPreset>(presetID).isUnique == false)
             {
@@ -61,13 +59,15 @@ namespace VMFramework.UI
                 return null;
             }
             
-            Debug.Log($"正在创建UI面板:{preset}");
+            Debug.Log($"Creating panel with preset:{preset}");
             
             var uiGameObject = new GameObject(preset.name);
 
             if (uiGameObject.AddComponent(preset.controllerType) is not IUIPanelController newUIPanel)
             {
-                throw new Exception($"添加组件{nameof(IUIPanelController)}失败，预设ID：{preset.id}");
+                throw new Exception($"Failed to add component." +
+                                    $"Because the controllerType of {preset} " +
+                                    $"is not inherited from {nameof(IUIPanelController)}.");
             }
 
             uiGameObject.transform.SetParent(setting.container);
@@ -86,7 +86,7 @@ namespace VMFramework.UI
             return newUIPanel;
         }
 
-        [Button("创建面板")]
+        [Button]
         public static IUIPanelController CreatePanel(
             [GamePrefabID(typeof(IUIPanelPreset))] string presetID)
         {
@@ -97,9 +97,9 @@ namespace VMFramework.UI
             return CreatePanel(preset);
         }
 
-        [Button("获取已经关闭的或创建新面板")]
+        [Button]
         public static IUIPanelController GetClosedOrCreatePanel(
-            [GamePrefabID(typeof(UIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(IUIPanelPreset))] string presetID)
         {
             if (UIPanelPool.TryGetUniquePanel(presetID, out var result))
             {
@@ -119,9 +119,9 @@ namespace VMFramework.UI
             return (T)GetClosedOrCreatePanel(presetID);
         }
 
-        [Button("获取已经关闭的或创建新面板并打开")]
+        [Button]
         private static void GetClosedOrCreatePanelAndOpen(
-            [GamePrefabID(typeof(UIPanelPreset))] string presetID)
+            [GamePrefabID(typeof(IUIPanelPreset))] string presetID)
         {
             var newPanel = GetClosedOrCreatePanel(presetID);
 

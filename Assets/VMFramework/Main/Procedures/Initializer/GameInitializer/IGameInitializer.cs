@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VMFramework.Procedure
+﻿namespace VMFramework.Procedure
 {
     public interface IGameInitializer : IInitializer
     {

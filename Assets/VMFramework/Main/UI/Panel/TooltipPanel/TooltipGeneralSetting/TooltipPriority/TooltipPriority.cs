@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Configuration;
 using VMFramework.Core;
-using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
@@ -60,7 +59,7 @@ namespace VMFramework.UI
                         return 0;
                     }
                     
-                    if (GameCoreSetting.tooltipGeneralSetting.tooltipPriorityPresets.TryGetConfigRuntime(
+                    if (UISetting.tooltipGeneralSetting.tooltipPriorityPresets.TryGetConfigRuntime(
                             presetID, out var config))
                     {
                         return config.priority;

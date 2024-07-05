@@ -2,7 +2,6 @@
 using Sirenix.OdinInspector.Modules.Localization.Editor;
 using UnityEditor;
 using UnityEditor.Localization;
-using UnityEngine;
 
 namespace VMFramework.OdinExtensions
 {

@@ -2,18 +2,17 @@
 {
     public static class ConfigurationPath
     {
-        public const string ASSETS_PATH = "Assets";
-        
-        public const string RESOURCES_PATH = "Assets/Resources";
-        
-        public const string PATH = "Assets/Resources/Configurations";
-        
-        public const string GENERAL_SETTING_DIRECTORY_PATH = PATH + "/GeneralSetting";
+        public const string INTERNAL_GLOBAL_SETTINGS_PATH =
+            "VMFramework/GameResources/GlobalSettings/";
 
-        public const string GAME_CORE_SETTING_FILE_PATH = PATH;
+        public const string DEFAULT_RESOURCES_PATH = "Assets/GameResources";
         
-        public const string GAME_CORE_SETTING_RESOURCES_PATH = "Configurations/GameSetting";
+        public const string DEFAULT_CONFIGURATIONS_PATH = DEFAULT_RESOURCES_PATH + "/Configurations";
 
-        public const string GAME_PREFAB_DIRECTORY_PATH = RESOURCES_PATH + "/GamePrefab";
+        public const string DEFAULT_GLOBAL_SETTINGS_PATH = DEFAULT_CONFIGURATIONS_PATH + "/GlobalSettings";
+        
+        public const string DEFAULT_GENERAL_SETTINGS_PATH = DEFAULT_CONFIGURATIONS_PATH + "/GeneralSettings";
+        
+        public const string DEFAULT_GAME_PREFABS_PATH = DEFAULT_CONFIGURATIONS_PATH + "/GamePrefabs";
     }
 }

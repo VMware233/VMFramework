@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using VMFramework.Configuration;
 using VMFramework.Core;
@@ -13,13 +12,11 @@ namespace VMFramework.ResourcesManagement
 {
     public class TrailSpawnConfig : BaseConfig
     {
-        [LabelText("拖尾效果")]
         [GamePrefabID(typeof(TrailPreset))]
         [IsNotNullOrEmpty]
         [SerializeField]
         protected string trailID;
 
-        [LabelText("位置")]
         [SerializeField, JsonProperty]
         protected IChooserConfig<Vector3> position = new SingleValueChooserConfig<Vector3>();
 
@@ -39,12 +36,11 @@ namespace VMFramework.ResourcesManagement
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ReturnTrailToDefaultContainer(TrailRenderer trail)
         {
-            trail.transform.SetParent(GameCoreSetting.trailGeneralSetting
-                .container);
+            trail.transform.SetParent(ResourcesManagementSetting.trailGeneralSetting.container);
         }
 
         /// <summary>
-        /// 回收粒子
+        /// Returns a TrailRenderer to the pool of the corresponding ID.
         /// </summary>
         /// <param name="trail"></param>
         public static void Return(TrailRenderer trail)
@@ -54,32 +50,32 @@ namespace VMFramework.ResourcesManagement
                 var id = allTrailIDs[trail];
                 var pool = allPools[id];
 
-                trail.transform.SetParent(GameCoreSetting.trailGeneralSetting
-                    .container);
+                trail.transform.SetParent(ResourcesManagementSetting.trailGeneralSetting.container);
                 pool.Return(trail);
             }
         }
 
         /// <summary>
-        /// 生成粒子
-        /// 如果父Transform为Null，则为位置参数为world space position，如若不然，则是local position
+        /// Spawns a new trail with the given ID and position.
+        /// If the parent Transform is Null, the position parameter is treated as world space position,
+        /// otherwise it is treated as local position.
         /// </summary>
-        /// <param name="id">粒子ID</param>
-        /// <param name="pos">位置</param>
-        /// <param name="parent">父Transform</param>
+        /// <param name="id"></param>
+        /// <param name="pos"></param>
+        /// <param name="parent"></param>
         /// <returns></returns>
-        public static TrailRenderer Spawn(string id, Vector3 pos,
-            Transform parent = null)
+        public static TrailRenderer Spawn(string id, Vector3 pos, Transform parent = null)
         {
             var registeredTrail = GamePrefabManager.GetGamePrefabStrictly<TrailPreset>(id);
-            
+
             if (allPools.TryGetValue(id, out var pool) == false)
             {
                 pool = new StackComponentPool<TrailRenderer>(() =>
                 {
                     var registeredTrail = GamePrefabManager.GetGamePrefabStrictly<TrailPreset>(id);
                     var prefab = registeredTrail.trailPrefab;
-                    var newTrail = Object.Instantiate(prefab, GameCoreSetting.trailGeneralSetting.container);
+                    var newTrail = Object.Instantiate(prefab,
+                        ResourcesManagementSetting.trailGeneralSetting.container);
                     return newTrail;
                 });
                 allPools[id] = pool;

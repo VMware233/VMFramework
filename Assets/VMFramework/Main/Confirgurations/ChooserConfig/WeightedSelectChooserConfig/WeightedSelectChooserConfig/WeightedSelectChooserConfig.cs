@@ -10,9 +10,9 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
+    [TypeInfoBox("Choose a value from weighted items!")]
     public partial class WeightedSelectChooserConfig<T> : ChooserConfig<T>, IWeightedSelectChooserConfig<T>
     {
-        [LabelText("按权值随机选择其中的一个")]
 #if UNITY_EDITOR
         [OnValueChanged(nameof(OnItemsChangedGUI), true)]
         [OnCollectionChanged(nameof(OnItemsChangedGUI))]

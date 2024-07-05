@@ -17,22 +17,22 @@ namespace VMFramework.GameLogicArchitecture
         [Button(ButtonSizes.Medium), TabGroup(TAB_GROUP_NAME, INITIAL_GAME_PREFABS_CATEGORY)]
         private void CollectAllGamePrefabWrappers()
         {
-            foreach (var wrapper in GamePrefabWrapperQuery.GetGamePrefabWrappers(baseGamePrefabType))
+            foreach (var wrapper in GamePrefabWrapperQueryTools.GetGamePrefabWrappers(baseGamePrefabType))
             {
                 AddToInitialGamePrefabWrappers(wrapper);
             }
-            
+
             this.EnforceSave();
         }
 
         #endregion
-        
+
         #region Game Prefab Create
 
-        [Button(ButtonSizes.Medium, ButtonStyle.FoldoutButton), TabGroup(TAB_GROUP_NAME, INITIAL_GAME_PREFABS_CATEGORY)]
-        private void CreateGamePrefab(
-            [IsNotNullOrEmpty, IsUncreatedGamePrefabID]
-            string gamePrefabID)
+        [Button(ButtonSizes.Medium, ButtonStyle.FoldoutButton),
+         TabGroup(TAB_GROUP_NAME, INITIAL_GAME_PREFABS_CATEGORY)]
+        private void CreateGamePrefab([IsNotNullOrEmpty, IsUncreatedGamePrefabID] string gamePrefabID,
+            GamePrefabWrapperType wrapperType)
         {
             if (gamePrefabID.IsNullOrEmptyAfterTrim())
             {
@@ -43,16 +43,20 @@ namespace VMFramework.GameLogicArchitecture
             var gamePrefabTypes = baseGamePrefabType.GetDerivedClasses(true, false)
                 .Where(type => type.IsAbstract == false && type.IsInterface == false);
 
-            new TypeSelector(gamePrefabTypes,
-                selectedType =>
-                {
-                    var wrapper =
-                        GamePrefabWrapperCreator.CreateGamePrefabWrapper(gamePrefabID, selectedType);
+            new TypeSelector(gamePrefabTypes, selectedType =>
+            {
+                var wrapper =
+                    GamePrefabWrapperCreator.CreateGamePrefabWrapper(gamePrefabID, selectedType, wrapperType);
 
-                    AddDefaultGameTypeToGamePrefabWrapper(wrapper);
-                    
-                    GUIHelper.OpenInspectorWindow(wrapper);
-                }).ShowInPopup();
+                if (wrapper == null)
+                {
+                    return;
+                }
+                
+                AddDefaultGameTypeToGamePrefabWrapper(wrapper);
+
+                GUIHelper.OpenInspectorWindow(wrapper);
+            }).ShowInPopup();
         }
 
         #endregion

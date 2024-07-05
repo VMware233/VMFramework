@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using VMFramework.Configuration;
 using VMFramework.Core;
+using VMFramework.Core.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -29,13 +30,15 @@ namespace VMFramework.OdinExtensions
 
             if (chooser.GetAvailableValues().Any(color => color.a < COLOR_ALPHA_THRESHOLD))
             {
-                genericMenu.AddItem(new GUIContent("Set Alpha to 1"), false, SetAlphaTo1);
+                genericMenu.AddItem("Set Alpha to 1", SetAlphaTo1);
             }
 
             if (chooser.GetAvailableValues().Any(color => color.a < 1))
             {
-                genericMenu.AddItem(new GUIContent("Set All Alpha to 1"), false, SetAllAlphaTo1);
+                genericMenu.AddItem("Set All Alpha to 1", SetAllAlphaTo1);
             }
+
+            return;
 
             void SetAlphaTo1()
             {

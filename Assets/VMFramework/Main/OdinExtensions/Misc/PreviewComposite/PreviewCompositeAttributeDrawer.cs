@@ -52,7 +52,7 @@ namespace VMFramework.OdinExtensions
             {
                 if (suffixResolver != null)
                 {
-                    previewContent += suffixResolver.GetValue();
+                    previewContent += " " + suffixResolver.GetValue();
                 }
             }
 

@@ -6,9 +6,9 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public class LocalizedUIPanelManager : ManagerBehaviour<LocalizedUIPanelManager>
     {
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
             
             UIPanelManager.OnPanelCreatedEvent += OnUIPanelCreated;
         }

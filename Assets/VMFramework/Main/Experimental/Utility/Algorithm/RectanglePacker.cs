@@ -1,7 +1,3 @@
-using Sirenix.OdinInspector;
-using UnityEngine;
-using VMFramework.Core;
-
 namespace VMFramework.Experimental
 {
     public class RectanglePacker<TNode> where TNode : class

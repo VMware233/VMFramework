@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using EnumsNET;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace VMFramework.Core

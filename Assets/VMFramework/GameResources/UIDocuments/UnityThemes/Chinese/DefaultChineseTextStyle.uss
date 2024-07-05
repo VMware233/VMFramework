@@ -1,0 +1,4 @@
+VisualElement {
+    font-size: 50px;
+    -unity-font-definition: url("project://database/Assets/VMFramework/GameResources/Fonts/VonwaonBitmap-12px.asset?fileID=11400000&guid=d2125b4363708c549abf3e4e3b919d1e&type=2#VonwaonBitmap-12px");
+}

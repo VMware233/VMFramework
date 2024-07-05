@@ -10,9 +10,9 @@ namespace VMFramework.GameEvents
         [ShowInInspector]
         private HashSet<IUpdateableGameEvent> updateableGameEvents = new();
         
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
             
             GameEventManager.OnGameEventRegistered += OnGameEventRegistered;
             GameEventManager.OnGameEventUnregistered += OnGameEventUnregistered;

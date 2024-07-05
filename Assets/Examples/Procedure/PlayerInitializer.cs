@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Scripting;
 using VMFramework.Procedure;
 
 namespace VMFramework.Examples
 {
-    [GameInitializerRegister(GameInitializationDoneProcedure.ID, ProcedureLoadingType.OnEnter)]
+    [GameInitializerRegister(ClientRunningProcedure.ID, ProcedureLoadingType.OnEnter)]
+    [Preserve]
     public sealed class PlayerInitializer : IGameInitializer
     {
-        void IInitializer.OnPostInit(Action onDone)
+        IEnumerable<InitializationAction> IInitializer.GetInitializationActions()
+        {
+            yield return new(InitializationOrder.PostInit, OnPostInit, this);
+        }
+
+        private void OnPostInit(Action onDone)
         {
             // Do something with the player here.
             

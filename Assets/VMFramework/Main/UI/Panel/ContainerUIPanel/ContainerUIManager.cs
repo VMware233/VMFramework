@@ -13,9 +13,9 @@ namespace VMFramework.UI
     {
         #region Init
 
-        protected override void OnBeforeInit()
+        protected override void OnBeforeInitStart()
         {
-            base.OnBeforeInit();
+            base.OnBeforeInitStart();
 
             UIPanelManager.OnPanelCreatedEvent += OnPanelCreated;
         }

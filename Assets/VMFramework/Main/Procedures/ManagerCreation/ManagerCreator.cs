@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VMFramework.Core;
-using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Procedure
 {
@@ -16,11 +15,15 @@ namespace VMFramework.Procedure
 
         private static readonly HashSet<Type> _managerTypes = new();
 
+        private static readonly List<IManagerBehaviour> _managers = new();
+
         public static IReadOnlyCollection<Type> abstractManagerTypes => _abstractManagerTypes;
 
         public static IReadOnlyCollection<Type> interfaceManagerTypes => _interfaceManagerTypes;
 
         public static IReadOnlyCollection<Type> managerTypes => _managerTypes;
+        
+        public static IReadOnlyList<IManagerBehaviour> managers => _managers;
 
         public static void CreateManagers()
         {
@@ -35,11 +38,12 @@ namespace VMFramework.Procedure
             _abstractManagerTypes.Clear();
             _interfaceManagerTypes.Clear();
             _managerTypes.Clear();
+            _managers.Clear();
 
             var validManagerClassTypes = new Dictionary<Type, ManagerCreationProviderAttribute>();
             var invalidManagerClassTypes = new Dictionary<Type, ManagerCreationProviderAttribute>();
 
-            foreach (var managerClassType in typeof(MonoBehaviour).GetDerivedClasses(true, false))
+            foreach (var managerClassType in typeof(IManagerBehaviour).GetDerivedClasses(true, false))
             {
                 if (managerClassType.TryGetAttribute<ManagerCreationProviderAttribute>(true,
                         out var providerAttribute) == false)
@@ -56,6 +60,12 @@ namespace VMFramework.Procedure
                 if (managerClassType.IsInterface)
                 {
                     _interfaceManagerTypes.Add(managerClassType);
+                    continue;
+                }
+
+                if (managerClassType.IsDerivedFrom<Component>(false, false) == false)
+                {
+                    Debug.LogWarning($"{managerClassType} is not derived from {nameof(Component)}");
                     continue;
                 }
 
@@ -103,7 +113,14 @@ namespace VMFramework.Procedure
 
                 var container = ManagerCreatorContainers.GetOrCreateManagerTypeContainer(managerTypeName);
                 
-                container.GetOrAddComponent(managerClassType);
+                var component = container.GetOrAddComponent(managerClassType);
+
+                if (component is not IManagerBehaviour managerBehaviour)
+                {
+                    throw new Exception($"{managerClassType} does not implement {nameof(IManagerBehaviour)}");
+                }
+                
+                _managers.Add(managerBehaviour);
                 
                 foreach (var otherContainer in ManagerCreatorContainers.GetOtherManagerTypeContainers(managerTypeName))
                 {
@@ -112,29 +129,6 @@ namespace VMFramework.Procedure
             }
 
             _managerTypes.UnionWith(validManagerClassTypes.Keys);
-
-            var managerCreationList = new List<IManagerCreationProvider>();
-
-            if (GameCoreSetting.gameCoreSettingsFile != null)
-            {
-                if (GameCoreSetting.gameCoreSettingsFile is IManagerCreationProvider managerCreation)
-                {
-                    managerCreationList.Add(managerCreation);
-                }
-            }
-
-            foreach (var generalSetting in GameCoreSetting.GetAllGeneralSettings())
-            {
-                if (generalSetting is IManagerCreationProvider managerCreation)
-                {
-                    managerCreationList.Add(managerCreation);
-                }
-            }
-
-            foreach (var managerCreation in managerCreationList)
-            {
-                managerCreation.HandleManagerCreation();
-            }
         }
     }
 }

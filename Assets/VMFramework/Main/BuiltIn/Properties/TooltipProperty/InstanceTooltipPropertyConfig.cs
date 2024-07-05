@@ -26,7 +26,7 @@ namespace VMFramework.Properties
 
         private IEnumerable<ValueDropdownItem> GetPropertyNameList()
         {
-            return GameCoreSetting.propertyGeneralSetting.GetPropertyNameList(filterType);
+            return BuiltInModulesSetting.gamePropertyGeneralSetting.GetPropertyNameList(filterType);
         }
 
         #endregion

@@ -33,7 +33,7 @@ namespace VMFramework.ResourcesManagement
                 audioClip = audioClip,
                 autoCheckStop = true,
                 volume = 1
-            });
+            }, GamePrefabWrapperType.Single);
         }
 
         protected override void OnHandleUnregisterGameItemPrefabFromSelectedObject(Object obj)

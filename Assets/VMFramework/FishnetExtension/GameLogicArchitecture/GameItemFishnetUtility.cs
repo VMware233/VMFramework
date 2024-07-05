@@ -1,7 +1,6 @@
 ﻿#if FISHNET
 using FishNet.CodeGenerating;
 using FishNet.Serializing;
-using UnityEngine;
 
 namespace VMFramework.GameLogicArchitecture
 {

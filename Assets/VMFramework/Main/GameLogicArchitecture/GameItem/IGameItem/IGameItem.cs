@@ -1,22 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
 {
-    public partial interface IGameItem : IIDOwner, INameOwner, IReadOnlyGameTypeOwner
+    public partial interface IGameItem : IIDOwner, INameOwner, IReadOnlyGameTypeOwner, IDestructible
     {
         public static event Action<IGameItem> OnGameItemCreated;
         public static event Action<IGameItem> OnGameItemDestroyed;
+
+        private static readonly Dictionary<string, Stack<IGameItem>> gameItemsPool = new();
         
         protected IGameTypedGamePrefab origin { get; set; }
 
         string INameOwner.name => origin.name;
         
         public bool isDebugging => origin.isDebugging;
-        
-        public bool isDestroyed { get; protected set; }
 
         #region Create
 
@@ -29,16 +30,25 @@ namespace VMFramework.GameLogicArchitecture
                 Debug.LogError($"Could not find {typeof(IGameTypedGamePrefab)} with id: " + id);
                 return null;
             }
-            
-            var gameItemType = gamePrefab.gameItemType;
-            
-            gameItemType.AssertIsNotNull(nameof(gameItemType));
 
-            var gameItem = (IGameItem)Activator.CreateInstance(gameItemType);
+            IGameItem gameItem;
+
+            if (gameItemsPool.TryGetValue(id, out var pool) && pool.Count > 0)
+            {
+                gameItem = pool.Pop();
+            }
+            else
+            {
+                var gameItemType = gamePrefab.gameItemType;
+            
+                gameItemType.AssertIsNotNull(nameof(gameItemType));
+
+                gameItem = (IGameItem)Activator.CreateInstance(gameItemType);
+            }
             
             gameItem.origin = gamePrefab;
-            
-            gameItem.isDestroyed = false;
+
+            gameItem.SetDestructible(false);
             
             gameItem.OnCreateGameItem();
             
@@ -75,9 +85,13 @@ namespace VMFramework.GameLogicArchitecture
             
             gameItem.OnDestroyGameItem();
             
-            gameItem.isDestroyed = true;
+            gameItem.SetDestructible(true);
             
             OnGameItemDestroyed?.Invoke(gameItem);
+
+            var pool = gameItemsPool.GetValueOrAddNew(gameItem.id);
+            
+            pool.Push(gameItem);
         }
 
         #endregion

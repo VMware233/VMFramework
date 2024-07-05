@@ -33,8 +33,8 @@ namespace VMFramework.ExtendedTilemap
     [RequireComponent(typeof(TilemapGroupController))]
     public class ExtendedTilemap : SerializedMonoBehaviour
     {
-        protected ExtendedRuleTileGeneralSetting setting =>
-            GameCoreSetting.extendedRuleTileGeneralSetting;
+        protected ExtendedRuleTileGeneralSetting setting => 
+            BuiltInModulesSetting.extendedRuleTileGeneralSetting;
 
         [LabelText("运行时一开始清除地图")]
         [SerializeField]

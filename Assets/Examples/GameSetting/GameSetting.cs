@@ -1,12 +1,13 @@
 ﻿using VMFramework.GameLogicArchitecture;
+using VMFramework.Procedure;
 
 namespace VMFramework.Examples
 {
-    public class GameSetting : GameCoreSetting
+    [ManagerCreationProvider(ManagerType.SettingCore)]
+    public sealed partial class GameSetting : GlobalSetting<GameSetting, GameSettingFile>
     {
-        public static GameSettingFile gameSettingFile => (GameSettingFile)gameCoreSettingsFile;
+        // Write Your Custom General Settings Here
         
-        // Write Your Custom Game Settings Here
-        public static PlayerGeneralSetting playerGeneralSetting => gameSettingFile.playerGeneralSetting;
+        public static PlayerGeneralSetting playerGeneralSetting => globalSettingFile.playerGeneralSetting;
     }
 }

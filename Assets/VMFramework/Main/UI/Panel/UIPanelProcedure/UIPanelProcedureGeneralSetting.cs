@@ -12,10 +12,18 @@ namespace VMFramework.UI
         [TabGroup(TAB_GROUP_NAME, PROCEDURE_CATEGORY)]
         public DictionaryConfigs<string, UIPanelProcedureConfig> procedureConfigs = new();
 
+        public override void CheckSettings()
+        {
+            base.CheckSettings();
+            
+            procedureConfigs.CheckSettings();
+        }
+
         protected override void OnInit()
         {
             base.OnInit();
             
+            procedureConfigs.Init();
             ProcedureManager.OnEnterProcedureEvent += OnEnterProcedure;
             ProcedureManager.OnExitProcedureEvent += OnExitProcedure;
         }
@@ -26,23 +34,29 @@ namespace VMFramework.UI
             {
                 return;
             }
-            
-            foreach (var uiPanelID in config.uiPanelAutoCloseOnEnter)
+
+            if (config.uiPanelAutoCloseOnEnter != null)
             {
-                foreach (var uiPanelController in UIPanelPool.GetPanels(uiPanelID))
+                foreach (var uiPanelID in config.uiPanelAutoCloseOnEnter)
                 {
-                    if (uiPanelController.isOpened || uiPanelController.isOpening)
+                    foreach (var uiPanelController in UIPanelPool.GetPanels(uiPanelID))
                     {
-                        uiPanelController.Close();
+                        if (uiPanelController.isOpened || uiPanelController.isOpening)
+                        {
+                            uiPanelController.Close();
+                        }
                     }
                 }
             }
-                
-            foreach (var uiPanelID in config.uniqueUIPanelAutoOpenOnEnter)
+
+            if (config.uniqueUIPanelAutoOpenOnEnter != null)
             {
-                if (UIPanelPool.TryGetUniquePanel(uiPanelID, out var panelController))
+                foreach (var uiPanelID in config.uniqueUIPanelAutoOpenOnEnter)
                 {
-                    panelController.Open();
+                    if (UIPanelPool.TryGetUniquePanel(uiPanelID, out var panelController))
+                    {
+                        panelController.Open();
+                    }
                 }
             }
         }
@@ -54,22 +68,28 @@ namespace VMFramework.UI
                 return;
             }
 
-            foreach (var uiPanelID in config.uiPanelAutoCloseOnExit)
+            if (config.uiPanelAutoCloseOnExit != null)
             {
-                foreach (var uiPanelController in UIPanelPool.GetPanels(uiPanelID))
+                foreach (var uiPanelID in config.uiPanelAutoCloseOnExit)
                 {
-                    if (uiPanelController.isOpened || uiPanelController.isOpening)
+                    foreach (var uiPanelController in UIPanelPool.GetPanels(uiPanelID))
                     {
-                        uiPanelController.Close();
+                        if (uiPanelController.isOpened || uiPanelController.isOpening)
+                        {
+                            uiPanelController.Close();
+                        }
                     }
                 }
             }
-            
-            foreach (var uiPanelID in config.uniqueUIPanelAutoOpenOnExit)
+
+            if (config.uniqueUIPanelAutoOpenOnExit != null)
             {
-                if (UIPanelPool.TryGetUniquePanel(uiPanelID, out var panelController))
+                foreach (var uiPanelID in config.uniqueUIPanelAutoOpenOnExit)
                 {
-                    panelController.Open();
+                    if (UIPanelPool.TryGetUniquePanel(uiPanelID, out var panelController))
+                    {
+                        panelController.Open();
+                    }
                 }
             }
         }

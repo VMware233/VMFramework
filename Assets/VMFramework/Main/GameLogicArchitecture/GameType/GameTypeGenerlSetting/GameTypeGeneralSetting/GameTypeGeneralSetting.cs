@@ -29,14 +29,6 @@ namespace VMFramework.GameLogicArchitecture
 
         #region Init & Check
 
-        protected override void OnPreInit()
-        {
-            base.OnPreInit();
-            
-            CheckGameTypeInfo();
-            InitGameTypeInfo();
-        }
-
         public void CheckGameTypeInfo()
         {
             if (subrootGameTypeInfos.Any(gameTypeInfo => gameTypeInfo == null))

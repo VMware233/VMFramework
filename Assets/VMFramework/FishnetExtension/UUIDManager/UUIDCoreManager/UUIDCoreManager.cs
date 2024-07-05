@@ -3,11 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using FishNet;
 using VMFramework.Core;
 using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
-using UnityEngine.Scripting;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -21,11 +21,16 @@ namespace VMFramework.Network
         public static event Action<IUUIDOwner> OnUUIDOwnerRegistered;
         public static event Action<IUUIDOwner> OnUUIDOwnerUnregistered;
 
+        public static event Action<IUUIDOwner, bool, NetworkConnection> OnUUIDOwnerObserved;
+        
+        public static event Action<IUUIDOwner, NetworkConnection> OnUUIDOwnerUnobserved;
+
         public override void OnStartServer()
         {
             base.OnStartServer();
             
             IGameItem.OnGameItemCreated += OnGameItemCreated;
+            IGameItem.OnGameItemDestroyed += OnGameItemDestroyed;
         }
 
         public override void OnStopServer()
@@ -33,6 +38,7 @@ namespace VMFramework.Network
             base.OnStopServer();
             
             IGameItem.OnGameItemCreated -= OnGameItemCreated;
+            IGameItem.OnGameItemDestroyed -= OnGameItemDestroyed;
         }
 
         private void OnGameItemCreated(IGameItem gameItem)
@@ -54,12 +60,15 @@ namespace VMFramework.Network
                 return;
             }
 
+            if (Unregister(owner) == false)
+            {
+                return;
+            }
+
             if (owner.SetUUID(null) == false)
             {
                 Debug.LogWarning($"设置{owner.GetType()}的uuid失败，{owner}的uuid已经被清空");
             }
-            
-            Unregister(owner);
         }
 
         #region Register & Unregister
@@ -149,43 +158,57 @@ namespace VMFramework.Network
         #region Observe
 
         [ServerRpc(RequireOwnership = false)]
-        [Preserve]
         private void _Observe(string uuid, bool isDirty, NetworkConnection connection = null)
         {
-            if (TryGetInfo(uuid, out var info))
+            if (TryGetInfoWithWarning(uuid, out var info))
             {
-                info.owner.OnObserved(isDirty, connection);
+                ObserveInstantly(info, isDirty, connection);
+            }
+        }
 
-                info.observers.Add(connection.ClientId);
-            }
-            else
-            {
-                Debug.LogWarning($"不存在此{nameof(uuid)}:{uuid}对应的{nameof(UUIDInfo)}");
-            }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void ObserveInstantly(UUIDInfo info, bool isDirty, NetworkConnection connection)
+        {
+            info.owner.OnObserved(isDirty, connection);
+            
+            info.observers.Add(connection.ClientId);
+            
+            OnUUIDOwnerObserved?.Invoke(info.owner, isDirty, connection);
         }
 
         public static void Observe(string uuid)
         {
-            //if (instance.IsServer)
-            //{
-            //    return;
-            //}
-
             if (uuid.IsNullOrEmpty())
             {
-                Debug.LogWarning("uuid为Null或空");
+                Debug.LogWarning("uuid is null or empty");
                 return;
             }
 
-            if (TryGetInfo(uuid, out var info))
+            if (instance.IsClientStarted == false)
             {
-                info.isObserver = true;
-                _instance._Observe(uuid, info.owner.isDirty);
+                Debug.LogWarning($"The client is not started yet, cannot observe {uuid}");
+                return;
+            }
+
+            if (TryGetInfoWithWarning(uuid, out var info) == false)
+            {
+                return;
+            }
+            
+            if (instance.IsHostStarted)
+            {
+                ObserveInstantly(info, info.owner.isDirty, InstanceFinder.ClientManager.Connection);
             }
             else
             {
-                Debug.LogWarning($"不存在此{nameof(uuid)}:{uuid}对应的{info.owner.GetType()}");
+                instance._Observe(uuid, info.owner.isDirty);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Observe(IUUIDOwner owner)
+        {
+            Observe(owner?.uuid);
         }
 
         #endregion
@@ -193,43 +216,57 @@ namespace VMFramework.Network
         #region Unobserve
 
         [ServerRpc(RequireOwnership = false)]
-        [Preserve]
         private void _Unobserve(string uuid, NetworkConnection connection = null)
         {
-            if (TryGetInfo(uuid, out var info))
+            if (TryGetInfoWithWarning(uuid, out var info))
             {
-                info.owner.OnUnobserved(connection);
+                UnobserveInstantly(info, connection);
+            }
+        }
 
-                info.observers.Remove(connection.ClientId);
-            }
-            else
-            {
-                Debug.LogWarning($"不存在此{nameof(uuid)}:{uuid}对应的{info.owner.GetType()}");
-            }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void UnobserveInstantly(UUIDInfo info, NetworkConnection connection)
+        {
+            info.owner.OnUnobserved(connection);
+
+            info.observers.Remove(connection.ClientId);
+            
+            OnUUIDOwnerUnobserved?.Invoke(info.owner, connection);
         }
 
         public static void Unobserve(string uuid)
         {
-            //if (instance.IsServer)
-            //{
-            //    return;
-            //}
-
             if (uuid.IsNullOrEmpty())
             {
-                Debug.LogWarning("uuid为Null或空");
+                Debug.LogWarning("uuid is null or empty");
+                return;
+            }
+            
+            if (instance.IsClientStarted == false)
+            {
+                Debug.LogWarning($"The client is not started yet, cannot unobserve {uuid}");
                 return;
             }
 
-            if (TryGetInfo(uuid, out var info))
+            if (TryGetInfoWithWarning(uuid, out var info) == false)
             {
-                info.isObserver = false;
-                _instance._Unobserve(uuid);
+                return;
+            }
+            
+            if (instance.IsHostStarted)
+            {
+                UnobserveInstantly(info, InstanceFinder.ClientManager.Connection);
             }
             else
             {
-                Debug.LogWarning($"不存在此{nameof(uuid)}:{uuid}对应的{typeof(IUUIDOwner)}");
+                instance._Unobserve(uuid);
             }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Unobserve(IUUIDOwner owner)
+        {
+            Unobserve(owner?.uuid);
         }
 
         #endregion

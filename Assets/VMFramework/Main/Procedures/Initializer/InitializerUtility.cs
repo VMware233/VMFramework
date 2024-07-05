@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 using VMFramework.Core;
 
 namespace VMFramework.Procedure
@@ -8,60 +9,28 @@ namespace VMFramework.Procedure
     public static class InitializerUtility
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void InitializeAll(this IInitializer initializer)
-        {
-            initializer.OnPreInit(ActionUtility.empty);
-            initializer.OnBeforeInit(ActionUtility.empty);
-            initializer.OnInit(ActionUtility.empty);
-            initializer.OnPostInit(ActionUtility.empty);
-            initializer.OnInitComplete(ActionUtility.empty);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void InitializeAll(this IEnumerable<IInitializer> initializers)
-        {
-            var initializersList = new List<IInitializer>(initializers);
-            
-            foreach (InitializeType initializeType in Enum.GetValues(typeof(InitializeType)))
-            {
-                initializersList.Initialize(initializeType);
-            }
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Initialize(this IInitializer initializer, InitializeType type, Action onDone = null)
-        {
-            onDone ??= ActionUtility.empty;
-            
-            switch (type)
-            {
-                case InitializeType.BeforeInit:
-                    initializer.OnBeforeInit(onDone);
-                    break;
-                case InitializeType.PreInit:
-                    initializer.OnPreInit(onDone);
-                    break;
-                case InitializeType.Init:
-                    initializer.OnInit(onDone);
-                    break;
-                case InitializeType.PostInit:
-                    initializer.OnPostInit(onDone);
-                    break;
-                case InitializeType.InitComplete:
-                    initializer.OnInitComplete(onDone);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Initialize(this IEnumerable<IInitializer> initializers, InitializeType type,
-            Action onDone = null)
+        public static IEnumerable<(int order, IList<InitializationAction>)> GetInitializationActions(
+            this IList<IInitializer> initializers)
         {
             foreach (var initializer in initializers)
             {
-                initializer.Initialize(type, onDone);
+                foreach (var actionInfo in initializer.GetInitializationActions())
+                {
+                    if (actionInfo.action == null)
+                    {
+                        Debug.LogError($"The action with order : {actionInfo.order} is null." +
+                                       $"It's provided by {initializer.GetType()}.");
+                    }
+                }
+            }
+            
+            var dict = initializers.SelectMany(initializer => initializer.GetInitializationActions())
+                .BuildSortedDictionary(initializer => (initializer.order, initializer),
+                    Comparer<int>.Create((x, y) => x.CompareTo(y)));
+
+            foreach (var (order, listOfActions) in dict)
+            {
+                yield return (order, listOfActions.ToList());
             }
         }
     }

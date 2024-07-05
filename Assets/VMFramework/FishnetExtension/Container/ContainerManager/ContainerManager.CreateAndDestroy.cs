@@ -1,15 +1,23 @@
 ﻿#if FISHNET
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using VMFramework.Core.Linq;
 using VMFramework.GameEvents;
 using VMFramework.Network;
 using VMFramework.Procedure;
 
 namespace VMFramework.Containers
 {
-    public partial class ContainerManager : IManagerBehaviour
+    public partial class ContainerManager
     {
-        void IInitializer.OnInitComplete(Action onDone)
+        protected override IEnumerable<InitializationAction> GetInitializationActions()
+        {
+            return base.GetInitializationActions()
+                .Concat(new(InitializationOrder.InitComplete, OnInitComplete, this));
+        }
+
+        private static void OnInitComplete(Action onDone)
         {
             ContainerCreateEvent.AddCallback(OnContainerCreate, GameEventPriority.SUPER);
             ContainerDestroyEvent.AddCallback(OnContainerDestroy, GameEventPriority.SUPER);
@@ -50,12 +58,12 @@ namespace VMFramework.Containers
                 container.isDirty = false;
             }
 
-            Observe(container);
+            UUIDCoreManager.Observe(container);
         }
 
         private static void OnContainerClose(IContainer container)
         {
-            Unobserve(container);
+            UUIDCoreManager.Unobserve(container);
         }
     }
 }

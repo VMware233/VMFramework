@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VMFramework.Procedure;
 
@@ -6,41 +7,15 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial class GamePrefab
     {
-        #region Initializer
-
-        void IInitializer.OnPreInit(Action onDone)
+        protected virtual IEnumerable<InitializationAction> GetInitializationActions()
         {
-            PreInit();
-            onDone();
+            yield return new(InitializationOrder.Init, OnInitInternal, this);
         }
-
-        void IInitializer.OnInit(Action onDone)
-        {
-            Init();
-            onDone();
-        }
-
-        void IInitializer.OnPostInit(Action onDone)
-        {
-            PostInit();
-            onDone();
-        }
-
-        void IInitializer.OnInitComplete(Action onDone)
-        {
-            InitComplete();
-            onDone();
-        }
-
-        #endregion
-
-        public virtual bool isPreInitializationRequired => true;
-
-        public virtual bool isInitializationRequired => true;
         
-        public virtual bool isPostInitializationRequired => true;
-
-        public virtual bool isInitializationCompleteRequired => true;
+        IEnumerable<InitializationAction> IInitializer.GetInitializationActions()
+        {
+            return GetInitializationActions();
+        }
 
         public virtual void CheckSettings()
         {
@@ -51,60 +26,13 @@ namespace VMFramework.GameLogicArchitecture
             }
         }
 
-        public void PreInit()
+        private void OnInitInternal(Action onDone)
         {
-            if (isPreInitializationRequired)
-            {
-                Debug.Log($"预加载{this}");
-                OnPreInit();
-            }
-        }
-
-        public void Init()
-        {
-            if (isInitializationRequired)
-            {
-                Debug.Log($"加载{this}");
-                OnInit();
-            }
-        }
-
-        public void PostInit()
-        {
-            if (isPostInitializationRequired)
-            {
-                Debug.Log($"后加载{this}");
-                OnPostInit();
-            }
-        }
-
-        public void InitComplete()
-        {
-            if (isInitializationCompleteRequired)
-            {
-                Debug.Log($"初始化{this}完成");
-                OnInitComplete();
-            }
-            
-            initDone = true;
-        }
-
-        protected virtual void OnPreInit()
-        {
-            
+            OnInit();
+            onDone();
         }
 
         protected virtual void OnInit()
-        {
-            
-        }
-
-        protected virtual void OnPostInit()
-        {
-
-        }
-
-        protected virtual void OnInitComplete()
         {
             
         }

@@ -1,11 +1,7 @@
 ﻿namespace VMFramework.Configuration
 {
-    public partial interface IConfig
+    public partial interface IConfig : ICheckableConfig, IInitializableConfig
     {
-        public bool initDone { get; }
-
-        public void Init();
-
-        public void CheckSettings();
+        
     }
 }

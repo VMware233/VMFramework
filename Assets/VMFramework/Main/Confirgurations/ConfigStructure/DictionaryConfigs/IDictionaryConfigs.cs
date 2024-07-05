@@ -1,6 +1,4 @@
-﻿using VMFramework.Core;
-
-namespace VMFramework.Configuration
+﻿namespace VMFramework.Configuration
 {
     public interface IDictionaryConfigs<in TID, TConfig> : IStructureConfigs<TConfig>
         where TConfig : IConfig

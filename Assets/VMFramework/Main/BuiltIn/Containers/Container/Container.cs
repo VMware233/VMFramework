@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using VMFramework.GameEvents;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Containers

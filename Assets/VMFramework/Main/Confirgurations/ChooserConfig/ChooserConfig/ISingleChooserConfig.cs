@@ -6,7 +6,7 @@ namespace VMFramework.Configuration
     {
         protected IChooser<T> objectChooser { get; set; }
 
-        void IConfig.Init()
+        void IInitializableConfig.Init()
         {
             objectChooser = GenerateNewObjectChooser();
         }

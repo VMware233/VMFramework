@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace VMFramework.Core
@@ -67,6 +66,12 @@ namespace VMFramework.Core
         public static object CreateInstance(this Type type)
         {
             return Activator.CreateInstance(type);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T CreateInstance<T>()
+        {
+            return (T)Activator.CreateInstance(typeof(T));
         }
     }
 }

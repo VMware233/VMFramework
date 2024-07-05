@@ -13,28 +13,34 @@ namespace VMFramework.Configuration
         {
             if (items.IsNullOrEmpty())
             {
-                yield return new("概率权值列表不能为空", ValidateType.Error);
+                yield return new("The probability weight list cannot be empty!", ValidateType.Error);
                 yield break;
             }
 
             if (IsItemsContainsSameValue())
             {
-                yield return new("概率权值列表中存在相同的值", ValidateType.Warning);
+                yield return new("The probability weight list cannot contain duplicate values!",
+                    ValidateType.Error);
             }
 
             if (IsRatiosCoprime() == false)
             {
-                yield return new("概率权值列表中的占比不是互质，可以化简", ValidateType.Warning);
+                yield return new(
+                    "The probability weight list contains non-coprime ratios, which can be simplified!",
+                    ValidateType.Warning);
             }
 
             if (IsRatiosAllZero())
             {
-                yield return new("占比不能全为0", ValidateType.Error);
+                yield return new(
+                    "The probability weight list contains all zero ratios, which is not allowed!",
+                    ValidateType.Error);
             }
 
             if (items.Count == 1)
             {
-                yield return new("概率权值列表中只有一个选项，请用单值选择器代替", ValidateType.Warning);
+                yield return new("The probability weight list contains only one item, which is not allowed!",
+                    ValidateType.Error);
             }
         }
 

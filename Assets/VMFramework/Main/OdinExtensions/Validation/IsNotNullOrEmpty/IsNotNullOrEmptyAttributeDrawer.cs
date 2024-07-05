@@ -52,7 +52,7 @@ namespace VMFramework.OdinExtensions
         {
             var propertyName = label == null ? Property.Name : label.text;
 
-            return $"{propertyName}不能为空";
+            return $"{propertyName} cannot be null or empty.";
         }
     }
 }

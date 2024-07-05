@@ -3,6 +3,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Core.Editor;
 using VMFramework.Localization;
 
 namespace VMFramework.OdinExtensions
@@ -17,10 +18,9 @@ namespace VMFramework.OdinExtensions
 
         void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
-            genericMenu.AddSeparator("");
+            genericMenu.AddSeparator();
 
-            genericMenu.AddDisabledItem(
-                new GUIContent(ValueEntry.SmartValue.ToLocalizedString(ColorStringFormat.Name)));
+            genericMenu.AddDisabledItem(ValueEntry.SmartValue.ToLocalizedString(ColorStringFormat.Name));
         }
     }
 }

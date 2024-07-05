@@ -8,6 +8,18 @@ namespace VMFramework.Core.Editor
 {
     public static partial class AssetUtility
     {
+        #region Create Folder By Asset Path
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void CreateFolderByAssetPath(this string assetPath)
+        {
+            var absolutePath = assetPath.ConvertAssetPathToAbsolutePath();
+
+            absolutePath.GetDirectoryPath().CreateDirectory();
+        }
+
+        #endregion
+        
         #region Get All Assets Recursively
 
         public static IEnumerable<Object> GetAllAssetsRecursively(
@@ -27,6 +39,23 @@ namespace VMFramework.Core.Editor
                     yield return obj;
                 }
             }
+        }
+
+        #endregion
+
+        #region Get Folder Object
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static DefaultAsset GetFolderObject(this string assetPath)
+        {
+            return AssetDatabase.LoadAssetAtPath<DefaultAsset>(assetPath);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetFolderObject(this string assetPath, out DefaultAsset folderObject)
+        {
+            folderObject = AssetDatabase.LoadAssetAtPath<DefaultAsset>(assetPath);
+            return folderObject != null;
         }
 
         #endregion

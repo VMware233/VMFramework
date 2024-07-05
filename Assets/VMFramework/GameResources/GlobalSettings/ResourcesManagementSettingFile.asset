@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b546160de8474506937763daa119ed93, type: 3}
+  m_Name: ResourcesManagementSettingFile
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  particleGeneralSetting: {fileID: 11400000, guid: f36fb2836cf15c3478bc0ceba4718901, type: 2}
+  trailGeneralSetting: {fileID: 11400000, guid: e7a5e3302d6bcc0409b656f28fb929cb, type: 2}
+  audioGeneralSetting: {fileID: 11400000, guid: cf38edfea8576bf45beade93f6cb0501, type: 2}
+  modelGeneralSetting: {fileID: 11400000, guid: 6fa66472caacb4a438e51f020c6b35d0, type: 2}
+  spriteGeneralSetting: {fileID: 11400000, guid: a1484a824053989459af6674ba4740c6, type: 2}

@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
 using VMFramework.Core;
-using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.UI
@@ -22,7 +21,7 @@ namespace VMFramework.UI
             {
                 if (useDefaultPanelSettings)
                 {
-                    return GameCoreSetting.uiPanelGeneralSetting.GetPanelSetting(sortingOrder);
+                    return UISetting.uiPanelGeneralSetting.GetPanelSetting(sortingOrder);
                 }
 
                 return customPanelSettings;

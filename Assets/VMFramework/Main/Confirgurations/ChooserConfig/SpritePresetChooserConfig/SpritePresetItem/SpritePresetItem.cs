@@ -26,11 +26,11 @@ namespace VMFramework.Configuration
             init => spritePresetID = value;
         }
 
-        [field: LabelText("X轴翻转"), LabelWidth(50), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
+        [field: LabelWidth(50), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
         [field: SerializeField]
         public bool flipX { get; init; } = false;
 
-        [field: LabelText("Y轴翻转"), LabelWidth(50), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
+        [field: LabelWidth(50), HorizontalGroup(SPRITE_PREVIEW_FLIP_GROUP)]
         [field: SerializeField]
         public bool flipY { get; init; } = false;
 
@@ -50,7 +50,7 @@ namespace VMFramework.Configuration
 
                 if (SpriteManager.HasSpritePreset(value) == false)
                 {
-                    GameCoreSetting.spriteGeneralSetting.AddSpritePreset(value);
+                    ResourcesManagementSetting.spriteGeneralSetting.AddSpritePreset(value);
                 }
 
                 spritePresetID = SpriteManager.GetSpritePreset(value)?.id;
@@ -71,7 +71,7 @@ namespace VMFramework.Configuration
 
             if (SpriteManager.HasSpritePreset(sprite) == false)
             {
-                GameCoreSetting.spriteGeneralSetting.AddSpritePreset(sprite);
+                ResourcesManagementSetting.spriteGeneralSetting.AddSpritePreset(sprite);
             }
 
             var spritePreset = SpriteManager.GetSpritePreset(sprite);

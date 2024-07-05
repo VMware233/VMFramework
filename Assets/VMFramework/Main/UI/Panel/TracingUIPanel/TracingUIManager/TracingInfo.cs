@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace VMFramework.UI
+﻿namespace VMFramework.UI
 {
     internal class TracingInfo
     {

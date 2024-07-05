@@ -8,7 +8,9 @@ namespace VMFramework.UI
         public Type controllerType { get; }
         
         public bool isUnique { get; }
+        
+        public int sortingOrder { get; }
 
-        public int prewarmCount => 0;
+        public int prewarmCount { get; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Recipe
+namespace VMFramework.Recipes
 {
     public interface IRecipe : IGameTypedGamePrefab
     {

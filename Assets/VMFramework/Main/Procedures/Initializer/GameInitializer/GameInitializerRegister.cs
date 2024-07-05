@@ -3,7 +3,7 @@ using System;
 namespace VMFramework.Procedure
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class GameInitializerRegister : Attribute
+    public sealed class GameInitializerRegister : Attribute
     {
         public readonly string ProcedureID;
         public readonly ProcedureLoadingType LoadingType;

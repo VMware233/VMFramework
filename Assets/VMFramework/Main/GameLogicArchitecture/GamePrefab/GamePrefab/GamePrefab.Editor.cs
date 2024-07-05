@@ -1,10 +1,14 @@
 ﻿#if UNITY_EDITOR
+using Sirenix.OdinInspector;
 using VMFramework.Configuration;
 using VMFramework.Core;
 
 namespace VMFramework.GameLogicArchitecture
 {
-    public partial class GamePrefab : IConfig
+    [HideDuplicateReferenceBox]
+    [HideReferenceObjectPicker]
+    [OnInspectorInit("@((IInspectorConfig)$value)?.OnInspectorInit()")]
+    public partial class GamePrefab
     {
         #region On Inspector Init
 
@@ -12,13 +16,8 @@ namespace VMFramework.GameLogicArchitecture
         {
             
         }
-
-        void IGamePrefab.OnInspectorInit()
-        {
-            OnInspectorInit();
-        }
         
-        void IConfig.OnInspectorInit()
+        void IInspectorConfig.OnInspectorInit()
         {
             OnInspectorInit();
         }

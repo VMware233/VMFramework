@@ -5,7 +5,6 @@ using VMFramework.GameLogicArchitecture;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using VMFramework.Configuration;
 using VMFramework.Core.Linq;
 using VMFramework.OdinExtensions;
 
@@ -124,44 +123,6 @@ namespace VMFramework.ExtendedTilemap
             }
 
             hasInitInheritance = true;
-        }
-
-        #endregion
-
-        #region Init & Check
-        
-        public override void CheckSettings()
-        {
-            base.CheckSettings();
-
-            defaultSpriteLayers.CheckSettings();
-            ruleSet.CheckSettings();
-        }
-
-        protected override void OnInit()
-        {
-            base.OnInit();
-
-            if (hasParent)
-            {
-                parentRuleTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(parentRuleTileID);
-            }
-            
-            defaultSpriteLayers.Init();
-        }
-
-        protected override void OnPostInit()
-        {
-            base.OnPostInit();
-
-            InitInheritance();
-        }
-
-        protected override void OnInitComplete()
-        {
-            base.OnInitComplete();
-            
-            runtimeRuleSet.Init();
         }
 
         #endregion

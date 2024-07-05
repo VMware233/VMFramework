@@ -4,7 +4,7 @@ using UnityEngine;
 using VMFramework.Containers;
 using VMFramework.Core;
 
-namespace VMFramework.Recipe
+namespace VMFramework.Recipes
 {
     public readonly struct RecipeInputQueryGameTypePattern : IRecipeInputQueryPattern
     {
@@ -17,9 +17,9 @@ namespace VMFramework.Recipe
 
         #region Cache
 
-        private static Dictionary<string, HashSet<Recipe>> cache = new();
+        private static readonly Dictionary<string, HashSet<IRecipe>> cache = new();
 
-        void IRecipeInputQueryPattern.RegisterCache(Recipe recipe)
+        void IRecipeInputQueryPattern.RegisterCache(IRecipe recipe)
         {
             var gameType = GameType.GetGameType(gameTypeID);
 
@@ -42,7 +42,7 @@ namespace VMFramework.Recipe
         }
 
         [RecipeInputQueryHandler]
-        private static IEnumerable<Recipe> GetRecipes(object item)
+        private static IEnumerable<IRecipe> GetRecipes(object item)
         {
             if (item is IContainerItem containerItem)
             {

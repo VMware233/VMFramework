@@ -228,5 +228,20 @@ namespace VMFramework.Core.Linq
         }
 
         #endregion
+
+        #region Concat
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> enumerable, T item)
+        {
+            foreach (var i in enumerable)
+            {
+                yield return i;
+            }
+            
+            yield return item;
+        }
+
+        #endregion
     }
 }

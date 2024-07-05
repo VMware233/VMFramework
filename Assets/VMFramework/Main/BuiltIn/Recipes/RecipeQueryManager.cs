@@ -6,32 +6,32 @@ using UnityEngine.Scripting;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
-namespace VMFramework.Recipe
+namespace VMFramework.Recipes
 {
     [ManagerCreationProvider(ManagerType.OtherCore)]
     public class RecipeQueryManager : UniqueMonoBehaviour<RecipeQueryManager>
     {
         [ShowInInspector]
-        public static List<Func<object, IEnumerable<Recipe>>> recipeInputQueryHandlers =
+        public static List<Func<object, IEnumerable<IRecipe>>> recipeInputQueryHandlers =
             new();
 
         [ShowInInspector]
-        public static List<Func<object, IEnumerable<Recipe>>> recipeOutputQueryHandlers =
+        public static List<Func<object, IEnumerable<IRecipe>>> recipeOutputQueryHandlers =
             new();
 
         public static void RegisterRecipeInputQueryHandler(
-            Func<object, IEnumerable<Recipe>> handler)
+            Func<object, IEnumerable<IRecipe>> handler)
         {
             recipeInputQueryHandlers.Add(handler);
         }
 
         public static void RegisterRecipeOutputQueryHandler(
-            Func<object, IEnumerable<Recipe>> handler)
+            Func<object, IEnumerable<IRecipe>> handler)
         {
             recipeOutputQueryHandlers.Add(handler);
         }
 
-        public static IEnumerable<Recipe> GetRecipesByInput(object item)
+        public static IEnumerable<IRecipe> GetRecipesByInput(object item)
         {
             foreach (var handler in recipeInputQueryHandlers)
             {
@@ -42,7 +42,7 @@ namespace VMFramework.Recipe
             }
         }
 
-        public static IEnumerable<Recipe> GetRecipesByOutput(object item)
+        public static IEnumerable<IRecipe> GetRecipesByOutput(object item)
         {
             foreach (var handler in recipeOutputQueryHandlers)
             {
@@ -58,9 +58,14 @@ namespace VMFramework.Recipe
     [Preserve]
     public sealed class RecipeQueryInitializer : IGameInitializer
     {
-        void IInitializer.OnInitComplete(Action onDone)
+        IEnumerable<InitializationAction> IInitializer.GetInitializationActions()
         {
-            foreach (var recipe in GamePrefabManager.GetAllGamePrefabs<Recipe>())
+            yield return new(InitializationOrder.Init, OnInit, this);
+        }
+
+        private static void OnInit(Action onDone)
+        {
+            foreach (var recipe in GamePrefabManager.GetAllGamePrefabs<IRecipe>())
             {
                 foreach (var recipeInputQueryPattern in recipe.GetInputQueryPatterns())
                 {
@@ -83,8 +88,8 @@ namespace VMFramework.Recipe
 
                 if (method != null)
                 {
-                    var handler = (Func<object, IEnumerable<Recipe>>)Delegate
-                        .CreateDelegate(typeof(Func<object, IEnumerable<Recipe>>), method);
+                    var handler = (Func<object, IEnumerable<IRecipe>>)Delegate
+                        .CreateDelegate(typeof(Func<object, IEnumerable<IRecipe>>), method);
 
                     RecipeQueryManager.RegisterRecipeInputQueryHandler(handler);
                 }
@@ -106,8 +111,8 @@ namespace VMFramework.Recipe
 
                 if (method != null)
                 {
-                    var handler = (Func<object, IEnumerable<Recipe>>)Delegate
-                        .CreateDelegate(typeof(Func<object, IEnumerable<Recipe>>),
+                    var handler = (Func<object, IEnumerable<IRecipe>>)Delegate
+                        .CreateDelegate(typeof(Func<object, IEnumerable<IRecipe>>),
                             method);
 
                     RecipeQueryManager.RegisterRecipeOutputQueryHandler(handler);

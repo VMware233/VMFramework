@@ -11,6 +11,19 @@ namespace VMFramework.Core
 {
     public static partial class ReflectionUtility
     {
+        public const BindingFlags ALL_FIELDS_FLAGS = BindingFlags.Public | BindingFlags.NonPublic |
+                                                             BindingFlags.Instance | BindingFlags.Static;
+        
+        public const BindingFlags ALL_STATIC_FIELDS_FLAGS = BindingFlags.Public | BindingFlags.NonPublic |
+                                                             BindingFlags.Static;
+        
+        public const BindingFlags ALL_INSTANCE_FIELDS_FLAGS = BindingFlags.Public | BindingFlags.NonPublic |
+                                                             BindingFlags.Instance;
+
+        public const BindingFlags ALL_PROPERTIES_FLAGS = BindingFlags.Public |
+                                                                 BindingFlags.NonPublic |
+                                                                 BindingFlags.Instance | BindingFlags.Static;
+        
         #region GetCopy
 
         public static T ConvertToChildOrParent<T>(this T origin, Type targetType)
@@ -46,11 +59,6 @@ namespace VMFramework.Core
             }
 
             return (T)newInstance;
-        }
-
-        public static List<T> Clone<T>(this List<T> list)
-        {
-            return (List<T>)Clone(list as ICollection<T>);
         }
 
         public static ICollection<T> Clone<T>(this ICollection<T> collection)
@@ -97,7 +105,6 @@ namespace VMFramework.Core
 
             if (origin is ICollection originCollection)
             {
-
                 if (originType.IsGenericType)
                 {
                     var elementType = originType.GetGenericArguments()[0];

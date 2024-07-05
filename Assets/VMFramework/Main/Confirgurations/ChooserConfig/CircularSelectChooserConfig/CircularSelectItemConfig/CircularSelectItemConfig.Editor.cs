@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
 using VMFramework.Core;
-using Object = UnityEngine.Object;
 
 namespace VMFramework.Configuration
 {

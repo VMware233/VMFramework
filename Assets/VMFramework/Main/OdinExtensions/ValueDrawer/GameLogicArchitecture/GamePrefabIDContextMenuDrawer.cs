@@ -3,7 +3,8 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
-using VMFramework.GameLogicArchitecture;
+using VMFramework.Core.Editor;
+using VMFramework.GameLogicArchitecture.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -14,7 +15,7 @@ namespace VMFramework.OdinExtensions
             CallNextDrawer(label);
         }
 
-        public void PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
+        void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
             var value = Property.ValueEntry.WeakSmartValue;
 
@@ -23,19 +24,19 @@ namespace VMFramework.OdinExtensions
                 return;
             }
 
-            if (GamePrefabWrapperQuery.TryGetGamePrefabWrapper(id, out var wrapper) == false)
+            if (GamePrefabWrapperQueryTools.TryGetGamePrefabWrapper(id, out var wrapper) == false)
             {
                 return;
             }
             
-            genericMenu.AddSeparator("");
+            genericMenu.AddSeparator();
             
-            genericMenu.AddItem(new GUIContent("选中GamePrefabWrapper"), false, () =>
+            genericMenu.AddItem("Select GamePrefabWrapper", () =>
             {
                 Selection.activeObject = wrapper;
             });
             
-            genericMenu.AddItem(new GUIContent("打开GamePrefabWrapper"), false, () =>
+            genericMenu.AddItem("Open GamePrefabWrapper", () =>
             {
                 GUIHelper.OpenInspectorWindow(wrapper);
             });
