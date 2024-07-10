@@ -8,7 +8,7 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public sealed class UGUINameAttributeDrawer : GeneralValueDropdownAttributeDrawer<UGUINameAttribute>
+    internal sealed class UGUINameAttributeDrawer : GeneralValueDropdownAttributeDrawer<UGUINameAttribute>
     {
         protected override void Validate()
         {

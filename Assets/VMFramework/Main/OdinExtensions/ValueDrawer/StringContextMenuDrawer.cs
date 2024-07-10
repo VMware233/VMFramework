@@ -6,6 +6,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core.Editor;
+using VMFramework.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -66,10 +67,7 @@ namespace VMFramework.OdinExtensions
             var type = Type.GetType(str);
             if (type != null)
             {
-                genericMenu.AddItem("Open Script", () =>
-                {
-                    type.OpenScriptOfType();
-                });
+                genericMenu.AddItem(EditorNames.OPEN_THIS_SCRIPT, () => { type.OpenScriptOfType(); });
             }
         }
     }

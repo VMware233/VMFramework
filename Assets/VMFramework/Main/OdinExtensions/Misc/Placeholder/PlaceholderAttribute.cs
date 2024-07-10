@@ -8,7 +8,7 @@ namespace VMFramework.OdinExtensions
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [Conditional("UNITY_EDITOR")]
-    public class PlaceholderAttribute : Attribute
+    public sealed class PlaceholderAttribute : Attribute
     {
         /// <summary>
         ///     Placeholder text shown in the string field.

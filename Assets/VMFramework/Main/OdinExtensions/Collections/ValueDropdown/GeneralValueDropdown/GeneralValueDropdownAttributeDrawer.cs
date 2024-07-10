@@ -224,7 +224,7 @@ namespace VMFramework.OdinExtensions
                     ?.ToList();
                 if (Event.current.type == EventType.Repaint)
                 {
-                    var position = GUILayoutUtility.GetLastRect().AlignRight(15f);
+                    var position = RectUtility.AlignRight(GUILayoutUtility.GetLastRect(), 15f);
                     position.y += 4f;
                     SirenixGUIStyles.PaneOptions.Draw(position, GUIContent.none, 0);
                 }

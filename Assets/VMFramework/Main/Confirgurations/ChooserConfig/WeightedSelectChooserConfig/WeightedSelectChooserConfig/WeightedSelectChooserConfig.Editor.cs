@@ -5,11 +5,11 @@ using VMFramework.Core.Linq;
 
 namespace VMFramework.Configuration
 {
-    public partial class WeightedSelectChooserConfig<T>
+    public partial class WeightedSelectChooserConfig<TWrapper, TItem>
     {
         #region Add Item GUI
 
-        private WeightedSelectItemConfig<T> AddWeightedSelectItemGUI()
+        private WeightedSelectItemConfig<TWrapper> AddWeightedSelectItemGUI()
         {
             return new()
             {
@@ -76,7 +76,7 @@ namespace VMFramework.Configuration
         
         #region Remove All Null
 
-        protected virtual bool displayRemoveAllNullButton => typeof(T).IsClass;
+        protected virtual bool displayRemoveAllNullButton => typeof(TItem).IsClass;
 
         [Button("移除所有空值")]
         [ShowIf(nameof(displayRemoveAllNullButton))]

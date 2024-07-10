@@ -2,7 +2,7 @@
 
 namespace VMFramework.OdinExtensions
 {
-    public class ValidateListLengthAttribute : SingleValidationAttribute
+    public sealed class ValidateListLengthAttribute : SingleValidationAttribute
     {
         public int MinLength;
 

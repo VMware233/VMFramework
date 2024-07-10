@@ -12,16 +12,12 @@ namespace VMFramework.UI
 {
     public enum AutoFillContainerSlotsPreprocessMode
     {
-        [LabelText("忽略")]
         Ignore,
 
-        [LabelText("移除所有")]
         RemoveAll,
 
-        [LabelText("移除序号小于1的")]
         RemoveWhereIndexLessThanOne,
 
-        [LabelText("移除序号小于0的")]
         RemoveWhereIndexLessThanZero
     }
 

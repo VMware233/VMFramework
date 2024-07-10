@@ -12,7 +12,7 @@ namespace VMFramework.OdinExtensions
             OdinLocalizationEditorWindow.OpenFromMenu();
         }
 
-        public static void ShowTable(LocalizationTableCollection collection)
+        public static void ShowTable(this LocalizationTableCollection collection)
         {
             var window = EditorWindow.GetWindow<OdinLocalizationEditorWindow>();
             window.ForceMenuTreeRebuild();

@@ -15,22 +15,22 @@ namespace VMFramework.OdinExtensions
             
             if (gamePrefabID.EndsWith("_"))
             {
-                yield return new("ID不推荐以_结尾", ValidateType.Warning);
+                yield return new("ID is not recommended to end with an underscore : _", ValidateType.Warning);
             }
             
             if (gamePrefabID.Contains(" "))
             {
-                yield return new("ID不推荐包含空格", ValidateType.Warning);
+                yield return new("ID is not recommended to contain spaces", ValidateType.Warning);
             }
             
             if (gamePrefabID.Contains("-"))
             {
-                yield return new("ID不推荐包含-符号", ValidateType.Warning);
+                yield return new("ID is not recommended to contain hyphens : -", ValidateType.Warning);
             }
 
             if (gamePrefabID.HasUppercaseLetter())
             {
-                yield return new("ID不推荐包含大写字母", ValidateType.Warning);
+                yield return new("ID is not recommended to contain uppercase letters", ValidateType.Warning);
             }
         }
     }

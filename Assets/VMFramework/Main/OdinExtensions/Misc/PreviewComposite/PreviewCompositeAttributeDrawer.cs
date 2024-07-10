@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
 using Sirenix.OdinInspector.Editor.ValueResolvers;
-using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -10,7 +9,7 @@ using VMFramework.Core;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(0, 0, 50)]
-    public class PreviewCompositeAttributeDrawer : OdinAttributeDrawer<PreviewCompositeAttribute>
+    internal sealed class PreviewCompositeAttributeDrawer : OdinAttributeDrawer<PreviewCompositeAttribute>
     {
         private ValueResolver<string> suffixResolver;
 

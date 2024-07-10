@@ -2,19 +2,25 @@
 
 namespace VMFramework.Core
 {
-    public readonly struct SingleValueChooser<T> : IChooser<T>
+    public readonly partial struct SingleValueChooser<TItem> : IChooser<TItem>
     {
-        public readonly T value;
+        public readonly TItem value;
         
-        public SingleValueChooser(T value)
+        public SingleValueChooser(TItem value)
         {
             this.value = value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T GetValue()
+        public TItem GetValue()
         {
             return value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ResetChooser()
+        {
+            // Do nothing.
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -7,7 +7,7 @@ using VMFramework.OdinExtensions;
 namespace VMFramework.Configuration
 {
     [TypeValidation]
-    public partial class WeightedSelectChooserConfig<T> : ITypeValidationProvider
+    public partial class WeightedSelectChooserConfig<TWrapper, TItem> : ITypeValidationProvider
     {
         protected virtual IEnumerable<ValidationResult> GetValidationResults(GUIContent label)
         {

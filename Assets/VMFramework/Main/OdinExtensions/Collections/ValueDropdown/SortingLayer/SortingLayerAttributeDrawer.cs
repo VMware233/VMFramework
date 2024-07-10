@@ -8,7 +8,7 @@ using UnityEngine;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.AttributePriority)]
-    public class SortingLayerAttributeDrawer : OdinAttributeDrawer<SortingLayerAttribute, string>
+    internal sealed class SortingLayerAttributeDrawer : OdinAttributeDrawer<SortingLayerAttribute, string>
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {

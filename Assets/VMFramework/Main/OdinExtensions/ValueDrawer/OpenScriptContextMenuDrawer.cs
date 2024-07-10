@@ -5,6 +5,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core.Editor;
+using VMFramework.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -35,7 +36,7 @@ namespace VMFramework.OdinExtensions
             
             genericMenu.AddSeparator();
 
-            genericMenu.AddItem("Open Script", () =>
+            genericMenu.AddItem(EditorNames.OPEN_THIS_SCRIPT_PATH, () =>
             {
                 typeOfValue.OpenScriptOfType();
             });

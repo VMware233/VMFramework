@@ -7,7 +7,7 @@ namespace VMFramework.OdinExtensions
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Field |
                     AttributeTargets.Property | AttributeTargets.Struct |
                     AttributeTargets.Interface)]
-    public class PreviewCompositeAttribute : Attribute
+    public sealed class PreviewCompositeAttribute : Attribute
     {
 
     }

@@ -5,7 +5,7 @@ namespace VMFramework.OdinExtensions
 {
     [AttributeUsage(AttributeTargets.All)]
     [Conditional("UNITY_EDITOR")]
-    public class MinimumAttribute : Attribute
+    public sealed class MinimumAttribute : Attribute
     {
         public double MinValue;
         public string MinExpression;

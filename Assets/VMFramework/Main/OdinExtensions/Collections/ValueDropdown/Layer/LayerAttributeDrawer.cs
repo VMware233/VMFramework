@@ -6,7 +6,7 @@ using UnityEngine;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.AttributePriority)]
-    public class LayerAttributeDrawer : OdinAttributeDrawer<LayerAttribute, int>
+    internal sealed class LayerAttributeDrawer : OdinAttributeDrawer<LayerAttribute, int>
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {

@@ -1,4 +1,6 @@
-﻿namespace VMFramework.Core
+﻿using System.Runtime.CompilerServices;
+
+namespace VMFramework.Core
 {
     public static class CharUtility
     {
@@ -7,9 +9,22 @@
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWordDelimiter(this char c)
         {
             return char.IsWhiteSpace(c) || char.IsSymbol(c) || char.IsPunctuation(c);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsLetter(this char c)
+        {
+            return char.IsLetter(c);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsLetterOrDigit(this char c)
+        {
+            return char.IsLetterOrDigit(c);
         }
     }
 }

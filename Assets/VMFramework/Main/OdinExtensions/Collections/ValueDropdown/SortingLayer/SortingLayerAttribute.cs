@@ -5,7 +5,7 @@ namespace VMFramework.OdinExtensions
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [Conditional("UNITY_EDITOR")]
-    public class SortingLayerAttribute : Attribute
+    public sealed class SortingLayerAttribute : Attribute
     {
 
     }

@@ -5,7 +5,7 @@ using VMFramework.Procedure.Editor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
-    public class GamePrefabWrapperPostProcessor : AssetPostprocessor
+    internal sealed class GamePrefabWrapperPostProcessor : AssetPostprocessor
     {
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets,
             string[] movedAssets, string[] movedFromAssetPaths)
@@ -14,16 +14,19 @@ namespace VMFramework.GameLogicArchitecture.Editor
             {
                 return;
             }
-            
-            if (importedAssets.Any(assetPath => assetPath.EndsWith(".asset")))
+
+            EditorApplication.delayCall += () =>
             {
-                GamePrefabWrapperInitializeUtility.Refresh();
-            }
-            else if (deletedAssets.Any(assetPath => assetPath.EndsWith(".asset")))
-            {
-                GamePrefabWrapperInitializeUtility.Refresh();
-                GamePrefabWrapperInitializeUtility.CreateAutoRegisterGamePrefabs();
-            }
+                if (importedAssets.Any(assetPath => assetPath.EndsWith(".asset")))
+                {
+                    GamePrefabWrapperInitializeUtility.Refresh();
+                }
+                else if (deletedAssets.Any(assetPath => assetPath.EndsWith(".asset")))
+                {
+                    GamePrefabWrapperInitializeUtility.Refresh();
+                    GamePrefabWrapperInitializeUtility.CreateAutoRegisterGamePrefabs();
+                }
+            };
         }
     }
 }

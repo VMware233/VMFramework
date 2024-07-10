@@ -1,14 +1,10 @@
-﻿using VMFramework.GameLogicArchitecture;
-using VMFramework.GameLogicArchitecture.Editor;
+using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Examples
+namespace VMFramework.Examples 
 {
     [GlobalSettingFileConfig(FileName = nameof(GameSettingFile))]
-    [GlobalSettingFileEditorConfig(FolderPath = ConfigurationPath.DEFAULT_GLOBAL_SETTINGS_PATH)]
     public sealed partial class GameSettingFile : GlobalSettingFile
     {
-        // Write Your Custom General Settings Here
-        
         public PlayerGeneralSetting playerGeneralSetting;
     }
 }

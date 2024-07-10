@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Scripting;
+using VMFramework.Procedure;
+
+#NAMESPACE_BEGIN#
+    [GameInitializerRegister(MainMenuProcedure.ID, #LOADING_TYPE_PARAMETER#)]
+    [Preserve]
+    public sealed class #SCRIPT_NAME# : IGameInitializer
+    {
+        IEnumerable<InitializationAction> IInitializer.GetInitializationActions()
+        {
+            yield return new(InitializationOrder.#INITIALIZATION_ORDER_NAME#, On#INITIALIZATION_ORDER_NAME#, this);
+        }
+
+        private static void On#INITIALIZATION_ORDER_NAME#(Action onDone)
+        {
+            // Write your custom code here
+            
+            onDone();
+        }
+    }
+#NAMESPACE_END#

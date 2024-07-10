@@ -1,6 +1,6 @@
 ﻿namespace VMFramework.OdinExtensions
 {
-    public class TooltipPriorityPresetIDAttribute : GeneralValueDropdownAttribute
+    public sealed class TooltipPriorityPresetIDAttribute : GeneralValueDropdownAttribute
     {
         
     }

@@ -7,7 +7,7 @@ using VMFramework.Core;
 
 namespace VMFramework.OdinExtensions
 {
-    public sealed class MinimumAttributeDrawer : OdinAttributeDrawer<MinimumAttribute>
+    internal sealed class MinimumAttributeDrawer : OdinAttributeDrawer<MinimumAttribute>
     {
         private ValueResolver<double> minValueGetter;
 

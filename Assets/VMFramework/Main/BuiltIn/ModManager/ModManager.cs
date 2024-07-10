@@ -17,7 +17,7 @@ public class ModManager : ManagerBehaviour<ModManager>
     public static void OpenModFolder()
     {
         Debug.Log("Mods文件夹:" + modFolderPath);
-        modFolderPath.OpenDirectory(true);
+        modFolderPath.OpenDirectoryInExplorer(true);
     }
 
     [Button]

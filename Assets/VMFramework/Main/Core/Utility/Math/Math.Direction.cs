@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -8,38 +7,28 @@ namespace VMFramework.Core
     [Flags]
     public enum LeftRightDirection
     {
-        [LabelText("无方向")]
-        Null = 0,
+        None = 0,
 
-        [LabelText("左")]
         Left = 1,
 
-        [LabelText("右")]
         Right = 2,
         
-        [LabelText("所有方向")]
         All = Left | Right
     }
 
     [Flags]
     public enum FourTypesDirection2D
     {
-        [LabelText("无方向")]
-        Null = 0,
+        None = 0,
 
-        [LabelText("上")]
         Up = 1,
 
-        [LabelText("下")]
         Down = 2,
 
-        [LabelText("左")]
         Left = 4,
 
-        [LabelText("右")]
         Right = 8,
 
-        [LabelText("所有方向")]
         All = Up | Down | Left | Right
     }
 
@@ -50,7 +39,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LeftRightDirection Reversed(this LeftRightDirection direction)
         {
-            var result = LeftRightDirection.Null;
+            var result = LeftRightDirection.None;
             
             if (direction.HasFlag(LeftRightDirection.Left))
             {
@@ -72,7 +61,7 @@ namespace VMFramework.Core
             {
                 < 0 => LeftRightDirection.Left,
                 > 0 => LeftRightDirection.Right,
-                _ => LeftRightDirection.Null
+                _ => LeftRightDirection.None
             };
         }
         
@@ -83,7 +72,7 @@ namespace VMFramework.Core
             {
                 < 0 => LeftRightDirection.Left,
                 > 0 => LeftRightDirection.Right,
-                _ => LeftRightDirection.Null
+                _ => LeftRightDirection.None
             };
         }
 
@@ -102,7 +91,7 @@ namespace VMFramework.Core
         public static FourTypesDirection2D Reversed(
             this FourTypesDirection2D direction)
         {
-            var result = FourTypesDirection2D.Null;
+            var result = FourTypesDirection2D.None;
             
             if (direction.HasFlag(FourTypesDirection2D.Up))
             {
@@ -145,7 +134,7 @@ namespace VMFramework.Core
                     : FourTypesDirection2D.Down;
             }
 
-            return FourTypesDirection2D.Null;
+            return FourTypesDirection2D.None;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -174,14 +163,14 @@ namespace VMFramework.Core
         public static bool IsHorizontal(this FourTypesDirection2D direction)
         {
             return (direction & (FourTypesDirection2D.Left | FourTypesDirection2D.Right)) !=
-                   FourTypesDirection2D.Null;
+                   FourTypesDirection2D.None;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsVertical(this FourTypesDirection2D direction)
         {
             return (direction & (FourTypesDirection2D.Up | FourTypesDirection2D.Down)) !=
-                   FourTypesDirection2D.Null;
+                   FourTypesDirection2D.None;
         }
 
         #endregion

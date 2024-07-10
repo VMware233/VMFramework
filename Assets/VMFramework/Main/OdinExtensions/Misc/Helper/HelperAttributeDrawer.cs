@@ -10,7 +10,7 @@ using UnityEngine.WSA;
 
 namespace VMFramework.OdinExtensions
 {
-    public class HelperAttributeDrawer : OdinAttributeDrawer<HelperAttribute>
+    internal sealed class HelperAttributeDrawer : OdinAttributeDrawer<HelperAttribute>
     {
         private ValueResolver<string> urlResolver;
 

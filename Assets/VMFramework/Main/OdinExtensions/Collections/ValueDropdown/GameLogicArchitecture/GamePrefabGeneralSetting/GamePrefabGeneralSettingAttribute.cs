@@ -1,6 +1,6 @@
 ﻿namespace VMFramework.OdinExtensions
 {
-    public class GamePrefabGeneralSettingAttribute : GeneralValueDropdownAttribute
+    public sealed class GamePrefabGeneralSettingAttribute : GeneralValueDropdownAttribute
     {
         
     }

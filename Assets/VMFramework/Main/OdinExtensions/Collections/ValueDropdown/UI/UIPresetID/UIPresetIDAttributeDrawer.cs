@@ -6,7 +6,7 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public class UIPresetIDAttributeDrawer : GamePrefabIDAttributeDrawer<UIPresetIDAttribute>
+    internal sealed class UIPresetIDAttributeDrawer : GamePrefabIDAttributeDrawer<UIPresetIDAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()
         {

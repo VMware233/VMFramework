@@ -2,8 +2,11 @@
 {
     public static class ConfigurationPath
     {
-        public const string INTERNAL_GLOBAL_SETTINGS_PATH =
-            "VMFramework/GameResources/GlobalSettings/";
+        public const string INTERNAL_RESOURCES_PATH = "VMFramework/GameResources/";
+
+        public const string INTERNAL_GLOBAL_SETTINGS_PATH = INTERNAL_RESOURCES_PATH + "GlobalSettings/";
+        
+        public const string INTERNAL_SCRIPT_TEMPLATES_PATH = INTERNAL_RESOURCES_PATH + "ScriptTemplates/";
 
         public const string DEFAULT_RESOURCES_PATH = "Assets/GameResources";
         

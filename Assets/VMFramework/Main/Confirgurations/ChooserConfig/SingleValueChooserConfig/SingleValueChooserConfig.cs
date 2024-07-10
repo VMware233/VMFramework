@@ -7,19 +7,42 @@ using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
-    public partial class SingleValueChooserConfig<T> : ChooserConfig<T>
+    public partial class SingleValueChooserConfig<TItem> : SingleValueChooserConfig<TItem, TItem>, IChooserConfig<TItem>
+    {
+        public SingleValueChooserConfig() : base()
+        {
+            
+        }
+
+        public SingleValueChooserConfig(TItem value) : base(value)
+        {
+            
+        }
+        
+        protected override TItem UnboxWrapper(TItem wrapper)
+        {
+            return wrapper;
+        }
+        
+        public static implicit operator SingleValueChooserConfig<TItem>(TItem value)
+        {
+            return new SingleValueChooserConfig<TItem>(value);
+        }
+    }
+    
+    public abstract partial class SingleValueChooserConfig<TWrapper, TItem> : ChooserConfig<TWrapper, TItem>
     {
         [HideLabel]
-        public T value;
+        public TWrapper value;
 
-        public SingleValueChooserConfig()
+        protected SingleValueChooserConfig()
         {
             value = default;
         }
-        
-        public SingleValueChooserConfig(T value)
+
+        protected SingleValueChooserConfig(TWrapper valueWrapper)
         {
-            this.value = value;
+            value = valueWrapper;
         }
 
         protected override void OnInit()
@@ -42,17 +65,22 @@ namespace VMFramework.Configuration
             }
         }
 
-        public override IChooser<T> GenerateNewObjectChooser()
+        public override IChooser<TItem> GenerateNewObjectChooser()
         {
-            return new SingleValueChooser<T>(value);
+            return new SingleValueChooser<TItem>(UnboxWrapper(value));
         }
 
-        public override IEnumerable<T> GetAvailableValues()
+        public sealed override IEnumerable<TItem> GetAvailableValues()
+        {
+            yield return UnboxWrapper(value);
+        }
+
+        public sealed override IEnumerable<TWrapper> GetAvailableWrappers()
         {
             yield return value;
         }
 
-        public override void SetAvailableValues(Func<T, T> setter)
+        public sealed override void SetAvailableValues(Func<TWrapper, TWrapper> setter)
         {
             value = setter(value);
         }
@@ -67,14 +95,14 @@ namespace VMFramework.Configuration
             return ValueToString(value);
         }
 
-        public static implicit operator T(SingleValueChooserConfig<T> config)
+        public static implicit operator TWrapper(SingleValueChooserConfig<TWrapper, TItem> config)
         {
             return config.value;
         }
-        
-        public static implicit operator SingleValueChooserConfig<T>(T value)
+
+        public static implicit operator TItem(SingleValueChooserConfig<TWrapper, TItem> config)
         {
-            return new SingleValueChooserConfig<T>(value);
+            return config.UnboxWrapper(config.value);
         }
     }
 }

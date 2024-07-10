@@ -21,7 +21,9 @@ namespace VMFramework.GameLogicArchitecture
 
         #region Create
 
-        protected void OnCreateGameItem();
+        protected void OnFirstCreatedGameItem();
+        
+        protected void OnCreatedGameItem();
         
         public static IGameItem Create(string id)
         {
@@ -32,10 +34,14 @@ namespace VMFramework.GameLogicArchitecture
             }
 
             IGameItem gameItem;
+            
+            bool firstCreated = false;
 
             if (gameItemsPool.TryGetValue(id, out var pool) && pool.Count > 0)
             {
                 gameItem = pool.Pop();
+                
+                firstCreated = false;
             }
             else
             {
@@ -44,13 +50,20 @@ namespace VMFramework.GameLogicArchitecture
                 gameItemType.AssertIsNotNull(nameof(gameItemType));
 
                 gameItem = (IGameItem)Activator.CreateInstance(gameItemType);
+                
+                firstCreated = true;
             }
             
             gameItem.origin = gamePrefab;
 
             gameItem.SetDestructible(false);
             
-            gameItem.OnCreateGameItem();
+            if (firstCreated)
+            {
+                gameItem.OnFirstCreatedGameItem();
+            }
+            
+            gameItem.OnCreatedGameItem();
             
             OnGameItemCreated?.Invoke(gameItem);
             

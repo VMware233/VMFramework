@@ -1,8 +1,6 @@
-﻿
-
-namespace VMFramework.OdinExtensions
+﻿namespace VMFramework.OdinExtensions
 {
-    public class IsGameTypeIDAttribute : MultipleValidationAttribute
+    public sealed class IsGameTypeIDAttribute : MultipleValidationAttribute
     {
         
     }

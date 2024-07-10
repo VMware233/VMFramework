@@ -9,7 +9,7 @@ namespace VMFramework.UI
     {
         public IEnumerable<ToolbarButtonConfig> GetToolbarButtons()
         {
-            yield return new(EditorNames.OPEN_CONTROLLER_SCRIPT_BUTTON_PATH, OpenControllerScript);
+            yield return new(EditorNames.OPEN_CONTROLLER_SCRIPT_PATH, OpenControllerScript);
         }
     }
 }

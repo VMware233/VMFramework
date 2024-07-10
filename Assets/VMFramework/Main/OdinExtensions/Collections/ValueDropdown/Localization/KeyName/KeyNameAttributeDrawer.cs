@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor.ValueResolvers;
+using VMFramework.Editor;
 using VMFramework.Localization;
 
 namespace VMFramework.OdinExtensions
 {
-    public class KeyNameAttributeDrawer : GeneralValueDropdownAttributeDrawer<KeyNameAttribute>
+    internal sealed class KeyNameAttributeDrawer : GeneralValueDropdownAttributeDrawer<KeyNameAttribute>
     {
         private ValueResolver<string> tableNameResolver;
         
@@ -53,7 +54,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            if (Button("Create New Key", SdfIconType.Plus))
+            if (Button(EditorNames.CREATE_NEW_KEY, SdfIconType.Plus))
             {
                 collection.CreateKey(key, "");
             }

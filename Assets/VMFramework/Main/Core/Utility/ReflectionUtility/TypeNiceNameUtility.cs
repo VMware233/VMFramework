@@ -1,13 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace VMFramework.Core
 {
-    public static partial class ReflectionUtility
+    public static class TypeNiceNameUtility
     {
         private static readonly Dictionary<Type, string> cachedNiceNames = new();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetNiceFullName(this Type type)
+        {
+            if (type.IsNested && !type.IsGenericParameter)
+            {
+                return type.DeclaringType.GetNiceFullName() + "." + type.GetNiceName();
+            }
+            
+            string niceFullName = type.GetNiceName();
+            
+            if (type.Namespace != null)
+            {
+                niceFullName = type.Namespace + "." + niceFullName;
+            }
+            
+            return niceFullName;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetNiceName(this Type type)
         {
             if (cachedNiceNames.TryGetValue(type, out string result))
@@ -25,7 +45,18 @@ namespace VMFramework.Core
             if (type.IsArray)
             {
                 int arrayRank = type.GetArrayRank();
-                return type.GetElementType().GetNiceName() + ((arrayRank == 1) ? "[]" : "[,]");
+                
+                string suffix;
+                if (arrayRank == 1)
+                {
+                    suffix = "[]";
+                }
+                else
+                {
+                    suffix = "[" + new string(',', arrayRank - 1) + "]";
+                }
+                 
+                return type.GetElementType().GetNiceName() + suffix;
             }
 
             if (type.IsDerivedFrom(typeof(Nullable<>), true, true))
@@ -52,13 +83,13 @@ namespace VMFramework.Core
             var genericArguments = type.GetGenericArguments();
             for (int i = 0; i < genericArguments.Length; i++)
             {
-                Type type2 = genericArguments[i];
+                Type genericArgument = genericArguments[i];
                 if (i != 0)
                 {
                     stringBuilder.Append(", ");
                 }
 
-                stringBuilder.Append(type2.GetNiceName());
+                stringBuilder.Append(genericArgument.GetNiceName());
             }
 
             stringBuilder.Append('>');

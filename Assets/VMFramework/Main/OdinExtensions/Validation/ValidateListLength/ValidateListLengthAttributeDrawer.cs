@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VMFramework.OdinExtensions
 {
-    public class ValidateListLengthAttributeDrawer : 
+    internal sealed class ValidateListLengthAttributeDrawer : 
         SingleValidationAttributeDrawer<ValidateListLengthAttribute>
     {
         private ValueResolver<int> minLengthResolver;

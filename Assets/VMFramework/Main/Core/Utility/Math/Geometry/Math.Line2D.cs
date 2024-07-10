@@ -104,7 +104,7 @@ namespace VMFramework.Core
             }
 
             // Consider 'Null' as the case when the point is exactly on the line
-            return LeftRightDirection.Null;
+            return LeftRightDirection.None;
         }
 
         /// <summary>

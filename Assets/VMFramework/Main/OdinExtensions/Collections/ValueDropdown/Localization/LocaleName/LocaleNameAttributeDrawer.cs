@@ -5,7 +5,7 @@ using VMFramework.Localization;
 
 namespace VMFramework.OdinExtensions
 {
-    public class LocaleNameAttributeDrawer : GeneralValueDropdownAttributeDrawer<LocaleNameAttribute>
+    internal sealed class LocaleNameAttributeDrawer : GeneralValueDropdownAttributeDrawer<LocaleNameAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()
         {

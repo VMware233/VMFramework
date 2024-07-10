@@ -7,7 +7,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.OdinExtensions
 {
-    public class GameTypeIDAttributeDrawer : GeneralValueDropdownAttributeDrawer<GameTypeIDAttribute>
+    internal sealed class GameTypeIDAttributeDrawer : GeneralValueDropdownAttributeDrawer<GameTypeIDAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()
         {
@@ -23,26 +23,11 @@ namespace VMFramework.OdinExtensions
         {
             base.DrawCustomButtons();
 
-            if (Button("跳转到游戏类型编辑器", SdfIconType.Search))
+            if (Button(GameEditorNames.JUMP_TO_GAME_EDITOR, SdfIconType.Search))
             {
                 var gameEditor = EditorWindow.GetWindow<GameEditor>();
-                
-                var menuTree = gameEditor.MenuTree;
-                
-                foreach (var menuItem in menuTree.EnumerateTree())
-                {
-                    if (menuItem.Value is GameTypeGeneralSetting)
-                    {
-                        if (menuTree.Selection.Contains(menuItem))
-                        {
-                            menuTree.Selection.Remove(menuItem);
-                        }
-                        else
-                        {
-                            menuTree.Selection.Add(menuItem);
-                        }
-                    }
-                }
+
+                gameEditor.SelectValue<GameTypeGeneralSetting>();
             }
         }
     }

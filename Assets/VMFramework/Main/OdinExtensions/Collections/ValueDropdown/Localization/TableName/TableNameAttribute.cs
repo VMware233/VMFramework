@@ -1,6 +1,6 @@
 ﻿namespace VMFramework.OdinExtensions
 {
-    public class TableNameAttribute : GeneralValueDropdownAttribute
+    public sealed class TableNameAttribute : GeneralValueDropdownAttribute
     {
         
     }

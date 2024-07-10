@@ -7,7 +7,7 @@ using VMFramework.Core;
 
 namespace VMFramework.OdinExtensions
 {
-    public sealed class MaximumAttributeDrawer : OdinAttributeDrawer<MaximumAttribute>
+    internal sealed class MaximumAttributeDrawer : OdinAttributeDrawer<MaximumAttribute>
     {
         private ValueResolver<double> maxValueGetter;
 

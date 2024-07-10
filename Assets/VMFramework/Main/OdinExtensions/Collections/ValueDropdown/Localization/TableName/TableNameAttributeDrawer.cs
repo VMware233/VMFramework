@@ -8,6 +8,8 @@ using UnityEditor.Localization;
 using UnityEditor.Localization.UI;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Core.Editor;
+using VMFramework.Editor;
 using VMFramework.Localization;
 
 namespace VMFramework.OdinExtensions
@@ -39,7 +41,7 @@ namespace VMFramework.OdinExtensions
         {
             base.DrawCustomButtons();
             
-            if (Button("Create New Table", SdfIconType.Plus))
+            if (Button(EditorNames.CREATE_NEW_TABLE, SdfIconType.Plus))
             {
                 LocalizationTablesWindow.ShowTableCreator();
             }
@@ -58,7 +60,7 @@ namespace VMFramework.OdinExtensions
                 collection = LocalizationEditorSettings.GetStringTableCollection(tableName);
             }
             
-            if (Button("Edit Table", SdfIconType.PencilSquare))
+            if (Button(EditorNames.EDIT_TABLE, SdfIconType.PencilSquare))
             {
                 if (collection == null)
                 {
@@ -66,15 +68,15 @@ namespace VMFramework.OdinExtensions
                 }
                 else
                 {
-                    OdinLocalizationEditorWindowUtility.ShowTable(collection);
+                    collection.ShowTable();
                 }
             }
             
             if (collection != null)
             {
-                if (Button("Select Table Resource", SdfIconType.Search))
+                if (Button(EditorNames.SELECT_TABLE_ASSET, SdfIconType.Search))
                 {
-                    Selection.activeObject = collection;
+                    collection.SelectObject();
                 }
             }
         }
@@ -102,18 +104,14 @@ namespace VMFramework.OdinExtensions
 
             void ShowWindow(LocalizationTableCollection collection)
             {
-                genericMenu.AddSeparator("");
+                genericMenu.AddSeparator();
                 
                 if (collection != null)
                 {
-                    genericMenu.AddItem(new GUIContent("Open Table"), false, () =>
-                    {
-                        OdinLocalizationEditorWindowUtility.ShowTable(collection);
-                    });
+                    genericMenu.AddItem(EditorNames.OPEN_TABLE, collection.ShowTable);
                 }
                 
-                genericMenu.AddItem(new GUIContent("Create New Table"), false,
-                    LocalizationTablesWindow.ShowTableCreator);
+                genericMenu.AddItem(EditorNames.CREATE_NEW_TABLE, LocalizationTablesWindow.ShowTableCreator);
             }
         }
     }

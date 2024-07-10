@@ -3,19 +3,25 @@ using System.Runtime.CompilerServices;
 
 namespace VMFramework.Core
 {
-    public readonly struct RangeChooser<T> : IChooser<T> where T : struct, IEquatable<T>
+    public readonly partial struct RangeChooser<TNumber> : IChooser<TNumber> where TNumber : struct, IEquatable<TNumber>
     {
-        public readonly IKCube<T> range;
+        public readonly IKCube<TNumber> range;
 
-        public RangeChooser(IKCube<T> range)
+        public RangeChooser(IKCube<TNumber> range)
         {
             this.range = range;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T GetValue()
+        public TNumber GetValue()
         {
             return range.GetRandomPoint();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ResetChooser()
+        {
+            
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

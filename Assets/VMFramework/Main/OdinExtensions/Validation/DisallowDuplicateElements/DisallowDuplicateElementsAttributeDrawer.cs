@@ -8,7 +8,7 @@ using VMFramework.Core.Linq;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
-    public class DisallowDuplicateElementsAttributeDrawer : 
+    internal sealed class DisallowDuplicateElementsAttributeDrawer : 
         SingleValidationAttributeDrawer<DisallowDuplicateElementsAttribute>
     {
         protected override string GetDefaultMessage(GUIContent label)

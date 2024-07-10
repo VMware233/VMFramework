@@ -64,6 +64,9 @@ namespace VMFramework.GameLogicArchitecture
             }
         }
 
+        [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
+        [ShowInInspector]
+        [HideIfNull]
         public virtual Type gameItemType => null;
 
         public bool initDone { get; private set; } = false;

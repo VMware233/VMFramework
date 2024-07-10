@@ -5,7 +5,7 @@ namespace VMFramework.OdinExtensions
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     [Conditional("UNITY_EDITOR")]
-    public class ToggleButtonsAttribute : Attribute
+    public sealed class ToggleButtonsAttribute : Attribute
     {
         public string m_trueText;
         public string m_falseText;

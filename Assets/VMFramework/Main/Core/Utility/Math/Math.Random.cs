@@ -104,6 +104,45 @@ namespace VMFramework.Core
             return default;
         }
 
+        public static TItem Choose<TItem>(this IList<(TItem item, float rate)> infos)
+        {
+            if (infos.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(infos));
+            }
+
+            if (infos.Count == 1)
+            {
+                return infos[0].item;
+            }
+
+            float sum = 0;
+
+            foreach (var info in infos)
+            {
+                sum += info.rate;
+            }
+
+            if (sum <= 0)
+            {
+                return infos[0].item;
+            }
+
+            float randomRate = sum.RandomRange();
+
+            float cumulativeRate = 0;
+            for (int i = 0; i < infos.Count; i++)
+            {
+                cumulativeRate += infos[i].rate;
+                if (cumulativeRate >= randomRate)
+                {
+                    return infos[i].item;
+                }
+            }
+
+            throw new InvalidOperationException();
+        }
+
         public static T Choose<T>(this IList<T> objects, IList<float> rates)
         {
             if (objects.IsNullOrEmpty())

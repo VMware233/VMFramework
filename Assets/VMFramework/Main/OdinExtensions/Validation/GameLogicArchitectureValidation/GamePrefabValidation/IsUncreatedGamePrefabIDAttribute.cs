@@ -1,6 +1,6 @@
 ﻿namespace VMFramework.OdinExtensions
 {
-    public class IsUncreatedGamePrefabIDAttribute : MultipleValidationAttribute
+    public sealed class IsUncreatedGamePrefabIDAttribute : MultipleValidationAttribute
     {
 
     }

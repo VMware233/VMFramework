@@ -6,7 +6,7 @@ using VMFramework.Core;
 
 namespace VMFramework.OdinExtensions
 {
-    public class VisualElementNameAttribute : GeneralValueDropdownAttribute
+    public sealed class VisualElementNameAttribute : GeneralValueDropdownAttribute
     {
         public Type[] VisualElementTypes { get; }
 

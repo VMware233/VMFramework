@@ -9,7 +9,7 @@ namespace VMFramework.OdinExtensions
 {
     [AllowGUIEnabledForReadonly]
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
-    public class PlaceholderTextAttributeDrawer : OdinAttributeDrawer<PlaceholderAttribute, string>
+    internal sealed class PlaceholderTextAttributeDrawer : OdinAttributeDrawer<PlaceholderAttribute, string>
     {
         private static GUIStyle _rightAlignedGreyMiniLabel;
 

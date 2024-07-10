@@ -1,15 +1,21 @@
 ﻿#if UNITY_EDITOR && ODIN_INSPECTOR
+using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core.Editor;
+using VMFramework.Core.Linq;
+using VMFramework.Editor;
 using VMFramework.GameLogicArchitecture;
+using VMFramework.GameLogicArchitecture.Editor;
 
 namespace VMFramework.OdinExtensions
 {
     internal sealed class GamePrefabWrapperContextMenuDrawer : OdinValueDrawer<GamePrefabWrapper>, IDefinesGenericMenuItems
     {
+        private static readonly List<IGamePrefab> gamePrefabsCache = new();
+        
         protected override void DrawPropertyLayout(GUIContent label)
         {
             CallNextDrawer(label);
@@ -19,31 +25,19 @@ namespace VMFramework.OdinExtensions
         {
             var value = ValueEntry.SmartValue;
         
-            if (value.GetGamePrefabs().Any() == false)
-            {
-                return;
-            }
-            
-            var firstPrefab = value.GetGamePrefabs().First();
+            gamePrefabsCache.Clear();
+            gamePrefabsCache.AddRange(value.GetGamePrefabs());
 
-            if (firstPrefab == null)
+            if (gamePrefabsCache.IsNullOrEmptyOrAllNull())
             {
                 return;
-            }
-            
-            genericMenu.AddSeparator();
+            } 
                 
-            genericMenu.AddItem($"Open {nameof(GamePrefab)} Script", () =>
+            genericMenu.AddItem(EditorNames.OPEN_GAME_PREFAB_SCRIPT_PATH, value.OpenGamePrefabScripts);
+
+            if (gamePrefabsCache.Any(gamePrefab => gamePrefab.gameItemType != null))
             {
-                firstPrefab.GetType().OpenScriptOfType();
-            });
-                
-            if (firstPrefab.gameItemType != null)
-            {
-                genericMenu.AddItem($"Open {nameof(GameItem)} Script", () =>
-                {
-                    firstPrefab.gameItemType.OpenScriptOfType();
-                });
+                genericMenu.AddItem(EditorNames.OPEN_GAME_ITEM_SCRIPT_PATH, value.OpenGameItemScripts);
             }
         }
     }

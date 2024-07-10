@@ -16,7 +16,7 @@ namespace VMFramework.Configuration
             return objectChooser.GetValue();
         }
 
-        IChooser<T> IChooserConfig<T>.GetObjectChooser()
+        IChooser<T> IChooserGenerator<T>.GetObjectChooser()
         {
             return objectChooser;
         }

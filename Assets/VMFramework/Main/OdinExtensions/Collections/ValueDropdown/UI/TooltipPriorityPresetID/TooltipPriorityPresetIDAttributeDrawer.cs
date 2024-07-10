@@ -6,7 +6,7 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public sealed class TooltipPriorityPresetIDAttributeDrawer
+    internal sealed class TooltipPriorityPresetIDAttributeDrawer
         : GeneralValueDropdownAttributeDrawer<TooltipPriorityPresetIDAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()

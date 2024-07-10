@@ -2,7 +2,9 @@
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.Editor;
+using VMFramework.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -25,7 +27,7 @@ namespace VMFramework.OdinExtensions
             bool isPath = false;
             string path = str.TrimStart('/', '\\');
 
-            if (str.StartsWith("Assets/"))
+            if (str.IsAssetPath())
             {
                 isPath = true;
             }
@@ -48,9 +50,9 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddItem("Open in Explorer", () =>
+            genericMenu.AddItem(EditorNames.OPEN_IN_EXPLORER, () =>
             {
-                path.OpenDirectory(false);
+                path.OpenDirectoryInExplorer(false);
             });
         }
     }

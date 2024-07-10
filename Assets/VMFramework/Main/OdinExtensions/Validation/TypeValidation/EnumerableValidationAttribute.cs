@@ -6,7 +6,7 @@ namespace VMFramework.OdinExtensions
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property |
                     AttributeTargets.Struct)]
     [Conditional("UNITY_EDITOR")]
-    public class EnumerableValidationAttribute : MultipleValidationAttribute
+    public sealed class EnumerableValidationAttribute : MultipleValidationAttribute
     {
 
     }

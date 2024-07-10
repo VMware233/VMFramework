@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities.Editor;
+using UnityEditor;
 using UnityEngine;
 using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
@@ -19,6 +20,7 @@ namespace VMFramework.OdinExtensions
             {
                 return GamePrefabManager.GetGamePrefabNameListByGameItemType(Attribute.GameItemType);
             }
+
             return GamePrefabManager.GetGamePrefabNameListByType(Attribute.GamePrefabTypes);
         }
 
@@ -56,16 +58,23 @@ namespace VMFramework.OdinExtensions
                 return;
             }
 
-            if (Button("打开编辑窗口", SdfIconType.PencilSquare))
+            if (Button(EditorNames.OPEN_ASSET_IN_NEW_INSPECTOR, SdfIconType.PencilSquare))
             {
                 GUIHelper.OpenInspectorWindow(wrapper);
+            }
+
+            if (Button(GameEditorNames.JUMP_TO_GAME_EDITOR, SdfIconType.Search))
+            {
+                var gameEditor = EditorWindow.GetWindow<GameEditor>();
+                
+                gameEditor.SelectValue(wrapper);
             }
         }
     }
 
-    public class GamePrefabIDAttributeDrawer : GamePrefabIDAttributeDrawer<GamePrefabIDAttribute>
+    internal sealed class GamePrefabIDAttributeDrawer : GamePrefabIDAttributeDrawer<GamePrefabIDAttribute>
     {
-        
+
     }
 }
 #endif

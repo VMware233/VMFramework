@@ -5,7 +5,7 @@ using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.OdinExtensions
 {
-    public class GamePrefabGeneralSettingAttributeDrawer : 
+    internal sealed class GamePrefabGeneralSettingAttributeDrawer : 
         GeneralValueDropdownAttributeDrawer<GamePrefabGeneralSettingAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()

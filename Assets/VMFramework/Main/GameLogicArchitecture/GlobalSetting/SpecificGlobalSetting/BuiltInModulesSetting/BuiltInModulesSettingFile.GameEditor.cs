@@ -7,7 +7,7 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial class BuiltInModulesSettingFile : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => "Built-In Modules";
+        string INameOwner.name => EditorNames.BUILT_IN_MODULES_SETTINGS;
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Inboxes;
     }

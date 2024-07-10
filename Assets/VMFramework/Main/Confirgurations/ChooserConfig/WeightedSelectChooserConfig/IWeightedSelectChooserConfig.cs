@@ -1,6 +1,12 @@
 ﻿namespace VMFramework.Configuration
 {
-    public interface IWeightedSelectChooserConfig<T> : ICollectionChooserConfig<T>
+    public interface IWeightedSelectChooserConfig<TItem>
+        : IWeightedSelectChooserConfig<TItem, TItem>, IChooserConfig<TItem>
+    {
+        
+    }
+    
+    public interface IWeightedSelectChooserConfig<TWrapper, TItem> : ICollectionChooserConfig<TWrapper, TItem>
     {
         
     }

@@ -1,11 +1,11 @@
 ﻿namespace VMFramework.Configuration
 {
-    public interface ICollectionChooserConfig<T> : IChooserConfig<T>
+    public interface ICollectionChooserConfig<TWrapper, TItem> : IChooserConfig<TWrapper, TItem>
     {
-        public bool ContainsValue(T value);
+        public bool ContainsWrapper(TWrapper wrapper);
         
-        public void AddValue(T value);
+        public void AddWrapper(TWrapper wrapper);
         
-        public void RemoveValue(T value);
+        public void RemoveWrapper(TWrapper wrapper);
     }
 }

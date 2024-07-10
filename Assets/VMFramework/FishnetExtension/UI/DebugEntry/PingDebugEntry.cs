@@ -7,7 +7,7 @@ using FishNet.Managing.Timing;
 namespace VMFramework.UI
 {
     [GamePrefabTypeAutoRegister(ID)]
-    public class PingDebugEntry : TitleContentDebugEntry
+    public sealed class PingDebugEntry : TitleContentDebugEntry
     {
         public const string ID = "ping_debug_entry";
 

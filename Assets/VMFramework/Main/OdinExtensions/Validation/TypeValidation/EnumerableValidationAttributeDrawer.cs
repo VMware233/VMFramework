@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VMFramework.OdinExtensions
 {
-    public class EnumerableValidationAttributeDrawer : 
+    internal sealed class EnumerableValidationAttributeDrawer : 
         MultipleValidationAttributeDrawer<EnumerableValidationAttribute>
     {
         protected override IEnumerable<ValidationResult> GetValidationResults(object value, GUIContent label)

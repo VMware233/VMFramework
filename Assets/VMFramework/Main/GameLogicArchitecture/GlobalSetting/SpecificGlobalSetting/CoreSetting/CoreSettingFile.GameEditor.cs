@@ -7,7 +7,7 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial class CoreSettingFile : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => "Core Runtime Settings";
+        string INameOwner.name => EditorNames.CORE_SETTINGS;
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Asterisk;
     }

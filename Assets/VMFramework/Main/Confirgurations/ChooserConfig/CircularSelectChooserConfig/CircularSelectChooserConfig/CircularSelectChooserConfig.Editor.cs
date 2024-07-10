@@ -5,7 +5,7 @@ using VMFramework.Core.Linq;
 
 namespace VMFramework.Configuration
 {
-    public partial class CircularSelectChooserConfig<T>
+    public partial class CircularSelectChooserConfig<TWrapper, TItem>
     {
         #region Category
 
@@ -17,9 +17,9 @@ namespace VMFramework.Configuration
 
         #region Add Item GUI
 
-        private CircularSelectItemConfig<T> AddItemGUI()
+        private CircularSelectItemConfig<TItem> AddItemGUI()
         {
-            CircularSelectItemConfig<T> item = new()
+            CircularSelectItemConfig<TItem> item = new()
             {
                 index = items.Count,
                 times = 1,

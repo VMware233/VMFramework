@@ -7,7 +7,7 @@ namespace VMFramework.GameLogicArchitecture
 {
     public partial class ResourcesManagementSettingFile : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => "Res. Management";
+        string INameOwner.name => EditorNames.RESOURCES_MANAGEMENT_SETTINGS;
 
         Icon IGameEditorMenuTreeNode.icon => SdfIconType.Boxes;
     }

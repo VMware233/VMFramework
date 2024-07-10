@@ -1,12 +1,36 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using VMFramework.Core.Editor;
+using VMFramework.Core.Linq;
+using VMFramework.Editor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
     public static class GamePrefabWrapperRemover
     {
+        private static readonly List<IGamePrefab> gamePrefabsCache = new();
+        
+        [MenuItem(UnityMenuItemNames.GAME_PREFABS_TOOLS + "Remove Empty GamePrefab Wrappers")]
+        public static void RemoveEmptyGamePrefabWrappers()
+        {
+            gamePrefabsCache.Clear();
+            
+            foreach (var wrapper in GamePrefabWrapperQueryTools.GetAllGamePrefabWrappers())
+            {
+                gamePrefabsCache.AddRange(wrapper.GetGamePrefabs());
+
+                if (gamePrefabsCache.IsNullOrEmptyOrAllNull())
+                {
+                    wrapper.DeleteAsset();
+                }
+                
+                gamePrefabsCache.Clear();
+            }
+        }
+        
         public static void RemoveGamePrefabWrapper(IGamePrefab gamePrefab)
         {
             if (gamePrefab == null)

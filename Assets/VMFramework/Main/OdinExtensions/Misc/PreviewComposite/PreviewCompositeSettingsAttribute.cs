@@ -7,7 +7,7 @@ namespace VMFramework.OdinExtensions
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Field |
                     AttributeTargets.Property | AttributeTargets.Struct |
                     AttributeTargets.Interface)]
-    public class PreviewCompositeSettingsAttribute : Attribute
+    public sealed class PreviewCompositeSettingsAttribute : Attribute
     {
         public readonly string Suffix;
 

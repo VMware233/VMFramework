@@ -8,7 +8,7 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public class VisualElementNameAttributeDrawer : 
+    internal sealed class VisualElementNameAttributeDrawer : 
         GeneralValueDropdownAttributeDrawer<VisualElementNameAttribute>
     {
         protected override void Validate()

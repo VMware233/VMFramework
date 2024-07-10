@@ -9,11 +9,9 @@ namespace VMFramework.Editor
 {
     public class TextureImporterConfiguration : BaseConfig
     {
-        [LabelText("是否开启")]
         [JsonProperty]
         public bool isOn = true;
 
-        [LabelText("图片文件夹(用于过滤)")]
         [FolderPath]
         [JsonProperty]
         public string textureFolder = "Assets/Resources/Images";
@@ -29,8 +27,8 @@ namespace VMFramework.Editor
 
         [LabelText("精灵中心点"), FoldoutGroup("精灵")]
         [JsonProperty]
-        public IChooserConfig<Vector2> spritePivot =
-            new SingleValueChooserConfig<Vector2>(new Vector2(0.5f, 0.5f));
+        public IVectorChooserConfig<Vector2> spritePivot =
+            new SingleVectorChooserConfig<Vector2>(new Vector2(0.5f, 0.5f));
 
         [LabelText("过滤模式")]
         [JsonProperty]

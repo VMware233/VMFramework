@@ -9,7 +9,7 @@ using VMFramework.Core.Editor;
 namespace VMFramework.OdinExtensions
 {
     internal sealed class EnumChooserConfigContextMenuDrawer<T, TEnum> : OdinValueDrawer<T>, IDefinesGenericMenuItems
-        where T : ICollectionChooserConfig<TEnum>
+        where T : ICollectionChooserConfig<TEnum, TEnum>
         where TEnum : struct, Enum
     {
         protected override void DrawPropertyLayout(GUIContent label)
@@ -34,12 +34,12 @@ namespace VMFramework.OdinExtensions
             {
                 foreach (var enumValue in Enum.GetValues(typeof(TEnum)))
                 {
-                    if (chooser.ContainsValue((TEnum)enumValue))
+                    if (chooser.ContainsWrapper((TEnum)enumValue))
                     {
                         continue;
                     }
                     
-                    chooser.AddValue((TEnum)enumValue);
+                    chooser.AddWrapper((TEnum)enumValue);
                 }
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VMFramework.OdinExtensions
 {
-    public class IsGameTypeIDAttributeDrawer : MultipleValidationAttributeDrawer<IsGameTypeIDAttribute>
+    internal sealed class IsGameTypeIDAttributeDrawer : MultipleValidationAttributeDrawer<IsGameTypeIDAttribute>
     {
         protected override IEnumerable<ValidationResult> GetValidationResults(object value, GUIContent label)
         {
@@ -20,11 +20,7 @@ namespace VMFramework.OdinExtensions
 
             if (id.TrimEnd('_', ' ').EndsWith("_type") == false)
             {
-                yield return new()
-                {
-                    message = "GameType的ID必须以_type结尾",
-                    validateType = ValidateType.Warning
-                };
+                yield return new("The ID of a GameType must end with '_type'", ValidateType.Warning);
             }
         }
     }

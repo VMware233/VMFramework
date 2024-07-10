@@ -9,7 +9,7 @@ namespace VMFramework.Editor
     {
         string INameOwner.name => "Hierarchy";
 
-        Icon IGameEditorMenuTreeNode.icon => new(SdfIconType.FileEarmarkRichtextFill);
+        Icon IGameEditorMenuTreeNode.icon => SdfIconType.FileEarmarkRichtextFill;
     }
 }
 #endif

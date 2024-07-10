@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
@@ -12,48 +12,51 @@ namespace VMFramework.GameLogicArchitecture.Editor
     {
         public static event Action OnGamePrefabWrappersRefresh;
 
+        private static readonly List<IGamePrefab> gamePrefabsCache = new();
+
         public static void Refresh()
         {
             GamePrefabManager.Clear();
-            
+
             foreach (var wrapper in GamePrefabWrapperQueryTools.GetAllGamePrefabWrappers())
             {
-                foreach (var gamePrefab in wrapper.GetGamePrefabs())
+                gamePrefabsCache.Clear();
+                gamePrefabsCache.AddRange(wrapper.GetGamePrefabs());
+
+                if (gamePrefabsCache.Count == 0)
                 {
-                    if (gamePrefab == null)
+                    Debug.LogWarning(
+                        $"There are no {nameof(IGamePrefab)}s in {wrapper.name}." +
+                        $"Wrapper path: {wrapper.GetAssetPath()}", wrapper);
+                    continue;
+                }
+
+                if (gamePrefabsCache.IsAnyNull())
+                {
+                    Debug.LogWarning(
+                        $"There are null {nameof(IGamePrefab)}s in {wrapper.name}." +
+                        $"Wrapper path: {wrapper.GetAssetPath()}", wrapper);
+                }
+
+                gamePrefabsCache.RemoveAllNull();
+
+                foreach (var gamePrefab in gamePrefabsCache)
+                {
+                    if (gamePrefab.id.IsNullOrEmpty())
                     {
+                        Debug.LogWarning(
+                            $"There is a {nameof(IGamePrefab)} with no ID set in {wrapper.name}." +
+                            $"Wrapper path: {wrapper.GetAssetPath()}", wrapper);
                         continue;
                     }
 
-                    if (gamePrefab.id.IsNullOrEmpty())
-                    {
-                        Debug.LogWarning($"{wrapper.name}中存在未设置ID的GamePrefab，请检查。" +
-                                         $"路径为:{wrapper.GetAssetPath()}", wrapper);
-                        continue;
-                    }
-                    
                     GamePrefabManager.RegisterGamePrefab(gamePrefab);
-                    
+
                     gamePrefab.OnIDChangedEvent += OnGamePrefabIDChanged;
                 }
             }
-            
-            RemoveEmptyGamePrefabWrappers();
-            
+
             OnGamePrefabWrappersRefresh?.Invoke();
-        }
-
-        private static void RemoveEmptyGamePrefabWrappers()
-        {
-            foreach (var wrapper in GamePrefabWrapperQueryTools.GetAllGamePrefabWrappers())
-            {
-                var gamePrefabs = wrapper.GetGamePrefabs().ToList();
-
-                if (gamePrefabs.IsNullOrEmptyOrAllNull())
-                {
-                    wrapper.DeleteAsset();
-                }
-            }
         }
 
         public static void CreateAutoRegisterGamePrefabs()
@@ -64,26 +67,29 @@ namespace VMFramework.GameLogicArchitecture.Editor
             {
                 var id = info.id;
                 var gamePrefabType = info.gamePrefabType;
-                
+
                 if (GamePrefabManager.TryGetGamePrefab(id, out var existedGamePrefab))
                 {
                     if (existedGamePrefab.GetType() != gamePrefabType)
                     {
-                        Debug.LogWarning($"ID为{id}的{nameof(GamePrefab)}已经存在，但类型不匹配，请检查。" +
-                                         $"需要自动创建的类型为{gamePrefabType}，" +
-                                         $"但已存在的类型为{existedGamePrefab.GetType()}。");
+                        Debug.LogWarning($"The {nameof(GamePrefab)} with ID {id} already exists, " +
+                                         $"but its type is not the same as the one to be created." +
+                                         $"The type to be created is {gamePrefabType} but " +
+                                         $"the existing type is {existedGamePrefab.GetType()}");
                     }
-                        
+
                     continue;
                 }
-                    
-                var wrapper = GamePrefabWrapperCreator.CreateGamePrefabWrapper(id, gamePrefabType, GamePrefabWrapperType.Single);
+
+                var wrapper =
+                    GamePrefabWrapperCreator.CreateGamePrefabWrapper(id, gamePrefabType,
+                        GamePrefabWrapperType.Single);
 
                 if (wrapper == null)
                 {
                     continue;
                 }
-                    
+
                 foreach (var gamePrefab in wrapper.GetGamePrefabs())
                 {
                     if (gamePrefab is IGamePrefabAutoRegisterProvider autoRegisterProvider)
@@ -91,10 +97,10 @@ namespace VMFramework.GameLogicArchitecture.Editor
                         autoRegisterProvider.OnGamePrefabAutoRegister();
                     }
                 }
-                    
+
                 wrapper.EnforceSave();
             }
-            
+
             Refresh();
         }
 

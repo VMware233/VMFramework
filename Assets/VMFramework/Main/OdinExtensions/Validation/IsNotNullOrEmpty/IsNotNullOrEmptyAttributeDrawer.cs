@@ -7,7 +7,7 @@ using VMFramework.Core;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
-    public sealed class IsNotNullOrEmptyAttributeDrawer : SingleValidationAttributeDrawer<IsNotNullOrEmptyAttribute>
+    internal sealed class IsNotNullOrEmptyAttributeDrawer : SingleValidationAttributeDrawer<IsNotNullOrEmptyAttribute>
     {
         protected override bool Validate(object value)
         {

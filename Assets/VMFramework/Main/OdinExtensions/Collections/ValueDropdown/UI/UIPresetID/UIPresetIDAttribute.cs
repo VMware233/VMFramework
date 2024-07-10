@@ -3,7 +3,7 @@ using VMFramework.UI;
 
 namespace VMFramework.OdinExtensions
 {
-    public class UIPresetIDAttribute : GamePrefabIDAttribute
+    public sealed class UIPresetIDAttribute : GamePrefabIDAttribute
     {
         public bool? IsUnique = null;
 

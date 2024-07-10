@@ -1,8 +1,5 @@
 ﻿#if UNITY_EDITOR
-using System.Linq;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
-using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.GameLogicArchitecture.Editor;
@@ -34,14 +31,9 @@ namespace VMFramework.GameLogicArchitecture
         private void CreateGamePrefab([IsNotNullOrEmpty, IsUncreatedGamePrefabID] string gamePrefabID,
             GamePrefabWrapperType wrapperType)
         {
-            if (gamePrefabID.IsNullOrEmptyAfterTrim())
-            {
-                Debug.LogError($"{nameof(gamePrefabID)} cannot be null or empty.");
-                return;
-            }
+            gamePrefabID.AssertIsNotNullOrWhiteSpace(nameof(gamePrefabID));
 
-            var gamePrefabTypes = baseGamePrefabType.GetDerivedClasses(true, false)
-                .Where(type => type.IsAbstract == false && type.IsInterface == false);
+            var gamePrefabTypes = baseGamePrefabType.GetDerivedInstantiableClasses(true);
 
             new TypeSelector(gamePrefabTypes, selectedType =>
             {
@@ -55,7 +47,7 @@ namespace VMFramework.GameLogicArchitecture
                 
                 AddDefaultGameTypeToGamePrefabWrapper(wrapper);
 
-                GUIHelper.OpenInspectorWindow(wrapper);
+                wrapper.OpenInNewInspector();
             }).ShowInPopup();
         }
 

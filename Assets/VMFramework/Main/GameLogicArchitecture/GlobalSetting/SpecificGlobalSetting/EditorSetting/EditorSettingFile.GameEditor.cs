@@ -7,7 +7,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
 {
     public partial class EditorSettingFile : IGameEditorMenuTreeNode
     {
-        string INameOwner.name => "Editor Settings";
+        string INameOwner.name => EditorNames.EDITOR_SETTINGS;
 
         public Icon icon => EditorIcons.UnityLogo;
     }

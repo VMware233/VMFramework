@@ -9,10 +9,12 @@ namespace VMFramework.GameLogicArchitecture
         [PropertyOrder(-100000)]
         [OnInspectorInit(nameof(OnInspectorInit))]
         [ShowInInspector]
-        private Type generalSettingType => GetType(); 
-        
-        protected virtual void OnInspectorInit()
+        private Type generalSettingType => GetType();
+
+        protected override void OnInspectorInit()
         {
+            base.OnInspectorInit();
+            
             AutoConfigureLocalizedString(new()
             {
                 defaultTableName = defaultLocalizationTableName,

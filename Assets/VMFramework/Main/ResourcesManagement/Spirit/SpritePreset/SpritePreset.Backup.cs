@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.Editor;
 
 namespace VMFramework.ResourcesManagement
@@ -35,7 +36,7 @@ namespace VMFramework.ResourcesManagement
             if (string.IsNullOrEmpty(backupAssetPath) == false &&
                 string.IsNullOrEmpty(backupAssetName) == false)
             {
-                sprite = backupAssetName.FindAssetOfName<Sprite>(backupAssetPath);
+                sprite = backupAssetName.FindAssetOfName<Sprite>(searchInFolders: backupAssetPath);
             }
         }
     }

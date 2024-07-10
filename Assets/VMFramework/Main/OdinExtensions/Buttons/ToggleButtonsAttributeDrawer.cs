@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace VMFramework.OdinExtensions
 {
-    public class ToggleButtonsAttributeDrawer : OdinAttributeDrawer<ToggleButtonsAttribute>
+    internal sealed class ToggleButtonsAttributeDrawer : OdinAttributeDrawer<ToggleButtonsAttribute>
     {
         private static readonly bool DO_MANUAL_COLORING = UnityVersion.IsVersionOrGreater(2019, 3);
 

@@ -13,7 +13,7 @@ namespace VMFramework.UI
 
         #endregion
 
-        [LabelText("更新间隔"), SuffixLabel("秒")]
+        [SuffixLabel("seconds")]
         [JsonProperty]
         [PropertyRange(0.1f, 1f)]
         public float updateInterval = 0.2f;

@@ -15,7 +15,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
         public static event Action<GamePrefabWrapper> OnGamePrefabWrapperCreated;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static IGamePrefab CreateDefaultGamePrefab(string id, Type gamePrefabType)
+        public static IGamePrefab CreateDefaultGamePrefab(string id, Type gamePrefabType)
         {
             if (gamePrefabType == null)
             {
@@ -138,8 +138,12 @@ namespace VMFramework.GameLogicArchitecture.Editor
                 }
             }
 
-            gamePrefabWrapper.EnforceSave();
-            OnGamePrefabWrapperCreated?.Invoke(gamePrefabWrapper);
+            EditorApplication.delayCall += () =>
+            {
+                gamePrefabWrapper.EnforceSave();
+                OnGamePrefabWrapperCreated?.Invoke(gamePrefabWrapper);
+            };
+            
             return gamePrefabWrapper;
         }
 

@@ -6,7 +6,7 @@ using Sirenix.OdinInspector.Editor;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(0, 0, 2002)]
-    public class TypeValueDropdownAttributeDrawer : 
+    internal sealed class TypeValueDropdownAttributeDrawer : 
         GeneralValueDropdownAttributeDrawer<TypeValueDropdownAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()

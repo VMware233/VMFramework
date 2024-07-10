@@ -167,7 +167,7 @@ namespace VMFramework.Core
         public static bool IsOnBoundary(this int pos, int start, int end,
             out LeftRightDirection direction)
         {
-            direction = LeftRightDirection.Null;
+            direction = LeftRightDirection.None;
 
             if (pos == start)
             {
@@ -179,7 +179,7 @@ namespace VMFramework.Core
                 direction |= LeftRightDirection.Right;
             }
 
-            return direction != LeftRightDirection.Null;
+            return direction != LeftRightDirection.None;
         }
 
         #endregion
@@ -346,7 +346,7 @@ namespace VMFramework.Core
         public static bool IsOnBoundary(this Vector2Int point, Vector2Int start, Vector2Int end,
             out FourTypesDirection2D boundaryDirection)
         {
-            boundaryDirection = FourTypesDirection2D.Null;
+            boundaryDirection = FourTypesDirection2D.None;
 
             if (point.x == start.x)
             {
@@ -367,7 +367,7 @@ namespace VMFramework.Core
                 boundaryDirection |= FourTypesDirection2D.Up;
             }
 
-            return boundaryDirection != FourTypesDirection2D.Null;
+            return boundaryDirection != FourTypesDirection2D.None;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

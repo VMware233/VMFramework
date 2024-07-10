@@ -21,7 +21,23 @@ namespace VMFramework.GameLogicArchitecture
 
         [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
-        public virtual string gamePrefabName => baseGamePrefabType.Name;
+        public virtual string gamePrefabName
+        {
+            get
+            {
+                if (baseGamePrefabType.IsInterface == false)
+                {
+                    return baseGamePrefabType.Name;
+                }
+
+                if (baseGamePrefabType.Name.StartsWith("I"))
+                {
+                    return baseGamePrefabType.Name[1..];
+                }
+                
+                return baseGamePrefabType.Name;
+            }
+        }
 
         [TabGroup(TAB_GROUP_NAME, METADATA_CATEGORY)]
         [ShowInInspector]
@@ -42,13 +58,18 @@ namespace VMFramework.GameLogicArchitecture
         [SerializeField]
         private List<GamePrefabWrapper> initialGamePrefabWrappers = new();
 
+        public void RefreshInitialGamePrefabWrappers()
+        {
+            initialGamePrefabWrappers ??= new();
+
+            initialGamePrefabWrappers.RemoveAll(wrapper => wrapper == null);
+        }
+
         #region Initial Game Prefab Provider
 
         IEnumerable<IGamePrefab> IInitialGamePrefabProvider.GetInitialGamePrefabs()
         {
-            initialGamePrefabWrappers ??= new();
-            
-            initialGamePrefabWrappers.RemoveAll(wrapper => wrapper == null);
+            RefreshInitialGamePrefabWrappers();
             
             foreach (var wrapper in initialGamePrefabWrappers)
             {

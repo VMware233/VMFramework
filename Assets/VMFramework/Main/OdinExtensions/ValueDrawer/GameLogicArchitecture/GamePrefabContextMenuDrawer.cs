@@ -4,6 +4,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core.Editor;
+using VMFramework.Editor;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.OdinExtensions
@@ -22,7 +23,7 @@ namespace VMFramework.OdinExtensions
             {
                 genericMenu.AddSeparator();
                 
-                genericMenu.AddItem($"Open {nameof(GameItem)} Script", () =>
+                genericMenu.AddItem(EditorNames.OPEN_GAME_ITEM_SCRIPT, () =>
                 {
                     ValueEntry.SmartValue.gameItemType.OpenScriptOfType();
                 });

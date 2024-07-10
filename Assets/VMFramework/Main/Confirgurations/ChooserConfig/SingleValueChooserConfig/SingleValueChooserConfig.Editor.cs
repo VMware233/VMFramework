@@ -3,7 +3,7 @@ using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
-    public partial class SingleValueChooserConfig<T>
+    public partial class SingleValueChooserConfig<TItem>
     {
         protected override void OnInspectorInit()
         {

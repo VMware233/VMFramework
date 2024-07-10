@@ -8,18 +8,24 @@ namespace VMFramework.Configuration
         IKCubeConfig<TVector>
         where TVector : struct, IEquatable<TVector>
     {
-        IChooser<TVector> IChooserConfig<TVector>.GenerateNewObjectChooser()
+        IChooser<TVector> IChooserConfig<TVector, TVector>.GenerateNewObjectChooser()
         {
             return new RangeChooser<TVector>(this);
         }
 
-        IEnumerable<TVector> IChooserConfig<TVector>.GetAvailableValues()
+        IEnumerable<TVector> IChooserConfig<TVector, TVector>.GetAvailableValues()
         {
             yield return min;
             yield return max;
         }
 
-        void IChooserConfig<TVector>.SetAvailableValues(Func<TVector, TVector> setter)
+        IEnumerable<TVector> IChooserConfig<TVector, TVector>.GetAvailableWrappers()
+        {
+            yield return min;
+            yield return max;
+        }
+
+        void IChooserConfig<TVector, TVector>.SetAvailableValues(Func<TVector, TVector> setter)
         {
             min = setter(min);
             max = setter(max);

@@ -9,7 +9,16 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
-    public partial class CircularSelectChooserConfig<T> : ChooserConfig<T>, ICircularSelectChooserConfig<T>
+    public class CircularSelectChooserConfig<TItem>
+        : CircularSelectChooserConfig<TItem, TItem>, ICircularSelectChooserConfig<TItem>
+    {
+        protected sealed override TItem UnboxWrapper(TItem wrapper)
+        {
+            return wrapper;
+        }
+    }
+    
+    public abstract partial class CircularSelectChooserConfig<TWrapper, TItem> : ChooserConfig<TWrapper, TItem>, ICircularSelectChooserConfig<TWrapper, TItem>
     {
         [LabelText("从第几个开始循环"), SuffixLabel("从0开始计数")]
         [MinValue(0)]
@@ -32,7 +41,7 @@ namespace VMFramework.Configuration
 #endif
         [IsNotNullOrEmpty]
         [JsonProperty]
-        public List<CircularSelectItemConfig<T>> items = new();
+        public List<CircularSelectItemConfig<TWrapper>> items = new();
 
         protected override void OnInit()
         {
@@ -57,17 +66,19 @@ namespace VMFramework.Configuration
             }
         }
 
-        public override IChooser<T> GenerateNewObjectChooser()
+        public override IChooser<TItem> GenerateNewObjectChooser()
         {
-            return new CircularSelectChooser<T>(items, pingPong, startCircularIndex);
+            return new CircularSelectChooser<TItem>(
+                items.Select(item => new CircularSelectItem<TItem>(UnboxWrapper(item.value), item.times)),
+                pingPong, startCircularIndex);
         }
 
-        public override IEnumerable<T> GetAvailableValues()
+        public override IEnumerable<TWrapper> GetAvailableWrappers()
         {
             return items.Select(item => item.value);
         }
 
-        public override void SetAvailableValues(Func<T, T> setter)
+        public override void SetAvailableValues(Func<TWrapper, TWrapper> setter)
         {
             foreach (var item in items)
             {
@@ -75,22 +86,22 @@ namespace VMFramework.Configuration
             }
         }
 
-        public bool ContainsValue(T value)
+        public bool ContainsWrapper(TWrapper wrapper)
         {
-            return items.Any(item => item.value.Equals(value));
+            return items.Any(item => item.value.Equals(wrapper));
         }
 
-        public void AddValue(T value)
+        public void AddWrapper(TWrapper wrapper)
         {
-            items.Add(new CircularSelectItemConfig<T> { value = value });
+            items.Add(new CircularSelectItemConfig<TWrapper> { value = wrapper });
 #if UNITY_EDITOR
             OnItemsChangedGUI();
 #endif
         }
 
-        public void RemoveValue(T value)
+        public void RemoveWrapper(TWrapper wrapper)
         {
-            items.RemoveAll(item => item.value.Equals(value));
+            items.RemoveAll(item => item.value.Equals(wrapper));
 #if UNITY_EDITOR
             OnItemsChangedGUI();
 #endif
@@ -102,7 +113,7 @@ namespace VMFramework.Configuration
             {
                 if (item.times > 1)
                 {
-                    return $"{ValueToString(item.value)}:{item.times}次";
+                    return $"{ValueToString(item.value)}:{item.times} times";
                 }
 
                 return ValueToString(item.value);
@@ -110,7 +121,7 @@ namespace VMFramework.Configuration
 
             if (pingPong)
             {
-                content += " 乒乓循环";
+                content += " PingPong";
             }
 
             return content;

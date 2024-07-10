@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.GameLogicArchitecture.Editor;
 
@@ -16,9 +17,7 @@ namespace VMFramework.GameLogicArchitecture
         {
             base.OnInspectorInit();
 
-            initialGamePrefabWrappers ??= new();
-
-            initialGamePrefabWrappers.RemoveAll(wrapper => wrapper == null);
+            RefreshInitialGamePrefabWrappers();
         }
         
         private void OnInitialGamePrefabWrappersChanged()

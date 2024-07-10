@@ -5,8 +5,7 @@ namespace VMFramework.OdinExtensions
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [Conditional("UNITY_EDITOR")]
-
-    public class HelperAttribute : Attribute
+    public sealed class HelperAttribute : Attribute
     {
         public readonly string URL;
 

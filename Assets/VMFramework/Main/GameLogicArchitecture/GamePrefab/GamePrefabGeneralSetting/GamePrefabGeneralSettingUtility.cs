@@ -12,15 +12,31 @@ namespace VMFramework.GameLogicArchitecture
     public static class GamePrefabGeneralSettingUtility
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static GamePrefabGeneralSetting GetGamePrefabGeneralSetting(Type gamePrefabType)
+        public static void RefreshAllInitialGamePrefabWrappers()
+        {
+            foreach (var gamePrefabGeneralSetting in GetAllGamePrefabGeneralSettings())
+            {
+                gamePrefabGeneralSetting.RefreshInitialGamePrefabWrappers();
+            }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<GamePrefabGeneralSetting> GetAllGamePrefabGeneralSettings()
         {
             foreach (var generalSetting in GlobalSettingCollector.GetAllGeneralSettings())
             {
-                if (generalSetting is not GamePrefabGeneralSetting gamePrefabSetting)
+                if (generalSetting is GamePrefabGeneralSetting gamePrefabSetting)
                 {
-                    continue;
+                    yield return gamePrefabSetting;
                 }
+            }
+        }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GamePrefabGeneralSetting GetGamePrefabGeneralSetting(Type gamePrefabType)
+        {
+            foreach (var gamePrefabSetting in GetAllGamePrefabGeneralSettings())
+            {
                 if (gamePrefabType.IsDerivedFrom(gamePrefabSetting.baseGamePrefabType, true))
                 {
                     return gamePrefabSetting;
@@ -108,13 +124,8 @@ namespace VMFramework.GameLogicArchitecture
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<ValueDropdownItem> GetGamePrefabGeneralSettingNameList()
         {
-            foreach (var generalSetting in GlobalSettingCollector.GetAllGeneralSettings())
+            foreach (var gamePrefabSetting in GetAllGamePrefabGeneralSettings())
             {
-                if (generalSetting is not GamePrefabGeneralSetting gamePrefabSetting)
-                {
-                    continue;
-                }
-
                 yield return new ValueDropdownItem(gamePrefabSetting.gamePrefabName, gamePrefabSetting);
             }
         }

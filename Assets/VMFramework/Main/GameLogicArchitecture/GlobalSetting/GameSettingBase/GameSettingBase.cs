@@ -1,10 +1,9 @@
-﻿using Sirenix.OdinInspector;
-using VMFramework.Configuration;
+﻿using VMFramework.Configuration;
 
 namespace VMFramework.GameLogicArchitecture
 {
     public abstract partial class GameSettingBase
-        : SerializedScriptableObject, ICheckableConfig
+        : GameEditorScriptableObject, ICheckableConfig
     {
         #region Categories
 

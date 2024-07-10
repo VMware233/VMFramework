@@ -3,6 +3,8 @@
     public interface IChooser
     {
         public object GetValue();
+
+        public void ResetChooser();
     }
 
     public interface IChooser<out T> : IChooser

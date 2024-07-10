@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using VMFramework.Core;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
+    public abstract class ChooserConfig<TItem> : ChooserConfig<TItem, TItem>, IChooserConfig<TItem>
+    {
+        protected sealed override TItem UnboxWrapper(TItem wrapper)
+        {
+            return wrapper;
+        }
+    }
+    
     [PreviewComposite]
-    public abstract class ChooserConfig<T> : BaseConfig, IChooserConfig<T>
+    public abstract class ChooserConfig<TWrapper, TItem> : BaseConfig, IChooserConfig<TWrapper, TItem>
     {
         [ShowInInspector, HideInEditorMode]
-        private IChooser<T> objectChooser;
+        private IChooser<TItem> objectChooser;
 
         protected override void OnInit()
         {
@@ -19,12 +28,12 @@ namespace VMFramework.Configuration
             objectChooser = GenerateNewObjectChooser();
         }
 
-        public T GetValue()
+        public TItem GetValue()
         {
             return objectChooser.GetValue();
         }
 
-        public IChooser<T> GetObjectChooser()
+        public IChooser<TItem> GetObjectChooser()
         {
             return objectChooser;
         }
@@ -34,13 +43,18 @@ namespace VMFramework.Configuration
             objectChooser = GenerateNewObjectChooser();
         }
 
-        public abstract IEnumerable<T> GetAvailableValues();
-        
-        public abstract void SetAvailableValues(Func<T, T> setter);
+        public virtual IEnumerable<TItem> GetAvailableValues()
+        {
+            return GetAvailableWrappers().Select(UnboxWrapper);
+        }
 
-        public abstract IChooser<T> GenerateNewObjectChooser();
+        public abstract IEnumerable<TWrapper> GetAvailableWrappers();
 
-        protected virtual string ValueToString(T value)
+        public abstract void SetAvailableValues(Func<TWrapper, TWrapper> setter);
+
+        public abstract IChooser<TItem> GenerateNewObjectChooser();
+
+        protected virtual string ValueToString(TWrapper value)
         {
             if (value is IEnumerable<object> enumerable)
             {
@@ -48,5 +62,7 @@ namespace VMFramework.Configuration
             }
             return value?.ToString();
         }
+
+        protected abstract TItem UnboxWrapper(TWrapper wrapper);
     }
 }

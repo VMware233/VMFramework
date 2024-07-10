@@ -8,7 +8,7 @@ using VMFramework.Core;
 namespace VMFramework.OdinExtensions
 {
     [DrawerPriority(DrawerPriorityLevel.WrapperPriority)]
-    public class RequiredComponentAttributeDrawer : 
+    internal sealed class RequiredComponentAttributeDrawer : 
         SingleValidationAttributeDrawer<RequiredComponentAttribute>
     {
         private ValueResolver<Type> componentTypeGetter;

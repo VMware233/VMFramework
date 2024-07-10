@@ -5,6 +5,16 @@ namespace VMFramework.Configuration
     public partial class WeightedSelectSpritePresetChooserConfig
         : WeightedSelectChooserConfig<SpritePresetItem>, ISpritePresetChooserConfig
     {
+        public WeightedSelectSpritePresetChooserConfig() : base()
+        {
+            
+        }
+        
+        public WeightedSelectSpritePresetChooserConfig(IEnumerable<SpritePresetItem> items) : base(items)
+        {
+            
+        }
+        
         public ISpritePresetChooserConfig GetFlipChooserConfig(bool flipXReversed, bool flipYReversed)
         {
             var config = new WeightedSelectSpritePresetChooserConfig();

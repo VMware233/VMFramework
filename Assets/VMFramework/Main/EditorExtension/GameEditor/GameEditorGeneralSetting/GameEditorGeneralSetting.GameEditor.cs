@@ -11,7 +11,7 @@ namespace VMFramework.Editor.GameEditor
 
         protected override IEnumerable<ToolbarButtonConfig> GetToolbarButtons()
         {
-            yield return new(GameEditorNames.OPEN_GAME_EDITOR_SCRIPT_BUTTON_PATH, () =>
+            yield return new(GameEditorNames.OPEN_GAME_EDITOR_SCRIPT_PATH, () =>
             {
                 typeof(GameEditor).OpenScriptOfType();
             });

@@ -1,6 +1,6 @@
 ﻿namespace VMFramework.Procedure
 {
-    public class ServerRunningProcedure : ProcedureBase
+    public sealed class ServerRunningProcedure : ProcedureBase
     {
         public const string ID = "server_running_procedure";
 

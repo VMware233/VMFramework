@@ -2,7 +2,7 @@
 
 namespace VMFramework.OdinExtensions
 {
-    public class TypeValueDropdownAttribute : GeneralValueDropdownAttribute
+    public sealed class TypeValueDropdownAttribute : GeneralValueDropdownAttribute
     {
         public readonly Type[] ParentTypes;
 

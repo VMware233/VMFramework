@@ -6,7 +6,7 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
-    public partial class CircularSelectChooserConfig<T> : ITypeValidationProvider
+    public partial class CircularSelectChooserConfig<TWrapper, TItem> : ITypeValidationProvider
     {
         protected virtual IEnumerable<ValidationResult> GetValidationResults(GUIContent label)
         {

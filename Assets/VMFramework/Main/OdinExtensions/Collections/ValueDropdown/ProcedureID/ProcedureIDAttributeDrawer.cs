@@ -5,7 +5,7 @@ using VMFramework.Procedure;
 
 namespace VMFramework.OdinExtensions
 {
-    public class ProcedureIDAttributeDrawer : GeneralValueDropdownAttributeDrawer<ProcedureIDAttribute>
+    internal sealed class ProcedureIDAttributeDrawer : GeneralValueDropdownAttributeDrawer<ProcedureIDAttribute>
     {
         protected override IEnumerable<ValueDropdownItem> GetValues()
         {

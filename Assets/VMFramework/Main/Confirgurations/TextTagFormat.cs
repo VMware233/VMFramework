@@ -11,30 +11,24 @@ namespace VMFramework.Configuration
     [PreviewComposite]
     public class TextTagFormat : BaseConfig
     {
-        [LabelText("覆盖颜色")]
         [JsonProperty]
         public bool overrideFontColor = false;
 
-        [LabelText("字体颜色")]
         [Indent]
         [ColorPalette]
         [JsonProperty]
         [ShowIf(nameof(overrideFontColor))]
         public Color fontColor = Color.black;
 
-        [LabelText("覆盖是否加粗")]
         public bool overrideBoldStyle = false;
 
-        [LabelText("加粗")]
         [JsonProperty]
         [Indent]
         [ShowIf(nameof(overrideBoldStyle))]
         public bool isBold = false;
 
-        [LabelText("覆盖是否斜体")]
         public bool overrideItalicStyle = false;
 
-        [LabelText("斜体")]
         [JsonProperty]
         [Indent]
         [ShowIf(nameof(overrideItalicStyle))]
@@ -89,11 +83,11 @@ namespace VMFramework.Configuration
             {
                 if (isBold)
                 {
-                    strList.Add("粗体");
+                    strList.Add("Bold");
                 }
                 else
                 {
-                    strList.Add("非粗体");
+                    strList.Add("Not Bold");
                 }
             }
 
@@ -101,17 +95,17 @@ namespace VMFramework.Configuration
             {
                 if (isItalic)
                 {
-                    strList.Add("斜体");
+                    strList.Add("Italic");
                 }
                 else
                 {
-                    strList.Add("非斜体");
+                    strList.Add("Not Italic");
                 }
             }
 
             if (strList.Count == 0)
             {
-                return "无格式覆盖";
+                return "No Format Override";
             }
 
             return strList.ToString(",");

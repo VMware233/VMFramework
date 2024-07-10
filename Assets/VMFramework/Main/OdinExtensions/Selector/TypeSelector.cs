@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Core.Linq;
 
 namespace VMFramework.OdinExtensions
 {
@@ -139,7 +139,7 @@ namespace VMFramework.OdinExtensions
 
             foreach (Type type in types)
             {
-                string niceName = ReflectionUtility.GetNiceName(type);
+                string niceName = type.GetNiceName();
                 string typeNamePath = GetTypeNamePath(type);
                 
                 OdinMenuItem odinMenuItem = tree.AddObjectAtPath(typeNamePath, type)
@@ -206,7 +206,7 @@ namespace VMFramework.OdinExtensions
                 return typeNamePath;
             }
             
-            typeNamePath = ReflectionUtility.GetNiceName(type);
+            typeNamePath = type.GetNiceName();
             
             if (!flattenTree && !string.IsNullOrEmpty(type.Namespace) && !hideNamespaces)
             {

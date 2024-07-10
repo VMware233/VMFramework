@@ -3,6 +3,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using VMFramework.Core.Editor;
+using VMFramework.Editor;
 
 namespace VMFramework.OdinExtensions
 {
@@ -17,11 +18,6 @@ namespace VMFramework.OdinExtensions
         {
             var value = property.ValueEntry.WeakSmartValue;
 
-            if (value == null)
-            {
-                return;
-            }
-
             if (value is not Object obj)
             {
                 return;
@@ -32,13 +28,8 @@ namespace VMFramework.OdinExtensions
                 return;
             }
             
-            genericMenu.AddItem("Delete Asset", () =>
-            {
-                if (UnityEditor.EditorUtility.DisplayDialog("警告", "你确定要删除资源吗？", "确定", "取消"))
-                {
-                    obj.DeleteAsset();
-                }
-            });
+            genericMenu.AddItem(EditorNames.DELETE_ASSET, obj.DeleteAssetWithDialog);
+            genericMenu.AddItem(EditorNames.OPEN_IN_EXPLORER, obj.OpenInExplorer);
         }
     }
 }

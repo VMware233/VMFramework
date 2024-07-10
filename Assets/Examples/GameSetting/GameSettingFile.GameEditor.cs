@@ -1,8 +1,9 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Examples
+namespace VMFramework.Examples 
 {
     public partial class GameSettingFile : IGameEditorMenuTreeNode
     {

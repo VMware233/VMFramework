@@ -1,17 +1,18 @@
 ﻿#if FISHNET
 
+using FishNet.Managing.Scened;
 using UnityEngine;
 
 namespace VMFramework.Procedure
 {
     [ManagerCreationProvider(ManagerType.NetworkCore)]
-    public class NetworkProcedureTriggerController : NetworkManagerBehaviour<NetworkProcedureTriggerController>
+    public sealed class NetworkProcedureTriggerController : NetworkManagerBehaviour<NetworkProcedureTriggerController>
     {
         public override void OnStartServer()
         {
             base.OnStartServer();
-
-            Debug.Log("启动服务器");
+            
+            Debug.Log("The server has started");
             ProcedureManager.EnterProcedure(MainMenuProcedure.ID, ServerRunningProcedure.ID);
         }
 
@@ -19,7 +20,7 @@ namespace VMFramework.Procedure
         {
             base.OnStartClient();
 
-            Debug.Log("启动客户端");
+            Debug.Log("The client has started");
 
             if (ProcedureManager.HasCurrentProcedure(MainMenuProcedure.ID))
             {

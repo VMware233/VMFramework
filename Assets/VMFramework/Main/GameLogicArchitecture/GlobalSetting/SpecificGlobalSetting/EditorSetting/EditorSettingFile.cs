@@ -1,6 +1,5 @@
 ﻿#if UNITY_EDITOR
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
@@ -54,6 +53,12 @@ namespace VMFramework.GameLogicArchitecture.Editor
             {
                 gamePrefabsAssetFolderPath = ConfigurationPath.DEFAULT_GAME_PREFABS_PATH;
             }
+        }
+
+        [Button(ButtonSizes.Medium), TabGroup(TAB_GROUP_NAME, RESOURCES_PATH_CATEGORY)]
+        public static void RemoveEmptyGamePrefabWrappers()
+        {
+            GamePrefabWrapperRemover.RemoveEmptyGamePrefabWrappers();
         }
         
         [Button(ButtonSizes.Medium), TabGroup(TAB_GROUP_NAME, RESOURCES_PATH_CATEGORY)]

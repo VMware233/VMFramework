@@ -10,8 +10,28 @@ using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
+    public class WeightedSelectChooserConfig<TItem> : WeightedSelectChooserConfig<TItem, TItem>, 
+        IWeightedSelectChooserConfig<TItem>
+    {
+        public WeightedSelectChooserConfig() : base()
+        {
+            
+        }
+        
+        public WeightedSelectChooserConfig(IEnumerable<TItem> items) : base(items)
+        {
+            
+        }
+        
+        protected sealed override TItem UnboxWrapper(TItem wrapper)
+        {
+            return wrapper;
+        }
+    }
+    
     [TypeInfoBox("Choose a value from weighted items!")]
-    public partial class WeightedSelectChooserConfig<T> : ChooserConfig<T>, IWeightedSelectChooserConfig<T>
+    public abstract partial class WeightedSelectChooserConfig<TWrapper, TItem>
+        : ChooserConfig<TWrapper, TItem>, IWeightedSelectChooserConfig<TWrapper, TItem>
     {
 #if UNITY_EDITOR
         [OnValueChanged(nameof(OnItemsChangedGUI), true)]
@@ -20,16 +40,16 @@ namespace VMFramework.Configuration
 #endif
         [IsNotNullOrEmpty]
         [JsonProperty]
-        public List<WeightedSelectItemConfig<T>> items = new();
+        public List<WeightedSelectItemConfig<TWrapper>> items = new();
 
-        public WeightedSelectChooserConfig()
+        protected WeightedSelectChooserConfig()
         {
-            
+
         }
 
-        public WeightedSelectChooserConfig(IEnumerable<T> items)
+        protected WeightedSelectChooserConfig(IEnumerable<TWrapper> items)
         {
-            this.items = items.Select(item => new WeightedSelectItemConfig<T>
+            this.items = items.Select(item => new WeightedSelectItemConfig<TWrapper>
             {
                 value = item,
                 ratio = 1
@@ -39,7 +59,7 @@ namespace VMFramework.Configuration
         protected override void OnInit()
         {
             base.OnInit();
-            
+
             foreach (var item in items)
             {
                 if (item.value is IConfig config)
@@ -59,17 +79,18 @@ namespace VMFramework.Configuration
             }
         }
 
-        public override IChooser<T> GenerateNewObjectChooser()
+        public override IChooser<TItem> GenerateNewObjectChooser()
         {
-            return new WeightedSelectChooser<T>(items);
+            return new WeightedSelectChooser<TItem>(items
+                .Select(item => (UnboxWrapper(item.value), item.ratio.F())).ToArray());
         }
 
-        public override IEnumerable<T> GetAvailableValues()
+        public override IEnumerable<TWrapper> GetAvailableWrappers()
         {
             return items.Select(item => item.value);
         }
 
-        public override void SetAvailableValues(Func<T, T> setter)
+        public override void SetAvailableValues(Func<TWrapper, TWrapper> setter)
         {
             foreach (var item in items)
             {
@@ -77,16 +98,16 @@ namespace VMFramework.Configuration
             }
         }
 
-        public bool ContainsValue(T value)
+        public bool ContainsWrapper(TWrapper wrapper)
         {
-            return items.Any(item => item.value.Equals(value));
+            return items.Any(item => item.value.Equals(wrapper));
         }
 
-        public void AddValue(T value)
+        public void AddWrapper(TWrapper wrapper)
         {
-            items.Add(new WeightedSelectItemConfig<T>
+            items.Add(new WeightedSelectItemConfig<TWrapper>
             {
-                value = value,
+                value = wrapper,
                 ratio = 1
             });
 
@@ -95,9 +116,9 @@ namespace VMFramework.Configuration
 #endif
         }
 
-        public void RemoveValue(T value)
+        public void RemoveWrapper(TWrapper wrapper)
         {
-            items.RemoveAll(item => item.value.Equals(value));
+            items.RemoveAll(item => item.value.Equals(wrapper));
 #if UNITY_EDITOR
             OnItemsChangedGUI();
 #endif
@@ -115,8 +136,7 @@ namespace VMFramework.Configuration
                 return $"{ValueToString(items[0].value)}";
             }
 
-            var displayProbabilities = items
-                .Select(item => item.ratio).UniqueCount() != 1;
+            var displayProbabilities = items.Select(item => item.ratio).UniqueCount() != 1;
 
             return ", ".Join(items.Select(item =>
             {
@@ -124,8 +144,7 @@ namespace VMFramework.Configuration
 
                 if (displayProbabilities)
                 {
-                    itemValueString +=
-                        $":{item.probability.ToString(1)}%";
+                    itemValueString += $":{item.probability.ToString(1)}%";
                 }
 
                 return itemValueString;

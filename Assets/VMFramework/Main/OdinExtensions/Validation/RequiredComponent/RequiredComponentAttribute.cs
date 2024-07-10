@@ -6,7 +6,7 @@ namespace VMFramework.OdinExtensions
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property |
                     AttributeTargets.Parameter, AllowMultiple = true)]
     [Conditional("UNITY_EDITOR")]
-    public class RequiredComponentAttribute : SingleValidationAttribute
+    public sealed class RequiredComponentAttribute : SingleValidationAttribute
     {
         public Type ComponentType;
         public string ComponentTypeGetter;

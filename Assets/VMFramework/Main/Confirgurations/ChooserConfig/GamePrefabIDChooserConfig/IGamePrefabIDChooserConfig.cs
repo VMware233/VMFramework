@@ -2,12 +2,10 @@
 
 namespace VMFramework.Configuration
 {
-    public interface IGamePrefabIDChooserConfig<TGamePrefab> : IChooserConfig<GamePrefabIDConfig<TGamePrefab>>
+    public interface IGamePrefabIDChooserConfig<TGamePrefab>
+        : IChooserConfig<GamePrefabIDConfig<TGamePrefab>, string>
         where TGamePrefab : IGamePrefab
     {
-        public string GetID()
-        {
-            return GetValue().id;
-        }
+        
     }
 }

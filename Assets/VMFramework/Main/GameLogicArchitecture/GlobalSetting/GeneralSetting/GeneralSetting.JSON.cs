@@ -40,7 +40,7 @@ namespace VMFramework.GameLogicArchitecture
         [Button, TabGroup(TAB_GROUP_NAME, DATA_STORAGE_CATEGORY)]
         private void OpenDataStorageFolder()
         {
-            dataFolderAbsolutePath.OpenDirectory(true);
+            dataFolderAbsolutePath.OpenDirectoryInExplorer(true);
         }
         
         [Button, TabGroup(TAB_GROUP_NAME, JSON_CATEGORY)]

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VMFramework.Configuration
 {
@@ -6,6 +7,14 @@ namespace VMFramework.Configuration
         IVectorChooserConfig<TVector>
         where TVector : struct, IEquatable<TVector>
     {
+        public WeightedSelectVectorChooserConfig() : base()
+        {
+            
+        }
         
+        public WeightedSelectVectorChooserConfig(IEnumerable<TVector> items) : base(items)
+        {
+            
+        }
     }
 }
