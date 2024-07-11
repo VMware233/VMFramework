@@ -1,0 +1,16 @@
+﻿using System;
+using VMFramework.GameLogicArchitecture;
+#USING_NAMESPACES#
+
+#NAMESPACE_BEGIN#
+    public sealed partial class #CLASS_NAME# : GamePrefabGeneralSetting
+    {
+        #region Meta Data
+
+        public override Type baseGamePrefabType => typeof(#BASE_GAME_PREFAB_TYPE#);
+
+        #endregion
+
+        
+    }
+#NAMESPACE_END#

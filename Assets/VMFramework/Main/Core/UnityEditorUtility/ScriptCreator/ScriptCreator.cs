@@ -93,6 +93,10 @@ namespace VMFramework.Core.Editor
             postProcessor ??= defaultPostProcessor;
             postProcessor.PostProcess(scriptAbsolutePath, ref scriptContent, extraInfo);
 
+            var scriptFolder = scriptAbsolutePath.GetDirectoryPath();
+
+            scriptFolder.CreateDirectory();
+
             File.WriteAllText(scriptAbsolutePath, scriptContent);
 
             AssetDatabase.ImportAsset(scriptAssetPath);

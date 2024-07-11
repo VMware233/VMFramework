@@ -1,0 +1,8 @@
+﻿using VMFramework.GameLogicArchitecture;
+
+#NAMESPACE_BEGIN#
+    public sealed partial class #CLASS_NAME# : GeneralSetting
+    {
+        
+    }
+#NAMESPACE_END#

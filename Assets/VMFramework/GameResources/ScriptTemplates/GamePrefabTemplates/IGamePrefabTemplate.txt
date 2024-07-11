@@ -1,0 +1,8 @@
+﻿using VMFramework.GameLogicArchitecture;
+
+#NAMESPACE_BEGIN#
+    public interface #CLASS_NAME# : #PARENT_INTERFACE_NAME#
+    {
+        
+    }
+#NAMESPACE_END#

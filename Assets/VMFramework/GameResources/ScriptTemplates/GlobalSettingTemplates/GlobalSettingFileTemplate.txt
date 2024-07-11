@@ -1,0 +1,9 @@
+﻿using VMFramework.GameLogicArchitecture;
+
+#NAMESPACE_BEGIN#
+    [GlobalSettingFileConfig(FileName = nameof(#CLASS_NAME#))]
+    public sealed partial class #CLASS_NAME# : GlobalSettingFile
+    {
+        
+    }
+#NAMESPACE_END#

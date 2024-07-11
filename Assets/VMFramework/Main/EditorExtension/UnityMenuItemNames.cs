@@ -4,6 +4,8 @@ namespace VMFramework.Editor
     public static class UnityMenuItemNames
     {
         public const string ASSETS_CREATION_VMFRAMEWORK = "Assets/Create/" + VMFRAMEWORK;
+
+        public const string SCRIPT_TEMPLATE = ASSETS_CREATION_VMFRAMEWORK + "Script Template/";
         
         public const string VMFRAMEWORK = "VMFramework/";
         

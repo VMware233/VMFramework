@@ -1,0 +1,12 @@
+﻿#if UNITY_EDITOR
+using VMFramework.GameLogicArchitecture;
+using VMFramework.GameLogicArchitecture.Editor;
+
+#NAMESPACE_BEGIN#
+    [GlobalSettingFileEditorConfig(FolderPath = #FOLDER_PATH#)]
+    public partial class #CLASS_NAME#
+    {
+        
+    }
+#NAMESPACE_END#
+#endif

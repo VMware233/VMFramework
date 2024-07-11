@@ -6,5 +6,6 @@ namespace VMFramework.Examples
     public sealed partial class GameSettingFile : GlobalSettingFile
     {
         public PlayerGeneralSetting playerGeneralSetting;
+        public EntityGeneralSetting entityGeneralSetting;
     }
 }

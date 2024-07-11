@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Recipes
@@ -9,10 +10,8 @@ namespace VMFramework.Recipes
 
         protected override string idSuffix => "recipe";
 
-        public abstract IEnumerable<IRecipeInputQueryPattern>
-            GetInputQueryPatterns();
+        public abstract IEnumerable<IRecipeInputQueryPattern> GetInputQueryPatterns();
 
-        public abstract IEnumerable<IRecipeOutputQueryPattern>
-            GetOutputQueryPatterns();
+        public abstract IEnumerable<IRecipeOutputQueryPattern> GetOutputQueryPatterns();
     }
 }

@@ -892,6 +892,8 @@ GameObject:
   - component: {fileID: 1577807011}
   - component: {fileID: 1577807013}
   - component: {fileID: 1577807012}
+  - component: {fileID: 1577807015}
+  - component: {fileID: 1577807014}
   m_Layer: 0
   m_Name: Demo
   m_TagString: Untagged
@@ -936,6 +938,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea7ad738c2e2463fb21e2f3ed37c2409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1577807014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577807010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df835041fe942b0984cce0e9089a302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1577807015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577807010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5616331967e645c5b5a55db7745772d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1639374034
@@ -1212,6 +1238,7 @@ GameObject:
   - component: {fileID: 1837632634}
   - component: {fileID: 1837632633}
   - component: {fileID: 1837632632}
+  - component: {fileID: 1837632637}
   m_Layer: 0
   m_Name: SettingCore
   m_TagString: Untagged
@@ -1304,6 +1331,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2d5512714a429284487afbf5e1690d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1837632637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837632629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b078973856ed3dc4abc3d8f50deaa370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2102842621

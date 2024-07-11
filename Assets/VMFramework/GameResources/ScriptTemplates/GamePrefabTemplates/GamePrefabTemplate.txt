@@ -1,0 +1,12 @@
+﻿using System;
+using VMFramework.GameLogicArchitecture;
+#USING_NAMESPACES#
+
+#NAMESPACE_BEGIN#
+    public partial class #CLASS_NAME# : #PARENT_CLASS_NAME#, #PARENT_INTERFACE_NAME#
+    {
+        protected override string idSuffix => "#ID_SUFFIX#";
+        
+        public override Type gameItemType => #GAME_ITEM_TYPE#;
+    }
+#NAMESPACE_END#

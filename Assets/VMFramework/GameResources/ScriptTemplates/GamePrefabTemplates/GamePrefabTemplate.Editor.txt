@@ -1,0 +1,15 @@
+﻿#if UNITY_EDITOR
+using VMFramework.GameLogicArchitecture;
+
+#NAMESPACE_BEGIN#
+    public partial class #CLASS_NAME#
+    {
+        protected override void OnInspectorInit()
+        {
+            base.OnInspectorInit();
+            
+            
+        }
+    }
+#NAMESPACE_END#
+#endif

@@ -1,0 +1,14 @@
+﻿using System;
+using VMFramework.GameLogicArchitecture;
+
+#NAMESPACE_BEGIN#
+    public class #CLASS_NAME# : #PARENT_CLASS_NAME#, #PARENT_INTERFACE_NAME#
+    {
+        protected override void OnCreate()
+        {
+            base.OnCreate();
+
+            
+        }
+    }
+#NAMESPACE_END#

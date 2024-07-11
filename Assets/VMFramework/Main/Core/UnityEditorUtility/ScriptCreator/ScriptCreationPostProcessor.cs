@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace VMFramework.Core.Editor
@@ -32,16 +33,33 @@ namespace VMFramework.Core.Editor
             fileName = fileName[..fileName.IndexOf('.')];
 
             var namespaceName = extraInfo.namespaceName;
+            string namespaceBegin = "";
+            string namespaceEnd = "";
 
             if (namespaceName.IsNullOrWhiteSpace())
             {
-                namespaceName = "#NAMESPACE_NAME#";
+                namespaceName = ScriptTemplateTags.NAMESPACE_NAME;
+            }
+            else
+            {
+                namespaceBegin = $"namespace {namespaceName} \n{{";
+                namespaceEnd = "}";
             }
 
-            Replace(ref scriptContent, "SCRIPT_NAME", fileName);
+            string usingNamespacesContent = "";
 
-            Replace(ref scriptContent, "NAMESPACE_BEGIN", $"namespace {namespaceName} \n{{");
-            Replace(ref scriptContent, "NAMESPACE_END", "}");
+            if (extraInfo.usingNamespaces != null)
+            {
+                usingNamespacesContent = extraInfo.usingNamespaces.Where(name => name.IsNullOrWhiteSpace() == false)
+                    .Select(name => $"using {name};").Join("\n");
+            }
+
+            Replace(ref scriptContent, ScriptTemplateTags.CLASS_NAME, fileName);
+
+            Replace(ref scriptContent, ScriptTemplateTags.NAMESPACE_BEGIN, namespaceBegin);
+            Replace(ref scriptContent, ScriptTemplateTags.NAMESPACE_END, namespaceEnd);
+            Replace(ref scriptContent, ScriptTemplateTags.NAMESPACE_NAME, namespaceName);
+            Replace(ref scriptContent, ScriptTemplateTags.USING_NAMESPACES, usingNamespacesContent);
         }
 
         protected static void Replace(ref string scriptContent, string tag, string value)

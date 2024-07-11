@@ -22,3 +22,4 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   playerGeneralSetting: {fileID: 11400000, guid: 2ed62d2a9bc08174faba6c89d226dde6, type: 2}
+  entityGeneralSetting: {fileID: 11400000, guid: dd4f568f221f7e5488ece56fc18ead0f, type: 2}

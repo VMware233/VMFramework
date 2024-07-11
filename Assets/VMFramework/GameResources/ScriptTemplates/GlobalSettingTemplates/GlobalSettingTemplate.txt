@@ -1,0 +1,10 @@
+﻿using VMFramework.GameLogicArchitecture;
+using VMFramework.Procedure;
+
+#NAMESPACE_BEGIN#
+    [ManagerCreationProvider(ManagerType.SettingCore)]
+    public sealed partial class #CLASS_NAME# : GlobalSetting<#CLASS_NAME#, #GLOBAL_SETTING_FILE_NAME#>
+    {
+        
+    }
+#NAMESPACE_END#
