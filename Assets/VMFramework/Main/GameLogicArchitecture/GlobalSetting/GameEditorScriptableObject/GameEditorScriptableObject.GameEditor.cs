@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using VMFramework.Core.Editor;
 using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
@@ -33,3 +34,4 @@ namespace VMFramework.GameLogicArchitecture
         }
     }
 }
+#endif

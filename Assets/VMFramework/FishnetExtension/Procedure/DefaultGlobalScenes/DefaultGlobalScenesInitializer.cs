@@ -16,7 +16,10 @@ namespace VMFramework.Procedure
     {
         IEnumerable<InitializationAction> IInitializer.GetInitializationActions()
         {
-            yield return new(InitializationOrder.AfterInitComplete, OnAfterInitComplete, this);
+            if (NetworkSetting.defaultGlobalScenesGeneralSetting.enableDefaultGlobalScenesLoader)
+            {
+                yield return new(InitializationOrder.AfterInitComplete, OnAfterInitComplete, this);
+            }
         }
 
         private static void OnAfterInitComplete(Action onDone)

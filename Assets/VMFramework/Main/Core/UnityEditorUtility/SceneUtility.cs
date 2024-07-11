@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor;
 
@@ -23,3 +24,4 @@ namespace VMFramework.Core.Editor
         }
     }
 }
+#endif

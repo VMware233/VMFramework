@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿#if UNITY_EDITOR
+using System.Runtime.CompilerServices;
+using UnityEditor;
 
 namespace VMFramework.Core.Editor
 {
@@ -7,7 +9,8 @@ namespace VMFramework.Core.Editor
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool DisplayWarningDialog(this string message)
         {
-            return UnityEditor.EditorUtility.DisplayDialog("Warning", message, "OK", "Cancel");
+            return EditorUtility.DisplayDialog("Warning", message, "OK", "Cancel");
         }
     }
 }
+#endif

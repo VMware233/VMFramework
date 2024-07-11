@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR && ODIN_INSPECTOR
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VMFramework.Core;
@@ -45,3 +46,4 @@ namespace VMFramework.OdinExtensions
         }
     }
 }
+#endif

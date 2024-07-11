@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.GameLogicArchitecture;
@@ -93,3 +94,4 @@ namespace VMFramework.Editor
         }
     }
 }
+#endif

@@ -24,4 +24,6 @@ MonoBehaviour:
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
   <defaultLocalizationTableName>k__BackingField: 
-  sceneNames: []
+  enableDefaultGlobalScenesLoader: 1
+  sceneNames:
+  - SampleScene
