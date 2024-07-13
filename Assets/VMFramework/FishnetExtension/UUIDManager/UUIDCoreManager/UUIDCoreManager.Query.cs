@@ -1,4 +1,5 @@
 #if FISHNET
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,9 +14,22 @@ namespace VMFramework.Network
         #region Try Get Info
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetInfo(string uuid, out UUIDInfo info)
+        public static bool TryGetInfo(IUUIDOwner owner, out UUIDInfo info)
         {
-            if (uuid.IsNullOrEmpty())
+            if (owner == null)
+            {
+                Debug.LogWarning($"Try to get {nameof(UUIDInfo)} with null owner");
+                info = default;
+                return false;
+            }
+            
+            return TryGetInfo(owner.uuid, out info);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetInfo(Guid uuid, out UUIDInfo info)
+        {
+            if (uuid == Guid.Empty)
             {
                 Debug.LogWarning($"Try to get {nameof(UUIDInfo)} with empty uuid");
                 info = default;
@@ -26,7 +40,7 @@ namespace VMFramework.Network
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetInfoWithWarning(string uuid, out UUIDInfo info)
+        public static bool TryGetInfoWithWarning(Guid uuid, out UUIDInfo info)
         {
             if (TryGetInfo(uuid, out info) == false)
             {
@@ -41,9 +55,9 @@ namespace VMFramework.Network
         #region Try Get Owner
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetOwner(string uuid, out IUUIDOwner owner)
+        public static bool TryGetOwner(Guid uuid, out IUUIDOwner owner)
         {
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
                 Debug.LogWarning($"Try to get {typeof(IUUIDOwner)} with empty uuid");
                 owner = null;
@@ -61,10 +75,10 @@ namespace VMFramework.Network
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetOwner<TUUIDOwner>(string uuid, out TUUIDOwner owner)
+        public static bool TryGetOwner<TUUIDOwner>(Guid uuid, out TUUIDOwner owner)
             where TUUIDOwner : IUUIDOwner
         {
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
                 Debug.LogWarning($"Try to get {typeof(TUUIDOwner)} with empty uuid");
                 owner = default;
@@ -85,7 +99,7 @@ namespace VMFramework.Network
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetOwnerWithWarning<TUUIDOwner>(string uuid, out TUUIDOwner owner)
+        public static bool TryGetOwnerWithWarning<TUUIDOwner>(Guid uuid, out TUUIDOwner owner)
             where TUUIDOwner : IUUIDOwner
         {
             if (TryGetOwner(uuid, out owner) == false)
@@ -102,29 +116,23 @@ namespace VMFramework.Network
         #region Has UUID
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasUUID(string uuid)
+        public static bool HasUUID(Guid uuid)
         {
-            if (uuid.IsNullOrEmpty())
-            {
-                Debug.LogWarning($"Try to check if uuid exists with empty uuid");
-                return false;
-            }
-            
             return uuidInfos.ContainsKey(uuid);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasUUIDWithWarning(string uuid)
+        public static bool HasUUIDWithWarning(Guid uuid)
         {
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Try to check if uuid exists with empty uuid");
+                Debug.LogWarning($"Try to check if {nameof(uuid)} exists with empty uuid");
                 return false;
             }
             
             if (uuidInfos.ContainsKey(uuid) == false)
             {
-                Debug.LogWarning($"The uuid {uuid} does not exist");
+                Debug.LogWarning($"The {nameof(uuid)} : {uuid} does not exist");
                 return false;
             }
             
@@ -146,7 +154,7 @@ namespace VMFramework.Network
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<NetworkConnection> GetAllObservers(string uuid)
+        public static IEnumerable<NetworkConnection> GetAllObservers(Guid uuid)
         {
             if (TryGetInfo(uuid, out var info))
             {

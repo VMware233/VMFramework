@@ -8,7 +8,7 @@ namespace VMFramework.Network
 {
     public interface IUUIDOwner
     {
-        public string uuid { get; protected set; }
+        public Guid uuid { get; protected set; }
 
         public bool isDirty { get; set; }
         
@@ -31,14 +31,14 @@ namespace VMFramework.Network
         /// </summary>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public bool SetUUID(string uuid)
+        public bool SetUUID(Guid uuid)
         {
-            if (this.uuid.IsNullOrEmpty())
+            if (this.uuid == Guid.Empty)
             {
-                if (uuid.IsNullOrEmpty())
+                if (uuid == Guid.Empty)
                 {
-                    Debug.LogWarning($"The uuid of {this} has already been set to null or empty." +
-                                     "Cannot set it to null or empty again.");
+                    Debug.LogWarning($"The uuid of {this} has already been set to empty." +
+                                     "Cannot set it to empty again.");
                     return false;
                 }
 
@@ -46,14 +46,14 @@ namespace VMFramework.Network
                 return true;
             }
 
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
-                this.uuid = null;
+                this.uuid = Guid.Empty;
                 return true;
             }
                 
             Debug.LogWarning($"The uuid of {this} has already been set to {this.uuid} and cannot be changed." +
-                             "If you want to change the uuid, please set the uuid to null first.");
+                             "If you want to change the uuid, please set the uuid to empty first.");
             return false;
         }
     }

@@ -1,4 +1,5 @@
 ﻿#if FISHNET
+using System;
 using FishNet.Object;
 using FishNet.Connection;
 using UnityEngine;
@@ -95,7 +96,7 @@ namespace VMFramework.Containers
         #region Set Dirty
 
         [ObserversRpc(ExcludeServer = true)]
-        private void SetDirty(string containerUUID)
+        private void SetDirty(Guid containerUUID)
         {
             if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
             {

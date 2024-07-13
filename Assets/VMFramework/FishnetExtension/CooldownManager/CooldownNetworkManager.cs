@@ -1,4 +1,5 @@
 ﻿#if FISHNET
+using System;
 using System.Runtime.CompilerServices;
 using FishNet.Connection;
 using FishNet.Object;
@@ -52,7 +53,7 @@ namespace VMFramework.Network
         }
 
         [TargetRpc(ExcludeServer = true)]
-        private void ReconcileCooldown(NetworkConnection connection, string uuid, float cooldown)
+        private void ReconcileCooldown(NetworkConnection connection, Guid uuid, float cooldown)
         {
             if (UUIDCoreManager.TryGetOwnerWithWarning(uuid, out IUUIDCooldownProvider cooldownProvider))
             {

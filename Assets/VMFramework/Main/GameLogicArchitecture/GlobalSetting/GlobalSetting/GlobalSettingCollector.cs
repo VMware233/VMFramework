@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 using VMFramework.Procedure;
 
 namespace VMFramework.GameLogicArchitecture
@@ -22,8 +23,19 @@ namespace VMFramework.GameLogicArchitecture
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<IGeneralSetting> GetAllGeneralSettings()
         {
-            return Collect().SelectMany(globalSetting =>
-                globalSetting.globalSettingFile.GetAllGeneralSettings());
+            foreach (var globalSetting in Collect())
+            {
+                if (globalSetting.globalSettingFile == null)
+                {
+                    Debug.LogWarning($"GlobalSetting {globalSetting.name} has no GlobalSettingFile assigned.");
+                    continue;
+                }
+
+                foreach (var generalSetting in globalSetting.globalSettingFile.GetAllGeneralSettings())
+                {
+                    yield return generalSetting;
+                }
+            }
         }
     }
 }

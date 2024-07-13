@@ -1,4 +1,5 @@
 #if FISHNET
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,13 +10,20 @@ namespace VMFramework.Network
     public static class UUIDOwnerUtility
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SetUUIDWithWarning(this IUUIDOwner owner, string uuid)
+        public static bool SetUUIDWithWarning(this IUUIDOwner owner, Guid uuid)
         {
+            if (owner == null)
+            {
+                Debug.LogWarning("Owner is null");
+                return false;
+            }
+            
             if (owner.SetUUID(uuid) == false)
             {
                 Debug.LogWarning($"Failed to set UUID: {uuid} for {owner.GetType()}");
                 return false;
             }
+            
             return true;
         }
         
@@ -27,7 +35,7 @@ namespace VMFramework.Network
         /// <param name="uuid"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TrySetUUIDAndRegister(this IUUIDOwner owner, string uuid)
+        public static bool TrySetUUIDAndRegister(this IUUIDOwner owner, Guid uuid)
         {
             if (owner.SetUUIDWithWarning(uuid) == false)
             {
@@ -41,7 +49,7 @@ namespace VMFramework.Network
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<int> GetObservers(this IUUIDOwner owner)
         {
-            if (UUIDCoreManager.TryGetInfo(owner?.uuid, out var info))
+            if (UUIDCoreManager.TryGetInfo(owner, out var info))
             {
                 return info.observers;
             }

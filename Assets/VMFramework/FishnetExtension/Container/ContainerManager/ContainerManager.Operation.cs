@@ -1,4 +1,5 @@
 ﻿#if FISHNET
+using System;
 using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void RequestAddOrSwapItem(string fromContainerUUID, int fromSlotIndex, string toContainerUUID,
+        public void RequestAddOrSwapItem(Guid fromContainerUUID, int fromSlotIndex, Guid toContainerUUID,
             int toSlotIndex, NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
@@ -72,8 +73,8 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestSplitItemTo(string fromContainerUUID, int fromSlotIndex, int count,
-            string toContainerUUID, int toSlotIndex, NetworkConnection connection = null)
+        private void RequestSplitItemTo(Guid fromContainerUUID, int fromSlotIndex, int count,
+            Guid toContainerUUID, int toSlotIndex, NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
             {
@@ -123,7 +124,7 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestPopItemsTo(string fromContainerUUID, int count, string toContainerUUID,
+        private void RequestPopItemsTo(Guid fromContainerUUID, int count, Guid toContainerUUID,
             NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
@@ -161,7 +162,7 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestPopAllItemsTo(string fromContainerUUID, string toContainerUUID,
+        private void RequestPopAllItemsTo(Guid fromContainerUUID, Guid toContainerUUID,
             NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwnerWithWarning(fromContainerUUID, out IContainer fromContainer) == false)
@@ -199,7 +200,7 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void StackItemRequest(string containerUUID, NetworkConnection connection = null)
+        private void StackItemRequest(Guid containerUUID, NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwnerWithWarning(containerUUID, out IContainer container) == false)
             {

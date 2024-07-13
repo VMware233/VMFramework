@@ -74,6 +74,16 @@ namespace VMFramework.Editor
 
         #endregion
 
+        #region Addressable
+
+        public const string ADDRESSABLE = "Addressable";
+        
+        public const string SELECT_ADDRESSABLE_GROUP = "Select Addressable Group";
+
+        public const string SELECT_ADDRESSABLE_GROUP_PATH = ADDRESSABLE + "/" + SELECT_ADDRESSABLE_GROUP;
+
+        #endregion
+
         #region General Settings
 
         public const string GENERAL_SETTINGS = "General Settings";

@@ -1,4 +1,5 @@
 ﻿#if FISHNET
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using VMFramework.Network;
@@ -8,7 +9,7 @@ namespace VMFramework.Containers
     public partial class ContainerManager
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetItem(string containerUUID, int slotIndex, out IContainerItem item)
+        public static bool TryGetItem(Guid containerUUID, int slotIndex, out IContainerItem item)
         {
             if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container) == false)
             {
@@ -28,7 +29,7 @@ namespace VMFramework.Containers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetItem<TContainerItem>(string containerUUID, int slotIndex,
+        public static bool TryGetItem<TContainerItem>(Guid containerUUID, int slotIndex,
             out TContainerItem item) where TContainerItem : IContainerItem
         {
             if (TryGetItem(containerUUID, slotIndex, out var containerItem) == false)

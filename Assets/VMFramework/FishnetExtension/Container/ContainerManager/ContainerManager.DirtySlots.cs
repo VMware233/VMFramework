@@ -1,9 +1,9 @@
 #if FISHNET
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using VMFramework.Core;
 using VMFramework.Network;
 
 namespace VMFramework.Containers
@@ -116,7 +116,7 @@ namespace VMFramework.Containers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetSlotDirty(IContainer container, int slotIndex)
         {
-            if (container.uuid.IsNullOrEmpty())
+            if (container.uuid == Guid.Empty)
             {
                 Debug.LogWarning($"{container}'s UUID is null or empty.");
                 return;

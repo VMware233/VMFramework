@@ -7,6 +7,7 @@ using FishNet;
 using VMFramework.Core;
 using FishNet.Connection;
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
@@ -16,13 +17,14 @@ namespace VMFramework.Network
     [ManagerCreationProvider(ManagerType.NetworkCore)]
     public sealed partial class UUIDCoreManager : NetworkManagerBehaviour<UUIDCoreManager>
     {
-        private static readonly Dictionary<string, UUIDInfo> uuidInfos = new();
+        [ShowInInspector]
+        [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
+        private static readonly Dictionary<Guid, UUIDInfo> uuidInfos = new();
 
         public static event Action<IUUIDOwner> OnUUIDOwnerRegistered;
         public static event Action<IUUIDOwner> OnUUIDOwnerUnregistered;
 
         public static event Action<IUUIDOwner, bool, NetworkConnection> OnUUIDOwnerObserved;
-        
         public static event Action<IUUIDOwner, NetworkConnection> OnUUIDOwnerUnobserved;
 
         public override void OnStartServer()
@@ -47,10 +49,8 @@ namespace VMFramework.Network
             {
                 return;
             }
-            
-            string uuid = Guid.NewGuid().ToString();
 
-            owner.TrySetUUIDAndRegister(uuid);
+            owner.TrySetUUIDAndRegister(Guid.NewGuid());
         }
 
         private void OnGameItemDestroyed(IGameItem gameItem)
@@ -65,10 +65,7 @@ namespace VMFramework.Network
                 return;
             }
 
-            if (owner.SetUUID(null) == false)
-            {
-                Debug.LogWarning($"设置{owner.GetType()}的uuid失败，{owner}的uuid已经被清空");
-            }
+            owner.SetUUID(Guid.Empty);
         }
 
         #region Register & Unregister
@@ -77,24 +74,29 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogError($"试图注册一个空的{nameof(IUUIDOwner)}");
+                Debug.LogWarning($"Failed to register a null {nameof(IUUIDOwner)}");
                 return false;
             }
             
             var uuid = owner.uuid;
             
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"试图注册一个空uuid的{owner.GetType()}");
+                Debug.LogWarning($"Failed to register a {owner.GetType()} with an empty uuid");
                 return false;
             }
-            
-            if (uuidInfos.ContainsKey(uuid))
-            {
-                Debug.LogWarning($"重复注册uuid，旧的{owner.GetType()}将被覆盖");
-            }
 
-            uuidInfos[uuid] = new UUIDInfo(owner, instance.IsServerInitialized);
+            if (uuidInfos.TryAdd(uuid, new UUIDInfo(owner, instance.IsServerInitialized)) == false)
+            {
+                var oldOwner = uuidInfos[uuid].owner;
+                
+                Debug.LogWarning($"Registering a {owner.GetType()} with an existing uuid." +
+                                 $"The old owner : {oldOwner} will be overridden.");
+                
+                Unregister(uuid);
+                
+                uuidInfos[uuid] = new UUIDInfo(owner, instance.IsServerInitialized);
+            }
             
             OnUUIDOwnerRegistered?.Invoke(owner);
 
@@ -106,7 +108,7 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogError($"试图取消注册一个空的{nameof(IUUIDOwner)}");
+                Debug.LogWarning($"Failed to unregister a null {nameof(IUUIDOwner)}");
                 return false;
             }
 
@@ -117,7 +119,9 @@ namespace VMFramework.Network
 
             if (owner != existingOwner)
             {
-                Debug.LogWarning($"取消注册uuid失败，{owner}与{existingOwner}的UUID一样，但不匹配");
+                Debug.LogWarning($"Failed to unregister. " +
+                                 $"The owner {owner} does not match the existing owner {existingOwner}." +
+                                 $"They have the same uuid but are not the same object.");
                 return false;
             }
             
@@ -125,23 +129,23 @@ namespace VMFramework.Network
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Unregister(string uuid)
+        public static bool Unregister(Guid uuid)
         {
             return Unregister(uuid, out _);
         }
 
-        public static bool Unregister(string uuid, out IUUIDOwner owner)
+        public static bool Unregister(Guid uuid, out IUUIDOwner owner)
         {
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"试图取消注册一个空的uuid");
+                Debug.LogWarning($"Failed to unregister a {nameof(IUUIDOwner)} with an empty uuid");
                 owner = null;
                 return false;
             }
 
             if (uuidInfos.Remove(uuid, out var info) == false)
             {
-                Debug.LogWarning($"试图移除一个不存在的uuid:{uuid}");
+                Debug.LogWarning($"Failed to unregister a {nameof(IUUIDOwner)} with uuid {uuid}. It does not exist.");
                 owner = null;
                 return false;
             }
@@ -158,7 +162,7 @@ namespace VMFramework.Network
         #region Observe
 
         [ServerRpc(RequireOwnership = false)]
-        private void _Observe(string uuid, bool isDirty, NetworkConnection connection = null)
+        private void _Observe(Guid uuid, bool isDirty, NetworkConnection connection = null)
         {
             if (TryGetInfoWithWarning(uuid, out var info))
             {
@@ -176,11 +180,11 @@ namespace VMFramework.Network
             OnUUIDOwnerObserved?.Invoke(info.owner, isDirty, connection);
         }
 
-        public static void Observe(string uuid)
+        public static void Observe(Guid uuid)
         {
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
-                Debug.LogWarning("uuid is null or empty");
+                Debug.LogWarning($"{nameof(uuid)} is empty");
                 return;
             }
 
@@ -208,7 +212,13 @@ namespace VMFramework.Network
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Observe(IUUIDOwner owner)
         {
-            Observe(owner?.uuid);
+            if (owner == null)
+            {
+                Debug.LogWarning($"Failed to observe a null {nameof(IUUIDOwner)}");
+                return;
+            }
+            
+            Observe(owner.uuid);
         }
 
         #endregion
@@ -216,7 +226,7 @@ namespace VMFramework.Network
         #region Unobserve
 
         [ServerRpc(RequireOwnership = false)]
-        private void _Unobserve(string uuid, NetworkConnection connection = null)
+        private void _Unobserve(Guid uuid, NetworkConnection connection = null)
         {
             if (TryGetInfoWithWarning(uuid, out var info))
             {
@@ -234,11 +244,11 @@ namespace VMFramework.Network
             OnUUIDOwnerUnobserved?.Invoke(info.owner, connection);
         }
 
-        public static void Unobserve(string uuid)
+        public static void Unobserve(Guid uuid)
         {
-            if (uuid.IsNullOrEmpty())
+            if (uuid == Guid.Empty)
             {
-                Debug.LogWarning("uuid is null or empty");
+                Debug.LogWarning($"{nameof(uuid)} is null or empty");
                 return;
             }
             
@@ -266,7 +276,13 @@ namespace VMFramework.Network
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Unobserve(IUUIDOwner owner)
         {
-            Unobserve(owner?.uuid);
+            if (owner == null)
+            {
+                Debug.LogWarning($"Failed to unobserve a null {nameof(IUUIDOwner)}");
+                return;
+            }
+            
+            Unobserve(owner.uuid);
         }
 
         #endregion

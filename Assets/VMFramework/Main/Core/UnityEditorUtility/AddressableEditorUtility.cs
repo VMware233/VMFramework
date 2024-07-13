@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
@@ -29,6 +30,26 @@ namespace VMFramework.Core.Editor
             var guid = obj.GetAssetGUID();
             
             return setting.CreateOrMoveEntry(guid, setting.DefaultGroup);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SelectEntryGroupInAddressableWindow(this Object obj)
+        {
+            var setting = AddressableAssetSettingsDefaultObject.GetSettings(false);
+            
+            if (setting == null)
+            {
+                return;
+            }
+            
+            var entry = setting.FindAssetEntry(obj.GetAssetGUID());
+            
+            if (entry == null)
+            {
+                return;
+            }
+            
+            Selection.activeObject = entry.parentGroup;
         }
     }
 }

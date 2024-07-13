@@ -10,7 +10,7 @@ namespace VMFramework.Containers
     public partial class Container
     {
         [ShowInInspector]
-        public string uuid { get; private set; }
+        public Guid uuid { get; private set; }
         
         public bool isDirty = true;
 
@@ -20,7 +20,7 @@ namespace VMFramework.Containers
         public event Action<IContainer> OnOpenOnServerEvent;
         public event Action<IContainer> OnCloseOnServerEvent;
 
-        string IUUIDOwner.uuid
+        Guid IUUIDOwner.uuid
         {
             get => uuid;
             set => uuid = value;

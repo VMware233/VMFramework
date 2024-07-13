@@ -1,4 +1,5 @@
 ﻿#if FISHNET
+using System;
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Connection;
@@ -96,7 +97,7 @@ namespace VMFramework.Containers
 
         [TargetRpc(ExcludeServer = true)]
         [ObserversRpc(ExcludeServer = true)]
-        private void ReconcileOnTarget(NetworkConnection connection, string containerUUID,
+        private void ReconcileOnTarget(NetworkConnection connection, Guid containerUUID,
             int slotIndex, IContainerItem item)
         {
             if (isDebugging)
@@ -117,7 +118,7 @@ namespace VMFramework.Containers
 
         [TargetRpc(ExcludeServer = true)]
         [ObserversRpc(ExcludeServer = true)]
-        private void ReconcileSomeOnTarget(NetworkConnection connection, string containerUUID,
+        private void ReconcileSomeOnTarget(NetworkConnection connection, Guid containerUUID,
             Dictionary<int, IContainerItem> items)
         {
             if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
@@ -136,7 +137,7 @@ namespace VMFramework.Containers
 
         [TargetRpc(ExcludeServer = true)]
         [ObserversRpc(ExcludeServer = true)]
-        private void ReconcileAllOnTarget(NetworkConnection connection, string containerUUID,
+        private void ReconcileAllOnTarget(NetworkConnection connection, Guid containerUUID,
             IContainerItem[] items)
         {
             if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
@@ -168,7 +169,7 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestReconcile(string containerUUID, int slotIndex,
+        private void RequestReconcile(Guid containerUUID, int slotIndex,
             NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
@@ -193,7 +194,7 @@ namespace VMFramework.Containers
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestReconcileAll(string containerUUID,
+        private void RequestReconcileAll(Guid containerUUID,
             NetworkConnection connection = null)
         {
             if (UUIDCoreManager.TryGetOwner(containerUUID, out IContainer container))
