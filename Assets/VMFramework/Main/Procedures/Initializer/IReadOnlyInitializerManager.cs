@@ -6,7 +6,7 @@ namespace VMFramework.Procedure
     {
         public IReadOnlyList<IInitializer> initializers { get; }
         
-        public IReadOnlyDictionary<IInitializer.InitAction, InitializationAction> currentPriorityLeftActions { get; }
+        public IReadOnlyDictionary<InitActionHandler, InitializationAction> currentPriorityLeftActions { get; }
         
         public int currentPriority { get; }
         

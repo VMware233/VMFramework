@@ -12,8 +12,7 @@ namespace VMFramework.Procedure
     {
         private readonly List<IInitializer> _initializers = new();
 
-        private readonly Dictionary<IInitializer.InitAction, InitializationAction>
-            _currentPriorityLeftActions = new();
+        private readonly Dictionary<InitActionHandler, InitializationAction> _currentPriorityLeftActions = new();
 
         #region Properties
 
@@ -21,8 +20,8 @@ namespace VMFramework.Procedure
         public IReadOnlyList<IInitializer> initializers => _initializers;
 
         [ShowInInspector]
-        public IReadOnlyDictionary<IInitializer.InitAction, InitializationAction>
-            currentPriorityLeftActions => _currentPriorityLeftActions;
+        public IReadOnlyDictionary<InitActionHandler, InitializationAction> currentPriorityLeftActions =>
+            _currentPriorityLeftActions;
 
         [ShowInInspector]
         public int currentPriority { get; private set; }
@@ -61,16 +60,16 @@ namespace VMFramework.Procedure
             isInitializing = true;
 
             var initializersName = _initializers.Select(initializer => initializer.GetType().ToString());
-            
+
             var initializersNameWithTag = initializersName.Select(name => name.ColorTag("green")).ToList();
 
             if (initializersNameWithTag.Count > 0)
             {
                 var names = initializersNameWithTag.Join(", ");
-                
+
                 Debug.Log($"Initializer: {names} Started!");
             }
-            
+
             foreach (var (priority, listOfActions) in _initializers.GetInitializationActions())
             {
                 currentPriority = priority;
@@ -96,7 +95,7 @@ namespace VMFramework.Procedure
                         Debug.Log($"Initializing {actionInfo.action.Method.Name} " +
                                   $"of {actionInfo.initializer.GetType()}");
                     }
-                    
+
                     actionInfo.action(() => _currentPriorityLeftActions.Remove(actionInfo.action));
                 }
 
