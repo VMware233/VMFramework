@@ -43,7 +43,7 @@ namespace VMFramework.Network
             IGameItem.OnGameItemDestroyed -= OnGameItemDestroyed;
         }
 
-        private void OnGameItemCreated(IGameItem gameItem)
+        private static void OnGameItemCreated(IGameItem gameItem)
         {
             if (gameItem is not IUUIDOwner owner)
             {
@@ -53,7 +53,7 @@ namespace VMFramework.Network
             owner.TrySetUUIDAndRegister(Guid.NewGuid());
         }
 
-        private void OnGameItemDestroyed(IGameItem gameItem)
+        private static void OnGameItemDestroyed(IGameItem gameItem)
         {
             if (gameItem is not IUUIDOwner owner)
             {
