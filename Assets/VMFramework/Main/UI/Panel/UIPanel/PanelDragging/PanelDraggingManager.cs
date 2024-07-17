@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Procedure;
@@ -6,7 +7,7 @@ using VMFramework.Procedure;
 namespace VMFramework.UI
 {
     [ManagerCreationProvider(ManagerType.UICore)]
-    public class PanelDraggingManager : UniqueMonoBehaviour<PanelDraggingManager>
+    public sealed class PanelDraggingManager : ManagerBehaviour<PanelDraggingManager>
     {
         [ShowInInspector]
         private static readonly HashSet<IDraggablePanel> draggingPanels = new();
@@ -16,10 +17,10 @@ namespace VMFramework.UI
 
         private static Vector2 lastMousePosition;
 
-        protected override void Awake()
+        protected override void OnBeforeInitStart()
         {
-            base.Awake();
-
+            base.OnBeforeInitStart();
+            
             UIPanelManager.OnPanelCreatedEvent += OnPanelCreated;
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using VMFramework.Configuration;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.GameLogicArchitecture.Editor;
@@ -50,6 +51,13 @@ namespace VMFramework.GameLogicArchitecture
                 var path = folderPath.PathCombine(fileName).MakeAssetPath(".asset");
 
                 var result = fieldInfo.FieldType.FindOrCreateScriptableObjectAtPath(path);
+
+                if (result is IInspectorConfig inspectorConfig)
+                {
+                    inspectorConfig.OnInspectorInit();
+                    
+                    result.EnforceSave();
+                }
 
                 if (result != null)
                 {

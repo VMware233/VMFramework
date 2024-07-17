@@ -3,7 +3,7 @@ namespace VMFramework.Configuration
 {
     public interface IInspectorConfig
     {
-        protected void OnInspectorInit();
+        public void OnInspectorInit();
     }
 }
 #endif

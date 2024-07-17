@@ -7,8 +7,7 @@ using VMFramework.Procedure;
 namespace VMFramework.Timers
 {
     [ManagerCreationProvider(ManagerType.TimerCore)]
-
-    public class UpdateDelegateManager : UniqueMonoBehaviour<UpdateDelegateManager>
+    public sealed class UpdateDelegateManager : ManagerBehaviour<UpdateDelegateManager>
     {
         [ShowInInspector]
         public static int fixedUpdateEventCount = 0;

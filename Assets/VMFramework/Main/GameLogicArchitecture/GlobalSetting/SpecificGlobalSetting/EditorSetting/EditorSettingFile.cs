@@ -5,6 +5,7 @@ using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
+using VMFramework.Procedure.Editor;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
@@ -71,6 +72,26 @@ namespace VMFramework.GameLogicArchitecture.Editor
                     obj.MoveAssetToNewFolder(EditorSetting.generalSettingsAssetFolderPath);
                 }
             }
+        }
+        
+        [Button(ButtonSizes.Medium), TabGroup(TAB_GROUP_NAME, RESOURCES_PATH_CATEGORY)]
+        public static void AutoFindAllSettings()
+        {
+            foreach (var globalSettingFile in GlobalSettingFileEditorManager.GetGlobalSettings())
+            {
+                globalSettingFile.AutoFindSettings();
+            }
+        }
+
+        [Button(ButtonSizes.Medium), TabGroup(TAB_GROUP_NAME, RESOURCES_PATH_CATEGORY)]
+        public static void AutoFindAndCreateAllSettings()
+        {
+            foreach (var globalSettingFile in GlobalSettingFileEditorManager.GetGlobalSettings())
+            {
+                globalSettingFile.AutoFindAndCreateSettings();
+            }
+            
+            EditorInitializer.Initialize();
         }
         
         [Button(ButtonSizes.Medium), TabGroup(TAB_GROUP_NAME, RESOURCES_PATH_CATEGORY)]

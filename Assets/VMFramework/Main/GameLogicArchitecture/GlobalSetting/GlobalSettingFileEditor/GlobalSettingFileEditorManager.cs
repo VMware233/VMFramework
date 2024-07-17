@@ -8,11 +8,31 @@ using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
 using VMFramework.Editor;
+using Object = UnityEngine.Object;
 
 namespace VMFramework.GameLogicArchitecture.Editor
 {
     public static class GlobalSettingFileEditorManager
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SaveAll()
+        {
+            foreach (var globalSettingFile in GetGlobalSettings())
+            {
+                var unityObj = (Object)globalSettingFile;
+                
+                unityObj.SetEditorDirty();
+
+                foreach (var generalSetting in globalSettingFile.GetAllGeneralSettings())
+                {
+                    ((Object)generalSetting).SetEditorDirty();
+                }
+            }
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [MenuItem(UnityMenuItemNames.GLOBAL_SETTINGS + "Check Global Settings File")]
         public static void CheckGlobalSettingsFile()

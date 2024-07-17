@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Scripting;
 using VMFramework.Procedure;
 
@@ -33,6 +34,8 @@ namespace VMFramework.GameLogicArchitecture
         {
             foreach (var gamePrefab in GamePrefabManager.GetAllGamePrefabs())
             {
+                Debug.Log($"Checking {gamePrefab}");
+                
                 gamePrefab.CheckSettings();
             }
             

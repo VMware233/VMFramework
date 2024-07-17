@@ -20,11 +20,13 @@ namespace VMFramework.Editor.GameEditor
         {
             if (Application.isPlaying)
             {
+                onDone();
                 return;
             }
 
             if (EditorWindow.HasOpenInstances<GameEditor>() == false)
             {
+                onDone();
                 return;
             }
 
@@ -32,6 +34,7 @@ namespace VMFramework.Editor.GameEditor
 
             if (gameEditor == null)
             {
+                onDone();
                 return;
             }
             

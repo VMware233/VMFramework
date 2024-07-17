@@ -6,7 +6,7 @@ using VMFramework.Procedure;
 namespace VMFramework.UI
 {
     [ManagerCreationProvider(ManagerType.UICore)]
-    public sealed class ContextMenuManager : UniqueMonoBehaviour<ContextMenuManager>
+    public sealed class ContextMenuManager : ManagerBehaviour<ContextMenuManager>
     {
         private static ContextMenuGeneralSetting contextMenuGeneralSetting => 
             UISetting.contextMenuGeneralSetting;

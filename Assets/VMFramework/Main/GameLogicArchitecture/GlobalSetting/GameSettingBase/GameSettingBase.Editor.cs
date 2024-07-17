@@ -10,16 +10,16 @@ namespace VMFramework.GameLogicArchitecture
     {
         protected virtual void OnInspectorInit()
         {
-            
+
         }
-        
+
         void IInspectorConfig.OnInspectorInit()
         {
             OnInspectorInit();
         }
-        
+
         private const string CHECK_SETTING_BUTTON_NAME = "Check Settings";
-        
+
         protected virtual void CheckSettingsGUI()
         {
             CheckSettings();
@@ -31,8 +31,7 @@ namespace VMFramework.GameLogicArchitecture
 
         protected virtual void OnValidate()
         {
-            checkSettingInfo =
-                "The settings have been updated, please click the check settings button again!";
+            checkSettingInfo = "The settings have been updated, please click the check settings button again!";
         }
 
         [Title(CHECK_SETTING_BUTTON_NAME)]

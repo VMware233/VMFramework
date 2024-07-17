@@ -31,7 +31,7 @@ namespace VMFramework.Procedure.Editor
         }
         
         [MenuItem(UnityMenuItemNames.EDITOR_INITIALIZATION + "Editor Initialize")]
-        private static async void Initialize()
+        public static async void Initialize()
         {
             if (Application.isPlaying)
             {

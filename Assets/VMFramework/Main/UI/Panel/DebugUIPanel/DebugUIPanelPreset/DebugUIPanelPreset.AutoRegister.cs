@@ -1,4 +1,7 @@
-﻿using VMFramework.GameLogicArchitecture;
+﻿using VMFramework.Configuration;
+using VMFramework.Core;
+using VMFramework.GameLogicArchitecture;
+using VMFramework.Procedure;
 
 namespace VMFramework.UI
 {
@@ -15,6 +18,18 @@ namespace VMFramework.UI
         {
             leftContainerVisualElementName = LEFT_GROUP_NAME;
             rightContainerVisualElementName = RIGHT_GROUP_NAME;
+            
+            var procedureConfigs = UISetting.uiPanelProcedureGeneralSetting.procedureConfigs;
+
+            procedureConfigs.TryAddConfig(new UIPanelProcedureConfig()
+            {
+                procedureID = MainMenuProcedure.ID
+            });
+
+            if (procedureConfigs.TryGetConfig(MainMenuProcedure.ID, out var mainMenuConfig))
+            {
+                mainMenuConfig.uniqueUIPanelAutoOpenOnEnter.AddIfNotContains(id);
+            }
         }
     }
 }

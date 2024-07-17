@@ -9,7 +9,7 @@ namespace VMFramework.UI
     {
         protected const string TRACING_UI_SETTING_CATEGORY = "Tracing UI";
 
-        [SuffixLabel("左下角为(0, 0)"), 
+        [SuffixLabel("Left bottom corner is (0, 0)"),
          TabGroup(TAB_GROUP_NAME, TRACING_UI_SETTING_CATEGORY, SdfIconType.Mouse, TextColor = "purple")]
         [MinValue(0), MaxValue(1)]
         [JsonProperty]
@@ -29,7 +29,7 @@ namespace VMFramework.UI
         public bool enableAutoMouseTracing = false;
 
         [TabGroup(TAB_GROUP_NAME, TRACING_UI_SETTING_CATEGORY)]
-        [ToggleButtons("持续跟随", "仅跟随一次")]
+        [ToggleButtons("Persistent tracing", "Single tracing")]
         [JsonProperty]
         public bool persistentTracing = true;
 

@@ -96,10 +96,14 @@ namespace VMFramework.GameLogicArchitecture.Editor
                     {
                         autoRegisterProvider.OnGamePrefabAutoRegister();
                     }
+                    
+                    gamePrefab.OnInspectorInit();
                 }
 
                 wrapper.EnforceSave();
             }
+            
+            GlobalSettingFileEditorManager.SaveAll();
 
             Refresh();
         }

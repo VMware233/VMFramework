@@ -10,7 +10,7 @@ using VMFramework.Core.FSM;
 namespace VMFramework.Procedure
 {
     [ManagerCreationProvider(ManagerType.ProcedureCore)]
-    public sealed partial class ProcedureManager : UniqueMonoBehaviour<ProcedureManager>
+    public sealed partial class ProcedureManager : ManagerBehaviour<ProcedureManager>
     {
         [ShowInInspector]
         private static IMultiFSM<string, ProcedureManager> fsm = new MultiFSM<string, ProcedureManager>();
@@ -18,7 +18,7 @@ namespace VMFramework.Procedure
         [ShowInInspector]
         private static List<IManagerBehaviour> managerBehaviours = new();
 
-        private static Dictionary<string, IProcedure> _procedures = new();
+        private static readonly Dictionary<string, IProcedure> _procedures = new();
         
         [ShowInInspector]
         public static IReadOnlyList<IProcedure> procedures => _procedures.Values.ToList();
