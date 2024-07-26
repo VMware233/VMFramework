@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using VMFramework.Core.Pool;
+using VMFramework.Core.Pools;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 using VMFramework.Procedure;
@@ -11,12 +11,12 @@ namespace VMFramework.ResourcesManagement
     [ManagerCreationProvider(ManagerType.ResourcesCore)]
     public class AudioSpawner : SerializedMonoBehaviour
     {
-        private static IComponentPool<AudioSource> pool = new StackComponentPool<AudioSource>(() =>
+        private static readonly DefaultPool<AudioSource> pool = new(new DefaultComponentPoolPolicy<AudioSource>(() =>
         {
             var gameObject = new GameObject();
 
             return gameObject.AddComponent<AudioSource>();
-        });
+        }));
 
         public static void Return(AudioSource audioSource)
         {

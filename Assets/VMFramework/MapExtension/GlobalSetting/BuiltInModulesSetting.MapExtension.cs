@@ -1,4 +1,4 @@
-﻿using VMFramework.Map;
+﻿using VMFramework.Maps;
 
 namespace VMFramework.GameLogicArchitecture
 {
@@ -6,5 +6,8 @@ namespace VMFramework.GameLogicArchitecture
     {
         public static MapCoreGeneralSetting mapCoreGeneralSetting =>
             globalSettingFile == null ? null : globalSettingFile.mapCoreGeneralSetting;
+        
+        public static ExtendedRuleTileGeneralSetting extendedRuleTileGeneralSetting =>
+            globalSettingFile == null ? null : globalSettingFile.extendedRuleTileGeneralSetting;
     }
 }

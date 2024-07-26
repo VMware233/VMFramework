@@ -108,9 +108,9 @@ namespace VMFramework.Containers
         #region Get Range Items
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<IContainerItem> GetRangeItems(this IContainer container, IKCube<int> range)
+        public static IEnumerable<IContainerItem> GetRangeItems(this IContainer container, IEnumerable<int> range)
         {
-            foreach (var index in range.GetAllPoints())
+            foreach (var index in range)
             {
                 yield return container.GetItem(index);
             }
@@ -119,7 +119,7 @@ namespace VMFramework.Containers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<IContainerItem> GetRangeItems(this IContainer container, int start, int end)
         {
-            foreach (var index in start.GetAllPointsOfRange(end))
+            foreach (var index in start.GetRange(end))
             {
                 yield return container.GetItem(index);
             }
@@ -127,9 +127,9 @@ namespace VMFramework.Containers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<IContainerItem> GetRangeValidItems(this IContainer container,
-            IKCube<int> range)
+            IEnumerable<int> range)
         {
-            foreach (var index in range.GetAllPoints())
+            foreach (var index in range)
             {
                 if (container.validSlotIndices.Contains(index))
                 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using VMFramework.Core;
 using VMFramework.OdinExtensions;
 
@@ -30,6 +31,13 @@ namespace VMFramework.Configuration
 
         public TItem GetValue()
         {
+#if UNITY_EDITOR
+            if (Application.isPlaying == false)
+            {
+                objectChooser ??= GenerateNewObjectChooser();
+            }
+#endif
+            
             return objectChooser.GetValue();
         }
 

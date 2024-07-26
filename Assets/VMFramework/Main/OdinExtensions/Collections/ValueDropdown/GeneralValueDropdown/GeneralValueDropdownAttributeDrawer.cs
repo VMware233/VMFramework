@@ -167,12 +167,20 @@ namespace VMFramework.OdinExtensions
         protected Rect GetButtonRect()
         {
             float buttonWidth = EditorGUIUtility.singleLineHeight + 6f;
+
+            try
+            {
+                var rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight,
+                    GUILayout.Width(buttonWidth));
+
+                return rect;
+            }
+            catch (ArgumentException)
+            {
+                
+            }
             
-            var rect = EditorGUILayout.GetControlRect(
-                false, EditorGUIUtility.singleLineHeight,
-                GUILayout.Width(buttonWidth));
-                    
-            return rect;
+            return new Rect(0, 0, 0, 0);
         }
 
         protected bool Button(string tooltip, SdfIconType icon)

@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     #region Interface
 
@@ -462,7 +462,7 @@ namespace VMFramework.Map
                     return null;
                 }
 
-                foreach (var pos in fixedSize.GetAllPointsOfCube())
+                foreach (var pos in fixedSize.GetCube())
                 {
                     var newChunk = CreateChunk(pos);
 
@@ -889,7 +889,7 @@ namespace VMFramework.Map
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public IEnumerable<TTile> GetTilesOfCube(Vector3Int from, Vector3Int to)
             {
-                foreach (var pos in from.GetAllPointsOfCube(to))
+                foreach (var pos in from.GetCube(to))
                 {
                     var tile = GetTile(pos);
 

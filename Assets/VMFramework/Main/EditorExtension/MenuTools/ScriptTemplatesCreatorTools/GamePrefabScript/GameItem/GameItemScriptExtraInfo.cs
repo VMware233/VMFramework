@@ -8,6 +8,10 @@ namespace VMFramework.Editor
         public string parentClassName { get; init; }
         
         public string parentInterfaceName { get; init; }
+        
+        public string gamePrefabInterfaceName { get; init; }
+        
+        public string gamePrefabFieldName { get; init; }
     }
 }
 #endif

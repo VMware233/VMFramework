@@ -7,7 +7,7 @@ using UnityEngine;
 using VMFramework.Core;
 using VMFramework.Core.Linq;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public sealed partial class MapCore<TChunk, TTile>
     {
@@ -50,7 +50,7 @@ namespace VMFramework.Map
 
                 tiles = new TTile[width, height, length];
 
-                size.GetAllPointsOfCube().Examine(pos =>
+                size.GetCube().Examine(pos =>
                 {
                     var newTile = new TTile();
                     newTile.Create(this as TChunk, GetTilePos(pos), pos);

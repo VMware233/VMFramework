@@ -11,18 +11,16 @@ namespace VMFramework.ResourcesManagement
         protected const string SPRITE_PREVIEW_GROUP =
             TAB_GROUP_NAME + "/" + BASIC_CATEGORY + "/Sprite Preview Group";
 
-        protected const string FLIP_GROUP = TAB_GROUP_NAME + "/" + BASIC_CATEGORY + "/Flip Group";
-
         public bool enableInitializationDebugLog => false;
 
         [HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP)]
         [PreviewField(40, ObjectFieldAlignment.Center)]
         public Sprite sprite;
         
-        [HorizontalGroup(FLIP_GROUP)]
+        [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         public FlipType2D preloadFlipType = FlipType2D.None;
 
-        [HorizontalGroup(FLIP_GROUP)]
+        [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [SerializeField]
         private SpritePivotFlipType spritePivotFlipType = SpritePivotFlipType.NoChange;
 

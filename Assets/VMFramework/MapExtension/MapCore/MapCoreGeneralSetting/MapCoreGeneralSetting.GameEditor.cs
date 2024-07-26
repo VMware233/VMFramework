@@ -4,7 +4,7 @@ using VMFramework.Editor;
 using VMFramework.Editor.GameEditor;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public partial class MapCoreGeneralSetting : IGameEditorMenuTreeNode
     {

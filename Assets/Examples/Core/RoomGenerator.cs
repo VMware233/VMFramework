@@ -7,7 +7,7 @@ using VMFramework.Core;
 
 namespace VMFramework.Examples
 {
-    public class RoomGenerationInfo : ITreeNode<RoomGenerationInfo>
+    public sealed class RoomGenerationInfo : ITreeNode<RoomGenerationInfo>
     {
         // 父房间生成信息
         // The Room Generation Info of the parent room.
@@ -15,14 +15,14 @@ namespace VMFramework.Examples
 
         // 房间的入口信息，表示父房间的方向
         // The entry information of the room, which represents the direction of the parent room.
-        public FourTypesDirection2D enterDirection { get; init; }
+        public FourTypesDirection enterDirection { get; init; }
 
         // 不同房间的出口对应的相邻房间生成信息
         // FourTypesDirection2D是框架内自带的枚举类型，表示2D空间的四个方向：上、下、左、右
         // The Room Generation Info of the adjacent room corresponding to the exit of different rooms.
         // FourTypesDirection2D is an enumeration type built into the framework,
         // representing the four directions of 2D space: up, down, left, and right.
-        private readonly Dictionary<FourTypesDirection2D, RoomGenerationInfo> _childrenRoomDict = new();
+        private readonly Dictionary<FourTypesDirection, RoomGenerationInfo> _childrenRoomDict = new();
 
         // 这里可能会有一些生成数据
         // 比如坐标、房间深度啥的
@@ -30,7 +30,7 @@ namespace VMFramework.Examples
 
         // 构造函数，初始化入口方向和父房间生成信息
         // The constructor initializes the entry direction and parent room generation information.
-        public RoomGenerationInfo(FourTypesDirection2D enterDirection, RoomGenerationInfo parentRoomInfo)
+        public RoomGenerationInfo(FourTypesDirection enterDirection, RoomGenerationInfo parentRoomInfo)
         {
             this.enterDirection = enterDirection;
             this.parentRoomInfo = parentRoomInfo;
@@ -41,7 +41,7 @@ namespace VMFramework.Examples
         // 构造函数，这样构造表示是根房间，或者说是第一个房间
         // The constructor, which is used to construct the root room or the first room,
         // initializes the entry direction and parent room generation information.
-        public RoomGenerationInfo() : this(FourTypesDirection2D.None, null)
+        public RoomGenerationInfo() : this(FourTypesDirection.None, null)
         {
         }
 
@@ -50,7 +50,7 @@ namespace VMFramework.Examples
         // The function is used to add a child room, which is adjacent to the current room,
         // and the exit direction cannot be the same as the entry direction.
         // This function is used to add child rooms when generating the dungeon room structure.
-        private void AddChildRoom(FourTypesDirection2D direction, RoomGenerationInfo roomGenerationInfo)
+        private void AddChildRoom(FourTypesDirection direction, RoomGenerationInfo roomGenerationInfo)
         {
             if (direction == enterDirection)
                 // 不能在入口方向添加子房间
@@ -71,14 +71,14 @@ namespace VMFramework.Examples
         #endregion
     }
 
-    public class RoomGeneratorTest : MonoBehaviour
+    public sealed class RoomGeneratorTest : MonoBehaviour
     {
         private void Start()
         {
             var info1 = new RoomGenerationInfo();
-            var info2 = new RoomGenerationInfo(FourTypesDirection2D.Down, info1);
-            var info3 = new RoomGenerationInfo(FourTypesDirection2D.Left, info1);
-            var info4 = new RoomGenerationInfo(FourTypesDirection2D.Right, info2);
+            var info2 = new RoomGenerationInfo(FourTypesDirection.Down, info1);
+            var info3 = new RoomGenerationInfo(FourTypesDirection.Left, info1);
+            var info4 = new RoomGenerationInfo(FourTypesDirection.Right, info2);
 
             // 获取根房间，这里root就是info1
             var root = info4.GetRoot();
@@ -133,7 +133,7 @@ namespace VMFramework.Examples
             // 这里GetFourDirectionsNearPoints是框架内自带的函数，
             // 用来获取一个Vector2Int坐标的上下左右四个方向相邻坐标，
             // 比如给这个函数传入(1,1)，会依次返回(1,2)、(1,0)、(0,1)、(2,1)
-            foreach (var point in startPoint.LevelOrderTraverse(true, point => point.GetFourDirectionsNearPoints()))
+            foreach (var point in startPoint.LevelOrderTraverse(true, point => point.GetFourDirectionsNeighbors()))
             {
                 Debug.Log(point);
 

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace VMFramework.Configuration
     public partial class CubeIntegerConfig : KCubeIntegerConfig<Vector3Int>
     {
         public override Vector3Int size => max - min + Vector3Int.one;
+
+        public override int Count => size.Products();
 
         public override Vector3Int pivot => (min + max).Divide(2);
 
@@ -57,10 +60,12 @@ namespace VMFramework.Configuration
         public override Vector3Int ClampMax(Vector3Int pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetPointsCount() => size.Products();
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Vector3Int GetRandomPoint() => min.RandomRange(max);
+
+        public override IEnumerator<Vector3Int> GetEnumerator()
+        {
+            return new CubeInteger.Enumerator(new CubeInteger(min, max));
+        }
 
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System;
 using UnityEditor;
 using VMFramework.Core;
 using VMFramework.Core.Editor;
@@ -24,6 +25,16 @@ namespace VMFramework.Editor
         {
             ScriptTemplatesCreatorTools.CreateScript<GamePrefabScriptCreationViewer>((info, selectedAssetFolderPath) =>
             {
+                if (info.withGameItem)
+                {
+                    if (info.gamePrefabBaseType is GamePrefabBaseType.GamePrefab
+                        or GamePrefabBaseType.LocalizedGamePrefab)
+                    {
+                        throw new ArgumentException($"Cannot create a {nameof(GameItem)} with {nameof(GamePrefab)} :" +
+                                                    $"{info.gamePrefabBaseType}");
+                    }
+                }
+                
                 var interfaceName = "I" + info.className;
 
                 string gameItemName = info.name;
@@ -68,7 +79,9 @@ namespace VMFramework.Editor
                         {
                             namespaceName = info.namespaceName,
                             parentClassName = info.gameItemBaseType.GetName(),
-                            parentInterfaceName = gameItemInterfaceName
+                            parentInterfaceName = gameItemInterfaceName,
+                            gamePrefabInterfaceName = interfaceName,
+                            gamePrefabFieldName = info.className.ToCamelCase()
                         }, postProcessor: gameItemPostProcessor);
 
                     ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GAME_ITEM_INTERFACE, gameItemInterfaceName,

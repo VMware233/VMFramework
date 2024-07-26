@@ -38,12 +38,14 @@ namespace VMFramework.Core.Editor
             }
             
             obj.SetEditorDirty();
-
-            if (EditorApplication.isUpdating == false)
+            
+            if (EditorApplication.isUpdating || EditorApplication.isCompiling)
             {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
+                return;
             }
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

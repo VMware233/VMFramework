@@ -4,7 +4,7 @@ using VMFramework.Configuration;
 using VMFramework.Core;
 using UnityEngine;
 using Newtonsoft.Json;
-using VMFramework.Core.Pool;
+using VMFramework.Core.Pools;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
@@ -30,7 +30,7 @@ namespace VMFramework.ResourcesManagement
 
     public static class TrailSpawner
     {
-        private static readonly Dictionary<string, IComponentPool<TrailRenderer>> allPools = new();
+        private static readonly Dictionary<string, DefaultPool<TrailRenderer>> allPools = new();
         private static readonly Dictionary<TrailRenderer, string> allTrailIDs = new();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -70,14 +70,14 @@ namespace VMFramework.ResourcesManagement
 
             if (allPools.TryGetValue(id, out var pool) == false)
             {
-                pool = new StackComponentPool<TrailRenderer>(() =>
+                pool = new(new DefaultComponentPoolPolicy<TrailRenderer>(() =>
                 {
                     var registeredTrail = GamePrefabManager.GetGamePrefabStrictly<TrailPreset>(id);
                     var prefab = registeredTrail.trailPrefab;
                     var newTrail = Object.Instantiate(prefab,
                         ResourcesManagementSetting.trailGeneralSetting.container);
                     return newTrail;
-                });
+                }));
                 allPools[id] = pool;
             }
 

@@ -12,9 +12,9 @@ namespace VMFramework.Containers
 
         public RangeInteger outputsRange { get; private set; }
 
-        IKCube<int> IInputsContainer.inputsRange => inputsRange;
+        IKCubeInteger<int> IInputsContainer.inputsRange => inputsRange;
 
-        IKCube<int> IOutputsContainer.outputsRange => outputsRange;
+        IKCubeInteger<int> IOutputsContainer.outputsRange => outputsRange;
 
         protected override void OnCreate()
         {

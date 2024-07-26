@@ -13,6 +13,8 @@ namespace VMFramework.Editor
         
         public const string FOLDERS_CREATION_TOOLS = VMFRAMEWORK + "Folders Creation Tools/";
         
+        public const string MODULE_TOOLS = VMFRAMEWORK + "Module Tools/";
+        
         public const string GLOBAL_SETTINGS = VMFRAMEWORK + "Global Settings/";
         
         public const string GAME_PREFABS_TOOLS = VMFRAMEWORK + "Game Prefabs Tools/";

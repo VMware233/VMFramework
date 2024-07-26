@@ -45,14 +45,14 @@ namespace VMFramework.Examples
 
             // 获取[0, 2]x[0, 3]这个矩形上所有边界上的整数点
             // Get all integer points on the boundaries of the [0, 2]x[0, 3] rectangle
-            foreach (var point in rectangle.GetAllBoundaryPoints())
+            foreach (var point in rectangle.GetBoundary())
             {
                 Debug.Log(point);
             }
 
             // 获取[0, 2]x[0, 3]这个矩形内的所有整数点（包括边界）
             // Get all integer points inside the [0, 2]x[0, 3] rectangle, including the boundaries
-            foreach (var point in rectangle.GetAllPoints())
+            foreach (var point in rectangle)
             {
                 Debug.Log(point);
             }

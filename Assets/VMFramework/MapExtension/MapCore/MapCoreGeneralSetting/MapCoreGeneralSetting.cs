@@ -1,7 +1,7 @@
 ﻿using System;
 using VMFramework.GameLogicArchitecture;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public sealed partial class MapCoreGeneralSetting : GamePrefabGeneralSetting
     {

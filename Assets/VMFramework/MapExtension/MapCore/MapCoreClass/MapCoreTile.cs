@@ -2,7 +2,7 @@
 using UnityEngine;
 using VMFramework.Core;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public sealed partial class MapCore<TChunk, TTile>
     {

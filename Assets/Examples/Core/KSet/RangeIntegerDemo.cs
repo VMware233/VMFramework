@@ -51,7 +51,7 @@ namespace VMFramework.Examples
 
             // 获取[3, 7]内的所有整数
             // Get all integers within the range of [3, 7]
-            foreach (var point in rangeInt.GetAllPoints())
+            foreach (var point in rangeInt)
             {
                 Debug.Log(point);
             }

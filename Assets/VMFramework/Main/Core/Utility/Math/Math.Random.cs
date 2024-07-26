@@ -396,7 +396,7 @@ namespace VMFramework.Core
                 return numbers;
             }
 
-            var container = min.GetAllPointsOfRange(max).ToList();
+            var container = min.GetRange(max).ToList();
 
             container.Shuffle();
 

@@ -1,4 +1,5 @@
-﻿using VMFramework.Core;
+﻿using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
@@ -13,6 +14,13 @@ namespace VMFramework.Configuration
 
         T IChooser<T>.GetValue()
         {
+#if UNITY_EDITOR
+            if (Application.isPlaying == false)
+            {
+                objectChooser ??= GenerateNewObjectChooser();
+            }
+#endif
+
             return objectChooser.GetValue();
         }
 

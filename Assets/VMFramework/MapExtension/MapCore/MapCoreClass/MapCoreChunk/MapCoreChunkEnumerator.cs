@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public sealed partial class MapCore<TChunk, TTile>
     {

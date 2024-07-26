@@ -22,31 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab0eb9aa6a192104493c0978b621a17d
-    m_Address: EditorSettingFile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fb113489d6a89ec4ba209093a179a4ad
-    m_Address: ResourcesManagementSettingFile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 070cdfbc6c3d21c47ac2a0e6328b854b
-    m_Address: CoreSettingFile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cc9bce69fb14e82408bc084d3ba1ec57
-    m_Address: BuiltInModulesSettingFile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 86b4d8257849eb046adcf5211fc06542
-    m_Address: UISettingFile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3259f0f1431b68d4ab7ba64533050af3
     m_Address: Assets/GameResources/Configurations/GeneralSettings
     m_ReadOnly: 0

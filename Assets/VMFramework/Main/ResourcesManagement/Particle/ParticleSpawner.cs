@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using VMFramework.Core.Pool;
+using VMFramework.Core.Pools;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 using VMFramework.Procedure;
@@ -12,24 +13,25 @@ namespace VMFramework.ResourcesManagement
     [ManagerCreationProvider(ManagerType.ResourcesCore)]
     public class ParticleSpawner : SerializedMonoBehaviour
     {
-        private static readonly Dictionary<string, IComponentPool<ParticleSystem>> allPools = new();
+        private static readonly Dictionary<string, DefaultPool<ParticleSystem>> allPools = new();
 
         private static readonly Dictionary<ParticleSystem, string> allParticleIDs = new();
 
-        private static IComponentPool<ParticleSystem> CreatePool(string id)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static DefaultPool<ParticleSystem> CreatePool(string id)
         {
-            return new StackComponentPool<ParticleSystem>(() =>
+            return new(new CustomComponentPoolPolicy<ParticleSystem>(() =>
             {
                 var registeredParticle = GamePrefabManager.GetGamePrefabStrictly<ParticlePreset>(id);
                 var prefab = registeredParticle.particlePrefab;
-                var particleSystem = Instantiate(prefab,
-                    ResourcesManagementSetting.particleGeneralSetting.container);
+                var particleSystem = Instantiate(prefab, ResourcesManagementSetting.particleGeneralSetting.container);
                 return particleSystem;
-            }, onReturnCallback: particle =>
+            }, returnFunc: particle =>
             {
                 particle.SetActive(false);
                 particle.transform.SetParent(ResourcesManagementSetting.particleGeneralSetting.container);
-            });
+                return true;
+            }));
         }
 
         /// <summary>

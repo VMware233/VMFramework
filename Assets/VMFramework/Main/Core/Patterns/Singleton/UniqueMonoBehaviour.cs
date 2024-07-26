@@ -5,14 +5,14 @@ using UnityEngine;
 namespace VMFramework.Core
 {
     /// <summary>
-    /// 非线程安全的单例MonoBehaviour
+    /// 普通的单例MonoBehaviour，注意Awake时的线程安全问题
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [DisallowMultipleComponent]
     public abstract class UniqueMonoBehaviour<T> : SerializedMonoBehaviour
         where T : UniqueMonoBehaviour<T>
     {
-        public static T instance;
+        public static T instance { get; private set; }
 
         protected virtual void Awake()
         {
@@ -23,12 +23,5 @@ namespace VMFramework.Core
 
             instance = (T)this;
         }
-
-#if UNITY_EDITOR
-        public void _DisplaySelf()
-        {
-            Debug.Log($"{name}");
-        }
-#endif
     }
 }

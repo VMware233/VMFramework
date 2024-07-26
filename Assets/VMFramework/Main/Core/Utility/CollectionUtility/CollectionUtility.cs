@@ -10,29 +10,51 @@ namespace VMFramework.Core
         #region Add
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void AddIfNotContains<T>(this ICollection<T> collection,
-            T item)
+        public static void AddIfNotContains<T>(this ICollection<T> collection, T item)
         {
-            if (!collection.Contains(item))
+            if (collection.Contains(item) == false)
             {
                 collection.Add(item);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Add<T>(this ICollection<T> collection, [CanBeNull] T item,
-            int count)
+        public static void AddIfNotContains<T>(this ICollection<T> collection, IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                if (collection.Contains(item) == false)
+                {
+                    collection.Add(item);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Add<T>(this ICollection<T> collection, [CanBeNull] T item, int count)
         {
             count.Repeat(() => { collection.Add(item); });
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void AddRange<T>(this ICollection<T> collection,
-            IEnumerable<T> items)
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
             foreach (var item in items)
             {
                 collection.Add(item);
+            }
+        }
+
+        #endregion
+
+        #region Remove
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                collection.Remove(item);
             }
         }
 

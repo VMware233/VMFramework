@@ -7,8 +7,10 @@ using VMFramework.Configuration;
 
 namespace VMFramework.Editor
 {
-    public class TextureImporterConfiguration : BaseConfig
+    public sealed class TextureImporterConfiguration : BaseConfig
     {
+        public const string SPRITE_CATEGORY = "Sprite";
+
         [JsonProperty]
         public bool isOn = true;
 
@@ -16,33 +18,34 @@ namespace VMFramework.Editor
         [JsonProperty]
         public string textureFolder = "Assets/Resources/Images";
 
-        [LabelText("忽略精灵导入类别"), FoldoutGroup("精灵")]
+        [FoldoutGroup(SPRITE_CATEGORY)]
         [JsonProperty]
         public bool ignoreSpriteImportMode = true;
 
-        [LabelText("精灵导入类别"), FoldoutGroup("精灵")]
+        [FoldoutGroup(SPRITE_CATEGORY)]
         [HideIf(nameof(ignoreSpriteImportMode))]
         [JsonProperty]
         public SpriteImportMode spriteImportMode = SpriteImportMode.Single;
 
-        [LabelText("精灵中心点"), FoldoutGroup("精灵")]
+        [FoldoutGroup(SPRITE_CATEGORY)]
+        [JsonProperty]
+        public bool ignoreSpritePivot = true;
+        
+        [FoldoutGroup(SPRITE_CATEGORY)]
+        [HideIf(nameof(ignoreSpritePivot))]
         [JsonProperty]
         public IVectorChooserConfig<Vector2> spritePivot =
             new SingleVectorChooserConfig<Vector2>(new Vector2(0.5f, 0.5f));
 
-        [LabelText("过滤模式")]
         [JsonProperty]
         public FilterMode filterMode = FilterMode.Point;
 
-        [LabelText("是否可读/写")]
         [JsonProperty]
         public bool isReadable = true;
 
-        [LabelText("图片格式")]
         [JsonProperty]
         public TextureImporterFormat textureFormat = TextureImporterFormat.RGBA32;
 
-        [LabelText("是否压缩")]
         [JsonProperty]
         public TextureImporterCompression compression = TextureImporterCompression.Uncompressed;
     }

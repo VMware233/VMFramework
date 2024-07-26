@@ -12,12 +12,11 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Get<T>(this IList<T> list, RangeInteger range)
         {
-            return range.GetAllPoints().Select(index => list[index]);
+            return range.Select(index => list[index]);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> Get<T>(this IList<T> list,
-            IEnumerable<int> indices)
+        public static IEnumerable<T> Get<T>(this IList<T> list, IEnumerable<int> indices)
         {
             return indices.Select(index => list[index]);
         }
@@ -39,15 +38,13 @@ namespace VMFramework.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> GetOrBound<T>(this IList<T> list,
-            IEnumerable<int> indices)
+        public static IEnumerable<T> GetOrBound<T>(this IList<T> list, IEnumerable<int> indices)
         {
             return indices.Select(list.GetOrBound);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> GetOrBound<T>(this IList<T> list,
-            params int[] indices)
+        public static IEnumerable<T> GetOrBound<T>(this IList<T> list, params int[] indices)
         {
             return list.GetOrBound(indices.AsEnumerable());
         }
@@ -57,8 +54,7 @@ namespace VMFramework.Core
         #region Get Range
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> GetRange<T>(this IList<T> list, int index,
-            int count)
+        public static IEnumerable<T> GetRange<T>(this IList<T> list, int index, int count)
         {
             if (index < 0 || index >= list.Count)
             {
@@ -77,8 +73,7 @@ namespace VMFramework.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> GetRange<T>(this IList<T> list,
-            RangeInteger range)
+        public static IEnumerable<T> GetRange<T>(this IList<T> list, RangeInteger range)
         {
             if (range.min < 0 || range.max >= list.Count)
             {
@@ -96,8 +91,7 @@ namespace VMFramework.Core
         #region Get Range Or Bound
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<T> GetRangeOrBound<T>(this IList<T> list,
-            RangeInteger range)
+        public static IEnumerable<T> GetRangeOrBound<T>(this IList<T> list, RangeInteger range)
         {
             return list.GetRange(range.ClampBy(0, list.Count - 1));
         }
@@ -119,7 +113,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<int> GetAllIndices<T>(this IList<T> list)
         {
-            return list.Count.GetAllPointsOfRange();
+            return list.Count.GetRange();
         }
 
         #endregion

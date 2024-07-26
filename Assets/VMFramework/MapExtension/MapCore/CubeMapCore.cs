@@ -6,7 +6,7 @@ using EnumsNET;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public class CubeMapCore<TChunk, TTile>
         where TChunk : CubeMapCore<TChunk, TTile>.Chunk, new()
@@ -30,7 +30,7 @@ namespace VMFramework.Map
 
             public override IEnumerable<Vector3Int> GetNearPoints(Vector3Int pos)
             {
-                return pos.GetSixDirectionsNearPoints();
+                return pos.GetSixDirectionsNeighbors();
             }
 
             #endregion

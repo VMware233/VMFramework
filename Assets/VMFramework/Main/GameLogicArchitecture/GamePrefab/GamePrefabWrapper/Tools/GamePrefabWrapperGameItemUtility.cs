@@ -16,7 +16,7 @@ namespace VMFramework.GameLogicArchitecture.Editor
                 return false;
             }
             
-            return gamePrefabWrapper.GetGamePrefabs().Any(gamePrefab => gamePrefab.gameItemType != null);
+            return gamePrefabWrapper.GetGamePrefabs().Any(gamePrefab => gamePrefab?.gameItemType != null);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

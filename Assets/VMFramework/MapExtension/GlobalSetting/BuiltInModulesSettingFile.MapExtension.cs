@@ -1,5 +1,5 @@
 ﻿using Sirenix.OdinInspector;
-using VMFramework.Map;
+using VMFramework.Maps;
 
 namespace VMFramework.GameLogicArchitecture
 {
@@ -8,5 +8,9 @@ namespace VMFramework.GameLogicArchitecture
         [TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
         [Required]
         public MapCoreGeneralSetting mapCoreGeneralSetting;
+        
+        [TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
+        [Required]
+        public ExtendedRuleTileGeneralSetting extendedRuleTileGeneralSetting;
     }
 }

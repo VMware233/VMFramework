@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace VMFramework.Map
+namespace VMFramework.Maps
 {
     public class MapCoreConfiguration : GamePrefab
     {

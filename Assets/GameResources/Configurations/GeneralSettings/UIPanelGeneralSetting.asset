@@ -16,7 +16,6 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: -4733365628477956816, guid: 68fdaa8726996104681eda85b1e6e9da, type: 3}
     - {fileID: -4733365628477956816, guid: e473be1ed4f52694684a6b6c3332a349, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -41,8 +40,8 @@ MonoBehaviour:
       Entry: 1
       Data: zh-CN
     - Name: styleSheet
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -54,7 +53,7 @@ MonoBehaviour:
       Data: en-US
     - Name: styleSheet
       Entry: 10
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

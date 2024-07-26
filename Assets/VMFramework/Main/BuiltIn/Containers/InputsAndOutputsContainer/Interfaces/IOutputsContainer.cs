@@ -4,6 +4,6 @@ namespace VMFramework.Containers
 {
     public interface IOutputsContainer : IContainer
     {
-        public IKCube<int> outputsRange { get; }
+        public IKCubeInteger<int> outputsRange { get; }
     }
 }

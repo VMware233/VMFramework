@@ -10,6 +10,8 @@ namespace VMFramework.Editor
         {
             Replace(ref scriptContent, "PARENT_CLASS_NAME", extraInfo.parentClassName);
             Replace(ref scriptContent, "PARENT_INTERFACE_NAME", extraInfo.parentInterfaceName);
+            Replace(ref scriptContent, "GAME_PREFAB_INTERFACE_NAME", extraInfo.gamePrefabInterfaceName);
+            Replace(ref scriptContent, "GAME_PREFAB_FIELD_NAME", extraInfo.gamePrefabFieldName);
         }
     }
 }
