@@ -37,6 +37,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f37b0e342f7ef347adca0c637e2ed94
+    m_Address: UISettingFile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ba0699f6a04a4d478984b2e35ed5c01
+    m_Address: BuiltInModulesSettingFile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2915e3fc604bd6c4794a98fc1750eccf
+    m_Address: CoreSettingFile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2872a44e45aea604ca4a56adb8c00688
+    m_Address: ResourcesManagementSettingFile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f1f25e60b79d0e429944484f5c1c0b5
+    m_Address: EditorSettingFile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 883e806589921be4cb07e7277d1f7009, type: 2}
   m_SchemaSet:

@@ -27,6 +27,8 @@ namespace VMFramework.Core.Pools
 
         public DefaultConcurrentPool(IPoolPolicy<TItem> policy, int capacity)
         {
+            policy.AssertIsNotNull(nameof(policy));
+            
             // cache the target interface methods, to avoid interface lookup overhead
             _preGetFunc = policy.PreGet;
             _createFunc = policy.Create;

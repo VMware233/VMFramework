@@ -7,7 +7,7 @@ namespace VMFramework.ResourcesManagement
 {
     public class AudioPreset : GameTypedGamePrefab
     {
-        protected override string idSuffix => "audio";
+        protected override string IDSuffix => "audio";
 
         [LabelText("音效片段")]
         [Required]

@@ -15,7 +15,7 @@ namespace VMFramework.Containers
         private static void SerializeContainerItemTest(
             [GamePrefabID(true, typeof(IContainerItem))] string containerItemID)
         {
-            var containerItem = IGameItem.Create<IContainerItem>(containerItemID);
+            var containerItem = GameItemManager.Get<IContainerItem>(containerItemID);
             containerItem.AssertIsNotNull(nameof(containerItem));
             instance.SerializeContainerItemTestRPC(containerItem);
         }

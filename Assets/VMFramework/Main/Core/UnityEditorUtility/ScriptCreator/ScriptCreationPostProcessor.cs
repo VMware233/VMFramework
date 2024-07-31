@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace VMFramework.Core.Editor
@@ -62,9 +63,112 @@ namespace VMFramework.Core.Editor
             Replace(ref scriptContent, ScriptTemplateTags.USING_NAMESPACES, usingNamespacesContent);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected static void Replace(ref string scriptContent, string tag, string value)
         {
-            scriptContent = scriptContent.Replace($"#{tag}#", value);
+            if (tag.IsNullOrWhiteSpace())
+            {
+                return;
+            }
+            
+            string pattern = $"#{tag}#";
+
+            if (value.IsNullOrWhiteSpace() == false)
+            {
+                scriptContent = scriptContent.Replace(pattern, value);
+                return;
+            }
+
+            while (true)
+            {
+                var index = scriptContent.IndexOf(pattern, StringComparison.Ordinal);
+
+                if (index == -1)
+                {
+                    break;
+                }
+                
+                scriptContent = scriptContent.Remove(index, pattern.Length);
+
+                if (index > 0)
+                {
+                    scriptContent = scriptContent.RemoveNewLine(index - 1);
+                }
+            }
+        }
+
+        protected static void Region(ref string scriptContent, string regionName, bool enabled)
+        {
+            var tag = $"#{regionName}#";
+            var beginTag = tag + "@begin@";
+            var endTag = tag + "@end@";
+            
+            if (enabled)
+            {
+                var beginTagLength = beginTag.Length;
+                var endTagLength = endTag.Length;
+                
+                while (true)
+                {
+                    var startIndex = scriptContent.IndexOf(beginTag, StringComparison.Ordinal);
+
+                    if (startIndex == -1)
+                    {
+                        break;
+                    }
+                    
+                    scriptContent = scriptContent.Remove(startIndex, beginTagLength);
+
+                    if (startIndex > 0)
+                    {
+                        scriptContent = scriptContent.RemoveNewLine(startIndex - 1);
+                    }
+                }
+                
+                while (true)
+                {
+                    var endIndex = scriptContent.IndexOf(endTag, StringComparison.Ordinal);
+
+                    if (endIndex == -1)
+                    {
+                        break;
+                    }
+                    
+                    scriptContent = scriptContent.Remove(endIndex, endTagLength);
+
+                    if (endIndex > 0)
+                    {
+                        scriptContent = scriptContent.RemoveNewLine(endIndex - 1);
+                    }
+                }
+                
+                return;
+            }
+            
+            while (true)
+            {
+                var startIndex = scriptContent.IndexOf(beginTag, StringComparison.Ordinal);
+
+                if (startIndex == -1)
+                {
+                    scriptContent = scriptContent.Replace(endTag, "");
+                    break;
+                }
+                
+                var endIndex = scriptContent.IndexOf(endTag, startIndex, StringComparison.Ordinal);
+
+                if (endIndex == -1)
+                {
+                    throw new ArgumentException($"Incorrect region tag: {endTag} not found!");
+                }
+                
+                scriptContent = scriptContent.Remove(startIndex, endIndex - startIndex + endTag.Length);
+
+                if (startIndex > 0)
+                {
+                    scriptContent = scriptContent.RemoveNewLine(startIndex - 1);
+                }
+            }
         }
         
         void IScriptCreationPostProcessor.PostProcess(string scriptAbsolutePath, ref string scriptContent,

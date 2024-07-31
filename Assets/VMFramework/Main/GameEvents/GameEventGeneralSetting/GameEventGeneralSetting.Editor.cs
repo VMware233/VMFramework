@@ -23,7 +23,7 @@ namespace VMFramework.GameEvents
                 {
                     defaultValue = "Left Mouse",
                     key = "LeftMouseName",
-                    tableName = defaultLocalizationTableName
+                    tableName = DefaultLocalizationTableName
                 }));
 
             keyCodeTranslations.TryAddConfig(new KeyCodeTranslation(KeyCode.Mouse1,
@@ -31,7 +31,7 @@ namespace VMFramework.GameEvents
                 {
                     defaultValue = "Right Mouse",
                     key = "RightMouseName",
-                    tableName = defaultLocalizationTableName
+                    tableName = DefaultLocalizationTableName
                 }));
 
             keyCodeTranslations.TryAddConfig(new KeyCodeTranslation(KeyCode.Mouse2,
@@ -39,7 +39,7 @@ namespace VMFramework.GameEvents
                 {
                     defaultValue = "Middle Mouse",
                     key = "MiddleMouseName",
-                    tableName = defaultLocalizationTableName
+                    tableName = DefaultLocalizationTableName
                 }));
         }
     }

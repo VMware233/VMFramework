@@ -9,50 +9,50 @@ namespace VMFramework.UI
     public class UGUIPanelController : UIPanelController, IUIPanelController
     {
         [ShowInInspector]
-        protected GameObject visualObject { get; private set; }
+        protected GameObject VisualObject { get; private set; }
 
         [ShowInInspector]
-        protected RectTransform visualRectTransform { get; private set; }
+        protected RectTransform VisualRectTransform { get; private set; }
 
-        protected RectTransform rectTransform { get; private set; }
+        protected RectTransform RectTransform { get; private set; }
 
-        protected UGUIPanelPreset uguiPanelPreset { get; private set; }
+        protected UGUIPanelPreset UGUIPanelPreset { get; private set; }
 
         [ShowInInspector]
-        protected Canvas canvas { get; private set; }
+        protected Canvas Canvas { get; private set; }
 
-        protected CanvasScaler canvasScaler { get; private set; }
+        protected CanvasScaler CanvasScaler { get; private set; }
 
         protected override void OnPreInit(UIPanelPreset preset)
         {
             base.OnPreInit(preset);
 
-            uguiPanelPreset = preset as UGUIPanelPreset;
+            UGUIPanelPreset = preset as UGUIPanelPreset;
 
-            uguiPanelPreset.AssertIsNotNull(nameof(uguiPanelPreset));
+            UGUIPanelPreset.AssertIsNotNull(nameof(UGUIPanelPreset));
 
-            canvas = CanvasManager.GetCanvas(preset.sortingOrder);
+            Canvas = CanvasManager.GetCanvas(preset.sortingOrder);
 
-            canvasScaler = canvas.GetComponent<CanvasScaler>();
+            CanvasScaler = Canvas.GetComponent<CanvasScaler>();
 
-            transform.SetParent(canvas.transform);
+            transform.SetParent(Canvas.transform);
 
             transform.ResetLocalArguments();
 
-            rectTransform = gameObject.GetOrAddComponent<RectTransform>();
+            RectTransform = gameObject.GetOrAddComponent<RectTransform>();
 
-            rectTransform.anchorMin = Vector2.zero;
-            rectTransform.anchorMax = Vector2.one;
-            rectTransform.offsetMin = Vector2.zero;
-            rectTransform.offsetMax = Vector2.zero;
+            RectTransform.anchorMin = Vector2.zero;
+            RectTransform.anchorMax = Vector2.one;
+            RectTransform.offsetMin = Vector2.zero;
+            RectTransform.offsetMax = Vector2.zero;
 
-            visualObject = Instantiate(uguiPanelPreset.prefab, transform);
+            VisualObject = Instantiate(UGUIPanelPreset.prefab, transform);
 
-            visualObject.AssertIsNotNull(nameof(visualObject));
+            VisualObject.AssertIsNotNull(nameof(VisualObject));
 
-            visualRectTransform = visualObject.GetComponent<RectTransform>();
+            VisualRectTransform = VisualObject.GetComponent<RectTransform>();
 
-            visualRectTransform.AssertIsNotNull(nameof(visualRectTransform));
+            VisualRectTransform.AssertIsNotNull(nameof(VisualRectTransform));
         }
 
         #region Open
@@ -67,9 +67,9 @@ namespace VMFramework.UI
         
         protected virtual void OnOpen(IUIPanelController source)
         {
-            if (visualObject != null)
+            if (VisualObject != null)
             {
-                visualObject.SetActive(true);
+                VisualObject.SetActive(true);
             }
             else
             {
@@ -91,9 +91,9 @@ namespace VMFramework.UI
 
         protected virtual void OnClose(IUIPanelController source)
         {
-            if (visualObject != null)
+            if (VisualObject != null)
             {
-                visualObject.SetActive(false);
+                VisualObject.SetActive(false);
             }
             else
             {

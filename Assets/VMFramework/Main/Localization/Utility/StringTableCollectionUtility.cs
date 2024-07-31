@@ -51,7 +51,7 @@ namespace VMFramework.Localization
                 return false;
             }
 
-            if (key.IsNullOrEmptyAfterTrim())
+            if (key.IsNullOrWhiteSpace())
             {
                 return false;
             }

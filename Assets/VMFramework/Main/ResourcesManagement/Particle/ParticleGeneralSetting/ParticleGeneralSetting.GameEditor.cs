@@ -10,7 +10,7 @@ namespace VMFramework.ResourcesManagement
     {
         string INameOwner.name => "Particle Preset";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Flower1;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.Flower1;
     }
 }
 #endif

@@ -8,7 +8,7 @@ namespace VMFramework.UI
 {
     public abstract partial class DebugEntry : LocalizedGamePrefab, IDebugEntry
     {
-        protected override string idSuffix => "debug_entry";
+        protected override string IDSuffix => "debug_entry";
 
         [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [EnumToggleButtons]
@@ -19,7 +19,7 @@ namespace VMFramework.UI
 
         public virtual bool ShouldDisplay() => true;
         
-        LeftRightDirection IDebugEntry.position => position;
+        LeftRightDirection IDebugEntry.Position => position;
 
         public override void CheckSettings()
         {

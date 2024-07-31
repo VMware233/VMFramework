@@ -103,4 +103,4 @@ MonoBehaviour:
       Data: 
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 

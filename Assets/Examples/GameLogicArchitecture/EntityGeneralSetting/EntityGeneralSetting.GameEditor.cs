@@ -9,7 +9,7 @@ namespace VMFramework.Examples
     {
         string INameOwner.name => "Entity";
 
-        Icon IGameEditorMenuTreeNode.icon => Icon.None;
+        Icon IGameEditorMenuTreeNode.Icon => Icon.None;
     }
 }
 #endif

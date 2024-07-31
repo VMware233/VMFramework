@@ -7,7 +7,7 @@ namespace VMFramework.Recipes
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(Recipe);
+        public override Type BaseGamePrefabType => typeof(Recipe);
 
         #endregion
     }

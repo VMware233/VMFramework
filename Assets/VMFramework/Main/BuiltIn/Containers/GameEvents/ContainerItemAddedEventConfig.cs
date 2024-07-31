@@ -9,6 +9,6 @@ namespace VMFramework.Containers
     {
         public const string ID = "container_item_added_event";
         
-        public override Type gameItemType => typeof(ContainerItemAddedEvent);
+        public override Type GameItemType => typeof(ContainerItemAddedEvent);
     }
 }

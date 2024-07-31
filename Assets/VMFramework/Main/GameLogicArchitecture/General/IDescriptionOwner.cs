@@ -2,6 +2,6 @@
 {
     public interface IDescriptionOwner
     {
-        public string description { get; }
+        public string Description { get; }
     }
 }

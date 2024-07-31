@@ -119,7 +119,7 @@ namespace VMFramework.UI
 
             containerUICore.Open(new ContainerUICoreOpenConfig
             {
-                isDebugging = isDebugging,
+                isDebugging = IsDebugging,
                 source = this,
                 slotSourceContainers = slotSourceContainers,
                 addVisualElementAction = AddVisualElement,

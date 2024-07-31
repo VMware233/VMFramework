@@ -25,6 +25,6 @@ namespace VMFramework.Maps
             return GetTile(point) != null;
         }
 
-        TTile IMapping<TPoint, TTile>.Map(TPoint point) => GetTile(point);
+        TTile IMapping<TPoint, TTile>.MapTo(TPoint point) => GetTile(point);
     }
 }

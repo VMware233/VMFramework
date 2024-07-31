@@ -12,11 +12,11 @@ namespace VMFramework.Editor
     internal sealed class ManagerViewerContainer : SimpleOdinEditorWindowContainer
     {
         [ShowInInspector]
-        private Transform managerContainer => ManagerCreatorContainers.managerContainer;
+        private Transform managerContainer => ManagerCreatorContainers.ManagerContainer;
         
         [ShowInInspector]
         private IReadOnlyDictionary<string, Transform> managerTypeContainers =>
-            ManagerCreatorContainers.managerTypeContainers;
+            ManagerCreatorContainers.ManagerTypeContainers;
         
         [ShowInInspector]
         private List<Type> abstractManagerTypes;
@@ -38,9 +38,9 @@ namespace VMFramework.Editor
         {
             base.Init();
 
-            abstractManagerTypes = ManagerCreator.abstractManagerTypes.ToList();
-            interfaceManagerTypes = ManagerCreator.interfaceManagerTypes.ToList();
-            managerTypes = ManagerCreator.managerTypes.ToList();
+            abstractManagerTypes = ManagerCreator.AbstractManagerTypes.ToList();
+            interfaceManagerTypes = ManagerCreator.InterfaceManagerTypes.ToList();
+            managerTypes = ManagerCreator.ManagerTypes.ToList();
         }
     }
 }

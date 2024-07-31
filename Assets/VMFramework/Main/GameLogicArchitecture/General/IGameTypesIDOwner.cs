@@ -4,6 +4,6 @@ namespace VMFramework.GameLogicArchitecture
 {
     public interface IGameTypesIDOwner
     {
-        public IEnumerable<string> gameTypesID { get; }
+        public IEnumerable<string> GameTypesID { get; }
     }
 }

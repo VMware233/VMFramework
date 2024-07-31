@@ -19,7 +19,7 @@ namespace VMFramework.UI
             leftContainerVisualElementName = LEFT_GROUP_NAME;
             rightContainerVisualElementName = RIGHT_GROUP_NAME;
             
-            var procedureConfigs = UISetting.uiPanelProcedureGeneralSetting.procedureConfigs;
+            var procedureConfigs = UISetting.UIPanelProcedureGeneralSetting.procedureConfigs;
 
             procedureConfigs.TryAddConfig(new UIPanelProcedureConfig()
             {

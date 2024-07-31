@@ -7,9 +7,15 @@ namespace VMFramework.Editor
     {
         public string parentClassName { get; init; }
         
+        public bool enableParentInterfaceRegion { get; init; }
+        
         public string parentInterfaceName { get; init; }
         
+        public bool enableIDSuffixOverrideRegion { get; init; }
+        
         public string idSuffix { get; init; }
+        
+        public bool enableGameItemTypeOverrideRegion { get; init; }
         
         public string gameItemType { get; init; }
     }

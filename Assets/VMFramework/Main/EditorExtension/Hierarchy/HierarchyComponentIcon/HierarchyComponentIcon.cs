@@ -20,7 +20,7 @@ namespace VMFramework.Editor
         {
             get
             {
-                var setting = EditorSetting.hierarchyGeneralSetting;
+                var setting = EditorSetting.HierarchyGeneralSetting;
 
                 if (setting != null)
                 {
@@ -35,7 +35,7 @@ namespace VMFramework.Editor
         {
             get
             {
-                var setting = EditorSetting.hierarchyGeneralSetting;
+                var setting = EditorSetting.HierarchyGeneralSetting;
 
                 if (setting != null)
                 {

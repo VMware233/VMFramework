@@ -50,7 +50,7 @@ namespace VMFramework.Configuration
 
                 if (SpriteManager.HasSpritePreset(value) == false)
                 {
-                    ResourcesManagementSetting.spriteGeneralSetting.AddSpritePreset(value);
+                    ResourcesManagementSetting.SpriteGeneralSetting.AddSpritePreset(value);
                 }
 
                 spritePresetID = SpriteManager.GetSpritePreset(value)?.id;
@@ -71,7 +71,7 @@ namespace VMFramework.Configuration
 
             if (SpriteManager.HasSpritePreset(sprite) == false)
             {
-                ResourcesManagementSetting.spriteGeneralSetting.AddSpritePreset(sprite);
+                ResourcesManagementSetting.SpriteGeneralSetting.AddSpritePreset(sprite);
             }
 
             var spritePreset = SpriteManager.GetSpritePreset(sprite);

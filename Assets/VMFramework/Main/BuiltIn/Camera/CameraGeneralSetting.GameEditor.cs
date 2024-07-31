@@ -10,7 +10,7 @@ namespace VMFramework
     {
         string INameOwner.name => "Camera";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Camera;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.Camera;
     }
 }
 #endif

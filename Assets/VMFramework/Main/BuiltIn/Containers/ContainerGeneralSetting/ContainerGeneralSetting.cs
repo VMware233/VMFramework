@@ -7,9 +7,9 @@ namespace VMFramework.Containers
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(ContainerPreset);
+        public override Type BaseGamePrefabType => typeof(ContainerPreset);
         
-        public override string gameItemName => nameof(Container);
+        public override string GameItemName => nameof(Container);
 
         #endregion
     }

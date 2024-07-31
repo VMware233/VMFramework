@@ -28,10 +28,10 @@ namespace VMFramework.UI
 
             isOpening = true;
             
-            sourceUIPanel = source;
-            if (sourceUIPanel != null)
+            SourceUIPanel = source;
+            if (SourceUIPanel != null)
             {
-                sourceUIPanel.OnCloseInstantlyEvent += Close;
+                SourceUIPanel.OnCloseInstantlyEvent += Close;
             }
             
             PreOpen(source);

@@ -414,6 +414,6 @@ MonoBehaviour:
       Data: 
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   maxIconNum: 5
   iconSize: 16

@@ -6,15 +6,15 @@ namespace VMFramework.Editor.GameEditor
 {
     public interface IGameEditorMenuTreeNode : INameOwner, IParentProvider<IGameEditorMenuTreeNode>
     {
-        public Icon icon => Icon.None;
+        public Icon Icon => Icon.None;
 
-        public IGameEditorMenuTreeNode parentNode => null;
+        public IGameEditorMenuTreeNode ParentNode => null;
         
-        public bool isVisible => true;
+        public bool IsVisible => true;
 
         IGameEditorMenuTreeNode IParentProvider<IGameEditorMenuTreeNode>.GetParent()
         {
-            return parentNode;
+            return ParentNode;
         }
     }
 }

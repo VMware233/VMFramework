@@ -10,7 +10,7 @@ namespace VMFramework.Network
     {
         string INameOwner.name => "Network Setting";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.HddNetwork;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.HddNetwork;
     }
 }
 #endif

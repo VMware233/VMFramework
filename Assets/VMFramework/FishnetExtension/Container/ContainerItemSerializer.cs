@@ -10,7 +10,7 @@ namespace VMFramework.Containers
     {
         public static void WriteIContainerItem(this Writer writer, IContainerItem containerItem)
         {
-            containerItem.WriteGameItem(writer);
+            writer.WriteGameItem(containerItem);
         }
         
         public static IContainerItem ReadIContainerItem(this Reader reader)

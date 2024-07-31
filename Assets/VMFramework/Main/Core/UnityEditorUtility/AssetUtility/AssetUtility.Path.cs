@@ -130,7 +130,7 @@ namespace VMFramework.Core.Editor
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Rename(this Object obj, string newName)
         {
-            if (newName.IsNullOrEmptyAfterTrim())
+            if (newName.IsNullOrWhiteSpace())
             {
                 Debug.LogWarning($"{obj.name}'s New Name cannot be Null or Empty.");
                 return;

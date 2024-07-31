@@ -17,7 +17,7 @@ namespace VMFramework.Properties
 #if UNITY_EDITOR
         [OnValueChanged(nameof(OnInstanceTypeChangedGUI))]
         [IsNotNullOrEmpty]
-        [TypeValueDropdown(typeof(IGameItem), IncludingInterfaces = true, IncludingAbstract = true,
+        [DerivedType(typeof(IGameItem), IncludingInterfaces = true, IncludingAbstract = true,
             IncludingGeneric = false)]
 #endif
         [SerializeField]

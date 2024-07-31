@@ -14,7 +14,7 @@ namespace VMFramework.Maps
     {
         public const string RULE_CATEGORY = "Rule";
 
-        protected override string idSuffix => "tile";
+        protected override string IDSuffix => "tile";
 
         public bool hasParent
         {

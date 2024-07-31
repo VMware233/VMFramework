@@ -14,28 +14,27 @@ namespace VMFramework.Editor
         [MenuItem(UnityMenuItemNames.SCRIPT_TEMPLATE + "Global Setting")]
         private static void CreateGlobalSettingScript()
         {
-            ScriptTemplatesCreatorTools.CreateScript<GlobalSettingScriptCreationViewer>(
-                (info, selectedAssetFolderPath) =>
-                {
-                    var globalSettingFileName = info.className + "File";
+            ScriptTemplatesCreatorTools.CreateScript<GlobalSettingScriptCreationViewer>(info =>
+            {
+                var globalSettingFileName = info.ClassName + "File";
 
-                    string folderPath = info.folderType.ToFolderString();
+                string folderPath = info.folderType.ToFolderString();
 
-                    ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GLOBAL_SETTING, info.className,
-                        selectedAssetFolderPath, extraInfo: new GlobalSettingScriptExtraInfo()
-                        {
-                            namespaceName = info.namespaceName,
-                            globalSettingFileName = globalSettingFileName
-                        }, postProcessor: settingPostProcessor);
+                ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GLOBAL_SETTING, info.ClassName,
+                    info.assetFolderPath, extraInfo: new GlobalSettingScriptExtraInfo()
+                    {
+                        namespaceName = info.namespaceName,
+                        globalSettingFileName = globalSettingFileName
+                    }, postProcessor: settingPostProcessor);
 
-                    ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GLOBAL_SETTING_FILE, globalSettingFileName,
-                        selectedAssetFolderPath, extraInfo: new GlobalSettingFileScriptExtraInfo()
-                        {
-                            namespaceName = info.namespaceName,
-                            folderPath = folderPath,
-                            nameInGameEditor = '\"' + info.className.ToPascalCase(" ") + '\"'
-                        }, postProcessor: settingFilePostProcessor);
-                });
+                ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GLOBAL_SETTING_FILE, globalSettingFileName,
+                    info.assetFolderPath, extraInfo: new GlobalSettingFileScriptExtraInfo()
+                    {
+                        namespaceName = info.namespaceName,
+                        folderPath = folderPath,
+                        nameInGameEditor = '\"' + info.ClassName.ToPascalCase(" ") + '\"'
+                    }, postProcessor: settingFilePostProcessor);
+            });
         }
     }
 }

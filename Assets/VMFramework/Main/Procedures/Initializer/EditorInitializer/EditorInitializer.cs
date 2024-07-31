@@ -51,7 +51,7 @@ namespace VMFramework.Procedure.Editor
 
             await _initializerManager.Initialize();
             
-            Debug.Log("Editor Initialization Done!");
+            Debugger.Log("Editor Initialization Done!");
         }
     }
 }

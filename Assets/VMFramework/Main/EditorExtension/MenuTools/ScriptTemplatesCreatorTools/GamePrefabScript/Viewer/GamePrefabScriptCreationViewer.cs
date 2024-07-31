@@ -12,7 +12,7 @@ namespace VMFramework.Editor
 
         public bool withGamePrefabGeneralSetting = true;
 
-        public bool withGameItem;
+        public bool withGameItem = true;
         
         [ShowIf(nameof(withGameItem))]
         [EnumToggleButtons]

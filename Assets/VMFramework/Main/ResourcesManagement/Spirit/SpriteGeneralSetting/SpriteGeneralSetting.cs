@@ -7,7 +7,7 @@ namespace VMFramework.ResourcesManagement
     {
         #region Meta Data
         
-        public override Type baseGamePrefabType => typeof(SpritePreset);
+        public override Type BaseGamePrefabType => typeof(SpritePreset);
 
         #endregion
     }

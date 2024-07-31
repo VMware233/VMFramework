@@ -11,7 +11,7 @@ namespace VMFramework.Configuration
     {
         private IEnumerable<ValueDropdownItem> GetNameList()
         {
-            return GamePrefabManager.GetGamePrefabNameListByType(typeof(TGamePrefab));
+            return GamePrefabNameListQuery.GetGamePrefabNameListByType(typeof(TGamePrefab));
         }
     }
 }

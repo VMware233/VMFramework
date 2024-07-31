@@ -24,12 +24,12 @@ namespace VMFramework.ResourcesManagement
             {
                 var registeredParticle = GamePrefabManager.GetGamePrefabStrictly<ParticlePreset>(id);
                 var prefab = registeredParticle.particlePrefab;
-                var particleSystem = Instantiate(prefab, ResourcesManagementSetting.particleGeneralSetting.container);
+                var particleSystem = Instantiate(prefab, ResourcesManagementSetting.ParticleGeneralSetting.container);
                 return particleSystem;
             }, returnFunc: particle =>
             {
                 particle.SetActive(false);
-                particle.transform.SetParent(ResourcesManagementSetting.particleGeneralSetting.container);
+                particle.transform.SetParent(ResourcesManagementSetting.ParticleGeneralSetting.container);
                 return true;
             }));
         }
@@ -105,7 +105,7 @@ namespace VMFramework.ResourcesManagement
         [Button]
         public static void SetDuration([GamePrefabID(typeof(ParticlePreset))] string id, float duration)
         {
-            ResourcesManagementSetting.particleGeneralSetting.SetDuration(id, duration);
+            ResourcesManagementSetting.ParticleGeneralSetting.SetDuration(id, duration);
         }
     }
 }

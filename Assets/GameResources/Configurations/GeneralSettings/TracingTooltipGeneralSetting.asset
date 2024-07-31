@@ -98,5 +98,5 @@ MonoBehaviour:
       Data: 
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   defaultTooltipID: universal_ui_toolkit_tooltip_ui

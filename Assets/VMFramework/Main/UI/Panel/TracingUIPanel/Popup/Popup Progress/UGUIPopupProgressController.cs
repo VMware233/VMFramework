@@ -19,7 +19,7 @@ namespace VMFramework.UI
 
             uguiPopupProgressPreset.AssertIsNotNull(nameof(uguiPopupProgressPreset));
 
-            progress = visualRectTransform.QueryFirstComponentInChildren<ProgressUIComponent>(
+            progress = VisualRectTransform.QueryFirstComponentInChildren<ProgressUIComponent>(
                 uguiPopupProgressPreset.progressName, true);
 
             progress.AssertIsNotNull(nameof(progress));

@@ -8,8 +8,8 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class ContextMenuManager : ManagerBehaviour<ContextMenuManager>
     {
-        private static ContextMenuGeneralSetting contextMenuGeneralSetting => 
-            UISetting.contextMenuGeneralSetting;
+        private static ContextMenuGeneralSetting ContextMenuGeneralSetting => 
+            UISetting.ContextMenuGeneralSetting;
         
         public static void Open(IContextMenuProvider contextMenuProvider, IUIPanelController source)
         {
@@ -28,14 +28,14 @@ namespace VMFramework.UI
             
             if (contextMenuProvider is IReadOnlyGameTypeOwner readOnlyGameTypeOwner)
             {
-                if (contextMenuGeneralSetting.contextMenuIDBindConfigs.TryGetConfigRuntime(
-                        readOnlyGameTypeOwner.gameTypeSet, out var idBindConfig))
+                if (ContextMenuGeneralSetting.contextMenuIDBindConfigs.TryGetConfigRuntime(
+                        readOnlyGameTypeOwner.GameTypeSet, out var idBindConfig))
                 {
                     contextMenuID = idBindConfig.contextMenuID;
                 }
             }
 
-            contextMenuID ??= contextMenuGeneralSetting.defaultContextMenuID;
+            contextMenuID ??= ContextMenuGeneralSetting.defaultContextMenuID;
 
             if (UIPanelPool.TryGetUniquePanelWithWarning(contextMenuID, out IContextMenu contextMenu) == false)
             {

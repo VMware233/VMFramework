@@ -8,7 +8,7 @@ namespace VMFramework.Examples
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(IEntityConfig);
+        public override Type BaseGamePrefabType => typeof(IEntityConfig);
 
         #endregion
 

@@ -7,7 +7,7 @@ namespace VMFramework.Containers
 {
     public partial class InputsAndOutputsContainerPreset : GridContainerPreset
     {
-        public override Type gameItemType => typeof(InputsAndOutputsContainer);
+        public override Type GameItemType => typeof(InputsAndOutputsContainer);
 
         [LabelText("输入槽位范围"), TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [RangeSlider(0, nameof(maxSlotIndex))]

@@ -8,7 +8,7 @@ using VMFramework.GameLogicArchitecture;
     {
         string INameOwner.name => "#NAME_IN_GAME_EDITOR#";
 
-        Icon IGameEditorMenuTreeNode.icon => Icon.None;
+        Icon IGameEditorMenuTreeNode.Icon => Icon.None;
     }
 #NAMESPACE_END#
 #endif

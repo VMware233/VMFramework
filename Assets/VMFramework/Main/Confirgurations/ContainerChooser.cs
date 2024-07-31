@@ -49,7 +49,7 @@ namespace VMFramework.Configuration
 
         public void SetDefaultContainerID(string defaultContainerID)
         {
-            if (containerID.IsNullOrEmptyAfterTrim())
+            if (containerID.IsNullOrWhiteSpace())
             {
                 containerID = defaultContainerID;
             }

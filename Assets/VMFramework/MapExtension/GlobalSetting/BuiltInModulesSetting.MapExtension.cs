@@ -5,9 +5,9 @@ namespace VMFramework.GameLogicArchitecture
     public partial class BuiltInModulesSetting
     {
         public static MapCoreGeneralSetting mapCoreGeneralSetting =>
-            globalSettingFile == null ? null : globalSettingFile.mapCoreGeneralSetting;
+            GlobalSettingFile == null ? null : GlobalSettingFile.mapCoreGeneralSetting;
         
         public static ExtendedRuleTileGeneralSetting extendedRuleTileGeneralSetting =>
-            globalSettingFile == null ? null : globalSettingFile.extendedRuleTileGeneralSetting;
+            GlobalSettingFile == null ? null : GlobalSettingFile.extendedRuleTileGeneralSetting;
     }
 }

@@ -35,7 +35,7 @@ namespace VMFramework.OdinExtensions
                 
             genericMenu.AddItem(EditorNames.OPEN_GAME_PREFAB_SCRIPT_PATH, value.OpenGamePrefabScripts);
 
-            if (gamePrefabsCache.Any(gamePrefab => gamePrefab.gameItemType != null))
+            if (gamePrefabsCache.Any(gamePrefab => gamePrefab.GameItemType != null))
             {
                 genericMenu.AddItem(EditorNames.OPEN_GAME_ITEM_SCRIPT_PATH, value.OpenGameItemScripts);
             }

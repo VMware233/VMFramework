@@ -67,7 +67,7 @@ namespace VMFramework.Procedure
             {
                 var names = initializersNameWithTag.Join(", ");
 
-                Debug.Log($"Initializer: {names} Started!");
+                Debugger.Log($"Initializer: {names} Started!");
             }
 
             foreach (var (priority, listOfActions) in _initializers.GetInitializationActions())
@@ -92,7 +92,7 @@ namespace VMFramework.Procedure
                 {
                     if (actionInfo.initializer.enableInitializationDebugLog)
                     {
-                        Debug.Log($"Initializing {actionInfo.action.Method.Name} " +
+                        Debugger.Log($"Initializing {actionInfo.action.Method.Name} " +
                                   $"of {actionInfo.initializer.GetType()}");
                     }
 

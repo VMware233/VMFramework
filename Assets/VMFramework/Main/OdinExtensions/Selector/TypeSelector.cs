@@ -194,7 +194,7 @@ namespace VMFramework.OdinExtensions
 
         private static IEnumerable<Type> OrderTypes(IEnumerable<Type> types)
         {
-            return types.OrderByDescending(x => x.Namespace.IsNullOrEmptyAfterTrim())
+            return types.OrderByDescending(x => x.Namespace.IsNullOrWhiteSpace())
                 .ThenBy(x => x.Namespace)
                 .ThenBy(x => x.Name);
         }

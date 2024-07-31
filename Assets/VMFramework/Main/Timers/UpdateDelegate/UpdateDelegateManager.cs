@@ -21,35 +21,35 @@ namespace VMFramework.Timers
         [ShowInInspector]
         public static int onGUIEventCount = 0;
 
-        public static event Action FixedUpdateEvent;
-        public static event Action UpdateEvent;
-        public static event Action LateUpdateEvent;
+        public static event Action OnFixedUpdateEvent;
+        public static event Action OnUpdateEvent;
+        public static event Action OnLateUpdateEvent;
         public static event Action OnGUIEvent;
 
         [ShowInInspector]
-        private static HashSet<Action> allFixedUpdateDelegates = new();
+        private static HashSet<Action> _allFixedUpdateDelegates = new();
 
         [ShowInInspector]
-        private static HashSet<Action> allUpdateDelegates = new();
+        private static HashSet<Action> _allUpdateDelegates = new();
 
         [ShowInInspector]
-        private static HashSet<Action> allLateUpdateDelegates = new();
+        private static HashSet<Action> _allLateUpdateDelegates = new();
 
         [ShowInInspector]
-        private static HashSet<Action> allOnGUIDelegates = new();
+        private static HashSet<Action> _allOnGUIDelegates = new();
 
         public static bool HasUpdateDelegate(UpdateType type, Action action)
         {
             switch (type)
             {
                 case UpdateType.FixedUpdate:
-                    return allFixedUpdateDelegates.Contains(action);
+                    return _allFixedUpdateDelegates.Contains(action);
                 case UpdateType.Update:
-                    return allUpdateDelegates.Contains(action);
+                    return _allUpdateDelegates.Contains(action);
                 case UpdateType.LateUpdate:
-                    return allLateUpdateDelegates.Contains(action);
+                    return _allLateUpdateDelegates.Contains(action);
                 case UpdateType.OnGUI:
-                    return allOnGUIDelegates.Contains(action);
+                    return _allOnGUIDelegates.Contains(action);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
@@ -60,23 +60,23 @@ namespace VMFramework.Timers
             switch (type)
             {
                 case UpdateType.FixedUpdate:
-                    FixedUpdateEvent += action;
-                    allFixedUpdateDelegates.Add(action);
+                    OnFixedUpdateEvent += action;
+                    _allFixedUpdateDelegates.Add(action);
                     fixedUpdateEventCount++;
                     break;
                 case UpdateType.Update:
-                    UpdateEvent += action;
-                    allUpdateDelegates.Add(action);
+                    OnUpdateEvent += action;
+                    _allUpdateDelegates.Add(action);
                     updateEventCount++;
                     break;
                 case UpdateType.LateUpdate:
-                    LateUpdateEvent += action;
-                    allLateUpdateDelegates.Add(action);
+                    OnLateUpdateEvent += action;
+                    _allLateUpdateDelegates.Add(action);
                     lateUpdateEventCount++;
                     break;
                 case UpdateType.OnGUI:
                     OnGUIEvent += action;
-                    allOnGUIDelegates.Add(action);
+                    _allOnGUIDelegates.Add(action);
                     onGUIEventCount++;
                     break;
                 default:
@@ -89,23 +89,23 @@ namespace VMFramework.Timers
             switch (type)
             {
                 case UpdateType.FixedUpdate:
-                    FixedUpdateEvent -= action;
-                    allFixedUpdateDelegates.Remove(action);
+                    OnFixedUpdateEvent -= action;
+                    _allFixedUpdateDelegates.Remove(action);
                     fixedUpdateEventCount++;
                     break;
                 case UpdateType.Update:
-                    UpdateEvent -= action;
-                    allUpdateDelegates.Remove(action);
+                    OnUpdateEvent -= action;
+                    _allUpdateDelegates.Remove(action);
                     updateEventCount++;
                     break;
                 case UpdateType.LateUpdate:
-                    LateUpdateEvent -= action;
-                    allLateUpdateDelegates.Remove(action);
+                    OnLateUpdateEvent -= action;
+                    _allLateUpdateDelegates.Remove(action);
                     lateUpdateEventCount++;
                     break;
                 case UpdateType.OnGUI:
                     OnGUIEvent -= action;
-                    allOnGUIDelegates.Remove(action);
+                    _allOnGUIDelegates.Remove(action);
                     onGUIEventCount++;
                     break;
                 default:
@@ -115,17 +115,17 @@ namespace VMFramework.Timers
 
         private void FixedUpdate()
         {
-            FixedUpdateEvent?.Invoke();
+            OnFixedUpdateEvent?.Invoke();
         }
 
         private void Update()
         {
-            UpdateEvent?.Invoke();
+            OnUpdateEvent?.Invoke();
         }
 
         private void LateUpdate()
         {
-            LateUpdateEvent?.Invoke();
+            OnLateUpdateEvent?.Invoke();
         }
 
         private void OnGUI()

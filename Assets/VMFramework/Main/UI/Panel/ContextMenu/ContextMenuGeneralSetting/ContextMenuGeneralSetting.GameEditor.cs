@@ -10,7 +10,7 @@ namespace VMFramework.UI
     {
         string INameOwner.name => "Context Menu";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.BorderStyle;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.BorderStyle;
     }
 }
 #endif

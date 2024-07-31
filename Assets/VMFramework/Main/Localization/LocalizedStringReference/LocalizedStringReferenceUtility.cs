@@ -14,12 +14,12 @@ namespace VMFramework.Localization
                 reference.defaultValue = defaultValue;
             }
 
-            if (reference.key.IsNullOrEmptyAfterTrim() && key.IsNullOrEmptyAfterTrim() == false)
+            if (reference.key.IsNullOrWhiteSpace() && key.IsNullOrWhiteSpace() == false)
             {
                 reference.key = key;
             }
 
-            if (tableName.IsNullOrEmptyAfterTrim() == false)
+            if (tableName.IsNullOrWhiteSpace() == false)
             {
                 reference.tableName = tableName;
             }
@@ -36,13 +36,13 @@ namespace VMFramework.Localization
                     reference.defaultValue = variableName.ToPascalCase(" ");
                 }
                 
-                if (reference.key.IsNullOrEmptyAfterTrim())
+                if (reference.key.IsNullOrWhiteSpace())
                 {
                     reference.key = variableName.ToPascalCase();
                 }
             }
             
-            if (tableName.IsNullOrEmptyAfterTrim() == false)
+            if (tableName.IsNullOrWhiteSpace() == false)
             {
                 reference.tableName = tableName;
             }

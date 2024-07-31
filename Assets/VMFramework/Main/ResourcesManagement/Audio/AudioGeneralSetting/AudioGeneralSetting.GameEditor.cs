@@ -10,7 +10,7 @@ namespace VMFramework.ResourcesManagement
     {
         string INameOwner.name => "Audio";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.MusicNoteBeamed;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.MusicNoteBeamed;
     }
 }
 #endif

@@ -10,7 +10,7 @@ namespace VMFramework.Properties
     {
         string INameOwner.name => "Game Property";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.JournalText;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.JournalText;
     }
 }
 #endif

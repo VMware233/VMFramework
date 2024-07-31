@@ -93,7 +93,7 @@ namespace VMFramework.Editor.GameEditor
                     leftNodes.Enqueue(child);
                     nodes.Add(child);
                     
-                    var parent = child.parentNode;
+                    var parent = child.ParentNode;
                     if (parent == null && provider is IGameEditorMenuTreeNode providerNode)
                     {
                         parent = providerNode;
@@ -131,12 +131,12 @@ namespace VMFramework.Editor.GameEditor
                     path = parent.name + "/" + path;
                 }
 
-                if (node.isVisible == false)
+                if (node.IsVisible == false)
                 {
                     continue;
                 }
                 
-                tree.Add(path, node, node.icon);
+                tree.Add(path, node, node.Icon);
             }
 
             tree.DefaultMenuStyle.IconSize = 24.00f;

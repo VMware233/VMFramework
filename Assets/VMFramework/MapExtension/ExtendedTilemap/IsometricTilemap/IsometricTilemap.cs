@@ -164,7 +164,7 @@ namespace VMFramework.Maps
 
         #endregion
 
-        ExtendedRuleTile IMapping<Vector3Int, ExtendedRuleTile>.Map(Vector3Int point) => GetTile(point);
+        ExtendedRuleTile IMapping<Vector3Int, ExtendedRuleTile>.MapTo(Vector3Int point) => GetTile(point);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<Vector3Int> GetAllPoints()

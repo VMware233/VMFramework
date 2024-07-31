@@ -406,12 +406,6 @@ namespace VMFramework.Core
             return (float)num;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Swap<T>(ref T lhs, ref T rhs)
-        {
-            (lhs, rhs) = (rhs, lhs);
-        }
-
         #region Sign
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

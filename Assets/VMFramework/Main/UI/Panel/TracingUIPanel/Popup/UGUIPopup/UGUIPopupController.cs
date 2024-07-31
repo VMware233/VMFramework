@@ -26,7 +26,7 @@ namespace VMFramework.UI
 
             uguiPopupPreset.AssertIsNotNull(nameof(uguiPopupPreset));
 
-            popupContainer = visualObject.transform.QueryFirstComponentInChildren<RectTransform>(
+            popupContainer = VisualObject.transform.QueryFirstComponentInChildren<RectTransform>(
                 uguiPopupPreset.popupContainerName, true);
 
             popupContainer.AssertIsNotNull(nameof(popupContainer));

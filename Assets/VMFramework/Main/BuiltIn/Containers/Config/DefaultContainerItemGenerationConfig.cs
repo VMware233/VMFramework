@@ -28,7 +28,7 @@ namespace VMFramework.Configuration
                 return default;
             }
             
-            var item = IGameItem.Create<TItem>(itemID);
+            var item = GameItemManager.Get<TItem>(itemID);
             item.count = count;
             return item;
         }

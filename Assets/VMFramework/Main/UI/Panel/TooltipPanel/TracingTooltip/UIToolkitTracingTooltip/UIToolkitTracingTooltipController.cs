@@ -74,7 +74,7 @@ namespace VMFramework.UI
 
         private void FixedUpdate()
         {
-            if (isOpened && isClosing == false)
+            if (isOpened && IsClosing == false)
             {
                 if (tooltipProvider.isDestroyed)
                 {
@@ -143,7 +143,7 @@ namespace VMFramework.UI
 
         public void Close(ITooltipProvider tooltipProvider)
         {
-            if (isClosing)
+            if (IsClosing)
             {
                 Debug.LogWarning("Tooltip is already closing.");
                 return;

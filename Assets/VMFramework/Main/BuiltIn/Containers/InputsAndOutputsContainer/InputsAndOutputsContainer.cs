@@ -6,7 +6,7 @@ namespace VMFramework.Containers
     public class InputsAndOutputsContainer : GridContainer, IInputsContainer, IOutputsContainer
     {
         protected InputsAndOutputsContainerPreset inputsAndOutputsContainerPreset =>
-            (InputsAndOutputsContainerPreset)gamePrefab;
+            (InputsAndOutputsContainerPreset)GamePrefab;
 
         public RangeInteger inputsRange { get; private set; }
 

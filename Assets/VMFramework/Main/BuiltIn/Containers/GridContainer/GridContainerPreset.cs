@@ -6,7 +6,7 @@ namespace VMFramework.Containers
 {
     public class GridContainerPreset : ContainerPreset
     {
-        public override Type gameItemType => typeof(GridContainer);
+        public override Type GameItemType => typeof(GridContainer);
 
         [LabelText("大小"), TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [MinValue(1)]

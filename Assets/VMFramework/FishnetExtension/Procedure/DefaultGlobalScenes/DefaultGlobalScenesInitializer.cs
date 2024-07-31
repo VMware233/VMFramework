@@ -16,7 +16,7 @@ namespace VMFramework.Procedure
     {
         IEnumerable<InitializationAction> IInitializer.GetInitializationActions()
         {
-            if (NetworkSetting.defaultGlobalScenesGeneralSetting.enableDefaultGlobalScenesLoader)
+            if (NetworkSetting.DefaultGlobalScenesGeneralSetting.enableDefaultGlobalScenesLoader)
             {
                 yield return new(InitializationOrder.AfterInitComplete, OnAfterInitComplete, this);
             }
@@ -24,9 +24,9 @@ namespace VMFramework.Procedure
 
         private static void OnAfterInitComplete(Action onDone)
         {
-            var sceneNames = NetworkSetting.defaultGlobalScenesGeneralSetting.sceneNames;
+            var sceneNames = NetworkSetting.DefaultGlobalScenesGeneralSetting.sceneNames;
 
-            Debug.Log("Loading Default Global Scenes : " + sceneNames.Join(", "));
+            Debugger.Log("Loading Default Global Scenes : " + sceneNames.Join(", "));
 
             InstanceFinder.SceneManager.LoadGlobalScenes(new SceneLoadData(sceneNames));
 

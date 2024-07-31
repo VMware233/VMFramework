@@ -9,7 +9,7 @@ namespace VMFramework.GameEvents
     public class BoolInputGameEvent : InputGameEvent<BoolInputGameEvent>, IBoolInputGameEvent, 
         IUpdateableGameEvent
     {
-        private BoolInputGameEventConfig boolInputGameEventConfig => (BoolInputGameEventConfig)gamePrefab;
+        private BoolInputGameEventConfig boolInputGameEventConfig => (BoolInputGameEventConfig)GamePrefab;
 
         [ShowInInspector]
         private List<InputActionGroupRuntime> actionGroups;
@@ -51,7 +51,7 @@ namespace VMFramework.GameEvents
                 foreach (var action in actionGroup.actions)
                 {
                     var keyCode = action.inputAction.keyCode;
-                    contentList.Add(CoreSetting.gameEventGeneralSetting.GetKeyCodeName(keyCode, mode));
+                    contentList.Add(CoreSetting.GameEventGeneralSetting.GetKeyCodeName(keyCode, mode));
                 }
 
                 yield return "+".Join(contentList);

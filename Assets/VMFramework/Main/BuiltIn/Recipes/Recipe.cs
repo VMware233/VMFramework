@@ -8,7 +8,7 @@ namespace VMFramework.Recipes
     {
         protected const string RECIPE_CATEGORY = "Recipe";
 
-        protected override string idSuffix => "recipe";
+        protected override string IDSuffix => "recipe";
 
         public abstract IEnumerable<IRecipeInputQueryPattern> GetInputQueryPatterns();
 

@@ -31,16 +31,16 @@ namespace VMFramework.Network
         {
             base.OnStartServer();
             
-            IGameItem.OnGameItemCreated += OnGameItemCreated;
-            IGameItem.OnGameItemDestroyed += OnGameItemDestroyed;
+            GameItemEvents.OnGameItemCreated += OnGameItemCreated;
+            GameItemEvents.OnGameItemDestroyed += OnGameItemDestroyed;
         }
 
         public override void OnStopServer()
         {
             base.OnStopServer();
             
-            IGameItem.OnGameItemCreated -= OnGameItemCreated;
-            IGameItem.OnGameItemDestroyed -= OnGameItemDestroyed;
+            GameItemEvents.OnGameItemCreated -= OnGameItemCreated;
+            GameItemEvents.OnGameItemDestroyed -= OnGameItemDestroyed;
         }
 
         private static void OnGameItemCreated(IGameItem gameItem)

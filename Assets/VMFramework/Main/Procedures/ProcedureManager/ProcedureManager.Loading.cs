@@ -11,11 +11,11 @@ namespace VMFramework.Procedure
     public partial class ProcedureManager
     {
         [ShowInInspector]
-        public static bool isLoading => initializerManager.isInitializing;
+        public static bool IsLoading => initializerManager.isInitializing;
 
         [ShowInInspector]
         private static Dictionary<string, Dictionary<ProcedureLoadingType, List<IGameInitializer>>>
-            gameInitializers = new();
+            _gameInitializers = new();
 
         [ShowInInspector]
         private static readonly InitializerManager initializerManager = new();
@@ -54,7 +54,7 @@ namespace VMFramework.Procedure
                     continue;
                 }
 
-                var initializersByLoadingType = gameInitializers.GetValueOrAddNew(register.ProcedureID);
+                var initializersByLoadingType = _gameInitializers.GetValueOrAddNew(register.ProcedureID);
 
                 var initializers = initializersByLoadingType.GetValueOrAddNew(register.LoadingType);
                 
@@ -66,7 +66,7 @@ namespace VMFramework.Procedure
         private static IReadOnlyList<IGameInitializer> GetGameInitializers(string procedureID,
             ProcedureLoadingType loadingType)
         {
-            if (gameInitializers.TryGetValue(procedureID, out var initializersByLoadingType) == false)
+            if (_gameInitializers.TryGetValue(procedureID, out var initializersByLoadingType) == false)
             {
                 return Array.Empty<IGameInitializer>();
             }
@@ -81,7 +81,7 @@ namespace VMFramework.Procedure
 
         private static async UniTask StartLoading(IReadOnlyList<IGameInitializer> initializers)
         {
-            if (isLoading)
+            if (IsLoading)
             {
                 Debug.LogWarning("Loading already in progress.");
                 return;

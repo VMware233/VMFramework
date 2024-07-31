@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector.Editor;
+using UnityEditor;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.Editor;
 
 namespace VMFramework.Editor
@@ -32,6 +34,14 @@ namespace VMFramework.Editor
         {
             var container = ScriptableObject.CreateInstance<TempConfirmContainer>();
             var window = OdinEditorWindow.InspectObject(container);
+
+            EditorApplication.delayCall += () =>
+            {
+                if (window.position.width < 600)
+                {
+                    window.position = window.position.AlignCenterX(600);
+                }
+            };
             
             container.Init(obj, () =>
             {

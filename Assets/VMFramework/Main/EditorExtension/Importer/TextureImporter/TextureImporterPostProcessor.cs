@@ -18,12 +18,12 @@ namespace VMFramework.Editor
                 return;
             }
 
-            if (EditorSetting.textureImporterGeneralSetting == null)
+            if (EditorSetting.TextureImporterGeneralSetting == null)
             {
                 return;
             }
 
-            foreach (var configuration in EditorSetting.textureImporterGeneralSetting.configurations)
+            foreach (var configuration in EditorSetting.TextureImporterGeneralSetting.configurations)
             {
                 if (configuration.isOn == false)
                 {

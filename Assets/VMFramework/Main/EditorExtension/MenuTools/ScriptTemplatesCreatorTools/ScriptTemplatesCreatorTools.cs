@@ -8,7 +8,7 @@ namespace VMFramework.Editor
 {
     internal static class ScriptTemplatesCreatorTools
     {
-        public delegate void CreateScriptDelegate<in TViewer>(TViewer viewer, string selectedAssetFolderPath)
+        public delegate void CreateScriptDelegate<in TViewer>(TViewer viewer)
             where TViewer : IScriptCreationViewer, new();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -19,14 +19,13 @@ namespace VMFramework.Editor
             {
                 throw new InvalidOperationException($"Could not create script. No folder selected.");
             }
+            
+            var viewer = new TViewer
+            {
+                AssetFolderPath = selectedAssetFolderPath
+            };
 
-            new TViewer().ShowConfirmViewer(info => { onCreating(info, selectedAssetFolderPath); });
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void CreateScript(CreateScriptDelegate<ScriptCreationViewer> onCreating)
-        {
-            CreateScript<ScriptCreationViewer>(onCreating);
+            viewer.ShowConfirmViewer(info => { onCreating(info); });
         }
     }
 }

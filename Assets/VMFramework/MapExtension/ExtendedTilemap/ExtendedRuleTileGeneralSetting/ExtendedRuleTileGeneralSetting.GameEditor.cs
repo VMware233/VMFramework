@@ -10,7 +10,7 @@ namespace VMFramework.Maps
     {
         string INameOwner.name => "Ext Rule Tile";
 
-        public Icon icon => SdfIconType.Grid3x3;
+        public Icon Icon => SdfIconType.Grid3x3;
     }
 }
 #endif

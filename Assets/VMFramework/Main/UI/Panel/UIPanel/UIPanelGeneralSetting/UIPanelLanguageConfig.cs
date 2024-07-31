@@ -23,8 +23,8 @@ namespace VMFramework.UI
         public override void CheckSettings()
         {
             base.CheckSettings();
-
-            styleSheet.AssertIsNotNull(nameof(styleSheet));
+            
+            styleSheet.WarnIfNull(nameof(styleSheet));
         }
 
         #endregion

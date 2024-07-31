@@ -9,7 +9,7 @@ namespace VMFramework.GameEvents
 {
     public sealed partial class BoolInputGameEventConfig : InputGameEventConfig
     {
-        public override Type gameItemType => typeof(BoolInputGameEvent);
+        public override Type GameItemType => typeof(BoolInputGameEvent);
 
 #if UNITY_EDITOR
         [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]

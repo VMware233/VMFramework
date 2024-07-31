@@ -8,7 +8,7 @@ namespace VMFramework.ResourcesManagement
 {
     public partial class ParticlePreset : GameTypedGamePrefab
     {
-        protected override string idSuffix => "particle";
+        protected override string IDSuffix => "particle";
 
         [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [AssetList]

@@ -10,7 +10,7 @@ namespace VMFramework.UI
     {
         string INameOwner.name => EditorNames.UI_SETTINGS;
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Window;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.Window;
     }
 }
 #endif

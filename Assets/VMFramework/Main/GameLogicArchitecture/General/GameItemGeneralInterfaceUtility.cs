@@ -20,7 +20,7 @@ namespace VMFramework.GameLogicArchitecture
                     continue;
                 }
 
-                foreach (var gameTypeID in gameItem.gameTypeSet.gameTypesID)
+                foreach (var gameTypeID in gameItem.GameTypeSet.GameTypesID)
                 {
                     gameTypeDictionary.TryAdd(gameTypeID, new());
 
@@ -50,7 +50,7 @@ namespace VMFramework.GameLogicArchitecture
 
                 idDictionary[gameItem.id].Add(gameItem);
 
-                foreach (var gameTypeID in gameItem.gameTypeSet.gameTypesID)
+                foreach (var gameTypeID in gameItem.GameTypeSet.GameTypesID)
                 {
                     gameTypeDictionary.TryAdd(gameTypeID, new());
 
@@ -78,7 +78,7 @@ namespace VMFramework.GameLogicArchitecture
 
                 uniqueIDDictionary[gameItem.id] = gameItem;
 
-                foreach (var gameTypeID in gameItem.gameTypeSet.gameTypesID)
+                foreach (var gameTypeID in gameItem.GameTypeSet.GameTypesID)
                 {
                     gameTypeDictionary.TryAdd(gameTypeID, new());
 

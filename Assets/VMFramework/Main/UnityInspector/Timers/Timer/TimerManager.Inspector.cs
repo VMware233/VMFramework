@@ -28,12 +28,11 @@ namespace VMFramework.Timers
         [Button]
         private static void AddGameItemDebug([GamePrefabID(true, typeof(ITimer))] string id, float delay = 5)
         {
-            var gameItem = IGameItem.Create(id);
+            var gameItem = GameItemManager.Get(id);
 
-            if (gameItem is ITimer timer)
-            {
-                Add(timer, delay);
-            }
+            var timer = (ITimer)gameItem;
+            
+            Add(timer, delay);
         }
     }
 }

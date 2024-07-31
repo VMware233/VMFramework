@@ -5,8 +5,8 @@ namespace VMFramework.Containers
 {
     public class ContainerPreset : GameTypedGamePrefab
     {
-        protected override string idSuffix => "container";
+        protected override string IDSuffix => "container";
 
-        public override Type gameItemType => typeof(Container);
+        public override Type GameItemType => typeof(Container);
     }
 }

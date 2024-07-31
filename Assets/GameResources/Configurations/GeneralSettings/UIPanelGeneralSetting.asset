@@ -15,8 +15,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: -4733365628477956816, guid: e473be1ed4f52694684a6b6c3332a349, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -32,31 +31,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 2|VMFramework.UI.UIPanelLanguageConfig, Assembly-CSharp
-    - Name: localeCode
-      Entry: 1
-      Data: zh-CN
-    - Name: styleSheet
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|VMFramework.UI.UIPanelLanguageConfig, Assembly-CSharp
-    - Name: localeCode
-      Entry: 1
-      Data: en-US
-    - Name: styleSheet
-      Entry: 10
       Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -68,16 +43,16 @@ MonoBehaviour:
       Data: 
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   initialGamePrefabWrappers:
   - {fileID: 11400000, guid: e70755e9b650ae64bbd2ae5d2e23b34c, type: 2}
   - {fileID: 11400000, guid: 1689449efcec1084599a4642904e828a, type: 2}
   - {fileID: 11400000, guid: 7f842ff2d9b4e4745aa4029a87c04cd0, type: 2}
-  <defaultGameType>k__BackingField: 
+  <DefaultGameType>k__BackingField: 
   container:
     containerID: $UI
     container: {fileID: 0}
-  defaultTheme: {fileID: -4733365628477956816, guid: 539f159180cff284193a11369b0f373d, type: 3}
+  defaultTheme: {fileID: -4733365628477956816, guid: 574d6cd2e8db536479df6e0dd416436c, type: 3}
   defaultScreenMatchMode: 0
   defaultMatch: 0.5
   defaultReferenceResolution: {x: 1920, y: 1080}

@@ -6,8 +6,8 @@ namespace VMFramework.Examples
     [ManagerCreationProvider(ManagerType.SettingCore)]
     public sealed partial class GameSetting : GlobalSetting<GameSetting, GameSettingFile>
     {
-        public static PlayerGeneralSetting playerGeneralSetting => globalSettingFile.playerGeneralSetting;
+        public static PlayerGeneralSetting playerGeneralSetting => GlobalSettingFile.playerGeneralSetting;
         
-        public static EntityGeneralSetting entityGeneralSetting => globalSettingFile.entityGeneralSetting;
+        public static EntityGeneralSetting entityGeneralSetting => GlobalSettingFile.entityGeneralSetting;
     }
 }

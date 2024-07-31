@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using VMFramework.GameLogicArchitecture;
+using VMFramework.OdinExtensions;
 
 namespace VMFramework.Configuration
 {
@@ -16,7 +17,7 @@ namespace VMFramework.Configuration
         
         protected virtual IEnumerable<ValueDropdownItem> GetItemPrefabNameList()
         {
-            return GamePrefabManager.GetGamePrefabNameListByType(typeof(TItemPrefab));
+            return GamePrefabNameListQuery.GetGamePrefabNameListByType(typeof(TItemPrefab));
         }
     }
 }

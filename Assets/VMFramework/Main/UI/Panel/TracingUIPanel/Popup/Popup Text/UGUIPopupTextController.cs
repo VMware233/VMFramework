@@ -32,7 +32,7 @@ namespace VMFramework.UI
 
             uguiPopupTextPreset.AssertIsNotNull(nameof(uguiPopupTextPreset));
 
-            textUGUI = visualObject.transform.QueryFirstComponentInChildren<TextMeshProUGUI>(
+            textUGUI = VisualObject.transform.QueryFirstComponentInChildren<TextMeshProUGUI>(
                 uguiPopupTextPreset.textName, true);
 
             textUGUI.AssertIsNotNull(nameof(textUGUI));

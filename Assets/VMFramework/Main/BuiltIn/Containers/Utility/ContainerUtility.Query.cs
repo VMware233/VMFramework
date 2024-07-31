@@ -307,7 +307,7 @@ namespace VMFramework.Containers
 
                 if (itemIDs.Add(item.id))
                 {
-                    itemTypeIDs.AddRange(item.gameTypeSet.gameTypesID);
+                    itemTypeIDs.AddRange(item.GameTypeSet.GameTypesID);
                 }
             }
 
@@ -328,7 +328,7 @@ namespace VMFramework.Containers
                     continue;
                 }
 
-                if (item.gameTypeSet.HasGameType(typeID))
+                if (item.GameTypeSet.HasGameType(typeID))
                 {
                     yield return (slotIndex, item);
                 }
@@ -350,7 +350,7 @@ namespace VMFramework.Containers
                     continue;
                 }
 
-                if (item.gameTypeSet.HasAnyGameType(typeIDs))
+                if (item.GameTypeSet.HasAnyGameType(typeIDs))
                 {
                     yield return (slotIndex, item);
                 }
@@ -372,7 +372,7 @@ namespace VMFramework.Containers
                     continue;
                 }
 
-                if (item.gameTypeSet.HasAllGameTypes(typeIDs))
+                if (item.GameTypeSet.HasAllGameTypes(typeIDs))
                 {
                     yield return (slotIndex, item);
                 }

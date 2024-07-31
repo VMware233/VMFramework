@@ -10,7 +10,7 @@ namespace VMFramework.UI
     {
         string INameOwner.name => "Tooltip";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.CardHeading;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.CardHeading;
     }
 }
 #endif

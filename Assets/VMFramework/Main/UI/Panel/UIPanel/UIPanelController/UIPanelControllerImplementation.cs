@@ -5,29 +5,29 @@ namespace VMFramework.UI
 {
     public partial class UIPanelController : IUIPanelController
     {
-        public string id => preset.id;
+        public string id => Preset.id;
 
-        public bool isUnique => preset.isUnique;
+        public bool isUnique => Preset.isUnique;
         
         [ShowInInspector]
         public bool uiEnabled { get; private set; }
         
         [ShowInInspector]
-        public bool isOpening { get; private set; }
+        public bool IsOpening { get; private set; }
 
         [ShowInInspector]
-        public bool isClosing { get; private set; }
+        public bool IsClosing { get; private set; }
 
         [ShowInInspector]
         public bool isOpened { get; private set; }
 
         [ShowInInspector]
-        public IUIPanelController sourceUIPanel { get; private set; }
+        public IUIPanelController SourceUIPanel { get; private set; }
 
-        IUIPanelController IUIPanelController.sourceUIPanel
+        IUIPanelController IUIPanelController.SourceUIPanel
         {
-            get => sourceUIPanel;
-            set => sourceUIPanel = value;
+            get => SourceUIPanel;
+            set => SourceUIPanel = value;
         }
         
         public abstract event Action<IUIPanelController> OnOpenEvent;
@@ -45,15 +45,15 @@ namespace VMFramework.UI
         [ShowInInspector]
         bool IUIPanelController.isOpening
         {
-            get => isOpening;
-            set => isOpening = value;
+            get => IsOpening;
+            set => IsOpening = value;
         }
         
         [ShowInInspector]
         bool IUIPanelController.isClosing
         {
-            get => isClosing;
-            set => isClosing = value;
+            get => IsClosing;
+            set => IsClosing = value;
         }
 
         void IUIPanelController.OnRecreate(IUIPanelController newPanel)
@@ -74,7 +74,7 @@ namespace VMFramework.UI
             
             if (isUnique)
             {
-                UIPanelManager.RecreateUniquePanel(preset.id);
+                UIPanelManager.RecreateUniquePanel(Preset.id);
             }
             else
             {

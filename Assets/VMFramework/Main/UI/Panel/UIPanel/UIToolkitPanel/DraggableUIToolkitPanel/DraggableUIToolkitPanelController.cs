@@ -47,7 +47,7 @@ namespace VMFramework.UI
 
         void IDraggablePanel.OnDragStart()
         {
-            if (preset.isDebugging)
+            if (Preset.isDebugging)
             {
                 Debug.LogWarning($"开始拖拽:{this.name}");
             }
@@ -55,14 +55,14 @@ namespace VMFramework.UI
 
         void IDraggablePanel.OnDragStop()
         {
-            if (preset.isDebugging)
+            if (Preset.isDebugging)
             {
                 Debug.LogWarning($"结束拖拽:{this.name}");
             }
         }
 
         Vector2 IDraggableUIToolkitPanel.referenceResolution => 
-            uiDocument.panelSettings.referenceResolution;
+            UIDocument.panelSettings.referenceResolution;
 
         bool IDraggableUIToolkitPanel.draggableOverflowScreen =>
             draggableUIToolkitPanelPreset.draggableOverflowScreen;

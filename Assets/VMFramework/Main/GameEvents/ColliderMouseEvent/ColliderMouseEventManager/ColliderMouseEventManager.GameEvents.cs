@@ -31,7 +31,7 @@ namespace VMFramework.GameEvents
         {
             if (mouseEvents.TryGetValue(eventType, out ColliderMouseEvent gameEvent) == false)
             {
-                gameEvent = IGameItem.Create<ColliderMouseEvent>(ColliderMouseEventConfig.ID);
+                gameEvent = GameItemManager.Get<ColliderMouseEvent>(ColliderMouseEventConfig.ID);
                 mouseEvents.Add(eventType, gameEvent);
             }
 

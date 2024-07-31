@@ -17,7 +17,7 @@ namespace VMFramework.OdinExtensions
             {
                 if (Attribute.Trim)
                 {
-                    if (stringValue.IsEmptyAfterTrim())
+                    if (stringValue.IsWhiteSpace())
                     {
                         isNullOrEmpty = true;
                     }

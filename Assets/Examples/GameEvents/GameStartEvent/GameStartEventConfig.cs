@@ -9,6 +9,6 @@ namespace VMFramework.Examples
     {
         public const string ID = "game_start_event";
 
-        public override Type gameItemType => typeof(GameStartEvent);
+        public override Type GameItemType => typeof(GameStartEvent);
     }
 }

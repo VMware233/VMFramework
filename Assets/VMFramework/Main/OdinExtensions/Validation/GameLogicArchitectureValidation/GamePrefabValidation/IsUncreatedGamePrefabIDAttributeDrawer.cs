@@ -16,7 +16,7 @@ namespace VMFramework.OdinExtensions
                 yield break;
             }
 
-            if (id.IsNullOrEmptyAfterTrim())
+            if (id.IsNullOrWhiteSpace())
             {
                 yield break;
             }

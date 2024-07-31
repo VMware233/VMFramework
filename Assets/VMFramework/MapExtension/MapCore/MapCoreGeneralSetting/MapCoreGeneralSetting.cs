@@ -7,7 +7,7 @@ namespace VMFramework.Maps
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(MapCoreConfiguration);
+        public override Type BaseGamePrefabType => typeof(MapCoreConfiguration);
 
         #endregion
     }

@@ -2,11 +2,11 @@ namespace VMFramework.GameLogicArchitecture
 {
     public interface IReadOnlyGameTypeOwner
     {
-        public IReadOnlyGameTypeSet gameTypeSet { get; }
+        public IReadOnlyGameTypeSet GameTypeSet { get; }
     }
 
     public interface IGameTypeOwner
     {
-        public IGameTypeSet gameTypeSet { get; }
+        public IGameTypeSet GameTypeSet { get; }
     }
 }

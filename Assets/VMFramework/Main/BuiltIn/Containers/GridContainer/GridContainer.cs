@@ -12,7 +12,7 @@ namespace VMFramework.Containers
 {
     public class GridContainer : Container
     {
-        protected GridContainerPreset gridContainerPreset => (GridContainerPreset)gamePrefab;
+        protected GridContainerPreset gridContainerPreset => (GridContainerPreset)GamePrefab;
 
         [ShowInInspector]
         private IContainerItem[] items;

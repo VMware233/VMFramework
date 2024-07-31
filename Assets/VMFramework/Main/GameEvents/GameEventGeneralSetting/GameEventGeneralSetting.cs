@@ -11,9 +11,9 @@ namespace VMFramework.GameEvents
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(GameEventConfig);
+        public override Type BaseGamePrefabType => typeof(GameEventConfig);
 
-        public override string gameItemName => typeof(GameEvent<>).Name;
+        public override string GameItemName => typeof(GameEvent<>).Name;
 
         #endregion
 

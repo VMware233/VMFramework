@@ -10,7 +10,7 @@ namespace VMFramework.Maps
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(ExtendedRuleTile);
+        public override Type BaseGamePrefabType => typeof(ExtendedRuleTile);
 
         #endregion
 

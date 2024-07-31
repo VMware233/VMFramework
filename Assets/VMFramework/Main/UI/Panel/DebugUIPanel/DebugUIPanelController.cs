@@ -17,10 +17,10 @@ namespace VMFramework.UI
             public IconLabelVisualElement iconLabel;
 
             [ShowInInspector]
-            private bool display => iconLabel.style.display.value == DisplayStyle.Flex;
+            private bool Display => iconLabel.style.display.value == DisplayStyle.Flex;
         }
 
-        private DebugUIPanelPreset debugUIPanelPreset { get; set; }
+        private DebugUIPanelPreset DebugUIPanelPreset { get; set; }
 
         [ShowInInspector]
         private VisualElement leftContainer;
@@ -65,19 +65,19 @@ namespace VMFramework.UI
         {
             base.OnPreInit(preset);
 
-            debugUIPanelPreset = preset as DebugUIPanelPreset;
+            DebugUIPanelPreset = preset as DebugUIPanelPreset;
 
-            debugUIPanelPreset.AssertIsNotNull(nameof(debugUIPanelPreset));
+            DebugUIPanelPreset.AssertIsNotNull(nameof(DebugUIPanelPreset));
 
-            updateInterval = UISetting.debugUIPanelGeneralSetting.updateInterval;
+            updateInterval = UISetting.DebugUIPanelGeneralSetting.updateInterval;
         }
 
         protected override void OnOpenInstantly(IUIPanelController source)
         {
             base.OnOpenInstantly(source);
 
-            leftContainer = rootVisualElement.Q(debugUIPanelPreset.leftContainerVisualElementName);
-            rightContainer = rootVisualElement.Q(debugUIPanelPreset.rightContainerVisualElementName);
+            leftContainer = rootVisualElement.Q(DebugUIPanelPreset.leftContainerVisualElementName);
+            rightContainer = rootVisualElement.Q(DebugUIPanelPreset.rightContainerVisualElementName);
 
             leftContainer.AssertIsNotNull(nameof(leftContainer));
 
@@ -93,7 +93,7 @@ namespace VMFramework.UI
 
         public void AddEntry(IDebugEntry debugEntry)
         {
-            var container = debugEntry.position switch
+            var container = debugEntry.Position switch
             {
                 LeftRightDirection.Left => leftContainer,
                 LeftRightDirection.Right => rightContainer,

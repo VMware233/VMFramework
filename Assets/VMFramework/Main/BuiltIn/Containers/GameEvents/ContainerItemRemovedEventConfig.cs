@@ -9,6 +9,6 @@ namespace VMFramework.Containers
     {
         public const string ID = "container_item_removed_event";
 
-        public override Type gameItemType => typeof(ContainerItemRemovedEvent);
+        public override Type GameItemType => typeof(ContainerItemRemovedEvent);
     }
 }

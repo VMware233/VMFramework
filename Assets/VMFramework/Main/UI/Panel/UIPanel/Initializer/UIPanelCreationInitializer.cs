@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -18,7 +19,7 @@ namespace VMFramework.UI
 
         private static void OnInitComplete(Action onDone)
         {
-            Debug.Log("Creating initial UI Panels!");
+            Debugger.Log("Creating initial UI Panels!");
 
             foreach (var uiPanelPreset in GamePrefabManager.GetAllActiveGamePrefabs<IUIPanelPreset>())
             {

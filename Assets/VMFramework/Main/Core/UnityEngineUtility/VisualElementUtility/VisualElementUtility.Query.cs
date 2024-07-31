@@ -141,7 +141,7 @@ namespace VMFramework.Core
             }
 
             return treeAsset.GetAll<VisualElement>()
-                .Where(visualElement => visualElement.name.IsNullOrEmptyAfterTrim() == false)
+                .Where(visualElement => visualElement.name.IsNullOrWhiteSpace() == false)
                 .Select(visualElement => visualElement.name);
         }
 
@@ -155,7 +155,7 @@ namespace VMFramework.Core
             }
 
             return treeAsset.GetAll<T>()
-                .Where(visualElement => visualElement.name.IsNullOrEmptyAfterTrim() == false)
+                .Where(visualElement => visualElement.name.IsNullOrWhiteSpace() == false)
                 .Select(visualElement => visualElement.name);
         }
         
@@ -168,7 +168,7 @@ namespace VMFramework.Core
             }
 
             return treeAsset.GetAllByType(type)
-                .Where(visualElement => visualElement.name.IsNullOrEmptyAfterTrim() == false)
+                .Where(visualElement => visualElement.name.IsNullOrWhiteSpace() == false)
                 .Select(visualElement => visualElement.name);
         }
 
@@ -182,7 +182,7 @@ namespace VMFramework.Core
             }
 
             return treeAsset.GetAllByTypes(types)
-                .Where(visualElement => visualElement.name.IsNullOrEmptyAfterTrim() == false)
+                .Where(visualElement => visualElement.name.IsNullOrWhiteSpace() == false)
                 .Select(visualElement => visualElement.name);
         }
 

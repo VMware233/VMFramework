@@ -13,19 +13,19 @@ namespace VMFramework.Procedure
     public sealed partial class ProcedureManager : ManagerBehaviour<ProcedureManager>
     {
         [ShowInInspector]
-        private static IMultiFSM<string, ProcedureManager> fsm = new MultiFSM<string, ProcedureManager>();
+        private static IMultiFSM<string, ProcedureManager> _fsm = new MultiFSM<string, ProcedureManager>();
 
         [ShowInInspector]
-        private static List<IManagerBehaviour> managerBehaviours = new();
+        private static List<IManagerBehaviour> _managerBehaviours = new();
 
-        private static readonly Dictionary<string, IProcedure> _procedures = new();
+        private static readonly Dictionary<string, IProcedure> procedures = new();
         
         [ShowInInspector]
-        public static IReadOnlyList<IProcedure> procedures => _procedures.Values.ToList();
+        public static IReadOnlyList<IProcedure> Procedures => procedures.Values.ToList();
 
         [ShowInInspector]
         [ListDrawerSettings(ShowFoldout = false)]
-        public static IReadOnlyList<string> currentProcedureIDs => fsm?.currentStatesID.ToList();
+        public static IReadOnlyList<string> CurrentProcedureIDs => _fsm?.currentStatesID.ToList();
 
         [ShowInInspector]
         private static readonly Queue<(string fromProcedureID, string toProcedureID)> procedureSwitchQueue =
@@ -46,9 +46,9 @@ namespace VMFramework.Procedure
             {
                 var procedure = (IProcedure)procedureType.CreateInstance();
 
-                _procedures.Add(procedure.id, procedure);
+                procedures.Add(procedure.id, procedure);
 
-                fsm.AddState(procedure);
+                _fsm.AddState(procedure);
 
                 if (procedureType.TryGetAttribute<StartProcedureAttribute>(false,
                         out var startProcedureAttribute))
@@ -71,13 +71,13 @@ namespace VMFramework.Procedure
                 throw new InvalidOperationException("No start procedure found.");
             }
 
-            fsm.Init(this);
+            _fsm.Init(this);
 
-            OnEnterProcedureEvent += procedureID => Debug.Log($"Enter Procedure:<color=orange>{procedureID}</color>");
+            OnEnterProcedureEvent += procedureID => Debugger.Log($"Enter Procedure:<color=orange>{procedureID}</color>");
 
-            OnExitProcedureEvent += procedureID => Debug.Log($"Exit Procedure:<color=orange>{procedureID}</color>");
+            OnExitProcedureEvent += procedureID => Debugger.Log($"Exit Procedure:<color=orange>{procedureID}</color>");
 
-            ProcedureAutoSwitchBinder.Init(_procedures.Values);
+            ProcedureAutoSwitchBinder.Init(procedures.Values);
 
             OnEnterProcedureEvent += procedureID =>
             {
@@ -127,19 +127,19 @@ namespace VMFramework.Procedure
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void EnterProcedureImmediately(string procedureID)
         {
-            if (isLoading)
+            if (IsLoading)
             {
                 Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
-            if (fsm.HasCurrentState(procedureID))
+            if (_fsm.HasCurrentState(procedureID))
             {
                 Debug.LogWarning($"Procedure with ID:{procedureID} is already current state.");
                 return;
             }
 
-            if (fsm.CanEnterState(procedureID) == false)
+            if (_fsm.CanEnterState(procedureID) == false)
             {
                 Debug.LogError($"Failed to enter procedure with ID:{procedureID}.");
                 return;
@@ -147,12 +147,12 @@ namespace VMFramework.Procedure
             
             StartLoading(procedureID, ProcedureLoadingType.OnEnter, () =>
             {
-                if (fsm.CanEnterState(procedureID) == false)
+                if (_fsm.CanEnterState(procedureID) == false)
                 {
                     throw new InvalidOperationException($"Failed to enter procedure with ID:{procedureID}.");
                 }
                 
-                fsm.EnterState(procedureID);
+                _fsm.EnterState(procedureID);
                 
                 OnEnterProcedureEvent?.Invoke(procedureID);
             }).Forget();
@@ -167,19 +167,19 @@ namespace VMFramework.Procedure
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void ExitProcedureImmediately(string procedureID, Action onExit)
         {
-            if (isLoading)
+            if (IsLoading)
             {
                 Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
-            if (fsm.HasCurrentState(procedureID) == false)
+            if (_fsm.HasCurrentState(procedureID) == false)
             {
                 Debug.LogWarning($"Procedure with ID:{procedureID} is not current state.");
                 return;
             }
 
-            if (fsm.CanExitState(procedureID) == false)
+            if (_fsm.CanExitState(procedureID) == false)
             {
                 Debug.LogError($"Failed to exit procedure with ID:{procedureID}.");
                 return;
@@ -187,12 +187,12 @@ namespace VMFramework.Procedure
 
             StartLoading(procedureID, ProcedureLoadingType.OnExit, () =>
             {
-                if (fsm.CanExitState(procedureID) == false)
+                if (_fsm.CanExitState(procedureID) == false)
                 {
                     throw new InvalidOperationException($"Failed to exit procedure with ID:{procedureID}.");
                 }
 
-                fsm.ExitState(procedureID);
+                _fsm.ExitState(procedureID);
                 
                 OnExitProcedureEvent?.Invoke(procedureID);
                 
@@ -203,13 +203,13 @@ namespace VMFramework.Procedure
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void EnterProcedure(string procedureID)
         {
-            if (isLoading)
+            if (IsLoading)
             {
                 Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
-            if (_procedures.ContainsKey(procedureID) == false)
+            if (procedures.ContainsKey(procedureID) == false)
             {
                 throw new ArgumentException($"Procedure with ID:{procedureID} does not exist.");
             }
@@ -220,18 +220,18 @@ namespace VMFramework.Procedure
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void EnterProcedure(string fromProcedureID, string toProcedureID)
         {
-            if (isLoading)
+            if (IsLoading)
             {
                 Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
-            if (_procedures.ContainsKey(fromProcedureID) == false)
+            if (procedures.ContainsKey(fromProcedureID) == false)
             {
                 throw new ArgumentException($"Procedure with ID:{fromProcedureID} does not exist.");
             }
 
-            if (_procedures.ContainsKey(toProcedureID) == false)
+            if (procedures.ContainsKey(toProcedureID) == false)
             {
                 throw new ArgumentException($"Procedure with ID:{toProcedureID} does not exist.");
             }

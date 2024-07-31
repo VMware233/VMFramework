@@ -146,9 +146,9 @@ namespace VMFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debug.Log(
+                        Debugger.Log(
                             $"newInstance:{newInstance.GetType()},{newInstance}");
-                        Debug.Log($"value:{value.GetType()},{value}");
+                        Debugger.Log($"value:{value.GetType()},{value}");
                         Debug.LogError(e);
                         throw;
                     }
@@ -208,9 +208,9 @@ namespace VMFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debug.Log(
+                        Debugger.Log(
                             $"newInstance:{newInstance.GetType()},{newInstance}");
-                        Debug.Log($"value:{value.GetType()},{value}");
+                        Debugger.Log($"value:{value.GetType()},{value}");
                         Debug.LogError(e);
                         throw;
                     }

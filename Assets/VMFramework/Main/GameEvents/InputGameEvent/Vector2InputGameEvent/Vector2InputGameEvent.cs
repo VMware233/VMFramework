@@ -10,7 +10,7 @@ namespace VMFramework.GameEvents
         IUpdateableGameEvent
     {
         private Vector2InputGameEventConfig vector2InputGameEventConfig =>
-            (Vector2InputGameEventConfig)gamePrefab;
+            (Vector2InputGameEventConfig)GamePrefab;
         
         [ShowInInspector]
         public bool isXFromAxis { get; private set; }

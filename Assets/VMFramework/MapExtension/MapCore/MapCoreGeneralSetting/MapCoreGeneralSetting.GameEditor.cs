@@ -10,7 +10,7 @@ namespace VMFramework.Maps
     {
         string INameOwner.name => "Map Core";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.PinMap;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.PinMap;
     }
 }
 #endif

@@ -9,21 +9,21 @@ namespace VMFramework.Procedure
 {
     public static class ManagerCreator
     {
-        private static readonly HashSet<Type> _abstractManagerTypes = new();
+        private static readonly HashSet<Type> abstractManagerTypes = new();
 
-        private static readonly HashSet<Type> _interfaceManagerTypes = new();
+        private static readonly HashSet<Type> interfaceManagerTypes = new();
 
-        private static readonly HashSet<Type> _managerTypes = new();
+        private static readonly HashSet<Type> managerTypes = new();
 
-        private static readonly List<IManagerBehaviour> _managers = new();
+        private static readonly List<IManagerBehaviour> managers = new();
 
-        public static IReadOnlyCollection<Type> abstractManagerTypes => _abstractManagerTypes;
+        public static IReadOnlyCollection<Type> AbstractManagerTypes => abstractManagerTypes;
 
-        public static IReadOnlyCollection<Type> interfaceManagerTypes => _interfaceManagerTypes;
+        public static IReadOnlyCollection<Type> InterfaceManagerTypes => interfaceManagerTypes;
 
-        public static IReadOnlyCollection<Type> managerTypes => _managerTypes;
+        public static IReadOnlyCollection<Type> ManagerTypes => managerTypes;
         
-        public static IReadOnlyList<IManagerBehaviour> managers => _managers;
+        public static IReadOnlyList<IManagerBehaviour> Managers => managers;
 
         public static void CreateManagers()
         {
@@ -35,10 +35,10 @@ namespace VMFramework.Procedure
             eventCoreContainer.GetOrAddComponent<EventSystem>();
             eventCoreContainer.GetOrAddComponent<StandaloneInputModule>();
 
-            _abstractManagerTypes.Clear();
-            _interfaceManagerTypes.Clear();
-            _managerTypes.Clear();
-            _managers.Clear();
+            abstractManagerTypes.Clear();
+            interfaceManagerTypes.Clear();
+            managerTypes.Clear();
+            managers.Clear();
 
             var validManagerClassTypes = new Dictionary<Type, ManagerCreationProviderAttribute>();
             var invalidManagerClassTypes = new Dictionary<Type, ManagerCreationProviderAttribute>();
@@ -53,13 +53,13 @@ namespace VMFramework.Procedure
 
                 if (managerClassType.IsAbstract)
                 {
-                    _abstractManagerTypes.Add(managerClassType);
+                    abstractManagerTypes.Add(managerClassType);
                     continue;
                 }
 
                 if (managerClassType.IsInterface)
                 {
-                    _interfaceManagerTypes.Add(managerClassType);
+                    interfaceManagerTypes.Add(managerClassType);
                     continue;
                 }
 
@@ -120,7 +120,7 @@ namespace VMFramework.Procedure
                     throw new Exception($"{managerClassType} does not implement {nameof(IManagerBehaviour)}");
                 }
                 
-                _managers.Add(managerBehaviour);
+                managers.Add(managerBehaviour);
                 
                 foreach (var otherContainer in ManagerCreatorContainers.GetOtherManagerTypeContainers(managerTypeName))
                 {
@@ -128,7 +128,7 @@ namespace VMFramework.Procedure
                 }
             }
 
-            _managerTypes.UnionWith(validManagerClassTypes.Keys);
+            managerTypes.UnionWith(validManagerClassTypes.Keys);
         }
     }
 }

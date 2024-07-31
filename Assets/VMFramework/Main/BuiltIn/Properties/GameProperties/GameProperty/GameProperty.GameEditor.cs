@@ -6,7 +6,7 @@ namespace VMFramework.Properties
 {
     public partial class GameProperty : IGameEditorMenuTreeNode
     {
-        Icon IGameEditorMenuTreeNode.icon => icon;
+        Icon IGameEditorMenuTreeNode.Icon => icon;
     }
 }
 #endif

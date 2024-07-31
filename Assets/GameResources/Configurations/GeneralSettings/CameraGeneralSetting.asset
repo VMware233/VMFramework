@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   fovLerpSpeed: 5
   positionLerpSpeed: 5
   angleLerpSpeed: 5

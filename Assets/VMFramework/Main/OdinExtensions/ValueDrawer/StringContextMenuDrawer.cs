@@ -31,7 +31,7 @@ namespace VMFramework.OdinExtensions
                 return;
             }
 
-            if (str.IsEmptyAfterTrim())
+            if (str.IsWhiteSpace())
             {
                 return;
             }

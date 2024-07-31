@@ -4,9 +4,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace VMFramework.Core {
+namespace VMFramework.Core
+{
 
-    public static class StringUtility {
+    public static class StringUtility
+    {
         public static int GetLineCount(this string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -17,17 +19,20 @@ namespace VMFramework.Core {
 
         #region Split & Join
 
-        public static List<string> Split(string oldText, int length) {
+        public static List<string> Split(string oldText, int length)
+        {
             var result = new List<string>();
 
             int totalLength = oldText.Length;
             int amount = totalLength / length;
-            
-            for (int i = 0; i < amount; i++) {
+
+            for (int i = 0; i < amount; i++)
+            {
                 result.Add(oldText.Substring(i * length, length));
             }
 
-            if (amount * length < totalLength) {
+            if (amount * length < totalLength)
+            {
                 result.Add(oldText[(amount * length)..]);
             }
 
@@ -51,27 +56,34 @@ namespace VMFramework.Core {
         #region Check
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNullOrEmptyAfterTrim([NotNullWhen(false)]this string str)
-        {
-            return str == null || IsEmptyAfterTrim(str);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrEmpty([NotNullWhen(false)] this string str)
         {
             return string.IsNullOrEmpty(str);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNullOrWhiteSpace([NotNullWhen(false)]this string str)
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string str)
         {
             return string.IsNullOrWhiteSpace(str);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsEmptyAfterTrim([NotNull] this string str)
+        public static bool IsWhiteSpace([NotNull] this string str)
         {
-            return str.Trim() == "";
+            if (str.Length == 0)
+            {
+                return false;
+            }
+
+            foreach (var c in str)
+            {
+                if (char.IsWhiteSpace(c) == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -97,14 +109,16 @@ namespace VMFramework.Core {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToString(this Vector3 value, int decimalPlaces)
         {
-            return $"({value.x.ToString(decimalPlaces)},{value.y.ToString(decimalPlaces)},{value.z.ToString(decimalPlaces)})";
+            return
+                $"({value.x.ToString(decimalPlaces)},{value.y.ToString(decimalPlaces)},{value.z.ToString(decimalPlaces)})";
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToString(this Vector4 value, int decimalPlaces)
         {
-            return $"({value.x.ToString(decimalPlaces)},{value.y.ToString(decimalPlaces)},{value.z.ToString(decimalPlaces)}" +
-                   $"{value.w.ToString(decimalPlaces)})";
+            return
+                $"({value.x.ToString(decimalPlaces)},{value.y.ToString(decimalPlaces)},{value.z.ToString(decimalPlaces)}" +
+                $"{value.w.ToString(decimalPlaces)})";
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

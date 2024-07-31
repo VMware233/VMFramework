@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   dimensionsDetectPriority: 0
   detectDistance2D: 100
   detectDistance3D: 1000

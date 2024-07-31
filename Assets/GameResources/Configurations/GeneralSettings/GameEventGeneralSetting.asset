@@ -116,7 +116,7 @@ MonoBehaviour:
       Data: 
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   initialGamePrefabWrappers:
   - {fileID: 11400000, guid: 21ff985c239dc8f44be68a4621dae3f3, type: 2}
   - {fileID: 11400000, guid: b8ed269b513663c40b0eec1f3adf27d4, type: 2}
@@ -134,4 +134,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5bd1b8decd391f945be3bb66be81f518, type: 2}
   - {fileID: 11400000, guid: 34c6d44d92212764db8e9e7c14233a8b, type: 2}
   - {fileID: 11400000, guid: 3a80b701f8ba5754f8abd020d983363a, type: 2}
-  <defaultGameType>k__BackingField: 
+  <DefaultGameType>k__BackingField: 

@@ -6,13 +6,13 @@ namespace VMFramework.Timers
     public partial class Timer
     {
         [ShowInInspector]
-        public double expectedTimeDebug => _priority;
+        public double expectedTimeDebug => priority;
 
         [ShowInInspector]
-        public double stoppedTimeDebug => stoppedTime;
+        public double stoppedTimeDebug => StoppedTime;
 
         [ShowInInspector]
-        public double startedTimeDebug => startedTime;
+        public double startedTimeDebug => StartedTime;
     }
 }
 #endif

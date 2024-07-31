@@ -8,6 +8,6 @@ namespace VMFramework.GameEvents
     {
         public const string ID = "collider_mouse_event";
         
-        public override Type gameItemType => typeof(ColliderMouseEvent);
+        public override Type GameItemType => typeof(ColliderMouseEvent);
     }
 }

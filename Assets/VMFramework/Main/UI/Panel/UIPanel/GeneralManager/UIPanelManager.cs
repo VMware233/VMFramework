@@ -11,7 +11,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class UIPanelManager : ManagerBehaviour<UIPanelManager>
     {
-        private static UIPanelGeneralSetting setting => UISetting.uiPanelGeneralSetting;
+        private static UIPanelGeneralSetting setting => UISetting.UIPanelGeneralSetting;
 
         public static Transform uiContainer { get; private set; }
 
@@ -59,7 +59,7 @@ namespace VMFramework.UI
                 return null;
             }
             
-            Debug.Log($"Creating panel with preset:{preset}");
+            Debugger.Log($"Creating panel with preset:{preset}");
             
             var uiGameObject = new GameObject(preset.name);
 

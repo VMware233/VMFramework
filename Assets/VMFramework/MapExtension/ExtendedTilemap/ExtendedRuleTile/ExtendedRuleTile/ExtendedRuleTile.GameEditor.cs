@@ -10,7 +10,7 @@ namespace VMFramework.Maps
 {
     public partial class ExtendedRuleTile : IGameEditorMenuTreeNode
     {
-        Icon IGameEditorMenuTreeNode.icon
+        Icon IGameEditorMenuTreeNode.Icon
         {
             get
             {

@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: gamePrefab
       Entry: 7
-      Data: 0|VMFramework.ExtendedTilemap.ExtendedRuleTile, Assembly-CSharp
+      Data: 0|VMFramework.Maps.ExtendedRuleTile, Assembly-CSharp
     - Name: _id
       Entry: 1
       Data: empty_tile
@@ -56,8 +56,8 @@ MonoBehaviour:
       Data: 
     - Name: defaultSpriteLayers
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[VMFramework.ExtendedTilemap.SpriteLayer,
-        Assembly-CSharp]], mscorlib
+      Data: 2|System.Collections.Generic.List`1[[VMFramework.Maps.SpriteLayer, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -69,8 +69,8 @@ MonoBehaviour:
       Data: 
     - Name: ruleSet
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[VMFramework.ExtendedTilemap.Rule,
-        Assembly-CSharp]], mscorlib
+      Data: 3|System.Collections.Generic.List`1[[VMFramework.Maps.Rule, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
       Data: 
     - Name: limitBeforeReplace
       Entry: 7
-      Data: 4|VMFramework.ExtendedTilemap.Limit, Assembly-CSharp
+      Data: 4|VMFramework.Maps.Limit, Assembly-CSharp
     - Name: limitType
       Entry: 3
       Data: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
       Data: 
     - Name: limitAfterReplace
       Entry: 7
-      Data: 6|VMFramework.ExtendedTilemap.Limit, Assembly-CSharp
+      Data: 6|VMFramework.Maps.Limit, Assembly-CSharp
     - Name: limitType
       Entry: 3
       Data: 0

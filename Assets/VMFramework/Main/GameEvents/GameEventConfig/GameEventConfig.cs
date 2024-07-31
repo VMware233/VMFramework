@@ -4,6 +4,6 @@ namespace VMFramework.GameEvents
 {
     public abstract class GameEventConfig : LocalizedGameTypedGamePrefab, IGameEventConfig
     {
-        protected override string idSuffix => "event";
+        protected override string IDSuffix => "event";
     }
 }

@@ -7,7 +7,7 @@ namespace VMFramework.GameEvents
     public abstract class InputGameEvent<TGameEvent> : GameEvent<TGameEvent>, IInputGameEvent
         where TGameEvent : InputGameEvent<TGameEvent>
     {
-        protected InputGameEventConfig inputGameEventConfig => (InputGameEventConfig)gamePrefab;
+        protected InputGameEventConfig inputGameEventConfig => (InputGameEventConfig)GamePrefab;
 
         protected override bool CanPropagate()
         {

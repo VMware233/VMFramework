@@ -10,7 +10,7 @@ namespace VMFramework.Configuration
             this IGameTypeBasedConfigs<TConfig> gameTypeBasedConfigs, IReadOnlyGameTypeSet gameTypeSet)
             where TConfig : IConfig
         {
-            foreach (var leafGameTypeID in gameTypeSet.leafGameTypesID)
+            foreach (var leafGameTypeID in gameTypeSet.LeafGameTypesID)
             {
                 if (gameTypeBasedConfigs.TryGetConfigRuntime(leafGameTypeID, out var config))
                 {
@@ -26,7 +26,7 @@ namespace VMFramework.Configuration
             this IGameTypeBasedConfigs<TConfig> gameTypeBasedConfigs, IReadOnlyGameTypeSet gameTypeSet, out TConfig config)
             where TConfig : IConfig
         {
-            foreach (var leafGameTypeID in gameTypeSet.leafGameTypesID)
+            foreach (var leafGameTypeID in gameTypeSet.LeafGameTypesID)
             {
                 if (gameTypeBasedConfigs.TryGetConfigRuntime(leafGameTypeID, out config))
                 {

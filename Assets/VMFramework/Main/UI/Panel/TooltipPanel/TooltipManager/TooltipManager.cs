@@ -10,7 +10,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class TooltipManager : ManagerBehaviour<TooltipManager>
     {
-        private static TooltipGeneralSetting tooltipGeneralSetting => UISetting.tooltipGeneralSetting;
+        private static TooltipGeneralSetting tooltipGeneralSetting => UISetting.TooltipGeneralSetting;
         
         public static void Open(ITooltipProvider tooltipProvider, IUIPanelController source)
         {
@@ -33,13 +33,13 @@ namespace VMFramework.UI
             if (tooltipProvider is IReadOnlyGameTypeOwner readOnlyGameTypeOwner)
             {
                 if (tooltipGeneralSetting.tooltipIDBindConfigs.TryGetConfigRuntime(
-                        readOnlyGameTypeOwner.gameTypeSet, out var tooltipBindConfig))
+                        readOnlyGameTypeOwner.GameTypeSet, out var tooltipBindConfig))
                 {
                     tooltipID = tooltipBindConfig.tooltipID;
                 }
 
                 if (tooltipGeneralSetting.tooltipPriorityBindConfigs.TryGetConfigRuntime(
-                        readOnlyGameTypeOwner.gameTypeSet, out var priorityBindConfig))
+                        readOnlyGameTypeOwner.GameTypeSet, out var priorityBindConfig))
                 {
                     info.priority = priorityBindConfig.priority;
                     priorityFound = true;

@@ -7,7 +7,7 @@ namespace VMFramework.GameEvents
 {
     public sealed partial class FloatInputGameEventConfig : InputGameEventConfig
     {
-        public override Type gameItemType => typeof(FloatInputGameEvent);
+        public override Type GameItemType => typeof(FloatInputGameEvent);
 
         [TabGroup(TAB_GROUP_NAME, INPUT_MAPPING_CATEGORY)]
         [JsonProperty]

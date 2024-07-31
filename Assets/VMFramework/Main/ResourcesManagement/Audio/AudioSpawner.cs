@@ -24,7 +24,7 @@ namespace VMFramework.ResourcesManagement
 
             if (audioSource.gameObject.activeSelf)
             {
-                audioSource.transform.SetParent(ResourcesManagementSetting.audioGeneralSetting.container);
+                audioSource.transform.SetParent(ResourcesManagementSetting.AudioGeneralSetting.container);
                 pool.Return(audioSource);
             }
         }
@@ -43,7 +43,7 @@ namespace VMFramework.ResourcesManagement
             audioSource.loop = false;
             audioSource.time = 0;
 
-            var container = parent == null ? ResourcesManagementSetting.audioGeneralSetting.container : parent;
+            var container = parent == null ? ResourcesManagementSetting.AudioGeneralSetting.container : parent;
 
             audioSource.transform.SetParent(container);
             audioSource.transform.position = pos;

@@ -12,12 +12,12 @@ namespace VMFramework.GameEvents
 
             translation.defaultValue ??= keyCode.ToString();
 
-            if (translation.tableName.IsNullOrEmptyAfterTrim())
+            if (translation.tableName.IsNullOrWhiteSpace())
             {
                 translation.tableName = settings.defaultTableName;
             }
 
-            if (translation.key.IsNullOrEmptyAfterTrim())
+            if (translation.key.IsNullOrWhiteSpace())
             {
                 translation.key = keyCode.ToString().ToPascalCase() + "Name";
             }

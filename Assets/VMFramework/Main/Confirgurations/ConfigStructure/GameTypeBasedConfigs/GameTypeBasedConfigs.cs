@@ -28,7 +28,7 @@ namespace VMFramework.Configuration
         {
             bool success = true;
             
-            foreach (var gameTypeID in config.gameTypesID)
+            foreach (var gameTypeID in config.GameTypesID)
             {
                 if (GameType.TryGetGameType(gameTypeID, out var gameType) == false)
                 {
@@ -59,7 +59,7 @@ namespace VMFramework.Configuration
             {
                 foreach (var config in configs)
                 {
-                    if (config.gameTypesID.Any(gameTypeID => gameTypeID == parentGameType.id))
+                    if (config.GameTypesID.Any(gameTypeID => gameTypeID == parentGameType.id))
                     {
                         return config;
                     }
@@ -103,7 +103,7 @@ namespace VMFramework.Configuration
             {
                 foreach (var config in configs.ToArray())
                 {
-                    if (config.gameTypesID.Any(gameTypeID => gameTypeID == childGameType.id))
+                    if (config.GameTypesID.Any(gameTypeID => gameTypeID == childGameType.id))
                     {
                         configs.Remove(config);
                     }
@@ -140,7 +140,7 @@ namespace VMFramework.Configuration
                 return false;
             }
 
-            return config.gameTypesID.All(gameTypeID => GetConfigEditor(gameTypeID) != null);
+            return config.GameTypesID.All(gameTypeID => GetConfigEditor(gameTypeID) != null);
         }
 
         public override bool HasConfigRuntime(TConfig config)
@@ -150,7 +150,7 @@ namespace VMFramework.Configuration
                 return false;
             }
 
-            return config.gameTypesID.All(gameTypeID => GetConfigRuntime(gameTypeID) != null);
+            return config.GameTypesID.All(gameTypeID => GetConfigRuntime(gameTypeID) != null);
         }
 
         #endregion

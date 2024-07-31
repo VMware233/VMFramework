@@ -12,7 +12,7 @@ namespace VMFramework.Editor.BatchProcessor
         protected override string processButtonName => "Add Component";
 
         [SerializeField]
-        [TypeValueDropdown(typeof(Component), IncludingSelf = false, IncludingAbstract = false,
+        [DerivedType(typeof(Component), IncludingSelf = false, IncludingAbstract = false,
             IncludingGeneric = false, IncludingInterfaces = false)]
         private Type componentType;
 

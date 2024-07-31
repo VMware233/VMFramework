@@ -6,7 +6,7 @@ namespace VMFramework.ResourcesManagement
 {
     public class ModelPreset : GameTypedGamePrefab
     {
-        protected override string idSuffix => "model";
+        protected override string IDSuffix => "model";
 
         [LabelText("现成的模型预制体")]
         [Required]

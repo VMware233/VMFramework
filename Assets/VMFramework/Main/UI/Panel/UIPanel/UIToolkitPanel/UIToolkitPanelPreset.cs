@@ -21,7 +21,7 @@ namespace VMFramework.UI
             {
                 if (useDefaultPanelSettings)
                 {
-                    return UISetting.uiPanelGeneralSetting.GetPanelSetting(sortingOrder);
+                    return UISetting.UIPanelGeneralSetting.GetPanelSetting(sortingOrder);
                 }
 
                 return customPanelSettings;

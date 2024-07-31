@@ -24,7 +24,7 @@ namespace VMFramework.UI
         
         public bool uiEnabled { get; }
         
-        public IUIPanelController sourceUIPanel { get; protected set; }
+        public IUIPanelController SourceUIPanel { get; protected set; }
 
         public event Action<IUIPanelController> OnOpenEvent;
         
@@ -54,11 +54,11 @@ namespace VMFramework.UI
             PreOpen(source);
             OpenInstantly(source);
 
-            sourceUIPanel = source;
+            SourceUIPanel = source;
 
-            if (sourceUIPanel != null)
+            if (SourceUIPanel != null)
             {
-                sourceUIPanel.OnCloseInstantlyEvent += Close;
+                SourceUIPanel.OnCloseInstantlyEvent += Close;
             }
         }
 
@@ -83,12 +83,12 @@ namespace VMFramework.UI
                 return;
             }
             
-            if (sourceUIPanel != null)
+            if (SourceUIPanel != null)
             {
-                sourceUIPanel.OnCloseInstantlyEvent -= Close;
+                SourceUIPanel.OnCloseInstantlyEvent -= Close;
             }
 
-            sourceUIPanel = null;
+            SourceUIPanel = null;
             
             isClosing = false;
             CloseInstantly(source);

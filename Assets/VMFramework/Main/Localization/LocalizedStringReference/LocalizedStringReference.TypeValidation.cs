@@ -11,7 +11,7 @@ namespace VMFramework.Localization
     {
         public IEnumerable<ValidationResult> GetValidationResults(GUIContent label)
         {
-            if (tableName.IsNullOrEmptyAfterTrim())
+            if (tableName.IsNullOrWhiteSpace())
             {
                 yield return new("Table Name cannot be empty.", ValidateType.Warning);
             }
@@ -23,7 +23,7 @@ namespace VMFramework.Localization
                 }
                 else
                 {
-                    if (key.IsNullOrEmptyAfterTrim())
+                    if (key.IsNullOrWhiteSpace())
                     {
                         yield return new("Key cannot be empty.", ValidateType.Warning);
                     }

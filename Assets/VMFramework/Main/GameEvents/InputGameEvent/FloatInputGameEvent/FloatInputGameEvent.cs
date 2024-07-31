@@ -8,7 +8,7 @@ namespace VMFramework.GameEvents
     public class FloatInputGameEvent : InputGameEvent<FloatInputGameEvent>, IFloatInputGameEvent, 
         IUpdateableGameEvent
     {
-        private FloatInputGameEventConfig floatInputGameEventConfig => (FloatInputGameEventConfig)gamePrefab;
+        private FloatInputGameEventConfig floatInputGameEventConfig => (FloatInputGameEventConfig)GamePrefab;
         
         [ShowInInspector]
         public bool isFromAxis { get; private set; }

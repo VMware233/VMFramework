@@ -9,7 +9,7 @@ namespace VMFramework.UI
     {
         #region Setting MetaData
 
-        public override Type baseGamePrefabType => typeof(DebugEntry);
+        public override Type BaseGamePrefabType => typeof(DebugEntry);
 
         #endregion
 

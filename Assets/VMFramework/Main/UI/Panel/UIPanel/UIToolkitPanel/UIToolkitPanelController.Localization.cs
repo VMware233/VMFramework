@@ -14,7 +14,7 @@ namespace VMFramework.UI
 
         protected virtual void OnCurrentLanguageChanged(Locale currentLocale)
         {
-            if (UISetting.uiPanelGeneralSetting.enableLanguageConfigs == false)
+            if (UISetting.UIPanelGeneralSetting.enableLanguageConfigs == false)
             {
                 return;
             }
@@ -22,7 +22,7 @@ namespace VMFramework.UI
             if (lastLocale != null)
             {
                 var previousLanguageConfig =
-                    UISetting.uiPanelGeneralSetting.languageConfigs.GetConfig(currentLocale.Identifier.Code);
+                    UISetting.UIPanelGeneralSetting.languageConfigs.GetConfig(currentLocale.Identifier.Code);
 
                 if (previousLanguageConfig != null)
                 {
@@ -33,7 +33,7 @@ namespace VMFramework.UI
             lastLocale = currentLocale;
 
             var currentLanguageConfig =
-                UISetting.uiPanelGeneralSetting.languageConfigs.GetConfig(currentLocale.Identifier.Code);
+                UISetting.UIPanelGeneralSetting.languageConfigs.GetConfig(currentLocale.Identifier.Code);
 
             if (currentLanguageConfig != null)
             {

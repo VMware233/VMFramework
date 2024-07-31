@@ -11,7 +11,7 @@ namespace VMFramework.UI
 {
     public partial class UIPanelPreset : LocalizedGamePrefab, IUIPanelPreset
     {
-        protected override string idSuffix => "ui";
+        protected override string IDSuffix => "ui";
 
         [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [ShowInInspector]

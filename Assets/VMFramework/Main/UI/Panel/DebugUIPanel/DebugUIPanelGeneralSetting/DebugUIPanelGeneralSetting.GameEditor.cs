@@ -10,7 +10,7 @@ namespace VMFramework.UI
     {
         string INameOwner.name => "Debug Entry";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Bug;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.Bug;
     }
 }
 #endif

@@ -12,7 +12,7 @@ namespace VMFramework.Editor.BatchProcessor
         protected override string processButtonName => "Query By Component";
 
         [SerializeField]
-        [TypeValueDropdown(typeof(Component), IncludingSelf = false, IncludingAbstract = true,
+        [DerivedType(typeof(Component), IncludingSelf = false, IncludingAbstract = true,
             IncludingGeneric = false, IncludingInterfaces = false)]
         private Type componentType;
 

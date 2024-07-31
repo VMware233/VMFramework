@@ -13,16 +13,15 @@ namespace VMFramework.Editor
         [MenuItem(UnityMenuItemNames.SCRIPT_TEMPLATE + "General Setting")]
         private static void CreateGeneralSettingScript()
         {
-            ScriptTemplatesCreatorTools.CreateScript<GeneralSettingScriptCreationViewer>(
-                (info, selectedAssetFolderPath) =>
-                {
-                    ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GENERAL_SETTING, info.className,
-                        selectedAssetFolderPath, extraInfo: new GeneralSettingScriptExtraInfo()
-                        {
-                            namespaceName = info.namespaceName,
-                            nameInGameEditor = info.name.ToPascalCase(" ")
-                        }, postProcessor: postProcessor);
-                });
+            ScriptTemplatesCreatorTools.CreateScript<GeneralSettingScriptCreationViewer>(info =>
+            {
+                ScriptCreator.CreateScriptAssets(ScriptTemplatesNames.GENERAL_SETTING, info.ClassName,
+                    info.assetFolderPath, extraInfo: new GeneralSettingScriptExtraInfo()
+                    {
+                        namespaceName = info.namespaceName,
+                        nameInGameEditor = info.name.ToPascalCase(" ")
+                    }, postProcessor: postProcessor);
+            });
         }
     }
 }

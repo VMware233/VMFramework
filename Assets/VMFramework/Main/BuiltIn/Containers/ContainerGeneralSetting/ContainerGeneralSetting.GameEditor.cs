@@ -10,7 +10,7 @@ namespace VMFramework.Containers
     {
         string INameOwner.name => "Container";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Archive;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.Archive;
     }
 }
 #endif

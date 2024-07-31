@@ -10,7 +10,7 @@ namespace VMFramework.UI
     [ManagerCreationProvider(ManagerType.UICore)]
     public sealed class CanvasManager : ManagerBehaviour<CanvasManager>
     {
-        private static UIPanelGeneralSetting setting => UISetting.uiPanelGeneralSetting;
+        private static UIPanelGeneralSetting Setting => UISetting.UIPanelGeneralSetting;
         
         [ShowInInspector]
         private static Transform canvasContainer;
@@ -22,7 +22,7 @@ namespace VMFramework.UI
         {
             base.OnBeforeInitStart();
             
-            canvasContainer = UISetting.uiPanelGeneralSetting.container;
+            canvasContainer = UISetting.UIPanelGeneralSetting.container;
         }
 
         public static Canvas GetCanvas(int sortingOrder)
@@ -36,8 +36,8 @@ namespace VMFramework.UI
                 canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
                 result.canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                result.canvasScaler.referenceResolution = setting.defaultReferenceResolution;
-                result.canvasScaler.matchWidthOrHeight = setting.defaultMatch;
+                result.canvasScaler.referenceResolution = Setting.defaultReferenceResolution;
+                result.canvasScaler.matchWidthOrHeight = Setting.defaultMatch;
 
                 canvasDict[sortingOrder] = canvas;
             }

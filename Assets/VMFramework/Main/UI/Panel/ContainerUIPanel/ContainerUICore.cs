@@ -283,7 +283,7 @@ namespace VMFramework.UI
         {
             if (config.isDebugging)
             {
-                Debug.Log($"序号为{slotIndex}的槽位的物品{item}，数量由{previousCount}变为{currentCount}");
+                Debugger.Log($"序号为{slotIndex}的槽位的物品{item}，数量由{previousCount}变为{currentCount}");
             }
 
             ISlotProvider slotProvider = null;
@@ -316,7 +316,7 @@ namespace VMFramework.UI
         {
             if (config.isDebugging)
             {
-                Debug.Log($"更新{slotIndex}，新的item:{item}");
+                Debugger.Log($"更新{slotIndex}，新的item:{item}");
             }
 
             ISlotProvider slotProvider = null;
@@ -341,7 +341,7 @@ namespace VMFramework.UI
 
                 if (config.isDebugging)
                 {
-                    Debug.Log($"改变了{slotVisualElements.Count}个{nameof(SlotVisualElement)}");
+                    Debugger.Log($"改变了{slotVisualElements.Count}个{nameof(SlotVisualElement)}");
                 }
             }
             else
@@ -357,7 +357,7 @@ namespace VMFramework.UI
         {
             if (config.isDebugging)
             {
-                Debug.Log($"容器大小改变:{bindContainer.size}");
+                Debugger.Log($"容器大小改变:{bindContainer.size}");
             }
 
             if (bindContainer != null && isOpen)

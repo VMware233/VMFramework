@@ -10,7 +10,7 @@ namespace VMFramework.Editor
     [InitializeOnLoad]
     public class ColorfulHierarchy
     {
-        private static HierarchyGeneralSetting generalSetting => EditorSetting.hierarchyGeneralSetting;
+        private static HierarchyGeneralSetting generalSetting => EditorSetting.HierarchyGeneralSetting;
         
         static ColorfulHierarchy()
         {

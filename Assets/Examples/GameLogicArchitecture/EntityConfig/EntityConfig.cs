@@ -6,8 +6,8 @@ namespace VMFramework.Examples
 {
     public partial class EntityConfig : LocalizedGameTypedGamePrefab, IEntityConfig
     {
-        protected override string idSuffix => "entity";
+        protected override string IDSuffix => "entity";
         
-        public override Type gameItemType => typeof(Entity);
+        public override Type GameItemType => typeof(Entity);
     }
 }

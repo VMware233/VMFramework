@@ -21,7 +21,7 @@ namespace VMFramework.UI
 
         #region MetaData;
 
-        public override Type baseGamePrefabType => typeof(UIPanelPreset);
+        public override Type BaseGamePrefabType => typeof(UIPanelPreset);
 
         #endregion
 

@@ -4,8 +4,10 @@ namespace VMFramework.Editor
 {
     public interface IScriptCreationViewer : INameOwner
     {
-        public string className { get; }
+        public string AssetFolderPath { get; set; }
         
-        public string namespaceName { get; }
+        public string ClassName { get; }
+        
+        public string NamespaceName { get; }
     }
 }

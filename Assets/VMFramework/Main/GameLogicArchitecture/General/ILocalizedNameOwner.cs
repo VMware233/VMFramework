@@ -4,6 +4,6 @@ namespace VMFramework.GameLogicArchitecture
 {
     public interface ILocalizedNameOwner
     {
-        public IReadOnlyLocalizedStringReference nameReference { get; }
+        public IReadOnlyLocalizedStringReference NameReference { get; }
     }
 }

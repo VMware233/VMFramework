@@ -10,7 +10,7 @@ namespace VMFramework.ResourcesManagement
     {
         string INameOwner.name => "Model Prefab";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.BoxSeam;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.BoxSeam;
     }
 }
 #endif

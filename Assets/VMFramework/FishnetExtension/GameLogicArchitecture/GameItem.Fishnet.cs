@@ -76,51 +76,6 @@ namespace VMFramework.GameLogicArchitecture
         {
             OnRead(reader);
         }
-
-        /// <summary>
-        /// Fishnet的网络byte流写入
-        /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="gameItem"></param>
-        [NotSerializer]
-        public static void WriteGameItem(Writer writer, GameItem gameItem)
-        {
-            if (gameItem == null)
-            {
-                writer.WriteString(IGamePrefab.NULL_ID);
-            }
-            else
-            {
-                // Debug.LogError($"Is Writing GameItem : {gameItem.id}");
-                writer.WriteString(gameItem.id);
-                
-                gameItem.OnWrite(writer);
-                // Debug.LogError($"Is Writing GameItem : {gameItem.id} - Done");
-            }
-        }
-        
-        /// <summary>
-        /// Fishnet的网络byte流读出
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <typeparam name="TGameItem"></typeparam>
-        /// <returns></returns>
-        [NotSerializer]
-        public static TGameItem ReadGameItem<TGameItem>(Reader reader) where TGameItem : GameItem
-        {
-            var id = reader.ReadString();
-        
-            if (id == IGamePrefab.NULL_ID)
-            {
-                return null;
-            }
-        
-            var gameItem = IGameItem.Create<TGameItem>(id);
-        
-            gameItem.OnRead(reader);
-        
-            return gameItem;
-        }
     }
 }
 #endif

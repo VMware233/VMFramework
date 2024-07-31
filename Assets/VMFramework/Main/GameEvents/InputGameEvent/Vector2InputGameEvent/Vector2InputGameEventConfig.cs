@@ -7,7 +7,7 @@ namespace VMFramework.GameEvents
 {
     public sealed partial class Vector2InputGameEventConfig : InputGameEventConfig
     {
-        public override Type gameItemType => typeof(Vector2InputGameEvent);
+        public override Type GameItemType => typeof(Vector2InputGameEvent);
         
         private const string XY_TAB_GROUP = TAB_GROUP_NAME + "/" + INPUT_MAPPING_CATEGORY + "/XY";
 

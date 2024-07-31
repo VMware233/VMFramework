@@ -28,11 +28,11 @@ namespace VMFramework.UI
             
             isClosing = true;
             
-            if (sourceUIPanel != null)
+            if (SourceUIPanel != null)
             {
-                sourceUIPanel.OnCloseInstantlyEvent -= Close;
+                SourceUIPanel.OnCloseInstantlyEvent -= Close;
             }
-            sourceUIPanel = null;
+            SourceUIPanel = null;
             
             closingCTS = new CancellationTokenSource();
             

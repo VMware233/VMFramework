@@ -62,18 +62,38 @@ namespace VMFramework.Containers
 
         #endregion
 
-        #region Init
+        #region Pool Events
 
-        protected override void OnCreate()
+        protected override void OnGet()
         {
-            base.OnCreate();
-
-            itemAddedEvent = IGameItem.Create<ContainerItemAddedEvent>(ContainerItemAddedEventConfig.ID);
-            itemRemovedEvent = IGameItem.Create<ContainerItemRemovedEvent>(ContainerItemRemovedEventConfig.ID);
+            base.OnGet();
+            
+            itemAddedEvent = GameItemManager.Get<ContainerItemAddedEvent>(ContainerItemAddedEventConfig.ID);
+            itemRemovedEvent = GameItemManager.Get<ContainerItemRemovedEvent>(ContainerItemRemovedEventConfig.ID);
 
             using var containerCreateEvent = ContainerCreateEvent.Get();
             containerCreateEvent.SetContainer(this);
             containerCreateEvent.Propagate();
+        }
+
+        protected override void OnReturn()
+        {
+            base.OnReturn();
+            
+            if (isDebugging)
+            {
+                Debug.LogWarning($"{this} is Destroyed");
+            }
+            
+            using var containerDestroyEvent = ContainerDestroyEvent.Get();
+            containerDestroyEvent.SetContainer(this);
+            containerDestroyEvent.Propagate();
+            
+            GameItemManager.Return(itemAddedEvent);
+            GameItemManager.Return(itemRemovedEvent);
+            
+            itemAddedEvent = null;
+            itemRemovedEvent = null;
         }
 
         #endregion
@@ -89,24 +109,6 @@ namespace VMFramework.Containers
             }
 
             owner = newOwner;
-        }
-
-        #endregion
-
-        #region Destroy
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            
-            if (isDebugging)
-            {
-                Debug.LogWarning($"{this} is Destroyed");
-            }
-            
-            using var containerDestroyEvent = ContainerDestroyEvent.Get();
-            containerDestroyEvent.SetContainer(this);
-            containerDestroyEvent.Propagate();
         }
 
         #endregion
@@ -164,7 +166,7 @@ namespace VMFramework.Containers
                 {
                     SetItem(slotIndex, null);
                     
-                    IGameItem.Destroy(item);
+                    GameItemManager.Return(item);
                 }
                 else
                 {

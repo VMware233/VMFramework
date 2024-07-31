@@ -20,7 +20,7 @@ namespace VMFramework.Configuration
             init => _gameTypesIDs.AddRange(value);
         }
 
-        IEnumerable<string> IGameTypesIDOwner.gameTypesID => _gameTypesIDs;
+        IEnumerable<string> IGameTypesIDOwner.GameTypesID => _gameTypesIDs;
 
         string INameOwner.name => _gameTypesIDs.Join(", ");
     }

@@ -7,9 +7,9 @@ namespace VMFramework.Properties
 {
     public abstract partial class GameProperty : LocalizedGameTypedGamePrefab, IGameProperty
     {
-        protected override string idSuffix => "property";
+        protected override string IDSuffix => "property";
 
-        public sealed override Type gameItemType => null;
+        public sealed override Type GameItemType => null;
 
         [TabGroup(TAB_GROUP_NAME, BASIC_CATEGORY)]
         [ShowInInspector]

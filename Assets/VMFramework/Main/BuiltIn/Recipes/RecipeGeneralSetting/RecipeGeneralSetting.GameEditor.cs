@@ -10,7 +10,7 @@ namespace VMFramework.Recipes
     {
         string INameOwner.name => "Recipe";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.Grid3x3GapFill;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.Grid3x3GapFill;
     }
 }
 #endif

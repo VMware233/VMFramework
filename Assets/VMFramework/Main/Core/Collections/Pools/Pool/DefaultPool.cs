@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace VMFramework.Core.Pools
 {
     /// <summary>
-    /// Thread-unsafe
+    /// This pool is not thread-safe.
+    /// If you need a thread-safe version, use the <see cref="DefaultConcurrentPool{TItem}"/> instead.
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
-    public sealed partial class DefaultPool<TItem> : Pool<TItem>
+    public sealed partial class DefaultPool<TItem> : Pool<TItem>, ICheckablePool<TItem>
     {
         private readonly Func<TItem, TItem> _preGetFunc;
         private readonly Func<TItem> _createFunc;
@@ -26,6 +28,8 @@ namespace VMFramework.Core.Pools
         
         public DefaultPool(IPoolPolicy<TItem> policy, int capacity)
         {
+            policy.AssertIsNotNull(nameof(policy));
+            
             // cache the target interface methods, to avoid interface lookup overhead
             _preGetFunc = policy.PreGet;
             _createFunc = policy.Create;
@@ -72,6 +76,9 @@ namespace VMFramework.Core.Pools
             
             _items.Clear();
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Contains(TItem item) => _items.Contains(item);
 
         public override IEnumerator<TItem> GetEnumerator() => _items.GetEnumerator();
     }

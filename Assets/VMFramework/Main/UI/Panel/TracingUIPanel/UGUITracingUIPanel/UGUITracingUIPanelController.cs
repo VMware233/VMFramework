@@ -23,8 +23,8 @@ namespace VMFramework.UI
             enableOverflow = tracingUIPanelPreset.enableScreenOverflow;
             autoPivotCorrection = tracingUIPanelPreset.autoPivotCorrection;
 
-            visualRectTransform.anchorMin = Vector2.zero;
-            visualRectTransform.anchorMax = Vector2.zero;
+            VisualRectTransform.anchorMin = Vector2.zero;
+            VisualRectTransform.anchorMax = Vector2.zero;
         }
 
         protected override void OnOpenInstantly(IUIPanelController source)
@@ -47,7 +47,7 @@ namespace VMFramework.UI
         #region IUGUITracingUIPanel 
 
         Vector2 IUGUITracingUIPanel.referenceResolution =>
-            canvasScaler.referenceResolution;
+            CanvasScaler.referenceResolution;
 
         bool IUGUITracingUIPanel.enableOverflow => enableOverflow;
 
@@ -55,7 +55,7 @@ namespace VMFramework.UI
 
         Vector2 IUGUITracingUIPanel.defaultPivot => defaultPivot;
 
-        RectTransform IUGUITracingUIPanel.tracingContainer => visualRectTransform;
+        RectTransform IUGUITracingUIPanel.tracingContainer => VisualRectTransform;
 
         #endregion
     }

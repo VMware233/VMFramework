@@ -33,7 +33,7 @@ MonoBehaviour:
     - Name: isDebugging
       Entry: 5
       Data: false
-    - Name: _initialGameTypesID
+    - Name: initialGameTypesID
       Entry: 7
       Data: 1|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 

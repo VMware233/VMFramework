@@ -6,7 +6,7 @@ namespace VMFramework.ResourcesManagement
 {
     public class TrailPreset : GameTypedGamePrefab
     {
-        protected override string idSuffix => "trail";
+        protected override string IDSuffix => "trail";
 
         [LabelText("拖尾预制体")]
         [AssetsOnly]

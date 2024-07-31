@@ -7,7 +7,7 @@ using VMFramework.GameLogicArchitecture;
     {
         #region Meta Data
 
-        public override Type baseGamePrefabType => typeof(#BASE_GAME_PREFAB_TYPE#);
+        public override Type BaseGamePrefabType => typeof(#BASE_GAME_PREFAB_TYPE#);
 
         #endregion
 

@@ -22,18 +22,18 @@ namespace VMFramework.Configuration
                 yield break;
             }
 
-            if (configs.Any(config => config.gameTypesID.Any() == false))
+            if (configs.Any(config => config.GameTypesID.Any() == false))
             {
                 yield return new("Each configuration must have at least one game type ID assigned.",
                     ValidateType.Error);
             }
 
-            if (configs.Any(config => config.gameTypesID.Any(id => id.IsNullOrEmpty())))
+            if (configs.Any(config => config.GameTypesID.Any(id => id.IsNullOrEmpty())))
             {
                 yield return new("Each game type ID must be a valid string.", ValidateType.Error);
             }
 
-            if (configs.Select(config => config.gameTypesID).Aggregate((one, two) => one.Concat(two))
+            if (configs.Select(config => config.GameTypesID).Aggregate((one, two) => one.Concat(two))
                     .IsUnique() == false)
             {
                 yield return new("Each game type ID must be unique across all configurations.",

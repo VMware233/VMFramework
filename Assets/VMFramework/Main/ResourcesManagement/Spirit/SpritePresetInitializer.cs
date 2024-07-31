@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EnumsNET;
 using UnityEngine;
 using UnityEngine.Scripting;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -33,7 +34,7 @@ namespace VMFramework.ResourcesManagement
 
             if (count > 0)
             {
-                Debug.Log($"Preloaded {count} sprites' flip types.");
+                Debugger.Log($"Preloaded {count} sprites' flip types.");
             }
             
             onDone();

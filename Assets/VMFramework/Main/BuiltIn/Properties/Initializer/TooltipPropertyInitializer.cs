@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -18,22 +19,22 @@ namespace VMFramework.Properties
 
         private static void OnInit(Action onDone)
         {
-            Debug.Log("Initializing Tooltip Property");
+            Debugger.Log("Initializing Tooltip Property");
             
             foreach (var gamePrefab in GamePrefabManager.GetAllGamePrefabs())
             {
-                if (gamePrefab.gameItemType == null)
+                if (gamePrefab.GameItemType == null)
                 {
                     continue;
                 }
 
-                if (gamePrefab.gameItemType.IsAbstract)
+                if (gamePrefab.GameItemType.IsAbstract)
                 {
                     continue;
                 }
 
                 foreach (var configRuntime in TooltipPropertyManager.GetTooltipPropertyConfigsRuntime(
-                             gamePrefab.gameItemType))
+                             gamePrefab.GameItemType))
                 {
                     TooltipPropertyManager.AddTooltipPropertyConfigRuntime(gamePrefab.id, configRuntime);
                 }

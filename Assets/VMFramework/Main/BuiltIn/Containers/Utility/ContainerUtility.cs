@@ -51,21 +51,11 @@ namespace VMFramework.Containers
             {
                 container.SetItem(index, item);
 
-                if (container.isDebugging)
-                {
-                    Debug.LogWarning($"{item}被添加到{container}第{index}个槽位");
-                }
-
                 return true;
             }
 
             if (container.TryMergeItem(index, item))
             {
-                if (container.isDebugging)
-                {
-                    Debug.LogWarning($"{item}被添加到{container}第{index}个槽位");
-                }
-
                 if (item.count <= 0)
                 {
                     return true;
@@ -109,20 +99,6 @@ namespace VMFramework.Containers
 
             container.SetItem(index, targetItem);
             targetContainer.SetItem(targetIndex, thisItem);
-
-            if (container.isDebugging == false)
-            {
-                return;
-            }
-
-            if (container != targetContainer)
-            {
-                Debug.LogWarning($"{container}的第{index}个物品和{targetContainer}的第{targetIndex}个物品发生了交换");
-            }
-            else
-            {
-                Debug.LogWarning($"{container}的第{index}个物品和第{targetIndex}个物品发生了交换");
-            }
         }
 
         #endregion

@@ -19,13 +19,13 @@ namespace VMFramework.OdinExtensions
 
         void IDefinesGenericMenuItems.PopulateGenericMenu(InspectorProperty property, GenericMenu genericMenu)
         {
-            if (ValueEntry.SmartValue.gameItemType != null)
+            if (ValueEntry.SmartValue.GameItemType != null)
             {
                 genericMenu.AddSeparator();
                 
                 genericMenu.AddItem(EditorNames.OPEN_GAME_ITEM_SCRIPT, () =>
                 {
-                    ValueEntry.SmartValue.gameItemType.OpenScriptOfType();
+                    ValueEntry.SmartValue.GameItemType.OpenScriptOfType();
                 });
             }
         }

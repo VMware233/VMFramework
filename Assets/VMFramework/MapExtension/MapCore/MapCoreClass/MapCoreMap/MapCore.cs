@@ -85,6 +85,10 @@ namespace VMFramework.Maps
         where TChunk : MapCore<TChunk, TTile>.Chunk, new()
         where TTile : MapCore<TChunk, TTile>.Tile, new()
     {
+        public delegate void ChunkEvent(TChunk chunk);
+
+        public delegate void TileEvent(TChunk chunk, TTile tile);
+
         [HideReferenceObjectPicker]
         [HideDuplicateReferenceBox]
         [HideInEditorMode]
@@ -117,14 +121,11 @@ namespace VMFramework.Maps
             [ShowInInspector]
             private readonly Dictionary<Vector3Int, TChunk> chunkDictXYZ = new();
 
-            private readonly Dictionary<Vector2Int, HashSet<TChunk>> chunkDictXY =
-                new();
+            private readonly Dictionary<Vector2Int, HashSet<TChunk>> chunkDictXY = new();
 
-            private readonly Dictionary<Vector2Int, HashSet<TChunk>> chunkDictYZ =
-                new();
+            private readonly Dictionary<Vector2Int, HashSet<TChunk>> chunkDictYZ = new();
 
-            private readonly Dictionary<Vector2Int, HashSet<TChunk>> chunkDictXZ =
-                new();
+            private readonly Dictionary<Vector2Int, HashSet<TChunk>> chunkDictXZ = new();
 
             private readonly Dictionary<int, HashSet<TChunk>> chunkDictX = new();
             private readonly Dictionary<int, HashSet<TChunk>> chunkDictY = new();
@@ -159,10 +160,6 @@ namespace VMFramework.Maps
             public int tilesCount =>
                 chunkDictXYZ.Count * config.chunkSize.Products();
 
-            public delegate void ChunkEvent(TChunk chunk);
-
-            public delegate void TileEvent(TChunk chunk, TTile tile);
-
             public event ChunkEvent OnChunkCreateStart;
             public event ChunkEvent OnChunkCreateEnd;
             public event ChunkEvent OnChunkDeleteStart;
@@ -173,8 +170,8 @@ namespace VMFramework.Maps
 
             #region Initialization
 
-            protected Map(string configID) : 
-                this(GamePrefabManager.GetGamePrefabStrictly<MapCoreConfiguration>(configID))
+            protected Map(string configID) : this(
+                GamePrefabManager.GetGamePrefabStrictly<MapCoreConfiguration>(configID))
             {
 
             }
@@ -206,9 +203,8 @@ namespace VMFramework.Maps
 
                 chunkSize.AssertIsAllNumberAbove(Vector3Int.zero, nameof(chunkSize));
 
-                config.chunkLoadingRadius.AssertIsAllNumberAbove(Vector3.zero,
-                    nameof(config.chunkLoadingRadius));
-                
+                config.chunkLoadingRadius.AssertIsAllNumberAbove(Vector3.zero, nameof(config.chunkLoadingRadius));
+
                 config.onceChunkAddedMaxAmount.AssertIsAbove(0, nameof(config.onceChunkAddedMaxAmount));
             }
 
@@ -224,8 +220,7 @@ namespace VMFramework.Maps
                 }
             }
 
-            public void AddOriginChunkPos(
-                params Vector3Int[] newOriginChunkPositions)
+            public void AddOriginChunkPos(params Vector3Int[] newOriginChunkPositions)
             {
                 foreach (Vector3Int newOriginChunkPos in newOriginChunkPositions)
                 {
@@ -248,8 +243,7 @@ namespace VMFramework.Maps
                         newOriginChunkZ = newOriginChunkZ.Clamp(0, fixedSize.z - 1);
                     }
 
-                    Vector3Int newModifiedOriginChunkPos = new(newOriginChunkX,
-                        newOriginChunkY, newOriginChunkZ);
+                    Vector3Int newModifiedOriginChunkPos = new(newOriginChunkX, newOriginChunkY, newOriginChunkZ);
 
                     originChunkPositions.Add(newModifiedOriginChunkPos);
                 }
@@ -260,8 +254,7 @@ namespace VMFramework.Maps
                 AddOriginChunkPos(tile.originChunk.pos);
             }
 
-            public void AddRandomOriginChunkPos(
-                Vector3Int randomLimitation = default)
+            public void AddRandomOriginChunkPos(Vector3Int randomLimitation = default)
             {
                 Vector3Int randomChunkPos = Vector3Int.zero;
 
@@ -276,8 +269,7 @@ namespace VMFramework.Maps
                 }
                 else
                 {
-                    randomChunkPos.x =
-                        (-randomLimitation.x).RandomRange(randomLimitation.x);
+                    randomChunkPos.x = (-randomLimitation.x).RandomRange(randomLimitation.x);
                 }
 
                 if (config.isInfiniteInY == false)
@@ -286,8 +278,7 @@ namespace VMFramework.Maps
                 }
                 else
                 {
-                    randomChunkPos.y =
-                        (-randomLimitation.y).RandomRange(randomLimitation.y);
+                    randomChunkPos.y = (-randomLimitation.y).RandomRange(randomLimitation.y);
                 }
 
                 if (config.isInfiniteInZ == false)
@@ -296,14 +287,12 @@ namespace VMFramework.Maps
                 }
                 else
                 {
-                    randomChunkPos.z =
-                        (-randomLimitation.z).RandomRange(randomLimitation.z);
+                    randomChunkPos.z = (-randomLimitation.z).RandomRange(randomLimitation.z);
                 }
 
-                Debug.Log($"添加随机德其实区块加载坐标为：{randomChunkPos}");
+                Debugger.Log($"添加随机德其实区块加载坐标为：{randomChunkPos}");
 
                 AddOriginChunkPos(randomChunkPos);
-
             }
 
             /// <summary>
@@ -314,8 +303,8 @@ namespace VMFramework.Maps
             {
                 var originChunkPositions = this.originChunkPositions.ToArray();
 
-                Debug.Log($"开始动态加载区块，加载半径为:{config.chunkLoadingRadius}, " +
-                              $"加载中心为：{originChunkPositions.ToString(",")}");
+                Debugger.Log($"开始动态加载区块，加载半径为:{config.chunkLoadingRadius}, " +
+                          $"加载中心为：{originChunkPositions.ToString(",")}");
 
                 int chunkCreationCount = 0;
 
@@ -353,8 +342,7 @@ namespace VMFramework.Maps
                                 }
                                 else
                                 {
-                                    Debug.LogWarning(
-                                        $"尝试添加坐标为:{preupdatePos}新区块失败");
+                                    Debug.LogWarning($"尝试添加坐标为:{preupdatePos}新区块失败");
                                     continue;
                                 }
                             }
@@ -410,30 +398,26 @@ namespace VMFramework.Maps
                         preupdateList.Clear();
                         preupdateList.AddRange(newPreupdateList);
                         newPreupdateList.Clear();
-
-
                     }
                 }
 
-                Debug.Log($"一共新添加了{chunkCreationCount}个区块");
+                Debugger.Log($"一共新添加了{chunkCreationCount}个区块");
 
                 return chunkCreationCount;
             }
 
             public async UniTask<int> DynamicDeleteChunks()
             {
-                Debug.Log($"开始动态删除区块，加载半径为:{config.chunkDeleteRadius}");
+                Debugger.Log($"开始动态删除区块，加载半径为:{config.chunkDeleteRadius}");
 
                 int chunkDeleteCount = 0;
 
                 var chunkPosesNeedToDelete = chunkDictXYZ.Keys.ToHashSet();
 
                 var areas = originChunkPositions.ToArray().Select(
-                        originChunkPos => new EllipsoidFloat(originChunkPos, config.chunkDeleteRadius))
-                    .ToList();
+                    originChunkPos => new EllipsoidFloat(originChunkPos, config.chunkDeleteRadius)).ToList();
 
-                chunkPosesNeedToDelete.RemoveWhere(
-                    pos => areas.Any(area => area.Contains(pos)));
+                chunkPosesNeedToDelete.RemoveWhere(pos => areas.Any(area => area.Contains(pos)));
 
                 foreach (var pos in chunkPosesNeedToDelete)
                 {
@@ -442,7 +426,7 @@ namespace VMFramework.Maps
                     await UniTask.NextFrame();
                 }
 
-                Debug.Log($"一共删除了{chunkDeleteCount}个区块");
+                Debugger.Log($"一共删除了{chunkDeleteCount}个区块");
 
                 return chunkDeleteCount;
             }
@@ -455,8 +439,7 @@ namespace VMFramework.Maps
 
             public IEnumerable<TChunk> CreateAllChunks()
             {
-                if (config.isInfiniteInX || config.isInfiniteInY ||
-                    config.isInfiniteInZ)
+                if (config.isInfiniteInX || config.isInfiniteInY || config.isInfiniteInZ)
                 {
                     Debug.LogWarning("无限地图不能用CreateAllChunks");
                     return null;
@@ -494,40 +477,34 @@ namespace VMFramework.Maps
 
                 if (config.isInfiniteInX == false)
                 {
-                    if (chunkDictX.ContainsKey(chunkPos.x) == false &&
-                        chunkDictX.Count >= fixedSize.x)
+                    if (chunkDictX.ContainsKey(chunkPos.x) == false && chunkDictX.Count >= fixedSize.x)
                     {
-                        Debug.LogWarning($"将要创建的区块:{chunkPos}的X坐标" +
-                                          $"超过了地图固定宽度:{fixedSize.x}");
+                        Debug.LogWarning($"将要创建的区块:{chunkPos}的X坐标" + $"超过了地图固定宽度:{fixedSize.x}");
                         return default;
                     }
                 }
 
                 if (config.isInfiniteInY == false)
                 {
-                    if (chunkDictY.ContainsKey(chunkPos.y) == false &&
-                        chunkDictY.Count >= fixedSize.y)
+                    if (chunkDictY.ContainsKey(chunkPos.y) == false && chunkDictY.Count >= fixedSize.y)
                     {
-                        Debug.LogWarning($"将要创建的区块:{chunkPos}的Y坐标" +
-                                          $"超过了地图固定高度:{fixedSize.y}");
+                        Debug.LogWarning($"将要创建的区块:{chunkPos}的Y坐标" + $"超过了地图固定高度:{fixedSize.y}");
                         return default;
                     }
                 }
 
                 if (config.isInfiniteInZ == false)
                 {
-                    if (chunkDictZ.ContainsKey(chunkPos.z) == false &&
-                        chunkDictZ.Count >= fixedSize.z)
+                    if (chunkDictZ.ContainsKey(chunkPos.z) == false && chunkDictZ.Count >= fixedSize.z)
                     {
-                        Debug.LogWarning($"将要创建的区块:{chunkPos}的Z坐标" +
-                                          $"超过了地图固定长度:{fixedSize.z}");
+                        Debug.LogWarning($"将要创建的区块:{chunkPos}的Z坐标" + $"超过了地图固定长度:{fixedSize.z}");
                         return default;
                     }
                 }
 
                 if (config.isDebugging)
                 {
-                    Debug.Log($"开始创建区块:{chunkPos}");
+                    Debugger.Log($"开始创建区块:{chunkPos}");
                 }
 
                 var newChunk = new TChunk();
@@ -584,7 +561,7 @@ namespace VMFramework.Maps
                 {
                     foreach (var tile in newChunk)
                     {
-                        OnTileCreate?.Invoke(newChunk, tile);
+                        OnTileCreate.Invoke(newChunk, tile);
                     }
                 }
 
@@ -599,12 +576,10 @@ namespace VMFramework.Maps
 
             public void DeleteChunk(Vector3Int chunkPos)
             {
-                if (chunkDictXYZ.TryGetValue(chunkPos, out var chunk) == false)
+                if (chunkDictXYZ.Remove(chunkPos, out var chunk) == false)
                 {
                     return;
                 }
-
-                chunkDictXYZ.Remove(chunkPos);
 
                 var xyList = chunkDictXY[chunkPos.XY()];
                 var xzList = chunkDictXZ[chunkPos.XZ()];
@@ -683,17 +658,13 @@ namespace VMFramework.Maps
             [Button("获取区块")]
             public TChunk GetChunk(Vector3Int chunkPos)
             {
-                return chunkDictXYZ.TryGetValue(chunkPos, out var chunk)
-                    ? chunk
-                    : default;
+                return chunkDictXYZ.GetValueOrDefault(chunkPos);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public TChunk GetChunkByXY(Vector2Int chunkPosXY)
             {
-                return chunkDictXY.TryGetValue(chunkPosXY, out var chunks)
-                    ? chunks.First()
-                    : null;
+                return chunkDictXY.TryGetValue(chunkPosXY, out var chunks) ? chunks.First() : null;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -711,9 +682,7 @@ namespace VMFramework.Maps
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public TChunk GetChunkByXZ(Vector2Int chunkPosXZ)
             {
-                return chunkDictXZ.TryGetValue(chunkPosXZ, out var chunks)
-                    ? chunks.First()
-                    : null;
+                return chunkDictXZ.TryGetValue(chunkPosXZ, out var chunks) ? chunks.First() : null;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -731,9 +700,7 @@ namespace VMFramework.Maps
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public TChunk GetChunkByYZ(Vector2Int chunkPosYZ)
             {
-                return chunkDictYZ.TryGetValue(chunkPosYZ, out var chunks)
-                    ? chunks.First()
-                    : null;
+                return chunkDictYZ.TryGetValue(chunkPosYZ, out var chunks) ? chunks.First() : null;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -939,104 +906,6 @@ namespace VMFramework.Maps
             }
 
             public abstract IEnumerable<Vector3Int> GetNearPoints(Vector3Int pos);
-
-            #endregion
-
-            #region RealCoordinate
-
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public Vector3 GetRealPosition(Vector3Int tilePos)
-            //{
-            //    return offset + tilePos.x * xBase + tilePos.y * yBase +
-            //           tilePos.z * zBase;
-            //}
-
-            ///// <summary>
-            ///// 仅适用于固定大小地图且为矩形地图
-            ///// </summary>
-            ///// <returns></returns>
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public Vector3 GetRealSize()
-            //{
-            //    Vector3 tileSize = new Vector3(xBase.x, yBase.y, zBase.z);
-
-            //    Vector3 chunkSize = Vector3.Scale(config.chunkSize, tileSize);
-
-            //    return Vector3.Scale(config.fixedSize, chunkSize);
-            //}
-
-            ///// <summary>
-            ///// 设置底部平的六边形地图基失
-            ///// </summary>
-            ///// <param name="realWidth"></param>
-            ///// <param name="realLength"></param>
-            ///// <param name="bottomWidth"></param>
-            ///// <param name="realHeight"></param>
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public void SetHexBottomFlatBaseVector(float realWidth, float realLength,
-            //    float bottomWidth, float realHeight)
-            //{
-            //    this.xBase = new Vector3((bottomWidth + realWidth) / 2, 0,
-            //        realLength / 2);
-            //    this.zBase = new Vector3(0, 0, realLength);
-            //    this.yBase = new Vector3(0, realHeight, 0);
-
-            //    // this.xBase = new Vector3((bottomWidth + realWidth) / 2, realLength / 2, 0);
-            //    // this.yBase = new Vector3(0, realLength, 0);
-            //    // this.zBase = new Vector3(0, 0, realHeight);
-            //}
-
-            ///// <summary>
-            ///// 设置尖顶朝上的六边形地图基失
-            ///// </summary>
-            ///// <param name="realWidth"></param>
-            ///// <param name="realLength"></param>
-            ///// <param name="sidesHeight"></param>
-            ///// <param name="realHeight"></param>
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public void SetHexTopArrisBaseVector(float realWidth, float realLength,
-            //    float sidesHeight, float realHeight)
-            //{
-            //    this.xBase = new Vector3(realWidth, 0, 0);
-            //    this.zBase = new Vector3(realWidth / 2, 0,
-            //        (realLength + sidesHeight) / 2);
-            //    this.yBase = new Vector3(0, realHeight, 0);
-
-            //    // this.xBase = new Vector3(realWidth, 0, 0);
-            //    // this.yBase = new Vector3(realWidth / 2, (realLength + sidesHeight) / 2, 0);
-            //    // this.zBase = new Vector3(0, 0, realHeight);
-            //}
-
-            ///// <summary>
-            ///// 设置四边形地图的基失
-            ///// </summary>
-            ///// <param name="realWidth"></param>
-            ///// <param name="realLength"></param>
-            ///// <param name="realHeight"></param>
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public void SetRectBaseVector(float realWidth, float realLength,
-            //    float realHeight)
-            //{
-            //    this.xBase = new Vector3(realWidth, 0, 0);
-            //    this.zBase = new Vector3(0, 0, realLength);
-            //    this.yBase = new Vector3(0, realHeight, 0);
-
-            //    // this.xBase = new Vector3(realWidth, 0, 0);
-            //    // this.yBase = new Vector3(0, realLength, 0);
-            //    // this.zBase = new Vector3(0, 0, realHeight);
-            //}
-
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public void SetRectBaseVector(Vector3 cubeSize)
-            //{
-            //    SetRectBaseVector(cubeSize.x, cubeSize.z, cubeSize.y);
-            //}
-
-            //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-            //public void SetOffsetVector(Vector3 offset)
-            //{
-            //    this.offset = offset;
-            //}
 
             #endregion
         }

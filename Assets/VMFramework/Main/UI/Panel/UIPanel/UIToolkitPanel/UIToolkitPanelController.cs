@@ -6,9 +6,9 @@ namespace VMFramework.UI
 {
     public partial class UIToolkitPanelController : UIPanelController, IUIToolkitUIPanelController
     {
-        protected UIDocument uiDocument => GetComponent<UIDocument>();
+        protected UIDocument UIDocument => GetComponent<UIDocument>();
 
-        protected UIToolkitPanelPreset uiToolkitPanelPreset { get; private set; }
+        protected UIToolkitPanelPreset UIToolkitPanelPreset { get; private set; }
 
         protected VisualElement rootVisualElement;
         
@@ -21,14 +21,14 @@ namespace VMFramework.UI
         {
             base.OnPreInit(preset);
 
-            uiToolkitPanelPreset = preset as UIToolkitPanelPreset;
+            UIToolkitPanelPreset = preset as UIToolkitPanelPreset;
 
-            uiToolkitPanelPreset.AssertIsNotNull(nameof(uiToolkitPanelPreset));
+            UIToolkitPanelPreset.AssertIsNotNull(nameof(UIToolkitPanelPreset));
 
             var uiDocument = this.GetOrAddComponent<UIDocument>();
 
-            uiDocument.panelSettings = uiToolkitPanelPreset.panelSettings;
-            uiDocument.visualTreeAsset = uiToolkitPanelPreset.visualTree;
+            uiDocument.panelSettings = UIToolkitPanelPreset.panelSettings;
+            uiDocument.visualTreeAsset = UIToolkitPanelPreset.visualTree;
 
             uiDocument.enabled = true;
         }
@@ -39,9 +39,10 @@ namespace VMFramework.UI
         
         void IUIPanelController.PreOpen(IUIPanelController source)
         {
-            uiDocument.enabled = true;
+            UIDocument.enabled = true;
 
-            rootVisualElement = uiDocument.rootVisualElement;
+            rootVisualElement = UIDocument.rootVisualElement;
+            rootVisualElement.styleSheets.Add(UISetting.UIPanelGeneralSetting.defaultTheme);
             rootVisualElement.style.visibility = Visibility.Hidden;
             
             OnOpen(source);
@@ -50,7 +51,7 @@ namespace VMFramework.UI
             
             1.DelayFrameAction(() =>
             {
-                if (isOpened || isOpening)
+                if (isOpened || IsOpening)
                 {
                     OnLayoutChange();
 
@@ -68,9 +69,9 @@ namespace VMFramework.UI
         {
             base.OnOpenInstantly(source);
 
-            if (uiToolkitPanelPreset.closeUIButtonName.IsNullOrEmpty() == false)
+            if (UIToolkitPanelPreset.closeUIButtonName.IsNullOrEmpty() == false)
             {
-                var closeButton = rootVisualElement.Q<Button>(uiToolkitPanelPreset.closeUIButtonName);
+                var closeButton = rootVisualElement.Q<Button>(UIToolkitPanelPreset.closeUIButtonName);
 
                 closeButton.clicked += this.Close;
             }
@@ -89,7 +90,7 @@ namespace VMFramework.UI
 
         protected virtual void OnClose(IUIPanelController source)
         {
-            uiDocument.enabled = false;
+            UIDocument.enabled = false;
         }
 
         #endregion
@@ -105,7 +106,7 @@ namespace VMFramework.UI
         {
             rootVisualElement.style.visibility = Visibility.Visible;
 
-            if (uiToolkitPanelPreset.ignoreMouseEvents)
+            if (UIToolkitPanelPreset.ignoreMouseEvents)
             {
                 foreach (var visualElement in rootVisualElement.GetAll<VisualElement>())
                 {
@@ -127,7 +128,7 @@ namespace VMFramework.UI
 
         protected virtual void OnNewVisualElementPostProcessing(VisualElement newVisualElement)
         {
-            if (uiToolkitPanelPreset.ignoreMouseEvents)
+            if (UIToolkitPanelPreset.ignoreMouseEvents)
             {
                 foreach (var visualElement in newVisualElement.GetAll<VisualElement>())
                 {

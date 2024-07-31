@@ -20,7 +20,7 @@ namespace VMFramework.Procedure
         {
             ManagerCreator.CreateManagers();
 
-            foreach (var manager in ManagerCreator.managers)
+            foreach (var manager in ManagerCreator.Managers)
             {
                 manager.SetInstance();
             }

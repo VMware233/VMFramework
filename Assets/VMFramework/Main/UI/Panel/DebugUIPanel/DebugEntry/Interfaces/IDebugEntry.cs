@@ -5,7 +5,7 @@ namespace VMFramework.UI
 {
     public interface IDebugEntry : IGamePrefab
     {
-        public LeftRightDirection position { get; }
+        public LeftRightDirection Position { get; }
         
         public string GetText();
 

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Configuration
 {
@@ -19,7 +20,7 @@ namespace VMFramework.Configuration
         {
             if (showInitLog)
             {
-                Debug.Log($"开始加载{this}");
+                Debugger.Log($"Starting Init for {this}");
             }
             
             OnInit();

@@ -229,15 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174db1ff1b1f98a4b86024e05b0f535a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,15 +422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c248826e60b794ba617ad7a0b10378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!1 &1026662587
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,15 +664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2418fdc8b32de746974cebf534a6a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!114 &1332863969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,15 +1004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0620338124bbba47a7a71bc0231e7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!114 &1639374038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,15 +1088,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f742c927ef37ffd43a51e2d4e5c95604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!114 &1639374045
 MonoBehaviour:
   m_ObjectHideFlags: 0

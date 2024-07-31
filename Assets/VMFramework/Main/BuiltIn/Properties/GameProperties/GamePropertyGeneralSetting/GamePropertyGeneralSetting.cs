@@ -16,7 +16,7 @@ namespace VMFramework.Properties
 
         #region Metadata
 
-        public override Type baseGamePrefabType => typeof(GameProperty);
+        public override Type BaseGamePrefabType => typeof(GameProperty);
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace VMFramework.Properties
             
             foreach (var config in GamePrefabManager.GetAllGamePrefabs<IGameProperty>())
             {
-                if (config is { isActive: true } && targetType.IsDerivedFrom(config.targetType, true))
+                if (config is { IsActive: true } && targetType.IsDerivedFrom(config.targetType, true))
                 {
                     yield return new(config.name, config.id);
                 }

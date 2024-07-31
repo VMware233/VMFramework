@@ -8,10 +8,10 @@ namespace VMFramework.UI
     public abstract partial class UIPanelController : MonoBehaviour
     {
         [ShowInInspector]
-        protected bool isDebugging { get; private set; } = false;
+        protected bool IsDebugging { get; private set; } = false;
 
         [ShowInInspector]
-        public UIPanelPreset preset { get; private set; }
+        public UIPanelPreset Preset { get; private set; }
 
         #region Init & Destroy
 
@@ -27,11 +27,11 @@ namespace VMFramework.UI
 
         protected virtual void OnPreInit(UIPanelPreset preset)
         {
-            this.preset = preset;
+            this.Preset = preset;
 
             if (preset.isDebugging)
             {
-                isDebugging = true;
+                IsDebugging = true;
             }
 
             if (preset.enableUICloseGameEvent)
@@ -74,7 +74,7 @@ namespace VMFramework.UI
 
         protected virtual void OnCreate()
         {
-            if (preset.autoOpenOnCreation)
+            if (Preset.autoOpenOnCreation)
             {
                 this.Open();
             }
@@ -99,19 +99,19 @@ namespace VMFramework.UI
         {
             UIPanelPool.Unregister(this);
             
-            if (preset.enableUICloseGameEvent)
+            if (Preset.enableUICloseGameEvent)
             {
-                GameEventManager.RemoveCallback(preset.uiCloseGameEventID, Close);
+                GameEventManager.RemoveCallback(Preset.uiCloseGameEventID, Close);
             }
 
-            if (preset.enableUIGameEvent)
+            if (Preset.enableUIGameEvent)
             {
-                GameEventManager.RemoveCallback(preset.uiToggleGameEventID, Toggle);
+                GameEventManager.RemoveCallback(Preset.uiToggleGameEventID, Toggle);
             }
 
             if (isOpened)
             {
-                GameEventManager.Enable(preset.gameEventDisabledOnOpen);
+                GameEventManager.Enable(Preset.gameEventDisabledOnOpen);
             }
         }
 
@@ -121,13 +121,13 @@ namespace VMFramework.UI
 
         public void OpenInstantly(IUIPanelController source)
         {
-            if (isClosing)
+            if (IsClosing)
             {
                 Debug.LogWarning($"{name}正在关闭，打开UI失败");
                 return;
             }
 
-            if (isDebugging)
+            if (IsDebugging)
             {
                 Debug.LogWarning($"{name}打开");
             }
@@ -137,7 +137,7 @@ namespace VMFramework.UI
                 return;
             }
 
-            GameEventManager.Disable(preset.gameEventDisabledOnOpen);
+            GameEventManager.Disable(Preset.gameEventDisabledOnOpen);
 
             isOpened = true;
 
@@ -148,12 +148,12 @@ namespace VMFramework.UI
         
         public void CloseInstantly(IUIPanelController source)
         {
-            if (isDebugging)
+            if (IsDebugging)
             {
                 Debug.LogWarning($"{name}关闭");
             }
 
-            isClosing = false;
+            IsClosing = false;
 
             isOpened = false;
 
@@ -161,12 +161,12 @@ namespace VMFramework.UI
 
             OnCloseInstantlyEvent?.Invoke(this);
 
-            GameEventManager.Enable(preset.gameEventDisabledOnOpen);
+            GameEventManager.Enable(Preset.gameEventDisabledOnOpen);
         }
         
         public void SetEnabled(bool enableState)
         {
-            if (isDebugging)
+            if (IsDebugging)
             {
                 Debug.LogWarning($"{name}激活状态：{enableState}");
             }

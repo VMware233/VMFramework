@@ -286,9 +286,8 @@ namespace VMFramework.Core
     /// <param name="width">The desired width of the new Rect.</param>
     public static Rect AlignCenterX(this Rect rect, float width)
     {
-      rect.x = (float)(rect.x + rect.width * 0.5 - width * 0.5);
-      rect.width = width;
-      return rect;
+      var x = (float)(rect.x + rect.width * 0.5 - width * 0.5);
+      return new Rect(x, rect.y, width, rect.height);
     }
 
     /// <summary>

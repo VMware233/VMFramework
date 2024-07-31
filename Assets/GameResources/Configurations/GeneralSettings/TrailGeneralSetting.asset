@@ -23,9 +23,9 @@ MonoBehaviour:
     SerializationNodes: []
   dataFolderRelativePath: Configurations
   defaultJSONFileSuffix: txt
-  <defaultLocalizationTableName>k__BackingField: 
+  <DefaultLocalizationTableName>k__BackingField: 
   initialGamePrefabWrappers: []
-  <defaultGameType>k__BackingField: 
+  <DefaultGameType>k__BackingField: 
   container:
     containerID: TrailContainer
     container: {fileID: 0}

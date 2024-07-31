@@ -3,10 +3,23 @@ using VMFramework.GameLogicArchitecture;
 #USING_NAMESPACES#
 
 #NAMESPACE_BEGIN#
-    public partial class #CLASS_NAME# : #PARENT_CLASS_NAME#, #PARENT_INTERFACE_NAME#
+    public partial class #CLASS_NAME# : #PARENT_CLASS_NAME#
+#PARENT_INTERFACE_REGION#@begin@, #PARENT_INTERFACE_NAME##PARENT_INTERFACE_REGION#@end@
     {
-        protected override string idSuffix => "#ID_SUFFIX#";
+#ID_SUFFIX_OVERRIDE_REGION#@begin@
+        protected override string IDSuffix => "#ID_SUFFIX#";
         
-        public override Type gameItemType => #GAME_ITEM_TYPE#;
+#ID_SUFFIX_OVERRIDE_REGION#@end@
+#GAME_ITEM_TYPE_OVERRIDE_REGION#@begin@
+        public override Type GameItemType => #GAME_ITEM_TYPE#;
+#GAME_ITEM_TYPE_OVERRIDE_REGION#@end@
+
+#PARENT_INTERFACE_REGION#@begin@
+        #region Interface Implementation
+
+        
+
+        #endregion
+#PARENT_INTERFACE_REGION#@end@
     }
 #NAMESPACE_END#

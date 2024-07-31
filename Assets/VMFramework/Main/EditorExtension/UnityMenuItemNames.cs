@@ -1,13 +1,15 @@
 ﻿#if UNITY_EDITOR
+using VMFramework.Core;
+
 namespace VMFramework.Editor
 {
     public static class UnityMenuItemNames
     {
-        public const string ASSETS_CREATION_VMFRAMEWORK = "Assets/Create/" + VMFRAMEWORK;
+        public const string ASSETS_CREATE = "Assets/Create/";
 
-        public const string SCRIPT_TEMPLATE = ASSETS_CREATION_VMFRAMEWORK + "Script Template/";
+        public const string SCRIPT_TEMPLATE = ASSETS_CREATE + FrameworkMeta.NAME + " Script Template/";
         
-        public const string VMFRAMEWORK = "VMFramework/";
+        public const string VMFRAMEWORK = FrameworkMeta.NAME + "/";
         
         public const string EDITOR_INITIALIZATION = VMFRAMEWORK + "Editor Initialization/";
         

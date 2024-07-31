@@ -46,7 +46,7 @@ namespace VMFramework.Recipes
         {
             if (item is IContainerItem containerItem)
             {
-                foreach (var leafGameTypeID in containerItem.gameTypeSet.leafGameTypesID)
+                foreach (var leafGameTypeID in containerItem.GameTypeSet.LeafGameTypesID)
                 {
                     if (cache.TryGetValue(leafGameTypeID, out var recipes))
                     {

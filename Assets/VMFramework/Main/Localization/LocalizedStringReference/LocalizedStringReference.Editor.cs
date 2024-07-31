@@ -26,7 +26,7 @@ namespace VMFramework.Localization
 
         #region Default Value
 
-        private bool ExistsDefaultValue() => defaultValue.IsNullOrEmptyAfterTrim() == false;
+        private bool ExistsDefaultValue() => defaultValue.IsNullOrWhiteSpace() == false;
 
         #endregion
         
@@ -76,7 +76,7 @@ namespace VMFramework.Localization
                 return;
             }
 
-            if (key.IsNullOrEmptyAfterTrim())
+            if (key.IsNullOrWhiteSpace())
             {
                 Debug.LogWarning("Key cannot be empty.");
                 return;
@@ -88,7 +88,7 @@ namespace VMFramework.Localization
 
                 if (entry != null)
                 {
-                    if (entry.GetLocalizedString().IsNullOrEmptyAfterTrim() == false && replace == false)
+                    if (entry.GetLocalizedString().IsNullOrWhiteSpace() == false && replace == false)
                     {
                         continue;
                     }
@@ -139,7 +139,7 @@ namespace VMFramework.Localization
                 return $"{defaultValue}(Table not found: {tableName})";
             }
                 
-            if (key.IsNullOrEmptyAfterTrim())
+            if (key.IsNullOrWhiteSpace())
             {
                 return $"{defaultValue}(Key cannot be empty)";
             }

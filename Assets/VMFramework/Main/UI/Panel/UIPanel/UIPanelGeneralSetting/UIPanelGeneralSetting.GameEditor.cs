@@ -10,7 +10,7 @@ namespace VMFramework.UI
     {
         string INameOwner.name => "UI Panel";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.LayoutWtf;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.LayoutWtf;
     }
 }
 #endif

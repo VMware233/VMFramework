@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Scripting;
+using VMFramework.Core;
 using VMFramework.Procedure;
 
 namespace VMFramework.Localization
@@ -21,7 +22,7 @@ namespace VMFramework.Localization
         {
             await UniTask.WaitUntil(() => LocalizationSettings.InitializationOperation.IsDone);
             
-            Debug.Log("Localization initialization complete.");
+            Debugger.Log("Localization initialization complete.");
             
             onDone();
         }

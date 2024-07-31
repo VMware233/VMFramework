@@ -43,7 +43,7 @@ namespace VMFramework.Properties
             var result = new List<InstanceTooltipPropertyConfigRuntime>();
 
             foreach (var (instanceType, tooltipPropertyConfig) in
-                     BuiltInModulesSetting.tooltipPropertyGeneralSetting.tooltipPropertyConfigs)
+                     BuiltInModulesSetting.TooltipPropertyGeneralSetting.tooltipPropertyConfigs)
             {
                 if (currentInstanceType.IsDerivedFrom(instanceType, true))
                 {

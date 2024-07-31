@@ -10,7 +10,7 @@ namespace VMFramework.GameEvents
     {
         string INameOwner.name => "Game Event";
 
-        Icon IGameEditorMenuTreeNode.icon => new(SdfIconType.Dpad);
+        Icon IGameEditorMenuTreeNode.Icon => new(SdfIconType.Dpad);
     }
 }
 #endif

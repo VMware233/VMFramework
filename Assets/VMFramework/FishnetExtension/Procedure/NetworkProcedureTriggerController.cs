@@ -2,6 +2,7 @@
 
 using FishNet.Managing.Scened;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Procedure
 {
@@ -12,7 +13,7 @@ namespace VMFramework.Procedure
         {
             base.OnStartServer();
             
-            Debug.Log("The server has started");
+            Debugger.Log("The server has started");
             ProcedureManager.EnterProcedure(MainMenuProcedure.ID, ServerRunningProcedure.ID);
         }
 
@@ -20,7 +21,7 @@ namespace VMFramework.Procedure
         {
             base.OnStartClient();
 
-            Debug.Log("The client has started");
+            Debugger.Log("The client has started");
 
             if (ProcedureManager.HasCurrentProcedure(MainMenuProcedure.ID))
             {

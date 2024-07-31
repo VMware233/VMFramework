@@ -39,7 +39,7 @@ namespace VMFramework.UI
             base.OnOpenInstantly(source);
 
             tooltipContainer =
-                uiDocument.rootVisualElement.Q(tracingUIPanelPreset.containerVisualElementName);
+                UIDocument.rootVisualElement.Q(tracingUIPanelPreset.containerVisualElementName);
 
             if (tracingUIPanelPreset.enableAutoMouseTracing)
             {
@@ -59,7 +59,7 @@ namespace VMFramework.UI
         #region IUIToolkitTracingUIPanel
 
         Vector2 IUIToolkitTracingUIPanel.referenceResolution =>
-            uiDocument.panelSettings.referenceResolution;
+            UIDocument.panelSettings.referenceResolution;
 
         VisualElement IUIToolkitTracingUIPanel.tracingContainer => tooltipContainer;
 

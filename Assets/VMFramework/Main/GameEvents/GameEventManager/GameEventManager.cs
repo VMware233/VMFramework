@@ -20,7 +20,7 @@ namespace VMFramework.GameEvents
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Register(string gameEventID)
         {
-            var gameEvent = IGameItem.Create<IGameEvent>(gameEventID);
+            var gameEvent = GameItemManager.Get<IGameEvent>(gameEventID);
 
             if (gameEvent == null)
             {

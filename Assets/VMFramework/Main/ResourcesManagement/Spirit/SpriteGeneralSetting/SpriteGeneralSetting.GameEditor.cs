@@ -10,7 +10,7 @@ namespace VMFramework.ResourcesManagement
     {
         string INameOwner.name => "Sprite Preset";
 
-        Icon IGameEditorMenuTreeNode.icon => SdfIconType.CardImage;
+        Icon IGameEditorMenuTreeNode.Icon => SdfIconType.CardImage;
     }
 }
 #endif
