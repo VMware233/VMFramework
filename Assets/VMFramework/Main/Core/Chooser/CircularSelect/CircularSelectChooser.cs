@@ -28,7 +28,7 @@ namespace VMFramework.Core
 
             if (startCircularIndex >= items.Length)
             {
-                Debug.LogWarning(
+                Debugger.LogWarning(
                     $"{nameof(startCircularIndex)} : {startCircularIndex} is greater than or equal to " +
                     $"the number of items in the {nameof(CircularSelectChooser<TItem>)}!");
             }
@@ -44,7 +44,7 @@ namespace VMFramework.Core
 
             if (this.items.Length == 1 && pingPong)
             {
-                Debug.LogWarning(
+                Debugger.LogWarning(
                     $"{nameof(CircularSelectChooser<TItem>)} has only one item and ping-pong is enabled!");
             }
         }

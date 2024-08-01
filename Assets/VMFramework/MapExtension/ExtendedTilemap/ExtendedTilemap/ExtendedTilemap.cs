@@ -30,7 +30,7 @@ namespace VMFramework.Maps
 
             if (clearMapOnAwake)
             {
-                ClearMap();
+                ClearAll();
             }
         }
 
@@ -323,7 +323,7 @@ namespace VMFramework.Maps
         /// <summary>
         /// 清空地图
         /// </summary>
-        public void ClearMap()
+        public void ClearAll()
         {
             allRuleTiles.Clear();
             tilemapGroupController.ClearAllTilemaps();

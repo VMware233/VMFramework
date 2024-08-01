@@ -84,7 +84,7 @@ namespace VMFramework.Editor.GameEditor
                 {
                     if (nodesInfo.TryGetValue(child, out var existingInfo))
                     {
-                        Debug.LogWarning(
+                        Debugger.LogWarning(
                             $"{child.name} has already provided by {existingInfo.provider.name}." +
                             $"Cannot be provided by {provider.name} again!");
                         continue;
@@ -116,7 +116,7 @@ namespace VMFramework.Editor.GameEditor
                 
                 if (nodesInfo.ContainsKey(info.parent) == false)
                 {
-                    Debug.LogWarning($"The parent of {node.name} is not found!" +
+                    Debugger.LogWarning($"The parent of {node.name} is not found!" +
                                      $"It doesn't belong to any provider.");
                     info.parent = null;
                 }

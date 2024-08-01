@@ -28,7 +28,7 @@ namespace VMFramework.Core.Editor
             }
             else
             {
-                Debug.LogWarning($"Failed to select script of type {type.Name}, " +
+                Debugger.LogWarning($"Failed to select script of type {type.Name}, " +
                                  $"because no script file named {typeName}.cs exists in the project.");
             }
         }
@@ -38,7 +38,7 @@ namespace VMFramework.Core.Editor
         {
             if (obj.IsUnityNull())
             {
-                Debug.LogWarning($"{nameof(obj)} is null! Can't select script.");
+                Debugger.LogWarning($"{nameof(obj)} is null! Can't select script.");
                 return;
             }
             
@@ -76,7 +76,7 @@ namespace VMFramework.Core.Editor
                 }
             }
 
-            Debug.LogWarning($"Failed to open script of type {type.Name}, " +
+            Debugger.LogWarning($"Failed to open script of type {type.Name}, " +
                              $"because no script file named {typeName}.cs exists in the project.");
             return false;
         }
@@ -86,7 +86,7 @@ namespace VMFramework.Core.Editor
         {
             if (obj.IsUnityNull())
             {
-                Debug.LogWarning($"{nameof(obj)} is null! Can't open script.");
+                Debugger.LogWarning($"{nameof(obj)} is null! Can't open script.");
                 return;
             }
             
@@ -98,7 +98,7 @@ namespace VMFramework.Core.Editor
         {
             if (objects == null)
             {
-                Debug.LogWarning($"{nameof(objects)} is null! Can't open script.");
+                Debugger.LogWarning($"{nameof(objects)} is null! Can't open script.");
                 return;
             }
             

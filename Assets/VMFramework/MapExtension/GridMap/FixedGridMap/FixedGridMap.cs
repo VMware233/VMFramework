@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ResourceManagement.Exceptions;
 using VMFramework.Core;
@@ -23,7 +23,7 @@ namespace VMFramework.Maps
 
         public event Action<IGridChunk> OnChunkCreated;
 
-        public event Action<IGridChunk> OnChunkDestroyed; 
+        public event Action<IGridChunk> OnChunkDestroyed;
 
         #region Constructors
 
@@ -34,17 +34,23 @@ namespace VMFramework.Maps
             
             this.config = config;
             chunkPositions = new(config.fixedSize);
-            
-            chunkPool = info.ChunkPool;
+
+            if (info != null)
+            {
+                chunkPool = info.ChunkPool;
+            }
+            chunkPool ??= new GridChunkPool(this, () => new GridChunk(), 200);
 
             config.fixedSize.CreateArray(ref chunks);
         }
 
         #endregion
 
+        #region Chunk
+
         #region Creations and Destructions
 
-        public void CreateChunk(Vector3Int position)
+        public IGridChunk CreateChunk(Vector3Int position)
         {
             position.AssertIsAllNumberAboveOrEqual(0, nameof(position));
 
@@ -54,9 +60,11 @@ namespace VMFramework.Maps
             }
 
             var chunk = chunkPool.Get();
-            chunk.Init(new(this, position));
+            chunk.Place(new(position));
             
             OnChunkCreated?.Invoke(chunk);
+            
+            return chunk;
         }
 
         public void DestroyChunk(Vector3Int position)
@@ -72,19 +80,16 @@ namespace VMFramework.Maps
             
             OnChunkDestroyed?.Invoke(chunk);
             
-            chunk.Destroy();
             chunkPool.Return(chunk);
         }
 
         #endregion
         
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasValidChunk(Vector3Int position)
         {
             return chunks.Get(position) != null;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGetChunk(Vector3Int chunkPosition, out IGridChunk chunk)
         {
             chunkPosition.AssertContainsBy(chunkPositions, nameof(chunkPosition), nameof(chunkPositions));
@@ -93,12 +98,57 @@ namespace VMFramework.Maps
             return chunk != null;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IGridChunk GetChunk(Vector3Int chunkPosition)
         {
             chunkPosition.AssertContainsBy(chunkPositions, nameof(chunkPosition), nameof(chunkPositions));
             
             return chunks.Get(chunkPosition);
         }
+
+        public IEnumerable<IGridChunk> GetAllChunks()
+        {
+            foreach (var chunk in chunks)
+            {
+                if (chunk != null)
+                {
+                    yield return chunk;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Tile
+
+        public IEnumerable<Vector3Int> GetAllPoints()
+        {
+            foreach (var tile in GetAllTiles())
+            {
+                yield return tile.Position;
+            }
+        }
+
+        public IEnumerable<IGridTile> GetAllTiles()
+        {
+            foreach (var chunk in chunks)
+            {
+                if (chunk == null)
+                {
+                    continue;
+                }
+                
+                foreach (var tile in chunk.GetAllTiles())
+                {
+                    if (tile == null)
+                    {
+                        continue;
+                    }
+                    
+                    yield return tile;
+                }
+            }
+        }
+
+        #endregion
     }
 }

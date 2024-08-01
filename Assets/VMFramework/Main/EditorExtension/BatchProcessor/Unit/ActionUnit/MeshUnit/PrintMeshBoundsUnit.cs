@@ -65,7 +65,7 @@ namespace VMFramework.Editor.BatchProcessor
 
                 if (mesh != null)
                 {
-                    Debug.LogWarning($"{mesh.bounds}");
+                    Debugger.LogWarning($"{mesh.bounds}");
                 }
             }
             

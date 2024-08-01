@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.GameEvents
 {
@@ -70,7 +71,7 @@ namespace VMFramework.GameEvents
                 }
 
                 var methodName = callback.Method.Name;
-                Debug.LogWarning($"Callback {methodName} already exists in {typeof(TGameEvent)} with priority {priority}.");
+                Debugger.LogWarning($"Callback {methodName} already exists in {typeof(TGameEvent)} with priority {priority}.");
                 
                 return;
             }
@@ -90,7 +91,7 @@ namespace VMFramework.GameEvents
             
             if (callbacksLookup.TryGetValue(callback, out var priority) == false)
             {
-                Debug.LogWarning($"Callback {callback.Method.Name} does not exist in {typeof(TGameEvent)}");
+                Debugger.LogWarning($"Callback {callback.Method.Name} does not exist in {typeof(TGameEvent)}");
                 return;
             }
             

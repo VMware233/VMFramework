@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using FishNet;
 using FishNet.Connection;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Network
 {
@@ -19,7 +20,7 @@ namespace VMFramework.Network
         {
             if (InstanceFinder.ServerManager.Clients.TryGetValue(connectionId, out connection) == false)
             {
-                Debug.LogWarning($"Connection with ID {connectionId} not found.");
+                Debugger.LogWarning($"Connection with ID {connectionId} not found.");
                 return false;
             }
             

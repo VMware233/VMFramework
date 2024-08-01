@@ -14,7 +14,7 @@ namespace VMFramework.Core.Editor
         {
             if (symbols.Any(symbol => symbol.IsNullOrWhiteSpace()))
             {
-                Debug.LogWarning($"Cannot add empty symbol to scripting define symbols. Symbols: {symbols.Join(", ")}");
+                Debugger.LogWarning($"Cannot add empty symbol to scripting define symbols. Symbols: {symbols.Join(", ")}");
             }
             
             BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;

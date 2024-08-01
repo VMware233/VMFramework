@@ -132,7 +132,7 @@ namespace VMFramework.Core.Editor
         {
             if (newName.IsNullOrWhiteSpace())
             {
-                Debug.LogWarning($"{obj.name}'s New Name cannot be Null or Empty.");
+                Debugger.LogWarning($"{obj.name}'s New Name cannot be Null or Empty.");
                 return;
             }
             

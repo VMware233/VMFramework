@@ -5,10 +5,10 @@ namespace VMFramework.Examples
 {
     public class Entity : GameItem, IEntity
     {
-        protected override void OnCreate()
+        protected override void OnGet()
         {
-            base.OnCreate();
-
+            base.OnGet();
+            
             
         }
     }

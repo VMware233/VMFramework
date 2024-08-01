@@ -12,7 +12,7 @@ namespace VMFramework.Core.Editor
         {
             if (obj.IsAsset() == false)
             {
-                Debug.LogWarning($"{obj} is not an asset, cannot delete it.");
+                Debugger.LogWarning($"{obj} is not an asset, cannot delete it.");
                 return;
             }
             

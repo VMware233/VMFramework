@@ -45,10 +45,10 @@ namespace VMFramework.Containers
 
         #endregion
 
-        protected override void OnCreate()
+        protected override void OnGet()
         {
-            base.OnCreate();
-
+            base.OnGet();
+            
             count = new(this, 1);
         }
     }

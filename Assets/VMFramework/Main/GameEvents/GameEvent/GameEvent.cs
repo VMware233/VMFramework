@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.GameEvents
@@ -13,6 +14,8 @@ namespace VMFramework.GameEvents
         private readonly SortedDictionary<int, HashSet<Action<TGameEvent>>> callbacks = new();
         [ShowInInspector]
         private readonly Dictionary<Action<TGameEvent>, int> callbacksLookup = new();
+        
+        private readonly Action<TGameEvent> debugLogFunc = DebugLog;
 
         [ShowInInspector]
         private int disabledCount = 0;
@@ -27,8 +30,39 @@ namespace VMFramework.GameEvents
 
             if (isDebugging)
             {
-                AddCallback(gameEvent => Debug.LogWarning($"{gameEvent} was triggered."), GameEventPriority.SUPER);
+                AddCallback(debugLogFunc, GameEventPriority.SUPER);
             }
+        }
+
+        protected override void OnReturn()
+        {
+            base.OnReturn();
+
+            bool hasExtraCallbacks = false;
+            if (isDebugging)
+            {
+                if (callbacksLookup.Count > 1)
+                {
+                    hasExtraCallbacks = true;
+                }
+            }
+            else
+            {
+                if (callbacksLookup.Count > 0)
+                {
+                    hasExtraCallbacks = true;
+                }
+            }
+
+            if (hasExtraCallbacks)
+            {
+                Debugger.LogWarning($"{this} has extra callbacks. Callbacks Count : {callbacksLookup.Count}");
+            }
+        }
+
+        private static void DebugLog(TGameEvent gameEvent)
+        {
+            Debugger.LogWarning($"{gameEvent} was triggered.");
         }
 
         public void Enable()
@@ -75,7 +109,7 @@ namespace VMFramework.GameEvents
                 }
 
                 var methodName = callback.Method.Name;
-                Debug.LogWarning($"Callback {methodName} already exists in {this} with priority {priority}.");
+                Debugger.LogWarning($"Callback {methodName} already exists in {this} with priority {priority}.");
                 
                 return;
             }
@@ -92,10 +126,15 @@ namespace VMFramework.GameEvents
                 Debug.LogError($"Cannot remove null callback from {this}");
                 return;
             }
+
+            if (callbacksLookup.Count == 0)
+            {
+                return;
+            }
             
             if (callbacksLookup.TryGetValue(callback, out var priority) == false)
             {
-                Debug.LogWarning($"Callback {callback.Method.Name} does not exist in {this}");
+                Debugger.LogWarning($"Callback {callback.Method.Name} does not exist in {this}");
                 return;
             }
             

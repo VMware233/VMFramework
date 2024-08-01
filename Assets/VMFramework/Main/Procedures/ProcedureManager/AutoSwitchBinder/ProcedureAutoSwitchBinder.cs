@@ -40,7 +40,7 @@ namespace VMFramework.Procedure
                 return;
             }
             
-            Debug.LogWarning($"Binding already exists for {fromProcedureID} to {toProcedureID}. " +
+            Debugger.LogWarning($"Binding already exists for {fromProcedureID} to {toProcedureID}. " +
                              $"Overwriting with new binding : {fromProcedureID}->{toProcedureID}.");
             autoSwitchBindings[fromProcedureID] = toProcedureID;
         }
@@ -50,13 +50,13 @@ namespace VMFramework.Procedure
         {
             if (autoSwitchBindings.TryGetValue(fromProcedureID, out string existingToProcedureID) == false)
             {
-                Debug.LogWarning($"No binding exists for {fromProcedureID}");
+                Debugger.LogWarning($"No binding exists for {fromProcedureID}");
                 return;
             }
 
             if (existingToProcedureID != toProcedureID)
             {
-                Debug.LogWarning($"Binding for {fromProcedureID}->{existingToProcedureID} " +
+                Debugger.LogWarning($"Binding for {fromProcedureID}->{existingToProcedureID} " +
                                  $"does not match {fromProcedureID}->{toProcedureID}.");
                 return;
             }
@@ -69,7 +69,7 @@ namespace VMFramework.Procedure
         {
             if (autoSwitchBindings.Remove(procedureID) == false)
             {
-                Debug.LogWarning($"No binding exists for {procedureID}");
+                Debugger.LogWarning($"No binding exists for {procedureID}");
             }
         }
         

@@ -5,6 +5,7 @@ using UnityEditor.Localization;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
+using VMFramework.Core;
 
 namespace VMFramework.Localization
 {
@@ -50,7 +51,7 @@ namespace VMFramework.Localization
                     return entry.GetLocalizedString();
                 }
                 
-                Debug.LogWarning($"Failed to find key {key} in Editor StringTable");
+                Debugger.LogWarning($"Failed to find key {key} in Editor StringTable");
             }
             
             return defaultString;

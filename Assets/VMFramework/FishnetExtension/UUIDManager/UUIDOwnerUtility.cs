@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Network
 {
@@ -14,13 +15,13 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning("Owner is null");
+                Debugger.LogWarning("Owner is null");
                 return false;
             }
             
             if (owner.SetUUID(uuid) == false)
             {
-                Debug.LogWarning($"Failed to set UUID: {uuid} for {owner.GetType()}");
+                Debugger.LogWarning($"Failed to set UUID: {uuid} for {owner.GetType()}");
                 return false;
             }
             

@@ -57,16 +57,12 @@ namespace VMFramework.Containers
 
         private static void OnObserved(IUUIDOwner container, bool isDirty, NetworkConnection connection)
         {
-            if (UUIDCoreManager.TryGetInfo(container.uuid, out var info))
+            if (UUIDCoreManager.TryGetInfoWithWarning(container.uuid, out var info))
             {
                 if (info.observers.Count == 0)
                 {
                     ((IContainer)container).OpenOnServer();
                 }
-            }
-            else
-            {
-                Debug.LogWarning($"不存在此{container.uuid}对应的{nameof(UUIDInfo)}");
             }
             
             if (isDirty)

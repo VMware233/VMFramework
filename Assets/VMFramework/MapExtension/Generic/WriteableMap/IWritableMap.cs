@@ -8,6 +8,6 @@ namespace VMFramework.Maps
 
         public void ClearTile(TPoint point);
         
-        public void ClearMap();
+        public void ClearAll();
     }
 }

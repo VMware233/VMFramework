@@ -55,7 +55,7 @@ namespace VMFramework.UI
                 case TooltipPriorityType.Preset:
                     if (presetID.IsNullOrEmpty())
                     {
-                        Debug.LogWarning("No Tooltip Priority Preset ID set.");
+                        Debugger.LogWarning("No Tooltip Priority Preset ID set.");
                         return 0;
                     }
                     
@@ -65,7 +65,7 @@ namespace VMFramework.UI
                         return config.priority;
                     }
                     
-                    Debug.LogWarning($"No Tooltip Priority Preset found with ID: {presetID}");
+                    Debugger.LogWarning($"No Tooltip Priority Preset found with ID: {presetID}");
                     return 0;
                 case TooltipPriorityType.Custom:
                     return priority;

@@ -95,7 +95,7 @@ namespace VMFramework.Configuration
         {
             if (GameType.TryGetGameType(id, out var gameType))
             {
-                Debug.LogWarning($"The Game Type with ID:{id} does not exist!");
+                Debugger.LogWarning($"The Game Type with ID:{id} does not exist!");
                 return false;
             }
 
@@ -117,7 +117,7 @@ namespace VMFramework.Configuration
         {
             if (GameType.TryGetGameType(id, out var gameType))
             {
-                Debug.LogWarning($"The Game Type with ID:{id} does not exist!");
+                Debugger.LogWarning($"The Game Type with ID:{id} does not exist!");
                 return false;
             }
 

@@ -24,7 +24,7 @@ namespace VMFramework.Containers
         private void SerializeContainerItemTestRPC(IContainerItem containerItem,
             NetworkConnection connection = null)
         {
-            Debug.LogWarning($"Serializing container item: {containerItem}");
+            Debugger.LogWarning($"Serializing container item: {containerItem}");
         }
     }
 }

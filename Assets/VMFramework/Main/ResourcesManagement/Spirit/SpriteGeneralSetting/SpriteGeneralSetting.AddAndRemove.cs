@@ -20,7 +20,7 @@ namespace VMFramework.ResourcesManagement
 
             if (GamePrefabManager.ContainsGamePrefab(id))
             {
-                Debug.LogWarning($"Sprite Preset with id {id} already exists.");
+                Debugger.LogWarning($"Sprite Preset with id {id} already exists.");
                 return;
             }
             

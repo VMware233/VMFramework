@@ -102,7 +102,7 @@ namespace VMFramework.GameLogicArchitecture
             {
                 if (GameType.HasGameType(gameTypeID) == false)
                 {
-                    Debug.LogWarning($"{this} : Game Type ID {gameTypeID} of does not exist.");
+                    Debugger.LogWarning($"{this} : Game Type ID {gameTypeID} of does not exist.");
                 }
             }
         }

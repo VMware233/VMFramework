@@ -145,7 +145,7 @@ namespace VMFramework.UI
         {
             if (IsClosing)
             {
-                Debug.LogWarning("Tooltip is already closing.");
+                Debugger.LogWarning("Tooltip is already closing.");
                 return;
             }
             

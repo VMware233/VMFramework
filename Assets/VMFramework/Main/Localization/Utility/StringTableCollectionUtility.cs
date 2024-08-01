@@ -72,7 +72,7 @@ namespace VMFramework.Localization
 
             if (collection.ExitsKey(key))
             {
-                Debug.LogWarning($"Key : {key} already exists in table : {collection.name}");
+                Debugger.LogWarning($"Key : {key} already exists in table : {collection.name}");
                 return false;
             }
             

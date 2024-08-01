@@ -111,7 +111,7 @@ namespace VMFramework.Core.Editor
 
             if (resultCount == 0)
             {
-                Debug.LogWarning(
+                Debugger.LogWarning(
                     $"Failed to find Asset of name {assetName} of type {type} " +
                     $"in folders {searchInFolders.ToString(",")}");
             }
@@ -219,7 +219,7 @@ namespace VMFramework.Core.Editor
 
             if (type.IsDerivedFrom<Component>(false))
             {
-                Debug.LogWarning($"Failed to find GameObject with Component of type {type}{searchInFoldersWarning}");
+                Debugger.LogWarning($"Failed to find GameObject with Component of type {type}{searchInFoldersWarning}");
             }
             else
             {

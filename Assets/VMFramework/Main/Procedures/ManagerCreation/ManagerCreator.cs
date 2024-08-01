@@ -65,7 +65,7 @@ namespace VMFramework.Procedure
 
                 if (managerClassType.IsDerivedFrom<Component>(false, false) == false)
                 {
-                    Debug.LogWarning($"{managerClassType} is not derived from {nameof(Component)}");
+                    Debugger.LogWarning($"{managerClassType} is not derived from {nameof(Component)}");
                     continue;
                 }
 

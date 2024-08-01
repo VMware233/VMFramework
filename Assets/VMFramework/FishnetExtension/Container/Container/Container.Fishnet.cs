@@ -3,6 +3,7 @@ using System;
 using FishNet.Connection;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Network;
 
 namespace VMFramework.Containers
@@ -48,7 +49,7 @@ namespace VMFramework.Containers
         {
             if (isDebugging)
             {
-                Debug.LogWarning($"{this}在服务器上打开");
+                Debugger.LogWarning($"{this} opened on server");
             }
 
             OnOpenOnServerEvent?.Invoke(this);
@@ -58,7 +59,7 @@ namespace VMFramework.Containers
         {
             if (isDebugging)
             {
-                Debug.LogWarning($"{this}在服务器上关闭");
+                Debugger.LogWarning($"{this} closed on server");
             }
 
             OnCloseOnServerEvent?.Invoke(this);

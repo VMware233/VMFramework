@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.FSM;
 
 namespace VMFramework.Procedure
@@ -48,7 +49,7 @@ namespace VMFramework.Procedure
         {
             if (procedures.TryGetValue(procedureID, out procedure) == false)
             {
-                Debug.LogWarning($"Procedure with ID:{procedureID} does not exist.");
+                Debugger.LogWarning($"Procedure with ID:{procedureID} does not exist.");
                 return false;
             }
             

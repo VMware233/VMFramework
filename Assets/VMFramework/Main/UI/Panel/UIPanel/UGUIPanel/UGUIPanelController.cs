@@ -73,7 +73,7 @@ namespace VMFramework.UI
             }
             else
             {
-                Debug.LogWarning("No visual object found for this panel.");
+                Debugger.LogWarning("No visual object found for this panel.");
             }
         }
 
@@ -97,7 +97,7 @@ namespace VMFramework.UI
             }
             else
             {
-                Debug.LogWarning("No visual object found for this panel.");
+                Debugger.LogWarning("No visual object found for this panel.");
             }
         }
 

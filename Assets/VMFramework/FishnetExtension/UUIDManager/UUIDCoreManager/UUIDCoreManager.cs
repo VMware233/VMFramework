@@ -74,7 +74,7 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning($"Failed to register a null {nameof(IUUIDOwner)}");
+                Debugger.LogWarning($"Failed to register a null {nameof(IUUIDOwner)}");
                 return false;
             }
             
@@ -82,7 +82,7 @@ namespace VMFramework.Network
             
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Failed to register a {owner.GetType()} with an empty uuid");
+                Debugger.LogWarning($"Failed to register a {owner.GetType()} with an empty uuid");
                 return false;
             }
 
@@ -90,7 +90,7 @@ namespace VMFramework.Network
             {
                 var oldOwner = uuidInfos[uuid].owner;
                 
-                Debug.LogWarning($"Registering a {owner.GetType()} with an existing uuid." +
+                Debugger.LogWarning($"Registering a {owner.GetType()} with an existing uuid." +
                                  $"The old owner : {oldOwner} will be overridden.");
                 
                 Unregister(uuid);
@@ -108,7 +108,7 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning($"Failed to unregister a null {nameof(IUUIDOwner)}");
+                Debugger.LogWarning($"Failed to unregister a null {nameof(IUUIDOwner)}");
                 return false;
             }
 
@@ -119,7 +119,7 @@ namespace VMFramework.Network
 
             if (owner != existingOwner)
             {
-                Debug.LogWarning($"Failed to unregister. " +
+                Debugger.LogWarning($"Failed to unregister. " +
                                  $"The owner {owner} does not match the existing owner {existingOwner}." +
                                  $"They have the same uuid but are not the same object.");
                 return false;
@@ -138,14 +138,14 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Failed to unregister a {nameof(IUUIDOwner)} with an empty uuid");
+                Debugger.LogWarning($"Failed to unregister a {nameof(IUUIDOwner)} with an empty uuid");
                 owner = null;
                 return false;
             }
 
             if (uuidInfos.Remove(uuid, out var info) == false)
             {
-                Debug.LogWarning($"Failed to unregister a {nameof(IUUIDOwner)} with uuid {uuid}. It does not exist.");
+                Debugger.LogWarning($"Failed to unregister a {nameof(IUUIDOwner)} with uuid {uuid}. It does not exist.");
                 owner = null;
                 return false;
             }
@@ -184,13 +184,13 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"{nameof(uuid)} is empty");
+                Debugger.LogWarning($"{nameof(uuid)} is empty");
                 return;
             }
 
             if (instance.IsClientStarted == false)
             {
-                Debug.LogWarning($"The client is not started yet, cannot observe {uuid}");
+                Debugger.LogWarning($"The client is not started yet, cannot observe {uuid}");
                 return;
             }
 
@@ -214,7 +214,7 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning($"Failed to observe a null {nameof(IUUIDOwner)}");
+                Debugger.LogWarning($"Failed to observe a null {nameof(IUUIDOwner)}");
                 return;
             }
             
@@ -248,13 +248,13 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"{nameof(uuid)} is null or empty");
+                Debugger.LogWarning($"{nameof(uuid)} is null or empty");
                 return;
             }
             
             if (instance.IsClientStarted == false)
             {
-                Debug.LogWarning($"The client is not started yet, cannot unobserve {uuid}");
+                Debugger.LogWarning($"The client is not started yet, cannot unobserve {uuid}");
                 return;
             }
 
@@ -278,7 +278,7 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning($"Failed to unobserve a null {nameof(IUUIDOwner)}");
+                Debugger.LogWarning($"Failed to unobserve a null {nameof(IUUIDOwner)}");
                 return;
             }
             

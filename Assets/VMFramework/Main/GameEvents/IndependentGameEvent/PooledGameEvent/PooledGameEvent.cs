@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.GameEvents
 {
@@ -23,7 +24,7 @@ namespace VMFramework.GameEvents
         {
             if (isEnabled == false)
             {
-                Debug.LogWarning($"{typeof(TGameEvent)} is disabled. Cannot propagate.");
+                Debugger.LogWarning($"{typeof(TGameEvent)} is disabled. Cannot propagate.");
                 return false;
             }
             
@@ -35,7 +36,7 @@ namespace VMFramework.GameEvents
         {
             if (isPropagating)
             {
-                Debug.LogWarning($"Cannot propagate {typeof(TGameEvent)} while it is already propagating.");
+                Debugger.LogWarning($"Cannot propagate {typeof(TGameEvent)} while it is already propagating.");
                 return;
             }
             

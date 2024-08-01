@@ -139,7 +139,7 @@ namespace VMFramework.Core
         {
             if (_children.Remove(pathPart) == false)
             {
-                Debug.LogWarning($"{pathPart} not found in children of {this.pathPart}");
+                Debugger.LogWarning($"{pathPart} not found in children of {this.pathPart}");
             }
         }
 

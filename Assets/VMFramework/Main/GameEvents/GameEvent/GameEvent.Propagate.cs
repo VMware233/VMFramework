@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.GameEvents
 {
@@ -11,7 +12,7 @@ namespace VMFramework.GameEvents
 
         public bool isPropagating { get; private set; } = false;
 
-        private List<(int priority, Action<TGameEvent> callback)> tempCallbacks = new();
+        private readonly List<(int priority, Action<TGameEvent> callback)> tempCallbacks = new();
 
         public void StopPropagation()
         {
@@ -22,7 +23,7 @@ namespace VMFramework.GameEvents
         {
             if (isEnabled == false)
             {
-                Debug.LogWarning($"GameEvent:{id} is disabled. Cannot propagate.");
+                Debugger.LogWarning($"GameEvent:{id} is disabled. Cannot propagate.");
                 return false;
             }
             
@@ -34,7 +35,7 @@ namespace VMFramework.GameEvents
         {
             if (isPropagating)
             {
-                Debug.LogWarning($"GameEvent:{id} is already propagating. Cannot propagate.");
+                Debugger.LogWarning($"GameEvent:{id} is already propagating. Cannot propagate.");
                 return;
             }
             

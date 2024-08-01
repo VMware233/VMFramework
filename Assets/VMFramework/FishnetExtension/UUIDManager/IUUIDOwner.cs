@@ -37,7 +37,7 @@ namespace VMFramework.Network
             {
                 if (uuid == Guid.Empty)
                 {
-                    Debug.LogWarning($"The uuid of {this} has already been set to empty." +
+                    Debugger.LogWarning($"The uuid of {this} has already been set to empty." +
                                      "Cannot set it to empty again.");
                     return false;
                 }
@@ -52,7 +52,7 @@ namespace VMFramework.Network
                 return true;
             }
                 
-            Debug.LogWarning($"The uuid of {this} has already been set to {this.uuid} and cannot be changed." +
+            Debugger.LogWarning($"The uuid of {this} has already been set to {this.uuid} and cannot be changed." +
                              "If you want to change the uuid, please set the uuid to empty first.");
             return false;
         }

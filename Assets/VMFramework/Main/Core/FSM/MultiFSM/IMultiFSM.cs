@@ -84,7 +84,7 @@ namespace VMFramework.Core.FSM
 
             if (this.TryGetState(stateID, out var state) == false)
             {
-                Debug.LogWarning($"The State with ID: {stateID} does not exist");
+                Debugger.LogWarning($"The State with ID: {stateID} does not exist");
                 return false;
             }
 
@@ -106,7 +106,7 @@ namespace VMFramework.Core.FSM
 
             if (this.TryGetState(stateID, out var state) == false)
             {
-                Debug.LogWarning($"The State with ID: {stateID} does not exist");
+                Debugger.LogWarning($"The State with ID: {stateID} does not exist");
                 return false;
             }
 

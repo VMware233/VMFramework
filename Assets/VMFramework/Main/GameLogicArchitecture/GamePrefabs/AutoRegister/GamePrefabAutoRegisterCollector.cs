@@ -50,7 +50,7 @@ namespace VMFramework.GameLogicArchitecture
                     
                     if (fieldInfo.IsConstant() == false)
                     {
-                        Debug.LogWarning($"String Field : {fieldInfo.Name} in Class : {staticClass.Name}" +
+                        Debugger.LogWarning($"String Field : {fieldInfo.Name} in Class : {staticClass.Name}" +
                                          $"with {nameof(GamePrefabIDAutoRegisterAttribute)}" +
                                          "must be a constant string.");
                         

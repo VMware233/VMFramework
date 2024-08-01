@@ -124,11 +124,11 @@ namespace VMFramework.Maps
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearMap()
+        public void ClearAll()
         {
             foreach (var tilemap in tilemaps.Values)
             {
-                tilemap.ClearMap();
+                tilemap.ClearAll();
             }
         }
 

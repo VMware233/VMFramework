@@ -20,7 +20,7 @@ namespace VMFramework.Core.Editor
         {
             if (unityObj == null)
             {
-                Debug.LogWarning($"Cannot open inspector window for null object.");
+                Debugger.LogWarning($"Cannot open inspector window for null object.");
                 return;
             }
             

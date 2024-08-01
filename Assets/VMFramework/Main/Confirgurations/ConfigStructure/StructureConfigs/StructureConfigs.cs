@@ -32,7 +32,7 @@ namespace VMFramework.Configuration
             {
                 if (TryAddConfigRuntime(config) == false)
                 {
-                    Debug.LogWarning($"Could not add config {config}");
+                    Debugger.LogWarning($"Could not add config {config}");
                 }
             }
         }

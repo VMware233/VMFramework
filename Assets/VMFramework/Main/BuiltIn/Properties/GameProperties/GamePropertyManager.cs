@@ -18,7 +18,7 @@ namespace VMFramework.Properties
             {
                 if (gameProperty.targetType == null)
                 {
-                    Debug.LogWarning($"{gameProperty} has no target type set.");
+                    Debugger.LogWarning($"{gameProperty} has no target type set.");
                     continue;
                 }
 
@@ -34,7 +34,7 @@ namespace VMFramework.Properties
 
             if (propertyConfigs.Count == 0)
             {
-                Debug.LogWarning($"{nameof(propertyConfigs)} is not loaded");
+                Debugger.LogWarning($"{nameof(propertyConfigs)} is not loaded");
                 return result;
             }
 

@@ -44,7 +44,7 @@ namespace VMFramework.UI
 
             if (defaultTooltipID.IsNullOrEmpty())
             {
-                Debug.LogWarning($"{nameof(defaultTooltipID)} is not set.");
+                Debugger.LogWarning($"{nameof(defaultTooltipID)} is not set.");
             }
 
             tooltipIDBindConfigs.CheckSettings();

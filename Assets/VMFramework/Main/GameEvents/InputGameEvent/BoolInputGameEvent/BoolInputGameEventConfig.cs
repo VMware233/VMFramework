@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Core.Linq;
 
 namespace VMFramework.GameEvents
@@ -24,7 +25,7 @@ namespace VMFramework.GameEvents
 
             if (actionGroups.IsNullOrEmpty())
             {
-                Debug.LogWarning($"{this} has no input action groups.");
+                Debugger.LogWarning($"{this} has no input action groups.");
             }
         }
     }

@@ -18,7 +18,7 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning($"Try to get {nameof(UUIDInfo)} with null owner");
+                Debugger.LogWarning($"Try to get {nameof(UUIDInfo)} with null owner");
                 info = default;
                 return false;
             }
@@ -31,7 +31,7 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Try to get {nameof(UUIDInfo)} with empty uuid");
+                Debugger.LogWarning($"Try to get {nameof(UUIDInfo)} with empty uuid");
                 info = default;
                 return false;
             }
@@ -44,7 +44,7 @@ namespace VMFramework.Network
         {
             if (TryGetInfo(uuid, out info) == false)
             {
-                Debug.LogWarning($"The {nameof(uuid)}:{uuid} does not exist!");
+                Debugger.LogWarning($"The {nameof(uuid)}:{uuid} does not exist!");
                 return false;
             }
             return true;
@@ -59,7 +59,7 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Try to get {typeof(IUUIDOwner)} with empty uuid");
+                Debugger.LogWarning($"Try to get {typeof(IUUIDOwner)} with empty uuid");
                 owner = null;
                 return false;
             }
@@ -80,7 +80,7 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Try to get {typeof(TUUIDOwner)} with empty uuid");
+                Debugger.LogWarning($"Try to get {typeof(TUUIDOwner)} with empty uuid");
                 owner = default;
                 return false;
             }
@@ -104,7 +104,7 @@ namespace VMFramework.Network
         {
             if (TryGetOwner(uuid, out owner) == false)
             {
-                Debug.LogWarning($"The {typeof(TUUIDOwner)} with uuid {uuid} does not exist");
+                Debugger.LogWarning($"The {typeof(TUUIDOwner)} with uuid {uuid} does not exist");
                 return false;
             }
             
@@ -126,13 +126,13 @@ namespace VMFramework.Network
         {
             if (uuid == Guid.Empty)
             {
-                Debug.LogWarning($"Try to check if {nameof(uuid)} exists with empty uuid");
+                Debugger.LogWarning($"Try to check if {nameof(uuid)} exists with empty uuid");
                 return false;
             }
             
             if (uuidInfos.ContainsKey(uuid) == false)
             {
-                Debug.LogWarning($"The {nameof(uuid)} : {uuid} does not exist");
+                Debugger.LogWarning($"The {nameof(uuid)} : {uuid} does not exist");
                 return false;
             }
             

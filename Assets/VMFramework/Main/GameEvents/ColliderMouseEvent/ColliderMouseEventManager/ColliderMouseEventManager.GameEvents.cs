@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.GameEvents
@@ -43,7 +44,7 @@ namespace VMFramework.GameEvents
         {
             if (mouseEvents.TryGetValue(eventType, out ColliderMouseEvent gameEvent) == false)
             {
-                Debug.LogWarning($"{nameof(ColliderMouseEvent)} for {eventType} not found.");
+                Debugger.LogWarning($"{nameof(ColliderMouseEvent)} for {eventType} not found.");
                 return;
             }
 

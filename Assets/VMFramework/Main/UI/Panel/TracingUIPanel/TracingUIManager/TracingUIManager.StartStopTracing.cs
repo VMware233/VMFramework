@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.UI
 {
@@ -13,11 +14,11 @@ namespace VMFramework.UI
         {
             if (tracingType == TracingType.Transform)
             {
-                Debug.LogWarning($"{tracingUIPanel} already tracing a transform");
+                Debugger.LogWarning($"{tracingUIPanel} already tracing a transform");
             }
             else if (tracingType == TracingType.MousePosition)
             {
-                Debug.LogWarning($"{tracingUIPanel} already tracing mouse position");
+                Debugger.LogWarning($"{tracingUIPanel} already tracing mouse position");
             }
         }
 

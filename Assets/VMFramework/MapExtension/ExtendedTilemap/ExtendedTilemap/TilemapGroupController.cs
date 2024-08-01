@@ -33,7 +33,7 @@ namespace VMFramework.Maps
         {
             if (tilemapPrefabController != null)
             {
-                Debug.LogWarning($"{nameof(TilemapPrefabController)} has already been set.");
+                Debugger.LogWarning($"{nameof(TilemapPrefabController)} has already been set.");
             }
             
             tilemapPrefabController = controller;

@@ -1,5 +1,6 @@
 #if FISHNET
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Network
 {
@@ -14,20 +15,20 @@ namespace VMFramework.Network
         {
             if (owner == null)
             {
-                Debug.LogWarning($"检查一致性失败，{nameof(owner)}为空");
+                Debugger.LogWarning($"检查一致性失败，{nameof(owner)}为空");
                 return false;
             }
             
             if (TryGetOwnerWithWarning(owner.uuid, out TUUIDOwner existedOwner) ==
                 false)
             {
-                Debug.LogWarning($"不存在此{owner.uuid}对应的{typeof(TUUIDOwner)}");
+                Debugger.LogWarning($"不存在此{owner.uuid}对应的{typeof(TUUIDOwner)}");
                 return false;
             }
 
             if (existedOwner.Equals(owner) == false)
             {
-                Debug.LogWarning($"此{owner}的UUID对应的是{existedOwner}，一致性检查失败");
+                Debugger.LogWarning($"此{owner}的UUID对应的是{existedOwner}，一致性检查失败");
                 return false;
             }
             

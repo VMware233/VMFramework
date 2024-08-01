@@ -728,13 +728,13 @@ namespace VMFramework.Maps
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Vector3Int GetChunkPosByTilePos(Vector3Int tilePos)
             {
-                return tilePos.Divide(config.chunkSize);
+                return tilePos.CircularDivide(config.chunkSize);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Chunk GetChunkByTilePos(Vector3Int tilePos)
             {
-                return GetChunk(tilePos.Divide(config.chunkSize));
+                return GetChunk(tilePos.CircularDivide(config.chunkSize));
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

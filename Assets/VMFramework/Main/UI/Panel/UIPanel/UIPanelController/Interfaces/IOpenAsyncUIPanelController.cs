@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.UI
 {
@@ -16,13 +17,13 @@ namespace VMFramework.UI
             }
             else if (isOpened)
             {
-                Debug.LogWarning("UIPanelController is already opened.");
+                Debugger.LogWarning("UIPanelController is already opened.");
                 return;
             }
 
             if (isOpening)
             {
-                Debug.LogWarning("UIPanelController is already opening.");
+                Debugger.LogWarning("UIPanelController is already opening.");
                 return;
             }
 
@@ -58,7 +59,7 @@ namespace VMFramework.UI
                 
                 if (openingCTS == null)
                 {
-                    Debug.LogWarning(
+                    Debugger.LogWarning(
                         "UIPanelController is already opening but no cancellation token source is available.");
                     return;
                 }
@@ -67,7 +68,7 @@ namespace VMFramework.UI
             }
             else
             {
-                Debug.LogWarning("UIPanelController is not opening.");
+                Debugger.LogWarning("UIPanelController is not opening.");
             }
         }
     }

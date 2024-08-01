@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using VMFramework.Configuration;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -15,7 +16,7 @@ namespace VMFramework.UI
         {
             if (contextMenuProvider == null)
             {
-                Debug.LogWarning($"{nameof(contextMenuProvider)} is Null");
+                Debugger.LogWarning($"{nameof(contextMenuProvider)} is Null");
                 return;
             }
 
@@ -49,7 +50,7 @@ namespace VMFramework.UI
         {
             if (contextMenuProvider == null)
             {
-                Debug.LogWarning($"{nameof(contextMenuProvider)} is Null");
+                Debugger.LogWarning($"{nameof(contextMenuProvider)} is Null");
                 return;
             }
 

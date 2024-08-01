@@ -72,13 +72,13 @@ namespace VMFramework.Localization
         {
             if (stringTableCollection == null)
             {
-                Debug.LogWarning("No table selected.");
+                Debugger.LogWarning("No table selected.");
                 return;
             }
 
             if (key.IsNullOrWhiteSpace())
             {
-                Debug.LogWarning("Key cannot be empty.");
+                Debugger.LogWarning("Key cannot be empty.");
                 return;
             }
 

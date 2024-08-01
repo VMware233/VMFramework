@@ -40,14 +40,14 @@ namespace VMFramework.GameLogicArchitecture
             {
                 if (gameTypeInfo.id == null)
                 {
-                    Debug.LogWarning(
+                    Debugger.LogWarning(
                         $"Existing initial {nameof(gameTypeInfo)} has an empty {nameof(gameTypeInfo.id)}.");
                     continue;
                 }
 
                 if (gameTypeInfo.id.IsWhiteSpace())
                 {
-                    Debug.LogWarning(
+                    Debugger.LogWarning(
                         $"Existing initial {nameof(gameTypeInfo)} has an empty {nameof(gameTypeInfo.id)} after trimming.");
                     continue;
                 }

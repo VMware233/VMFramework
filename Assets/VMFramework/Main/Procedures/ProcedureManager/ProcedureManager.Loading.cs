@@ -83,7 +83,7 @@ namespace VMFramework.Procedure
         {
             if (IsLoading)
             {
-                Debug.LogWarning("Loading already in progress.");
+                Debugger.LogWarning("Loading already in progress.");
                 return;
             }
             

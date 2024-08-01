@@ -17,7 +17,7 @@ namespace VMFramework.Maps
         [Button]
         private void _ClearMap()
         {
-            ClearMap();
+            ClearAll();
         }
 
         [Button(ButtonStyle.Box)]

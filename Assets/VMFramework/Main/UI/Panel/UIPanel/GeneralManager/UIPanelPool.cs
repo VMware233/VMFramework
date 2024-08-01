@@ -39,7 +39,7 @@ namespace VMFramework.UI
             {
                 if (allUniquePanelControllers.ContainsKey(id))
                 {
-                    Debug.LogWarning($"The unique UI panel with ID {id} has already been created, " +
+                    Debugger.LogWarning($"The unique UI panel with ID {id} has already been created, " +
                                      "the old panel will be overwritten");
                 }
 
@@ -63,13 +63,13 @@ namespace VMFramework.UI
 
             if (allUIPanelControllers.TryGetValue(id, out var controllerList) == false)
             {
-                Debug.LogWarning($"The {id} does not exist in the pool, cannot unregister: {controller}");
+                Debugger.LogWarning($"The {id} does not exist in the pool, cannot unregister: {controller}");
                 return;
             }
 
             if (controllerList.Remove(controller) == false)
             {
-                Debug.LogWarning(
+                Debugger.LogWarning(
                     $"The panel wit ID {id} does not exist in the pool, cannot unregister: {controller}");
                 return;
             }
@@ -78,7 +78,7 @@ namespace VMFramework.UI
             {
                 if (allUniquePanelControllers.Remove(id) == false)
                 {
-                    Debug.LogWarning(
+                    Debugger.LogWarning(
                         $"The unique UI panel with ID {id} does not exist, cannot unregister: {controller}");
                 }
             }
@@ -306,14 +306,14 @@ namespace VMFramework.UI
         {
             if (allUniquePanelControllers.TryGetValue(id, out var panelControllerInterface) == false)
             {
-                Debug.LogWarning($"The unique panel with ID {id} does not exist");
+                Debugger.LogWarning($"The unique panel with ID {id} does not exist");
                 panelController = default;
                 return false;
             }
             
             if (panelControllerInterface is not TController controller)
             {
-                Debug.LogWarning($"The unique panel with ID {id} is {panelControllerInterface.GetType()} " +
+                Debugger.LogWarning($"The unique panel with ID {id} is {panelControllerInterface.GetType()} " +
                                  $"instead of {typeof(TController)}");
                 panelController = default;
                 return false;

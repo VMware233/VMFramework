@@ -82,7 +82,7 @@ namespace VMFramework.Containers
             
             if (isDebugging)
             {
-                Debug.LogWarning($"{this} is Destroyed");
+                Debugger.LogWarning($"{this} is Destroyed");
             }
             
             using var containerDestroyEvent = ContainerDestroyEvent.Get();

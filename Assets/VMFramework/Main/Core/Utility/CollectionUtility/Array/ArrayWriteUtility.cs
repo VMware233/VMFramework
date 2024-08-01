@@ -21,9 +21,11 @@ namespace VMFramework.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Remove<T>(this T[,,] array, Vector3Int pos, out T item)
+        public static bool Remove<T>(this T[,,] array, Vector3Int pos, out T item)
+            where T : class
         {
-            ReferenceUtility.Exchange(ref array[pos.x, pos.y, pos.z], default, out item);
+            ReferenceUtility.Exchange(ref array[pos.x, pos.y, pos.z], null, out item);
+            return item != null;
         }
     }
 }

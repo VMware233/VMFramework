@@ -30,7 +30,7 @@ public class ModManager : ManagerBehaviour<ModManager>
                 continue;
             }
 
-            Debug.LogWarning(filePath);
+            Debugger.LogWarning(filePath);
 
             var assembly = Assembly.LoadFrom(filePath);
 

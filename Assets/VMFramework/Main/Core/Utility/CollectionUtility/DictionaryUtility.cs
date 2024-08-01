@@ -47,23 +47,6 @@ namespace VMFramework.Core
             return dict.Keys.ToArray().All(selector);
         }
 
-        public static void ChangeKey<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey oldKey,
-            TKey newKey)
-        {
-            if (dict.Remove(oldKey, out var value) == false)
-            {
-                Debug.LogWarning($"键{oldKey}不存在");
-                return;
-            }
-
-            if (dict.ContainsKey(newKey))
-            {
-                Debug.LogWarning($"字典键:{newKey}下的值已被原来{oldKey}下的值取代");
-            }
-
-            dict[newKey] = value;
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TKey> GetKeysByValue<TKey, TValue>(this IDictionary<TKey, TValue> dict,
             TValue value)

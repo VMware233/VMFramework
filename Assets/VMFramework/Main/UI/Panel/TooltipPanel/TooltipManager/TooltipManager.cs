@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using VMFramework.Configuration;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -16,7 +17,7 @@ namespace VMFramework.UI
         {
             if (tooltipProvider == null)
             {
-                Debug.LogWarning($"{nameof(tooltipProvider)} is Null");
+                Debugger.LogWarning($"{nameof(tooltipProvider)} is Null");
                 return;
             }
 
@@ -66,7 +67,7 @@ namespace VMFramework.UI
         {
             if (tooltipProvider == null)
             {
-                Debug.LogWarning($"{nameof(tooltipProvider)} is Null");
+                Debugger.LogWarning($"{nameof(tooltipProvider)} is Null");
                 return;
             }
 

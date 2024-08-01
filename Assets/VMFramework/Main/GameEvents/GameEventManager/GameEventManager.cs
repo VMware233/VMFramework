@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.GameLogicArchitecture;
 using VMFramework.Procedure;
 
@@ -53,7 +54,7 @@ namespace VMFramework.GameEvents
         {
             if (allGameEvents.Remove(gameEventID, out var gameEvent) == false)
             {
-                Debug.LogWarning($"Game Event with ID: {gameEventID} does not exist.");
+                Debugger.LogWarning($"Game Event with ID: {gameEventID} does not exist.");
                 return;
             }
             

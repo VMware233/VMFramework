@@ -28,7 +28,7 @@ namespace VMFramework.GameLogicArchitecture
                 return true;
             }
             
-            Debug.LogWarning($"GamePrefab with ID {id} not found.");
+            Debugger.LogWarning($"GamePrefab with ID {id} not found.");
             return false;
         }
 

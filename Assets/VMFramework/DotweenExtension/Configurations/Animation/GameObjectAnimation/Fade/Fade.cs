@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Configuration.Animation
 {
@@ -19,7 +20,7 @@ namespace VMFramework.Configuration.Animation
         {
             if (target.GetComponent<CanvasGroup>() == null)
             {
-                Debug.LogWarning($"{target}没有CanvasGroup组件，无法播放淡化动画");
+                Debugger.LogWarning($"{target}没有CanvasGroup组件，无法播放淡化动画");
                 return false;
             }
 

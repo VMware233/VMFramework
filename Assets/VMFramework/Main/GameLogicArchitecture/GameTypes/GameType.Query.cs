@@ -22,7 +22,7 @@ namespace VMFramework.GameLogicArchitecture
             
             if (gameType == null)
             {
-                Debug.LogWarning($"The Game Type with ID:{typeID} does not exist!");
+                Debugger.LogWarning($"The Game Type with ID:{typeID} does not exist!");
                 return false;
             }
             

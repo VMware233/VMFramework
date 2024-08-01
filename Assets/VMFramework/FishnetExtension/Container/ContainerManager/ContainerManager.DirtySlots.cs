@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using VMFramework.Core;
 using VMFramework.Network;
 
 namespace VMFramework.Containers
@@ -40,7 +41,7 @@ namespace VMFramework.Containers
 
                 if (UUIDCoreManager.TryGetInfo(container.uuid, out var info) == false)
                 {
-                    Debug.LogWarning($"Container with UUID {container.uuid} not found.");
+                    Debugger.LogWarning($"Container with UUID {container.uuid} not found.");
                     dirtyContainersRemovalList.Add(container);
                     continue;
                 }
@@ -118,7 +119,7 @@ namespace VMFramework.Containers
         {
             if (container.uuid == Guid.Empty)
             {
-                Debug.LogWarning($"{container}'s UUID is null or empty.");
+                Debugger.LogWarning($"{container}'s UUID is null or empty.");
                 return;
             }
             

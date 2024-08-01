@@ -129,13 +129,13 @@ namespace VMFramework.Procedure
         {
             if (IsLoading)
             {
-                Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
+                Debugger.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
             if (_fsm.HasCurrentState(procedureID))
             {
-                Debug.LogWarning($"Procedure with ID:{procedureID} is already current state.");
+                Debugger.LogWarning($"Procedure with ID:{procedureID} is already current state.");
                 return;
             }
 
@@ -169,13 +169,13 @@ namespace VMFramework.Procedure
         {
             if (IsLoading)
             {
-                Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
+                Debugger.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
             if (_fsm.HasCurrentState(procedureID) == false)
             {
-                Debug.LogWarning($"Procedure with ID:{procedureID} is not current state.");
+                Debugger.LogWarning($"Procedure with ID:{procedureID} is not current state.");
                 return;
             }
 
@@ -205,7 +205,7 @@ namespace VMFramework.Procedure
         {
             if (IsLoading)
             {
-                Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
+                Debugger.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             
@@ -222,7 +222,7 @@ namespace VMFramework.Procedure
         {
             if (IsLoading)
             {
-                Debug.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
+                Debugger.LogWarning("ProcedureManager is still loading, cannot switch procedure.");
                 return;
             }
             

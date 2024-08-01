@@ -33,7 +33,7 @@ namespace VMFramework.UI
 
             if (defaultContextMenuID.IsNullOrEmpty())
             {
-                Debug.LogWarning($"{nameof(defaultContextMenuID)} is not set.");
+                Debugger.LogWarning($"{nameof(defaultContextMenuID)} is not set.");
             }
             
             contextMenuIDBindConfigs.CheckSettings();

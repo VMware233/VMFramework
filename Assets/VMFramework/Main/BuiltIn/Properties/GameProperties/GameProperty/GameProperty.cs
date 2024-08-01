@@ -2,6 +2,7 @@
 using VMFramework.GameLogicArchitecture;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VMFramework.Core;
 
 namespace VMFramework.Properties
 {
@@ -30,7 +31,7 @@ namespace VMFramework.Properties
 
             if (icon == null)
             {
-                Debug.LogWarning($"{this} icon is not set.");
+                Debugger.LogWarning($"{this} icon is not set.");
             }
         }
     }

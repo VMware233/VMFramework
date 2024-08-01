@@ -2,10 +2,19 @@
 {
     public interface IPoolItem
     {
-        public void OnGet();
+        public void OnGet()
+        {
+            
+        }
 
-        public void OnReturn();
+        public void OnReturn()
+        {
+            
+        }
 
-        public void OnClear();
+        public void OnClear()
+        {
+            
+        }
     }
 }

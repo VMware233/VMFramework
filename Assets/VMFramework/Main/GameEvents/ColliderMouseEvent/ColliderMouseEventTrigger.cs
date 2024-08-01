@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Sirenix.OdinInspector;
+using VMFramework.Core;
 
 namespace VMFramework.GameEvents
 {
@@ -19,7 +20,7 @@ namespace VMFramework.GameEvents
         {
             if (this.owner != null && owner != null)
             {
-                Debug.LogWarning($"ColliderMouseEventTrigger already has an owner : {owner.name}!");
+                Debugger.LogWarning($"ColliderMouseEventTrigger already has an owner : {owner.name}!");
             }
             
             this.owner = owner;

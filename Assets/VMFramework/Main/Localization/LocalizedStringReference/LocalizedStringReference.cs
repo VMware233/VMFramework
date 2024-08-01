@@ -77,7 +77,7 @@ namespace VMFramework.Localization
 
             if (stringTableRuntime == null)
             {
-                Debug.LogWarning("Table not found: " + tableName);
+                Debugger.LogWarning("Table not found: " + tableName);
                 return defaultValue;
             }
                 
@@ -85,7 +85,7 @@ namespace VMFramework.Localization
                 
             if (entry == null)
             {
-                Debug.LogWarning("Key not found: " + key);
+                Debugger.LogWarning("Key not found: " + key);
                 return defaultValue;
             }
                 
