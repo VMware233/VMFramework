@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using VMFramework.Core;
 
@@ -10,11 +11,11 @@ namespace VMFramework.Configuration
 
         protected override string sizeName => "长度";
 
-        public override int size => max - min + 1;
+        public override int Size => max - min + 1;
 
-        public override int Count => size;
+        public override int Count => Size;
 
-        public override int pivot => (min + max) / 2;
+        public override int Pivot => (min + max) / 2;
 
         #region Constructor
 
@@ -54,7 +55,7 @@ namespace VMFramework.Configuration
         public override int ClampMax(int pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetRandomPoint() => min.RandomRange(max);
+        public override int GetRandomPoint(Random random) => random.Range(min, max);
 
         public override IEnumerator<int> GetEnumerator()
         {

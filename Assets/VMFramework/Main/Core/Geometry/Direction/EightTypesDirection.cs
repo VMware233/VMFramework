@@ -2,6 +2,9 @@
 
 namespace VMFramework.Core
 {
+    /// <summary>
+    /// Stands for the eight types of directions in a 2D plane.
+    /// </summary>
     [Flags]
     public enum EightTypesDirection
     {

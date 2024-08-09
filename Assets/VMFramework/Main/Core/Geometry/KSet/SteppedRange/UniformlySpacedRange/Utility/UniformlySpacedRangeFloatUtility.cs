@@ -15,7 +15,7 @@ namespace VMFramework.Core
             int count)
             where TMinMaxOwner : IMinMaxOwner<float>
         {
-            return new UniformlySpacedRangeFloat(minMaxOwner.min, minMaxOwner.max, count);
+            return new UniformlySpacedRangeFloat(minMaxOwner.Min, minMaxOwner.Max, count);
         }
     }
 }

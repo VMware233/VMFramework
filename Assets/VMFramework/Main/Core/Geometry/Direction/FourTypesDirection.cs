@@ -2,6 +2,9 @@
 
 namespace VMFramework.Core
 {
+    /// <summary>
+    /// Stands for the 2d directions of Left, Right, Up, and Down.
+    /// </summary>
     [Flags]
     public enum FourTypesDirection
     {

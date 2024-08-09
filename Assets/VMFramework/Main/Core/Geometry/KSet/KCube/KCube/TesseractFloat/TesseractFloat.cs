@@ -12,9 +12,9 @@ namespace VMFramework.Core
 
         public static TesseractFloat unit { get; } = new(Vector4.zero, Vector4.one);
 
-        public Vector4 size => max - min;
+        public Vector4 Size => max - min;
 
-        public Vector4 pivot => (max + min) / 2;
+        public Vector4 Pivot => (max + min) / 2;
 
         public Vector4 extents => (max - min) / 2;
 
@@ -118,8 +118,8 @@ namespace VMFramework.Core
                 return;
             }
 
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         #endregion

@@ -7,7 +7,7 @@ namespace VMFramework.Procedure
     
     public interface IInitializer
     {
-        public bool enableInitializationDebugLog => true;
+        public bool EnableInitializationDebugLog => true;
 
         public IEnumerable<InitializationAction> GetInitializationActions();
     }

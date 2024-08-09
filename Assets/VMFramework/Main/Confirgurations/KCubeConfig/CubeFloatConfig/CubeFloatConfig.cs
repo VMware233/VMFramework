@@ -1,14 +1,15 @@
 ﻿using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Configuration
 {
     public partial class CubeFloatConfig : KCubeFloatConfig<Vector3>
     {
-        public override Vector3 size => max - min;
+        public override Vector3 Size => max - min;
 
-        public override Vector3 pivot => (min + max) / 2f;
+        public override Vector3 Pivot => (min + max) / 2f;
 
         public override Vector3 extents => (max - min) / 2f;
 
@@ -56,7 +57,7 @@ namespace VMFramework.Configuration
         public override Vector3 ClampMax(Vector3 pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Vector3 GetRandomPoint() => min.RandomRange(max);
+        public override Vector3 GetRandomPoint(Random random) => random.Range(min, max);
 
         #endregion
 

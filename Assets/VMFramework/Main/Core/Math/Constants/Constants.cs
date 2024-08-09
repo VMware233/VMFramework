@@ -1,4 +1,6 @@
-﻿namespace VMFramework.Core
+﻿using System;
+
+namespace VMFramework.Core
 {
     public static class Constants
     {
@@ -15,7 +17,8 @@
             1.732050807568877293527446341505872366942805253810380628055806f;
         
         public const float E = 2.71828175f;
-        public const float PI = 3.14159274f;
+        public const float PI = MathF.PI;
+        public const float TWO_PI = PI * 2f;
         
         /// <summary>
         ///   <para>Degrees-to-radians conversion constant</para>

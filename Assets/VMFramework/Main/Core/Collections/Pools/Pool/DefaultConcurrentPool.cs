@@ -9,7 +9,7 @@ namespace VMFramework.Core.Pools
     /// Threads-safe pool implementation using a <see cref="ConcurrentQueue{T}"/> to store item references.
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
-    public sealed partial class DefaultConcurrentPool<TItem> : Pool<TItem> where TItem : class
+    public sealed partial class DefaultConcurrentPool<TItem> : NormalPool<TItem> where TItem : class
     {
         private readonly Func<TItem, TItem> _preGetFunc;
         private readonly Func<TItem> _createFunc;

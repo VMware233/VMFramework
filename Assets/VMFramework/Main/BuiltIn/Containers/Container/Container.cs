@@ -330,11 +330,11 @@ namespace VMFramework.Containers
 
         #region String
 
-        protected override IEnumerable<(string propertyID, string propertyContent)>
-            OnGetStringProperties()
+        protected override void OnGetStringProperties(ICollection<(string propertyID, string propertyContent)> collection)
         {
-            // yield return (nameof(uuid), uuid);
-            yield return (nameof(validItemsSize), validItemsSize.ToString());
+            base.OnGetStringProperties(collection);
+            
+            collection.Add((nameof(validItemsSize), validItemsSize.ToString()));
         }
 
         #endregion

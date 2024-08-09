@@ -27,11 +27,11 @@ namespace VMFramework.Core
         public static RectangleInteger unit { get; } =
             new(Vector2Int.zero, Vector2Int.one);
 
-        public Vector2Int size => max - min + Vector2Int.one;
+        public Vector2Int Size => max - min + Vector2Int.one;
 
-        public int Count => size.Products();
+        public int Count => Size.Products();
 
-        public Vector2Int pivot => (max + min) / 2;
+        public Vector2Int Pivot => (max + min) / 2;
 
         public readonly Vector2Int min, max;
 
@@ -85,8 +85,8 @@ namespace VMFramework.Core
                 max = Vector2Int.zero;
                 return;
             }
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         #endregion

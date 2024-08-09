@@ -7,7 +7,8 @@ using VMFramework.Core.Pools;
 
 namespace VMFramework.GameLogicArchitecture
 {
-    public partial interface IGameItem : IIDOwner, INameOwner, IReadOnlyGameTypeOwner, IDestructible, IPoolItem
+    public partial interface IGameItem
+        : IIDOwner, INameOwner, IReadOnlyGameTypeOwner, IDestructible, ICreatablePoolItem<string>
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CloneTo(IGameItem other);
@@ -16,8 +17,6 @@ namespace VMFramework.GameLogicArchitecture
         {
             GameItemManager.Return(this);
         }
-
-        public void OnCreate(string id);
 
         // #region Create
 

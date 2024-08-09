@@ -69,7 +69,7 @@ namespace VMFramework.Core.Linq
         /// <returns></returns>
         public static (T, T) FindBoundingElements<T, TTarget>(this TTarget target,
             IEnumerable<T> sortedEnumerable, Func<T, TTarget> extractBound)
-            where TTarget : IComparable
+            where TTarget : IComparable<TTarget>
             where T : class
         {
             T lastElement = null;
@@ -99,7 +99,7 @@ namespace VMFramework.Core.Linq
         public static (TTarget, TTarget) FindBoundingElements<TTarget>(
             this TTarget target, IEnumerable<TTarget> sortedEnumerable, 
             TTarget firstBoundary, TTarget lastBoundary)
-            where TTarget : IComparable
+            where TTarget : IComparable<TTarget>
         {
             TTarget lastElement = firstBoundary;
 
@@ -127,7 +127,7 @@ namespace VMFramework.Core.Linq
         /// <returns></returns>
         public static (int, int) FindBoundingIndices<T, TTarget>(this TTarget target,
             IEnumerable<T> sortedEnumerable, Func<T, TTarget> extractBound)
-            where TTarget : IComparable
+            where TTarget : IComparable<TTarget>
         {
             int lastIndex = 0;
             foreach (var (index, item) in sortedEnumerable.Enumerate())
@@ -152,7 +152,7 @@ namespace VMFramework.Core.Linq
         /// <returns></returns>
         public static (int, int) FindBoundingIndices<TTarget>(this TTarget target,
             IEnumerable<TTarget> sortedEnumerable)
-            where TTarget : IComparable
+            where TTarget : IComparable<TTarget>
         {
             int lastIndex = 0;
             foreach (var (index, item) in sortedEnumerable.Enumerate())

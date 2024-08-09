@@ -76,7 +76,7 @@ namespace VMFramework.UI
         {
             if (isOpened && IsClosing == false)
             {
-                if (tooltipProvider.isDestroyed)
+                if (tooltipProvider.IsDestroyed)
                 {
                     this.Close();
                 }

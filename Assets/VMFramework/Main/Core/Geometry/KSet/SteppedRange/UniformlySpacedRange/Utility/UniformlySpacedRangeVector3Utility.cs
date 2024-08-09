@@ -16,7 +16,7 @@ namespace VMFramework.Core
             int count)
             where TMinMaxOwner : IMinMaxOwner<Vector3>
         {
-            return new UniformlySpacedRangeVector3(minMaxOwner.min, minMaxOwner.max, count);
+            return new UniformlySpacedRangeVector3(minMaxOwner.Min, minMaxOwner.Max, count);
         }
     }
 }

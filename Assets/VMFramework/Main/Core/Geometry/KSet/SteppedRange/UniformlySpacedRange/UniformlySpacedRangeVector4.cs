@@ -19,13 +19,13 @@ namespace VMFramework.Core
             this.count = count;
         }
         
-        Vector4 IMinMaxOwner<Vector4>.min
+        Vector4 IMinMaxOwner<Vector4>.Min
         {
             get => min;
             init => min = value;
         }
 
-        Vector4 IMinMaxOwner<Vector4>.max
+        Vector4 IMinMaxOwner<Vector4>.Max
         {
             get => max;
             init => max = value;

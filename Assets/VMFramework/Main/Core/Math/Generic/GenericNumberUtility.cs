@@ -644,29 +644,6 @@ namespace VMFramework.Core.Generic
 
         #endregion
 
-        #region Power
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Power<T>(this T toPow, float power)
-            where T : IEquatable<T>
-        {
-            return toPow switch
-            {
-                int => Math.Power(toPow.ConvertTo<int>(), power).ConvertTo<T>(),
-                float => Math.Power(toPow.ConvertTo<float>(), power).ConvertTo<T>(),
-                double => Math.Power(toPow.ConvertTo<double>(), power).ConvertTo<T>(),
-                Vector2 => Math.Power(toPow.ConvertTo<Vector2>(), power).ConvertTo<T>(),
-                Vector3 => Math.Power(toPow.ConvertTo<Vector3>(), power).ConvertTo<T>(),
-                Vector4 => Math.Power(toPow.ConvertTo<Vector4>(), power).ConvertTo<T>(),
-                Vector2Int => Math.Power(toPow.ConvertTo<Vector2Int>(), power).ConvertTo<T>(),
-                Vector3Int => Math.Power(toPow.ConvertTo<Vector3Int>(), power).ConvertTo<T>(),
-                Color => Math.Power(toPow.ConvertTo<Color>(), power).ConvertTo<T>(),
-                _ => throw new ArgumentException()
-            };
-        }
-
-        #endregion
-
         #endregion
 
         #region Min & Max
@@ -1004,27 +981,6 @@ namespace VMFramework.Core.Generic
                 Vector3Int => Math.PointSymmetric(a.ConvertTo<Vector3Int>(), point.ConvertTo<Vector3Int>())
                     .ConvertTo<T>(),
                 Color => throw new ArgumentException(),
-                _ => throw new ArgumentException()
-            };
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T RandomRange<T>(this T a, T min)
-            where T : IEquatable<T>
-        {
-            return a switch
-            {
-                int => RandomUtility.RandomRange(a.ConvertTo<int>(), min.ConvertTo<int>()).ConvertTo<T>(),
-                float => RandomUtility.RandomRange(a.ConvertTo<float>(), min.ConvertTo<float>()).ConvertTo<T>(),
-                double => throw new ArgumentException(),
-                Vector2 => RandomUtility.RandomRange(a.ConvertTo<Vector2>(), min.ConvertTo<Vector2>()).ConvertTo<T>(),
-                Vector3 => RandomUtility.RandomRange(a.ConvertTo<Vector3>(), min.ConvertTo<Vector3>()).ConvertTo<T>(),
-                Vector4 => RandomUtility.RandomRange(a.ConvertTo<Vector4>(), min.ConvertTo<Vector4>()).ConvertTo<T>(),
-                Vector2Int => RandomUtility.RandomRange(a.ConvertTo<Vector2Int>(), min.ConvertTo<Vector2Int>())
-                    .ConvertTo<T>(),
-                Vector3Int => RandomUtility.RandomRange(a.ConvertTo<Vector3Int>(), min.ConvertTo<Vector3Int>())
-                    .ConvertTo<T>(),
-                Color => RandomUtility.RandomRange(a.ConvertTo<Color>(), min.ConvertTo<Color>()).ConvertTo<T>(),
                 _ => throw new ArgumentException()
             };
         }

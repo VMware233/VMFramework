@@ -11,9 +11,9 @@ namespace VMFramework.Core
 
         public static RangeFloat unit { get; } = new(0, 1);
 
-        public float size => max - min;
+        public float Size => max - min;
 
-        public float pivot => (max + min) / 2;
+        public float Pivot => (max + min) / 2;
 
         public float extents => (max - min) / 2;
 
@@ -47,8 +47,8 @@ namespace VMFramework.Core
                 max = 0;
                 return;
             }
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         public RangeFloat(Vector2 range)

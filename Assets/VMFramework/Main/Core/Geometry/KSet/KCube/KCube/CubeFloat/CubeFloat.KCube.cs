@@ -1,11 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Core
 {
     public partial struct CubeFloat
     {
-        Vector3 IMinMaxOwner<Vector3>.min
+        Vector3 IMinMaxOwner<Vector3>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -13,7 +14,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        Vector3 IMinMaxOwner<Vector3>.max
+        Vector3 IMinMaxOwner<Vector3>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -36,6 +37,6 @@ namespace VMFramework.Core
         public Vector3 ClampMax(Vector3 pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector3 GetRandomPoint() => min.RandomRange(max);
+        public Vector3 GetRandomPoint(Random random) => random.Range(min, max);
     }
 }

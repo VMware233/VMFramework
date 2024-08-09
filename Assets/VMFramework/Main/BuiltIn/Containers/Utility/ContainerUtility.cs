@@ -18,7 +18,7 @@ namespace VMFramework.Containers
         
         public static bool TryAddItem(this IContainer container, IContainerItem item, IKCube<int> range)
         {
-            return container.TryAddItem(item, range.min, range.max);
+            return container.TryAddItem(item, range.Min, range.Max);
         }
 
         /// <summary>

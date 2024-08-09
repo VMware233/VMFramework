@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using VMFramework.Core;
-using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Maps
 {
-    public delegate void TileChangedHandler(IGridChunk chunk, IGridTile tile);
-    
     public class GridChunk : IGridChunk
     {
         public Vector3Int Position { get; private set; }
@@ -21,9 +19,6 @@ namespace VMFramework.Maps
         public IGridMap Map { get; private set; }
 
         private IGridTile[,,] tiles;
-
-        public event TileChangedHandler OnTileAdded;
-        public event TileChangedHandler OnTileRemoved;
 
         public void OnCreate(IGridMap map)
         {
@@ -58,46 +53,59 @@ namespace VMFramework.Maps
             return tiles.Get(relativePosition);
         }
 
-        public virtual void SetTile(Vector3Int relativePosition, IGridTile tile)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool DestructTileWithoutChecking(Vector3Int relativePosition, out IGridTile tile)
         {
+            if (tiles.Remove(relativePosition, out tile) == false)
+            {
+                return false;
+            }
+                
+            return true;
+        }
+
+        public bool FillTile(Vector3Int relativePosition, [NotNull] IGridTile tile)
+        {
+            tile.AssertIsNotNull(nameof(tile));
             relativePosition.AssertContainsBy(Positions, nameof(relativePosition), nameof(Positions));
 
-            if (tiles.Remove(relativePosition, out var removedTile))
+            if (tiles.TrySet(relativePosition, tile) == false)
             {
-                OnTileRemoved?.Invoke(this, removedTile);
-                
-                if (removedTile is IGameItem gameItem)
-                {
-                    GameItemManager.Return(gameItem);
-                }
+                return false;
             }
-
-            if (tile != null)
-            {
-                tiles.Set(relativePosition, tile);
-                tile.Place(new(this, MinTilePosition + relativePosition, relativePosition));
-                OnTileAdded?.Invoke(this, tile);
-            }
+            
+            tile.InitGridTileInfo(new(this, MinTilePosition + relativePosition, relativePosition));
+            return true;
         }
 
-        public virtual void ClearTile(Vector3Int point)
+        public void ReplaceTile(Vector3Int relativePosition, IGridTile tile)
         {
-            if (tiles.Remove(point, out var removedTile))
+            relativePosition.AssertContainsBy(Positions, nameof(relativePosition), nameof(Positions));
+            
+            if (tile == null)
             {
-                OnTileRemoved?.Invoke(this, removedTile);
-                
-                if (removedTile is IGameItem gameItem)
-                {
-                    GameItemManager.Return(gameItem);
-                }
+                DestructTileWithoutChecking(relativePosition, out _);
+                return;
             }
+
+            DestructTileWithoutChecking(relativePosition, out _);
+            
+            tiles.Set(relativePosition, tile);
+            tile.InitGridTileInfo(new(this, MinTilePosition + relativePosition, relativePosition));
         }
 
-        public void ClearAll()
+        public bool DestructTile(Vector3Int relativePosition, out IGridTile tile)
+        {
+            relativePosition.AssertContainsBy(Positions, nameof(relativePosition), nameof(Positions));
+            
+            return DestructTileWithoutChecking(relativePosition, out tile);
+        }
+
+        public void ClearMap()
         {
             foreach (var position in Positions)
             {
-                ClearTile(position);
+                DestructTileWithoutChecking(position, out _);
             }
         }
     }

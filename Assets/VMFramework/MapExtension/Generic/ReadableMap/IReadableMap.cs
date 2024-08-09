@@ -4,7 +4,12 @@ using VMFramework.Core;
 
 namespace VMFramework.Maps
 {
-    public interface IReadableMap<TPoint, TTile> : IMapping<TPoint, TTile>
+    public interface IReadableMap<in TPoint>
+    {
+        public bool ContainsTile(TPoint point);
+    }
+    
+    public interface IReadableMap<TPoint, TTile> : IReadableMap<TPoint>, IMapping<TPoint, TTile>
     {
         public IEnumerable<TPoint> GetAllPoints();
 
@@ -12,15 +17,13 @@ namespace VMFramework.Maps
 
         public TTile GetTile(TPoint point);
         
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGetTile(TPoint point, out TTile tile)
         {
             tile = GetTile(point);
             return tile != null;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool ContainsTile(TPoint point)
+        bool IReadableMap<TPoint>.ContainsTile(TPoint point)
         {
             return GetTile(point) != null;
         }

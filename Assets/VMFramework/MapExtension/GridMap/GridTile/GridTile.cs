@@ -1,26 +1,34 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 using VMFramework.GameLogicArchitecture;
 
 namespace VMFramework.Maps
 {
-    public class GridTile : VisualGameItem, IGridTile
+    public abstract class GridTile : VisualGameItem, IGridTile
     {
-        public IGridChunk Chunk { get; private set; }
+        private IGridChunk chunk;
+
+        IGridChunk IGridTile.Chunk => chunk;
         
+        public IReadOnlyGridChunk Chunk => chunk;
+
         public Vector3Int Position { get; private set; }
         
         public Vector3Int PositionInChunk { get; private set; }
 
-        protected virtual void OnPlace(GridTilePlaceInfo info)
+        public virtual void InitGridTileInfo(GridTilePlaceInfo info)
         {
-            Chunk = info.chunk;
+            chunk = info.chunk;
             Position = info.position;
             PositionInChunk = info.positionInChunk;
         }
-        
-        void IGridTile.Place(GridTilePlaceInfo info)
+
+        protected override void OnGetStringProperties(ICollection<(string propertyID, string propertyContent)> collection)
         {
-            OnPlace(info);
+            base.OnGetStringProperties(collection);
+
+            collection.Add(("pos", Position.ToString()));
         }
     }
 }

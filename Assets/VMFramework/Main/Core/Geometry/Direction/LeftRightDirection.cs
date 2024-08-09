@@ -2,6 +2,9 @@
 
 namespace VMFramework.Core
 {
+    /// <summary>
+    /// Stands for the 1-dimensional direction of Left or Right.
+    /// </summary>
     [Flags]
     public enum LeftRightDirection
     {

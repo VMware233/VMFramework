@@ -16,32 +16,33 @@ namespace VMFramework.Maps
         [Button]
         private void _ClearMap()
         {
-            ClearAll();
+            ClearMap();
         }
 
         [Button(ButtonStyle.Box)]
-        private void _SetTile(Vector3Int pos, [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id)
+        private void _FillTile([HideLabel] Vector3Int position,
+            [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id)
         {
-            SetTile(pos, id);
+            this.FillTile(position, id);
         }
 
         [Button(ButtonStyle.Box)]
         private void _SetCubeTiles(Vector3Int start, Vector3Int end,
             [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string tile)
         {
-            SetCubeTiles(start, end, tile);
+            this.FillCubeTiles(new(start, end), tile);
         }
 
         [Button(ButtonStyle.Box)]
-        private void _ClearTile(Vector3Int pos)
+        private void _DestructTile([HideLabel] Vector3Int position)
         {
-            ClearTile(pos);
+            this.DestructTile(position);
         }
 
         [Button(ButtonStyle.Box)]
-        private void _ClearCubeTiles(Vector3Int start, Vector3Int end)
+        private void _DestructCubeTiles(Vector3Int start, Vector3Int end)
         {
-            ClearCubeTiles(start, end);
+            DestructCubeTiles(new(start, end));
         }
     }
 }

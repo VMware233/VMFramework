@@ -11,7 +11,7 @@ namespace VMFramework.ResourcesManagement
         protected const string SPRITE_PREVIEW_GROUP =
             TAB_GROUP_NAME + "/" + BASIC_CATEGORY + "/Sprite Preview Group";
 
-        public bool enableInitializationDebugLog => false;
+        public bool EnableInitializationDebugLog => false;
 
         [HideLabel, HorizontalGroup(SPRITE_PREVIEW_GROUP)]
         [PreviewField(40, ObjectFieldAlignment.Center)]

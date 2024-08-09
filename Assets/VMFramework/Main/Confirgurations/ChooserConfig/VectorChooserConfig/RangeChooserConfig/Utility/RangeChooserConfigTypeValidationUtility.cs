@@ -16,7 +16,7 @@ namespace VMFramework.Configuration
                 yield return result;
             }
 
-            if (config.min.Equals(config.max))
+            if (config.Min.Equals(config.Max))
             {
                 yield return new ValidationResult("最大值与最小值相等，请用单值选择器代替", ValidateType.Warning);
             }

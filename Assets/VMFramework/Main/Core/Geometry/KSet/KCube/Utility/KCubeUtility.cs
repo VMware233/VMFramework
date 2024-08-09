@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using VMFramework.Core.Linq;
 
 namespace VMFramework.Core
 {
@@ -22,7 +21,7 @@ namespace VMFramework.Core
         public static bool Contains<TPoint>(this IKCube<TPoint> cube, IKCube<TPoint> smallerCube)
             where TPoint : struct, IEquatable<TPoint>
         {
-            return cube.Contains(smallerCube.min) && cube.Contains(smallerCube.max);
+            return cube.Contains(smallerCube.Min) && cube.Contains(smallerCube.Max);
         }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace VMFramework.Core
         public static bool ContainsBy<TPoint>(this IKCube<TPoint> cube, IKCube<TPoint> biggerCube)
             where TPoint : struct, IEquatable<TPoint>
         {
-            return biggerCube.Contains(cube.min) && biggerCube.Contains(cube.max);
+            return biggerCube.Contains(cube.Min) && biggerCube.Contains(cube.Max);
         }
 
         #endregion
@@ -71,8 +70,8 @@ namespace VMFramework.Core
         {
             return new TKCube
             {
-                min = cube.Clamp(otherCube.min),
-                max = cube.Clamp(otherCube.max)
+                Min = cube.Clamp(otherCube.Min),
+                Max = cube.Clamp(otherCube.Max)
             };
         }
 
@@ -82,8 +81,8 @@ namespace VMFramework.Core
         {
             return new TKCube
             {
-                min = otherCube.Clamp(cube.min),
-                max = otherCube.Clamp(cube.max)
+                Min = otherCube.Clamp(cube.Min),
+                Max = otherCube.Clamp(cube.Max)
             };
         }
 
@@ -93,13 +92,13 @@ namespace VMFramework.Core
         {
             var otherCube = new TKCube
             {
-                min = min,
-                max = max
+                Min = min,
+                Max = max
             };
             return new TKCube
             {
-                min = otherCube.Clamp(cube.min),
-                max = otherCube.Clamp(cube.max)
+                Min = otherCube.Clamp(cube.Min),
+                Max = otherCube.Clamp(cube.Max)
             };
         }
 
@@ -133,7 +132,7 @@ namespace VMFramework.Core
         public static (TPoint min, TPoint max) IntersectsWith<TPoint>(this IKCube<TPoint> cube,
             IKCube<TPoint> otherCube) where TPoint : struct, IEquatable<TPoint>
         {
-            return (cube.ClampMin(otherCube.min), cube.ClampMax(otherCube.max));
+            return (cube.ClampMin(otherCube.Min), cube.ClampMax(otherCube.Max));
         }
 
         /// <summary>
@@ -145,47 +144,7 @@ namespace VMFramework.Core
         public static bool Overlaps<TPoint>(this IKCube<TPoint> cube, IKCube<TPoint> otherCube)
             where TPoint : struct, IEquatable<TPoint>
         {
-            return cube.Contains(otherCube.min) || cube.Contains(otherCube.max);
-        }
-
-        #endregion
-
-        #region Get Random Unique Points
-
-        /// <summary>
-        ///     获取K维立方体内特定数量的不重复的随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<int> GetRandomUniquePoints(this IKCube<int> cube, int count)
-        {
-            return count.GenerateUniqueIntegers(cube.min, cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内特定数量的不重复的随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<Vector2Int> GetRandomUniquePoints(this IKCube<Vector2Int> cube, int count)
-        {
-            return count.GenerateUniqueVector2Ints(cube.min, cube.max);
-        }
-
-        /// <summary>
-        ///     获取K维立方体内特定数量的不重复的随机点
-        /// </summary>
-        /// <param name="cube"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<Vector3Int> GetRandomUniquePoints(this IKCube<Vector3Int> cube, int count)
-        {
-            return count.GenerateUniqueVector3Ints(cube.min, cube.max);
+            return cube.Contains(otherCube.Min) || cube.Contains(otherCube.Max);
         }
 
         #endregion
@@ -202,7 +161,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<Vector3Int> GetAllBoundaryPoints(this IKCube<Vector3Int> cube)
         {
-            return cube.min.GetAllFacePointsOfCube(cube.max);
+            return cube.Min.GetAllFacePointsOfCube(cube.Max);
         }
 
         #endregion

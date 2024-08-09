@@ -8,23 +8,17 @@ using VMFramework.Procedure;
 namespace VMFramework.Maps
 {
     [ManagerCreationProvider(ManagerType.ResourcesCore)]
-    public class TileBaseManager : SerializedMonoBehaviour
+    public sealed class TileBaseManager : ManagerBehaviour<TileBaseManager>
     {
-        private static TileBase _emptyTileBase;
-
         [ShowInInspector]
-        public static TileBase emptyTileBase
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => _emptyTileBase;
-        }
+        public static TileBase EmptyTileBase { get; private set; }
 
         [ShowInInspector]
         private static readonly Dictionary<Sprite, TileBase> allTileBases = new();
 
         private void Awake()
         {
-            _emptyTileBase = ScriptableObject.CreateInstance<Tile>();
+            EmptyTileBase = ScriptableObject.CreateInstance<Tile>();
 
             ClearBuffer();
         }
@@ -42,7 +36,7 @@ namespace VMFramework.Maps
         {
             if (sprite == null)
             {
-                return emptyTileBase;
+                return EmptyTileBase;
             }
 
             if (allTileBases.TryGetValue(sprite, out var tileBase))

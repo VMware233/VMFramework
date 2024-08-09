@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using VMFramework.Core;
+using VMFramework.Core.Pools;
 
 namespace VMFramework.GameLogicArchitecture
 {
@@ -24,8 +25,8 @@ namespace VMFramework.GameLogicArchitecture
         private static event Action<IGameItem> OnGameItemCreated;
         private static event Action<IGameItem> OnGameItemDestroyed;
         
-        private static readonly Dictionary<string, GameItemPool> pools = new();
-        private static readonly CreateGameItemHandler createGameItemHandler = CreateGameItem;
+        private static readonly Dictionary<string, CreatablePoolItemsPool<IGameItem, string>> pools = new();
+        private static readonly Func<string, IGameItem> createGameItemHandler = CreateGameItem;
 
         private static IGameItem CreateGameItem(string id)
         {
@@ -41,9 +42,9 @@ namespace VMFramework.GameLogicArchitecture
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static GameItemPool CreatePool(string id)
+        private static CreatablePoolItemsPool<IGameItem, string> CreatePool(string id)
         {
-            var pool = new GameItemPool(id, createGameItemHandler, 1000);
+            var pool = new CreatablePoolItemsPool<IGameItem, string>(id, createGameItemHandler, 1000);
             pools.Add(id, pool);
             return pool;
         }

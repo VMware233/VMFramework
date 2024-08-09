@@ -15,7 +15,7 @@ namespace VMFramework.Core
             int step)
             where TMinMaxOwner : IMinMaxOwner<int>
         {
-            return new ForwardSteppedRangeInteger(minMaxOwner.min, minMaxOwner.max, step);
+            return new ForwardSteppedRangeInteger(minMaxOwner.Min, minMaxOwner.Max, step);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -29,7 +29,7 @@ namespace VMFramework.Core
             float step)
             where TMinMaxOwner : IMinMaxOwner<float>
         {
-            return new ForwardSteppedRangeFloat(minMaxOwner.min, minMaxOwner.max, step);
+            return new ForwardSteppedRangeFloat(minMaxOwner.Min, minMaxOwner.Max, step);
         }
     }
 }

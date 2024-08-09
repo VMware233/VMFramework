@@ -9,15 +9,12 @@ namespace VMFramework.Containers
     {
         #region Fields and Properties
 
-        [LabelText("所在容器")]
         [ShowInInspector]
         public Container sourceContainer { get; private set; }
 
-        [LabelText("数量")]
         [ShowInInspector]
         public BaseIntProperty<IContainerItem> count;
         
-        [LabelText("最大堆叠数量")]
         [ShowInInspector]
         public abstract int maxStackCount { get; }
 

@@ -41,7 +41,7 @@ namespace VMFramework.Maps
                 if (specificTiles == null || specificTiles.Count == 0)
                 {
                     specificTiles = new();
-                    specificTiles.AddRange(BuiltInModulesSetting.extendedRuleTileGeneralSetting
+                    specificTiles.AddRange(BuiltInModulesSetting.ExtendedRuleTileGeneralSetting
                         .defaultSpecificTiles);
                 }
             }
@@ -51,7 +51,7 @@ namespace VMFramework.Maps
                 if (specificTiles == null || specificTiles.Count == 0)
                 {
                     specificTiles = new();
-                    specificTiles.AddRange(BuiltInModulesSetting.extendedRuleTileGeneralSetting
+                    specificTiles.AddRange(BuiltInModulesSetting.ExtendedRuleTileGeneralSetting
                         .defaultNotSpecificTiles);
                 }
             }

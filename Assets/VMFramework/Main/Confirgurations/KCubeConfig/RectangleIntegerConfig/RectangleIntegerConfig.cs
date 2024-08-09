@@ -2,16 +2,17 @@
 using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Configuration
 {
     public partial class RectangleIntegerConfig : KCubeIntegerConfig<Vector2Int>
     {
-        public override Vector2Int size => max - min + Vector2Int.one;
+        public override Vector2Int Size => max - min + Vector2Int.one;
 
-        public override int Count => size.Products();
+        public override int Count => Size.Products();
 
-        public override Vector2Int pivot => (max + min).Divide(2);
+        public override Vector2Int Pivot => (max + min).Divide(2);
 
         #region Constructor
 
@@ -59,7 +60,7 @@ namespace VMFramework.Configuration
         public override Vector2Int ClampMax(Vector2Int pos) => pos.ClampMax(max);
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Vector2Int GetRandomPoint() => min.RandomRange(max);
+        public override Vector2Int GetRandomPoint(Random random) => random.Range(min, max);
 
         public override IEnumerator<Vector2Int> GetEnumerator()
         {

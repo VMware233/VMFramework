@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Core.Pools;
 
 namespace VMFramework.Examples
 {
@@ -44,10 +45,14 @@ namespace VMFramework.Examples
 
             // 获取[3, 7]内的5个不同的随机整数
             // Get 5 unique random integers within the range of [3, 7]
-            foreach (var point in rangeInt.GetRandomUniquePoints(5))
+            var randomPoints = ListPool<int>.Default.Get();
+            randomPoints.Clear();
+            rangeInt.GetRandomUniquePoints(5, randomPoints);
+            foreach (var point in randomPoints)
             {
                 Debug.Log(point);
             }
+            randomPoints.ReturnToPool();
 
             // 获取[3, 7]内的所有整数
             // Get all integers within the range of [3, 7]
@@ -83,7 +88,7 @@ namespace VMFramework.Examples
 
             // 获取[3, 7]的中心点，此处输出5
             // Get the center point of [3, 7], which outputs 5
-            var pivot = rangeInt.pivot;
+            var pivot = rangeInt.Pivot;
         }
     }
 }

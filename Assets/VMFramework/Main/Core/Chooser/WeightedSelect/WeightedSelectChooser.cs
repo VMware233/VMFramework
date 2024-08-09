@@ -106,7 +106,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TItem GetValue()
         {
-            return infos.Choose();
+            return infos.WeightedChoose();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

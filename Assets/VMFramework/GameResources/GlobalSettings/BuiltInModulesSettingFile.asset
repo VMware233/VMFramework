@@ -27,4 +27,5 @@ MonoBehaviour:
   containerGeneralSetting: {fileID: 11400000, guid: 7d40ac45e20cf10478f8c0a6ad5671ad, type: 2}
   recipeGeneralSetting: {fileID: 11400000, guid: ba00b7c8b596a6643ae4ce58b5571b90, type: 2}
   mapCoreGeneralSetting: {fileID: 11400000, guid: 97ff2ca2d44d25e46b8885a3ce535707, type: 2}
+  gridMapGeneralSetting: {fileID: 0}
   extendedRuleTileGeneralSetting: {fileID: 11400000, guid: e95bf21a40f23874cbe7ee8a3b1ea6e8, type: 2}

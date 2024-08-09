@@ -16,8 +16,7 @@ namespace VMFramework.Core
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static T SelectMin<T, TComparable>(this IEnumerable<T> enumerable,
-            Func<T, TComparable> selector)
+        public static T SelectMin<T, TComparable>(this IEnumerable<T> enumerable, Func<T, TComparable> selector)
             where TComparable : IComparable<TComparable>
         {
             int count = 0;
@@ -51,8 +50,8 @@ namespace VMFramework.Core
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static T SelectMax<T, TComparable>(this IEnumerable<T> enumerable,
-            Func<T, TComparable> selector) where TComparable : IComparable<TComparable>
+        public static T SelectMax<T, TComparable>(this IEnumerable<T> enumerable, Func<T, TComparable> selector)
+            where TComparable : IComparable<TComparable>
         {
             int count = 0;
             TComparable maxValue = default;
@@ -89,9 +88,9 @@ namespace VMFramework.Core
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static IEnumerable<T> SelectMinGroup<T, TSelector>(
-            this IEnumerable<T> enumerable,
-            Func<T, TSelector> selector) where TSelector : IComparable
+        public static IEnumerable<T> SelectMinGroup<T, TSelector>(this IEnumerable<T> enumerable,
+            Func<T, TSelector> selector)
+            where TSelector : IComparable
         {
             int count = 0;
             TSelector minValue = default;
@@ -129,9 +128,9 @@ namespace VMFramework.Core
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static IEnumerable<T> SelectMaxGroup<T, TSelector>(
-            this IEnumerable<T> enumerable,
-            Func<T, TSelector> selector) where TSelector : IComparable
+        public static IEnumerable<T> SelectMaxGroup<T, TSelector>(this IEnumerable<T> enumerable,
+            Func<T, TSelector> selector)
+            where TSelector : IComparable
         {
             int count = 0;
             TSelector maxValue = default;
@@ -175,7 +174,7 @@ namespace VMFramework.Core
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool BetweenInclusive<T>(this T num, T min, T max)
-            where T : IComparable
+            where T : IComparable<T>
         {
             return num.CompareTo(min) >= 0 && num.CompareTo(max) <= 0;
         }
@@ -190,33 +189,35 @@ namespace VMFramework.Core
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool BetweenExclusive<T>(this T num, T min, T max)
-            where T : IComparable
+            where T : IComparable<T>
         {
             return num.CompareTo(min) > 0 && num.CompareTo(max) < 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Below<T>(this T num, T comparison) where T : IComparable
+        public static bool Below<T>(this T num, T comparison)
+            where T : IComparable<T>
         {
             return num.CompareTo(comparison) < 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool BelowOrEqual<T>(this T num, T comparison)
-            where T : IComparable
+            where T : IComparable<T>
         {
             return num.CompareTo(comparison) <= 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Above<T>(this T num, T comparison) where T : IComparable
+        public static bool Above<T>(this T num, T comparison)
+            where T : IComparable<T>
         {
             return num.CompareTo(comparison) > 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool AboveOrEqual<T>(this T num, T comparison)
-            where T : IComparable
+            where T : IComparable<T>
         {
             return num.CompareTo(comparison) >= 0;
         }
@@ -226,34 +227,30 @@ namespace VMFramework.Core
         #region Get Indices Of Min/Max Values
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<int> GetIndicesOfMaxValues<TItem, TValue>(
-            this IList<TItem> list, Func<TItem, TValue> selector)
+        public static IEnumerable<int> GetIndicesOfMaxValues<TItem, TValue>(this IList<TItem> list,
+            Func<TItem, TValue> selector)
             where TValue : IComparable
         {
-            return list.GetAllIndices()
-                .SelectMaxGroup(index => selector(list[index]));
+            return list.GetAllIndices().SelectMaxGroup(index => selector(list[index]));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<int> GetIndicesOfMinValues<TItem, TValue>(
-            this IList<TItem> list, Func<TItem, TValue> selector)
+        public static IEnumerable<int> GetIndicesOfMinValues<TItem, TValue>(this IList<TItem> list,
+            Func<TItem, TValue> selector)
             where TValue : IComparable
         {
-            return list.GetAllIndices()
-                .SelectMinGroup(index => selector(list[index]));
+            return list.GetAllIndices().SelectMinGroup(index => selector(list[index]));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<int> GetIndicesOfMaxValues<TValue>(
-            this IList<TValue> list)
+        public static IEnumerable<int> GetIndicesOfMaxValues<TValue>(this IList<TValue> list)
             where TValue : IComparable
         {
             return list.GetAllIndices().SelectMaxGroup(index => list[index]);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IEnumerable<int> GetIndicesOfMinValues<TValue>(
-            this IList<TValue> list)
+        public static IEnumerable<int> GetIndicesOfMinValues<TValue>(this IList<TValue> list)
             where TValue : IComparable
         {
             return list.GetAllIndices().SelectMinGroup(index => list[index]);

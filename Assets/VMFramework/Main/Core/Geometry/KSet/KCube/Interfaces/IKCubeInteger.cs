@@ -11,6 +11,6 @@ namespace VMFramework.Core
     public interface IKCubeInteger<TPoint> : IKCube<TPoint>, IEnumerableKSet<TPoint>
         where TPoint : struct, IEquatable<TPoint>
     {
-        
+
     }
 }

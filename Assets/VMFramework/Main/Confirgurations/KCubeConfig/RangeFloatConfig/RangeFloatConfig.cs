@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using VMFramework.Core;
 
 namespace VMFramework.Configuration
@@ -9,9 +10,9 @@ namespace VMFramework.Configuration
 
         protected override string sizeName => "长度";
 
-        public override float size => max - min;
+        public override float Size => max - min;
 
-        public override float pivot => (min + max) / 2f;
+        public override float Pivot => (min + max) / 2f;
 
         public override float extents => (max - min) / 2f;
 
@@ -54,7 +55,7 @@ namespace VMFramework.Configuration
         public override float ClampMax(float pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override float GetRandomPoint() => min.RandomRange(max);
+        public override float GetRandomPoint(Random random) => random.Range(min, max);
 
         #endregion
 

@@ -5,23 +5,23 @@ namespace VMFramework.Core
 {
     public partial struct RangeFloat : IKSphere<float, float>
     {
-        public readonly float radius
+        public float radius
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => extents;
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             init
             {
-                var pivot = this.pivot;
+                var pivot = this.Pivot;
                 min = pivot - value;
                 max = pivot + value;
             }
         }
 
-        public readonly float center
+        public float center
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => pivot;
+            get => Pivot;
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             init
             {
@@ -32,13 +32,13 @@ namespace VMFramework.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public readonly float Clamp(float pos) => pos.Clamp(min, max);
+        public float Clamp(float pos) => pos.Clamp(min, max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public readonly float GetRandomPointInside() => this.GetRandomPoint();
+        public float GetRandomPointInside() => this.GetRandomPoint();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public readonly float GetRandomPointOnSurface()
+        public float GetRandomPointOnSurface()
         {
             var r = Random.value;
 
@@ -46,10 +46,8 @@ namespace VMFramework.Core
             {
                 return min;
             }
-            else
-            {
-                return max;
-            }
+
+            return max;
         }
 
     }

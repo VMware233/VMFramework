@@ -14,7 +14,7 @@ namespace VMFramework.Core
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RectangleBoundary GetBoundary<TMinMaxOwner>(this TMinMaxOwner owner)
-            where TMinMaxOwner : IMinMaxOwner<Vector2Int> => new(owner.min, owner.max);
+            where TMinMaxOwner : IMinMaxOwner<Vector2Int> => new(owner.Min, owner.Max);
 
         /// <summary>
         /// 获取矩形的所有边界点

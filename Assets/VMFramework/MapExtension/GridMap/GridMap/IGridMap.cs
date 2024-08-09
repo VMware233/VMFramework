@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace VMFramework.Maps
 {
-    public interface IGridMap
+    public interface IGridMap : IClearableMap
     {
         public Vector3Int ChunkSize { get; }
 

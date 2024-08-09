@@ -4,6 +4,6 @@
     {
         public IGridChunk Chunk { get; }
 
-        public void Place(GridTilePlaceInfo info);
+        public void InitGridTileInfo(GridTilePlaceInfo info);
     }
 }

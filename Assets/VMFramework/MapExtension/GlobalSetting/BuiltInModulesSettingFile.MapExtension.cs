@@ -11,6 +11,10 @@ namespace VMFramework.GameLogicArchitecture
         
         [TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
         [Required]
+        public GridMapGeneralSetting gridMapGeneralSetting;
+        
+        [TabGroup(TAB_GROUP_NAME, BUILTIN_MODULE_CATEGORY)]
+        [Required]
         public ExtendedRuleTileGeneralSetting extendedRuleTileGeneralSetting;
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace VMFramework.Core
 {
     public partial struct RangeInteger
     {
-        int IMinMaxOwner<int>.min
+        int IMinMaxOwner<int>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -12,7 +13,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        int IMinMaxOwner<int>.max
+        int IMinMaxOwner<int>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -33,6 +34,6 @@ namespace VMFramework.Core
         public int ClampMax(int pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int GetRandomPoint() => min.RandomRange(max);
+        public int GetRandomPoint(Random random) => random.Range(min, max);
     }
 }

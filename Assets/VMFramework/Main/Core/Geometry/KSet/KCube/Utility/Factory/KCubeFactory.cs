@@ -9,6 +9,13 @@ namespace VMFramework.Core
         public static RangeFloat FromPivotExtents(float pivot, float extents) => new(pivot - extents, pivot + extents);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RangeFloat FromPivotSize(float pivot, float size)
+        {
+            float extents = size / 2;
+            return new(pivot - extents, pivot + extents);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RangeFloat FromCorners(float corner1, float corner2) =>
             new(corner1.Min(corner2), corner1.Max(corner2));
     }
@@ -33,7 +40,22 @@ namespace VMFramework.Core
         public static RectangleFloat FromPivotExtents(Vector2 pivot, float extents)
         {
             var extentsVector = new Vector2(extents, extents);
-            return new RectangleFloat(pivot - extentsVector, pivot + extentsVector);
+            return new(pivot - extentsVector, pivot + extentsVector);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RectangleFloat FromPivotSize(Vector2 pivot, Vector2 size)
+        {
+            var extents = size / 2;
+            return new(pivot - extents, pivot + extents);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RectangleFloat FromPivotSize(Vector2 pivot, float size)
+        {
+            var extents = size / 2;
+            var extentsVector = new Vector2(extents, extents);
+            return new(pivot - extentsVector, pivot + extentsVector);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -51,7 +73,7 @@ namespace VMFramework.Core
         public static RectangleInteger FromPivotExtents(Vector2Int pivot, int extents)
         {
             var extentsVector = new Vector2Int(extents, extents);
-            return new RectangleInteger(pivot - extentsVector, pivot + extentsVector);
+            return new(pivot - extentsVector, pivot + extentsVector);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -69,7 +91,22 @@ namespace VMFramework.Core
         public static CubeFloat FromPivotExtents(Vector3 pivot, float extents)
         {
             var extentsVector = new Vector3(extents, extents, extents);
-            return new CubeFloat(pivot - extentsVector, pivot + extentsVector);
+            return new(pivot - extentsVector, pivot + extentsVector);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static CubeFloat FromPivotSize(Vector3 pivot, Vector3 size)
+        {
+            var extents = size / 2;
+            return new(pivot - extents, pivot + extents);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static CubeFloat FromPivotSize(Vector3 pivot, float size)
+        {
+            var extents = size / 2;
+            var extentsVector = new Vector3(extents, extents, extents);
+            return new(pivot - extentsVector, pivot + extentsVector);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,7 +124,7 @@ namespace VMFramework.Core
         public static CubeInteger FromPivotExtents(Vector3Int pivot, int extents)
         {
             var extentsVector = new Vector3Int(extents, extents, extents);
-            return new CubeInteger(pivot - extentsVector, pivot + extentsVector);
+            return new(pivot - extentsVector, pivot + extentsVector);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -105,7 +142,22 @@ namespace VMFramework.Core
         public static TesseractFloat FromPivotExtents(Vector4 pivot, float extents)
         {
             var extentsVector = new Vector4(extents, extents);
-            return new TesseractFloat(pivot - extentsVector, pivot + extentsVector);
+            return new(pivot - extentsVector, pivot + extentsVector);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TesseractFloat FromPivotSize(Vector4 pivot, Vector4 size)
+        {
+            var extents = size / 2;
+            return new(pivot - extents, pivot + extents);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TesseractFloat FromPivotSize(Vector4 pivot, float size)
+        {
+            var extents = size / 2;
+            var extentsVector = new Vector4(extents, extents);
+            return new(pivot - extentsVector, pivot + extentsVector);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -118,6 +170,13 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ColorRange FromPivotExtents(Color pivot, Color extents) =>
             new(pivot - extents, pivot + extents);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ColorRange FromPivotSize(Color pivot, Color size)
+        {
+            var extents = size / 2;
+            return new(pivot - extents, pivot + extents);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ColorRange FromCorners(Color corner1, Color corner2) =>

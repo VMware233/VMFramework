@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using VMFramework.Core;
 
 namespace VMFramework.Configuration
@@ -17,13 +18,13 @@ namespace VMFramework.Configuration
             set => max = value;
         }
 
-        TPoint IMinMaxOwner<TPoint>.min
+        TPoint IMinMaxOwner<TPoint>.Min
         {
             get => min;
             init => min = value;
         }
 
-        TPoint IMinMaxOwner<TPoint>.max
+        TPoint IMinMaxOwner<TPoint>.Max
         {
             get => max;
             init => max = value;
@@ -42,6 +43,6 @@ namespace VMFramework.Configuration
         public abstract bool Contains(TPoint pos);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public abstract TPoint GetRandomPoint();
+        public abstract TPoint GetRandomPoint(Random random);
     }
 }

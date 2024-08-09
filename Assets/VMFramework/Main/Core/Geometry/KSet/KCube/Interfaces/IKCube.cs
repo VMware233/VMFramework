@@ -7,17 +7,18 @@ namespace VMFramework.Core
     /// K维立方体接口
     /// </summary>
     /// <typeparam name="TPoint">K维立方体的点类型</typeparam>
-    public interface IKCube<TPoint> : IKSet<TPoint>, IMinMaxOwner<TPoint>, IRandomPointProvider<TPoint> where TPoint : struct, IEquatable<TPoint>
+    public interface IKCube<TPoint> : IKSet<TPoint>, IMinMaxOwner<TPoint>, IRandomPointProvider<TPoint>
+        where TPoint : struct, IEquatable<TPoint>
     {
         /// <summary>
         /// K维立方体的大小
         /// </summary>
-        public TPoint size { get; }
+        public TPoint Size { get; }
 
         /// <summary>
         /// K维立方体的中心点
         /// </summary>
-        public TPoint pivot { get; }
+        public TPoint Pivot { get; }
 
         /// <summary>
         /// 返回一个点相对于K维立方体的位置

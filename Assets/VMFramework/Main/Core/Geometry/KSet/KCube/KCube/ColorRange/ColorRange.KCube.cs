@@ -1,11 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Core
 {
     public partial struct ColorRange
     {
-        Color IMinMaxOwner<Color>.min
+        Color IMinMaxOwner<Color>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -13,7 +14,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        Color IMinMaxOwner<Color>.max
+        Color IMinMaxOwner<Color>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -37,6 +38,6 @@ namespace VMFramework.Core
         public Color ClampMax(Color pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Color GetRandomPoint() => min.RandomRange(max);
+        public Color GetRandomPoint(Random random) => random.Range(min, max);
     }
 }

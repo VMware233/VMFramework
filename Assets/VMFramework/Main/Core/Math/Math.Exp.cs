@@ -25,42 +25,6 @@ namespace VMFramework.Core
             return System.Math.Exp(power);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Exp(this Vector2 power)
-        {
-            return ForeachNumber(power, Exp);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Exp(this Vector2Int power)
-        {
-            return ForeachNumber(power, Exp);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Exp(this Vector3 power)
-        {
-            return ForeachNumber(power, Exp);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Exp(this Vector3Int power)
-        {
-            return ForeachNumber(power, Exp);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4 Exp(this Vector4 power)
-        {
-            return ForeachNumber(power, Exp);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Color Exp(this Color power)
-        {
-            return ForeachNumber(power, Exp);
-        }
-
         #endregion
     }
 }

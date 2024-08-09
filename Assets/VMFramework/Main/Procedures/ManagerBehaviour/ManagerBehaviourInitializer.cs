@@ -12,8 +12,7 @@ namespace VMFramework.Procedure
         {
             var managerBehaviours = ManagerBehaviourCollector.Collect().ToList();
 
-            return managerBehaviours.SelectMany(managerBehaviour =>
-                managerBehaviour.GetInitializationActions());
+            return managerBehaviours.SelectMany(managerBehaviour => managerBehaviour.GetInitializationActions());
         }
     }
 }

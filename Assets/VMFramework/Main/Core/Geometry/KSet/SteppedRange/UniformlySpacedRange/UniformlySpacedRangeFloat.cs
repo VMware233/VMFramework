@@ -18,13 +18,13 @@ namespace VMFramework.Core
             this.count = count;
         }
         
-        float IMinMaxOwner<float>.min
+        float IMinMaxOwner<float>.Min
         {
             get => min;
             init => min = value;
         }
 
-        float IMinMaxOwner<float>.max
+        float IMinMaxOwner<float>.Max
         {
             get => max;
             init => max = value;

@@ -9,7 +9,7 @@ namespace VMFramework.Core.Pools
     /// If you need a thread-safe version, use the <see cref="DefaultConcurrentPool{TItem}"/> instead.
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
-    public sealed partial class DefaultPool<TItem> : Pool<TItem>, ICheckablePool<TItem>
+    public sealed partial class DefaultPool<TItem> : NormalPool<TItem>, ICheckablePool<TItem>
     {
         private readonly Func<TItem, TItem> _preGetFunc;
         private readonly Func<TItem> _createFunc;

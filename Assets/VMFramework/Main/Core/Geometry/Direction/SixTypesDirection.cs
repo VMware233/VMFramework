@@ -2,6 +2,9 @@
 
 namespace VMFramework.Core
 {
+    /// <summary>
+    /// Stands for the 3-dimensional directions of Left, Right, Up, Down, Forward, and Back.
+    /// </summary>
     [Flags]
     public enum SixTypesDirection
     {

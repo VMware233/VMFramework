@@ -2,6 +2,6 @@
 {
     public interface IReadOnlyDestructible
     {
-        public bool isDestroyed { get; }
+        public bool IsDestroyed { get; }
     }
 }

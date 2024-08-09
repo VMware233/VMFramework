@@ -14,9 +14,9 @@ namespace VMFramework.Core
         public static RectangleFloat unit { get; } =
             new(Vector2.zero, Vector2.one);
 
-        public Vector2 size => max - min;
+        public Vector2 Size => max - min;
 
-        public Vector2 pivot => (max + min) / 2;
+        public Vector2 Pivot => (max + min) / 2;
 
         public Vector2 extents => (max - min) / 2;
 
@@ -76,8 +76,8 @@ namespace VMFramework.Core
                 max = Vector2.zero;
                 return;
             }
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         public RectangleFloat(Rect rect)
@@ -90,7 +90,7 @@ namespace VMFramework.Core
 
         #region To Rect
 
-        public Rect ToRect() => new Rect(min, size);
+        public Rect ToRect() => new Rect(min, Size);
 
         public static implicit operator Rect(RectangleFloat r) => r.ToRect();
 

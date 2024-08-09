@@ -13,11 +13,11 @@ namespace VMFramework.Core
 
         public static RangeInteger unit { get; } = new(0, 1);
 
-        public int size => max - min + 1;
+        public int Size => max - min + 1;
 
-        public int Count => size;
+        public int Count => Size;
 
-        public int pivot => (max + min) / 2;
+        public int Pivot => (max + min) / 2;
 
         public readonly int min, max;
 
@@ -50,8 +50,8 @@ namespace VMFramework.Core
                 return;
             }
 
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         public RangeInteger(Vector2Int range)

@@ -92,42 +92,6 @@ namespace VMFramework.Core
             return System.Math.Pow(toPow, power);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Power(this Vector2 toPow, float power)
-        {
-            return ForeachNumber(toPow, f => Mathf.Pow(f, power));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2Int Power(this Vector2Int toPow, float power)
-        {
-            return ForeachNumber(toPow, f => Mathf.Pow(f, power).Round());
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Power(this Vector3 toPow, float power)
-        {
-            return ForeachNumber(toPow, f => Mathf.Pow(f, power));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3Int Power(this Vector3Int toPow, float power)
-        {
-            return ForeachNumber(toPow, f => Mathf.Pow(f, power).Round());
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4 Power(this Vector4 toPow, float power)
-        {
-            return ForeachNumber(toPow, f => Mathf.Pow(f, power));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Color Power(this Color toPow, float power)
-        {
-            return ForeachNumber(toPow, f => Mathf.Pow(f, power));
-        }
-
         #endregion
         
         #region Sqrt
@@ -150,42 +114,6 @@ namespace VMFramework.Core
             return System.Math.Sqrt(value);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Sqrt(this Vector2 value)
-        {
-            return ForeachNumber(value, Sqrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Sqrt(this Vector2Int value)
-        {
-            return ForeachNumber(value, Sqrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Sqrt(this Vector3 value)
-        {
-            return ForeachNumber(value, Sqrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Sqrt(this Vector3Int value)
-        {
-            return ForeachNumber(value, Sqrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4 Sqrt(this Vector4 value)
-        {
-            return ForeachNumber(value, Sqrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Color Sqrt(this Color value)
-        {
-            return ForeachNumber(value, Sqrt);
-        }
-
         #endregion
 
         #region Cbrt
@@ -206,42 +134,6 @@ namespace VMFramework.Core
         public static float Cbrt(this float value)
         {
             return MathF.Cbrt(value);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Cbrt(this Vector2 value)
-        {
-            return ForeachNumber(value, Cbrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 Cbrt(this Vector2Int value)
-        {
-            return ForeachNumber(value, Cbrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Cbrt(this Vector3 value)
-        {
-            return ForeachNumber(value, Cbrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Cbrt(this Vector3Int value)
-        {
-            return ForeachNumber(value, Cbrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4 Cbrt(this Vector4 value)
-        {
-            return ForeachNumber(value, Cbrt);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Color Cbrt(this Color value)
-        {
-            return ForeachNumber(value, Cbrt);
         }
 
         #endregion

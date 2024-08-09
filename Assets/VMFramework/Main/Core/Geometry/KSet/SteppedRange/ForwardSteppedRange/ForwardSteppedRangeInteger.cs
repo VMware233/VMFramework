@@ -11,13 +11,13 @@ namespace VMFramework.Core
 
         public int Count => (max - min) / step + 1;
 
-        int IMinMaxOwner<int>.min
+        int IMinMaxOwner<int>.Min
         {
             get => min;
             init => min = value;
         }
 
-        int IMinMaxOwner<int>.max
+        int IMinMaxOwner<int>.Max
         {
             get => max;
             init => max = value;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using Sirenix.OdinInspector;
@@ -9,10 +10,12 @@ namespace VMFramework.Maps
 {
     [RequireComponent(typeof(TilemapGroupController))]
     public sealed partial class ExtendedTilemap
-        : SerializedMonoBehaviour, IReadableMap2D<ExtendedRuleTile>, IWritableMap2D<string>,
-            IWritableMap2D<ExtendedRuleTile>
+        : SerializedMonoBehaviour, IReadableMap<Vector2Int, ExtendedRuleTile>, ITileFillableMap<Vector2Int, ExtendedRuleTile>,
+            ITileReplaceableMap<Vector2Int, ExtendedRuleTile>, ITileDestructibleMap<Vector2Int, ExtendedRuleTile>,
+            ITilesRectangleFillableGridMap<ExtendedRuleTile>, ITilesRectangleReplaceableGridMap<ExtendedRuleTile>,
+            ITilesRectangleDestructibleGridMap, IClearableMap
     {
-        private ExtendedRuleTileGeneralSetting setting => BuiltInModulesSetting.extendedRuleTileGeneralSetting;
+        private ExtendedRuleTileGeneralSetting Setting => BuiltInModulesSetting.ExtendedRuleTileGeneralSetting;
 
         [SerializeField]
         private bool clearMapOnAwake = false;
@@ -30,7 +33,7 @@ namespace VMFramework.Maps
 
             if (clearMapOnAwake)
             {
-                ClearAll();
+                ClearMap();
             }
         }
 
@@ -102,23 +105,18 @@ namespace VMFramework.Maps
 
         #region Update
 
-        private void ForceUpdate(Vector2Int pos)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ForcedUpdate(Vector2Int pos)
         {
-            if (TryGetTile(pos, out var extRuleTile))
-            {
-                ForceUpdate(pos, extRuleTile);
-            }
+            TryGetTile(pos, out var extendedRuleTile);
+            ForcedUpdate(pos, extendedRuleTile);
         }
 
-        private void ForceUpdate(Vector2Int pos, ExtendedRuleTile extendedRuleTile)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ForcedUpdate(Vector2Int pos, [NotNull] ExtendedRuleTile extendedRuleTile)
         {
             SetEmpty(pos);
 
-            if (extendedRuleTile == null)
-            {
-                return;
-            }
-            
             var neighbor = this.GetEightDirectionsNeighbors(pos);
 
             var spriteLayers = extendedRuleTile.GetSpriteLayers(neighbor);
@@ -139,26 +137,26 @@ namespace VMFramework.Maps
                 tilemap.SetTile(pos.As3DXY(), tileBase);
             }
         }
-        
+
         /// <summary>
         /// 更新瓦片贴图
         /// </summary>
         /// <param name="pos"></param>
         public void UpdateTile(Vector2Int pos)
         {
-            if (allRuleTiles.TryGetValue(pos, out var extRuleTile))
+            if (allRuleTiles.TryGetValue(pos, out var extendedRuleTile))
             {
-                if (extRuleTile.enableUpdate)
+                if (extendedRuleTile.enableUpdate)
                 {
-                    ForceUpdate(pos);
+                    ForcedUpdate(pos, extendedRuleTile);
                 }
             }
             else
             {
-                SetTileWithoutUpdate(pos, (ExtendedRuleTile)null);
+                SetEmpty(pos);
             }
         }
-        
+
         /// <summary>
         /// 更新所有瓦片的贴图
         /// </summary>
@@ -172,122 +170,150 @@ namespace VMFramework.Maps
 
         #endregion
 
-        #region Indexer
+        #region Fill
 
-        public ExtendedRuleTile this[Vector2Int point]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool FillTileWithoutUpdate(Vector2Int position, [NotNull] ExtendedRuleTile extendedRuleTile)
         {
-            get => GetTile(point);
-            set => SetTile(point, value);
+            extendedRuleTile.AssertIsNotNull(nameof(extendedRuleTile));
+
+            return allRuleTiles.TryAdd(position, extendedRuleTile);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool FillTile(Vector2Int position, [NotNull] ExtendedRuleTile extendedRuleTile)
+        {
+            if (FillTileWithoutUpdate(position, extendedRuleTile) == false)
+            {
+                return false;
+            }
+
+            ForcedUpdate(position, extendedRuleTile);
+
+            foreach (var neighborPos in position.GetEightDirectionsNeighbors())
+            {
+                UpdateTile(neighborPos);
+            }
+            
+            return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void FillRectangleTiles(RectangleInteger rectangle, [NotNull] ExtendedRuleTile extendedRuleTile)
+        {
+            foreach (var position in rectangle)
+            {
+                FillTileWithoutUpdate(position, extendedRuleTile);
+            }
+
+            foreach (var position in rectangle)
+            {
+                ForcedUpdate(position, extendedRuleTile);
+            }
+
+            foreach (var position in rectangle.GetOuterRectangle().GetBoundary())
+            {
+                ForcedUpdate(position);
+            }
         }
 
         #endregion
 
-        #region Set Tile
+        #region Replace
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetTileWithoutUpdate(Vector2Int pos, ExtendedRuleTile extendedRuleTile)
+        private void ReplaceTileWithoutUpdate(Vector2Int position, [NotNull] ExtendedRuleTile extendedRuleTile)
+        {
+            allRuleTiles[position] = extendedRuleTile;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ReplaceTile(Vector2Int position, ExtendedRuleTile extendedRuleTile)
         {
             if (extendedRuleTile == null)
             {
-                allRuleTiles.Remove(pos);
-            }
-            else
-            {
-                allRuleTiles[pos] = extendedRuleTile;
-            }
-
-            ForceUpdate(pos, extendedRuleTile);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetTileWithoutUpdate(Vector2Int pos, string id)
-        {
-            if (id.IsNullOrEmpty())
-            {
-                SetTileWithoutUpdate(pos, (ExtendedRuleTile)null);
+                DestructTile(position, out _);
                 return;
             }
-            
-            var extendedRuleTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(id);
 
-            SetTileWithoutUpdate(pos, extendedRuleTile);
-        }
+            ReplaceTileWithoutUpdate(position, extendedRuleTile);
 
-        /// <summary>
-        /// 放置瓦片
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="id"></param>
-        public void SetTile(Vector2Int pos, string id)
-        {
-            SetTileWithoutUpdate(pos, id);
+            ForcedUpdate(position, extendedRuleTile);
 
-            foreach (var neighborPos in pos.GetEightDirectionsNeighbors())
+            foreach (var neighborPos in position.GetEightDirectionsNeighbors())
             {
                 UpdateTile(neighborPos);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetTile(Vector2Int pos, ExtendedRuleTile extendedRuleTile)
+        public void ReplaceRectangleTiles(RectangleInteger rectangle, ExtendedRuleTile extendedRuleTile)
         {
-            SetTileWithoutUpdate(pos, extendedRuleTile);
-
-            foreach (var neighborPos in pos.GetEightDirectionsNeighbors())
+            if (extendedRuleTile == null)
             {
-                UpdateTile(neighborPos);
+                DestructRectangleTiles(rectangle);
+                return;
+            }
+
+            foreach (var position in rectangle)
+            {
+                ReplaceTileWithoutUpdate(position, extendedRuleTile);
+            }
+
+            foreach (var position in rectangle)
+            {
+                ForcedUpdate(position, extendedRuleTile);
+            }
+
+            foreach (var position in rectangle.GetOuterRectangle().GetBoundary())
+            {
+                ForcedUpdate(position);
             }
         }
 
         #endregion
 
-        #region Set Tiles
+        #region Destruct
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetTilesWithoutUpdate(Vector2Int startPos, Vector2Int endPos, string id)
+        public bool DestructTileWithoutUpdate(Vector2Int position, out ExtendedRuleTile tile)
         {
-            var extendedRuleTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(id);
-
-            foreach (var pos in startPos.GetRectangle(endPos))
+            if (allRuleTiles.Remove(position, out tile))
             {
-                SetTileWithoutUpdate(pos, extendedRuleTile);
+                SetEmpty(position);
+                return true;
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetTilesWithoutUpdate(Vector2Int startPos, Vector2Int endPos, ExtendedRuleTile extendedRuleTile)
-        {
-            foreach (var pos in startPos.GetRectangle(endPos))
-            {
-                SetTileWithoutUpdate(pos, extendedRuleTile);
-            }
-        }
-
-        /// <summary>
-        /// 在矩形区域放置特定ID的瓦片
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="tile"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetRectangleTiles(Vector2Int start, Vector2Int end, string tile)
-        {
-            SetTilesWithoutUpdate(start, end, tile);
-
-            foreach (var nearPoint in start.GetOuterRectangle(end))
-            {
-                UpdateTile(nearPoint);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetRectangleTiles(Vector2Int start, Vector2Int end, ExtendedRuleTile tile)
-        {
-            SetTilesWithoutUpdate(start, end, tile);
             
-            foreach (var nearPoint in start.GetOuterRectangle(end))
+            return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool DestructTile(Vector2Int position, out ExtendedRuleTile tile)
+        {
+            if (DestructTileWithoutUpdate(position, out tile))
             {
-                UpdateTile(nearPoint);
+                foreach (var neighborPos in position.GetEightDirectionsNeighbors())
+                {
+                    UpdateTile(neighborPos);
+                }
+                
+                return true;
+            }
+
+            return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DestructRectangleTiles(RectangleInteger rectangle)
+        {
+            foreach (var position in rectangle)
+            {
+                DestructTileWithoutUpdate(position, out _);
+            }
+
+            foreach (var position in rectangle.GetOuterRectangle().GetBoundary())
+            {
+                ForcedUpdate(position);
             }
         }
 
@@ -295,35 +321,19 @@ namespace VMFramework.Maps
 
         #region Clear
 
-        /// <summary>
-        /// 清除瓦片
-        /// </summary>
-        /// <param name="pos"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearTile(Vector2Int pos)
-        {
-            SetTile(pos, (ExtendedRuleTile)null);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearRectangleTiles(Vector2Int start, Vector2Int end)
-        {
-            SetRectangleTiles(start, end, (ExtendedRuleTile)null);
-        }
-        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetEmpty(Vector2Int pos)
         {
             foreach (var tilemap in tilemapGroupController.GetAllTilemaps())
             {
-                tilemap.SetTile(pos.As3DXY(), TileBaseManager.emptyTileBase);
+                tilemap.SetTile(pos.As3DXY(), TileBaseManager.EmptyTileBase);
             }
         }
 
         /// <summary>
         /// 清空地图
         /// </summary>
-        public void ClearAll()
+        public void ClearMap()
         {
             allRuleTiles.Clear();
             tilemapGroupController.ClearAllTilemaps();

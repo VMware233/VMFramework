@@ -9,7 +9,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RangeBoundary GetBoundary<TMinMaxOwner>(this TMinMaxOwner minMaxOwner)
             where TMinMaxOwner : IMinMaxOwner<int> =>
-            new(minMaxOwner.min, minMaxOwner.max);
+            new(minMaxOwner.Min, minMaxOwner.Max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RangeBoundary GetBoundary(this int min, int max) => new(min, max);
@@ -20,7 +20,7 @@ namespace VMFramework.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RangeBoundary GetInnerBoundary<TMinMaxOwner>(this TMinMaxOwner minMaxOwner)
             where TMinMaxOwner : IMinMaxOwner<int> =>
-            new(minMaxOwner.min + 1, minMaxOwner.max - 1);
+            new(minMaxOwner.Min + 1, minMaxOwner.Max - 1);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RangeBoundary GetInnerBoundary(this int min, int max) => new(min + 1, max - 1);

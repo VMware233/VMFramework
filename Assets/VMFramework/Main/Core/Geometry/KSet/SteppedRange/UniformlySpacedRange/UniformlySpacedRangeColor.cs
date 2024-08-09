@@ -19,13 +19,13 @@ namespace VMFramework.Core
             this.count = count;
         }
         
-        Color IMinMaxOwner<Color>.min
+        Color IMinMaxOwner<Color>.Min
         {
             get => min;
             init => min = value;
         }
 
-        Color IMinMaxOwner<Color>.max
+        Color IMinMaxOwner<Color>.Max
         {
             get => max;
             init => max = value;

@@ -1,14 +1,15 @@
 ﻿using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Configuration
 {
     public partial class TesseractFloatConfig : KCubeFloatConfig<Vector4>
     {
-        public override Vector4 size => max - min;
+        public override Vector4 Size => max - min;
 
-        public override Vector4 pivot => (min + max) / 2f;
+        public override Vector4 Pivot => (min + max) / 2f;
 
         public override Vector4 extents => (max - min) / 2f;
 
@@ -60,7 +61,7 @@ namespace VMFramework.Configuration
         public override Vector4 ClampMax(Vector4 pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Vector4 GetRandomPoint() => min.RandomRange(max);
+        public override Vector4 GetRandomPoint(Random random) => random.Range(min, max);
 
         #endregion
 

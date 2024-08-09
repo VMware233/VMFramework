@@ -18,7 +18,7 @@ namespace VMFramework.Core.Pools
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Get<T>(this IPool<T> pool, Transform parent, out bool isFreshlyCreated)
+        public static T Get<T>(this INormalPool<T> pool, Transform parent, out bool isFreshlyCreated)
             where T : Component
         {
             var newObject = pool.Get(out isFreshlyCreated);
@@ -40,7 +40,7 @@ namespace VMFramework.Core.Pools
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Get<T>(this IPool<T> pool, Transform parent)
+        public static T Get<T>(this INormalPool<T> pool, Transform parent)
             where T : Component
         {
             return pool.Get(parent, out _);

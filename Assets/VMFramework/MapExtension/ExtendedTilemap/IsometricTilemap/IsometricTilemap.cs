@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,12 +10,14 @@ namespace VMFramework.Maps
 {
     [RequireComponent(typeof(ExtendedTilemapPrefabController))]
     public sealed partial class IsometricTilemap
-        : SerializedMonoBehaviour, IWritableMap3D<ExtendedRuleTile>, IWritableMap3D<string>,
-            IReadableMap3D<ExtendedRuleTile>
+        : SerializedMonoBehaviour, IReadableMap<Vector3Int, ExtendedRuleTile>, ITileFillableMap<Vector3Int, ExtendedRuleTile>,
+            ITileReplaceableMap<Vector3Int, ExtendedRuleTile>, ITileDestructibleMap<Vector3Int, ExtendedRuleTile>,
+            ITilesCubeFillableGridMap<ExtendedRuleTile>, ITilesCubeReplaceableGridMap<ExtendedRuleTile>,
+            ITilesCubeDestructibleGridMap, IClearableMap
     {
         [field: SerializeField]
         [field: MinValue(1)]
-        public int maxZ { get; private set; }
+        public int MaxZ { get; private set; }
 
         [ShowInInspector]
         private short[] baseOrders;
@@ -28,11 +31,11 @@ namespace VMFramework.Maps
         {
             prefabController = GetComponent<ExtendedTilemapPrefabController>();
 
-            baseOrders = new short[maxZ];
+            baseOrders = new short[MaxZ];
 
             int count = 0;
             foreach (var baseOrderFloat in UniformlySpacedRangeFloat.ExcludeBoundaries(short.MinValue, short.MaxValue,
-                         maxZ))
+                         MaxZ))
             {
                 baseOrders[count] = (short)baseOrderFloat.Round();
                 count++;
@@ -62,50 +65,96 @@ namespace VMFramework.Maps
 
         #endregion
 
-        #region Set Tiles
+        #region Fill
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetTile(Vector3Int point, ExtendedRuleTile tile)
+        public bool FillTile(Vector3Int position, [NotNull] ExtendedRuleTile extendedRuleTile)
         {
-            if (tilemaps.TryGetValue(point.z, out var extendedTilemap) == false)
+            if (tilemaps.TryGetValue(position.z, out var extendedTilemap) == false)
             {
-                extendedTilemap = CreateTilemap(point.z);
+                extendedTilemap = CreateTilemap(position.z);
             }
 
-            extendedTilemap.SetTile(point.XY(), tile);
+            return extendedTilemap.FillTile(position.XY(), extendedRuleTile);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetTile(Vector3Int point, string tile)
+        public void FillCubeTiles(CubeInteger cube, [NotNull] ExtendedRuleTile extendedRuleTile)
         {
-            var extendedTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(tile);
+            var xyRectangle = cube.xyRectangle;
 
-            SetTile(point, extendedTile);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetCubeTiles(Vector3Int start, Vector3Int end, ExtendedRuleTile tile)
-        {
-            var startXY = start.XY();
-            var endXY = end.XY();
-
-            for (var z = start.z; z <= end.z; z++)
+            foreach (var z in cube.zRange)
             {
                 if (tilemaps.TryGetValue(z, out var extendedTilemap) == false)
                 {
                     extendedTilemap = CreateTilemap(z);
                 }
 
-                extendedTilemap.SetRectangleTiles(startXY, endXY, tile);
+                extendedTilemap.FillRectangleTiles(xyRectangle, extendedRuleTile);
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetCubeTiles(Vector3Int start, Vector3Int end, string tile)
-        {
-            var extendedTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(tile);
+        #endregion
 
-            SetCubeTiles(start, end, extendedTile);
+        #region Replace
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ReplaceTile(Vector3Int position, ExtendedRuleTile extendedRuleTile)
+        {
+            if (tilemaps.TryGetValue(position.z, out var extendedTilemap) == false)
+            {
+                extendedTilemap = CreateTilemap(position.z);
+            }
+
+            extendedTilemap.ReplaceTile(position.XY(), extendedRuleTile);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ReplaceCubeTiles(CubeInteger cube, ExtendedRuleTile extendedRuleTile)
+        {
+            var xyRectangle = cube.xyRectangle;
+
+            foreach (var z in cube.zRange)
+            {
+                if (tilemaps.TryGetValue(z, out var extendedTilemap) == false)
+                {
+                    extendedTilemap = CreateTilemap(z);
+                }
+
+                extendedTilemap.ReplaceRectangleTiles(xyRectangle, extendedRuleTile);
+            }
+        }
+
+        #endregion
+
+        #region Destruct
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool DestructTile(Vector3Int position, out ExtendedRuleTile tile)
+        {
+            if (tilemaps.TryGetValue(position.z, out var extendedTilemap) == false)
+            {
+                tile = null;
+                return false;
+            }
+
+            return extendedTilemap.DestructTile(position.XY(), out tile);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DestructCubeTiles(CubeInteger cube)
+        {
+            var xyRectangle = cube.xyRectangle;
+
+            foreach (var z in cube.zRange)
+            {
+                if (tilemaps.TryGetValue(z, out var extendedTilemap) == false)
+                {
+                    extendedTilemap = CreateTilemap(z);
+                }
+
+                extendedTilemap.DestructRectangleTiles(xyRectangle);
+            }
         }
 
         #endregion
@@ -113,39 +162,11 @@ namespace VMFramework.Maps
         #region Clear
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearTile(Vector3Int point)
-        {
-            if (tilemaps.TryGetValue(point.z, out var extendedTilemap) == false)
-            {
-                return;
-            }
-
-            extendedTilemap.ClearTile(point.XY());
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearAll()
+        public void ClearMap()
         {
             foreach (var tilemap in tilemaps.Values)
             {
-                tilemap.ClearAll();
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearCubeTiles(Vector3Int start, Vector3Int end)
-        {
-            var startXY = start.XY();
-            var endXY = end.XY();
-
-            for (var z = start.z; z <= end.z; z++)
-            {
-                if (tilemaps.TryGetValue(z, out var extendedTilemap) == false)
-                {
-                    continue;
-                }
-
-                extendedTilemap.ClearRectangleTiles(startXY, endXY);
+                tilemap.ClearMap();
             }
         }
 

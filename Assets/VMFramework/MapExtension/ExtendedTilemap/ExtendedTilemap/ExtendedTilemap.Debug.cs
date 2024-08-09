@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VMFramework.Core;
+using VMFramework.GameLogicArchitecture;
 using VMFramework.OdinExtensions;
 
 namespace VMFramework.Maps
@@ -17,46 +18,40 @@ namespace VMFramework.Maps
         [Button]
         private void _ClearMap()
         {
-            ClearAll();
+            ClearMap();
         }
 
         [Button(ButtonStyle.Box)]
-        private void _SetTile(Vector2Int pos, [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id)
+        private void _FillTile([HideLabel] Vector2Int position, [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id)
         {
-            SetTile(pos, id);
+            this.FillTile(position, id);
         }
 
         [Button(ButtonStyle.Box)]
         private void _SetRectangleTiles(Vector2Int start, Vector2Int end,
-            [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string tile)
+            [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id)
         {
-            SetRectangleTiles(start, end, tile);
+            this.FillRectangleTiles(new RectangleInteger(start, end), id);
         }
 
         [Button(ButtonStyle.Box)]
-        private void _ClearTile(Vector2Int pos)
+        private void _DestructTile([HideLabel] Vector2Int position)
         {
-            ClearTile(pos);
+            this.DestructTile(position);
         }
 
         [Button(ButtonStyle.Box)]
-        private void _ClearRectangleTiles(Vector2Int start, Vector2Int end)
+        private void _DestructRectangleTiles(Vector2Int start, Vector2Int end)
         {
-            ClearRectangleTiles(start, end);
+            DestructRectangleTiles(new RectangleInteger(start, end));
         }
 
-        [Button("在矩形区域内放置随机数量的特定ID的瓦片", ButtonStyle.Box)]
-        private void SetRandomTiles([HideLabel] RectangleInteger rectangle,
-            [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id, [MinValue(1)] int number)
+        [Button(ButtonStyle.Box)]
+        private void FillRandomTiles([HideLabel] RectangleInteger rectangle,
+            [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id, [PropertyRange(0, 1)] float density)
         {
-            this.SetRandomRectangleTiles(rectangle, id, number);
-        }
-
-        [Button("在矩形区域内随机放置特定面积占比数量的特定ID的瓦片", ButtonStyle.Box)]
-        private void SetRandomTiles([HideLabel] RectangleInteger rectangle,
-            [GamePrefabID(typeof(ExtendedRuleTile))] [HideLabel] string id, [PropertyRange(0, 1)] float ratio)
-        {
-            this.SetRandomRectangleTiles(rectangle, id, ratio);
+            var extendedRuleTile = GamePrefabManager.GetGamePrefabStrictly<ExtendedRuleTile>(id);
+            this.FillRandomRectangleTiles(rectangle, extendedRuleTile, density, GlobalRandom.Default);
         }
     }
 }

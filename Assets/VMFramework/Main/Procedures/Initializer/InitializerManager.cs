@@ -90,7 +90,7 @@ namespace VMFramework.Procedure
 
                 foreach (var actionInfo in listOfActions)
                 {
-                    if (actionInfo.initializer.enableInitializationDebugLog)
+                    if (actionInfo.initializer.EnableInitializationDebugLog)
                     {
                         Debugger.Log($"Initializing {actionInfo.action.Method.Name} " +
                                   $"of {actionInfo.initializer.GetType()}");

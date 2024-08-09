@@ -13,7 +13,7 @@ namespace VMFramework.Core
             this.pivot = pivot;
             this.radius = radius;
 
-            radiusSquare = radius.Power(2);
+            radiusSquare = radius.Square();
         }
 
         public bool Contains(Vector3 pos)

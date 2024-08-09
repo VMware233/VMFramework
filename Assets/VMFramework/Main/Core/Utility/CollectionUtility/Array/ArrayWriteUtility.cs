@@ -21,6 +21,18 @@ namespace VMFramework.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TrySet<T>(this T[,,] array, Vector3Int pos, T content) where T : class
+        {
+            if (array[pos.x, pos.y, pos.z] != null)
+            {
+                return false;
+            }
+            
+            array[pos.x, pos.y, pos.z] = content;
+            return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Remove<T>(this T[,,] array, Vector3Int pos, out T item)
             where T : class
         {

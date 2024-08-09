@@ -14,13 +14,13 @@ namespace VMFramework.Core
         public static CubeInteger unit { get; } =
             new(Vector3Int.zero, Vector3Int.one);
 
-        public Vector3Int size => max - min + Vector3Int.one;
+        public Vector3Int Size => max - min + Vector3Int.one;
 
-        public Vector3Int pivot => (max + min) / 2;
+        public Vector3Int Pivot => (max + min) / 2;
 
         public readonly Vector3Int min, max;
         
-        public int Count => size.Products();
+        public int Count => Size.Products();
 
         public RangeInteger xRange => new(min.x, max.x);
 
@@ -95,8 +95,8 @@ namespace VMFramework.Core
                 return;
             }
 
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         #endregion

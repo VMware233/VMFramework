@@ -11,9 +11,9 @@ namespace VMFramework.Core
 
         public static CubeFloat unit { get; } = new(Vector3.zero, Vector3.one);
 
-        public Vector3 size => max - min;
+        public Vector3 Size => max - min;
 
-        public Vector3 pivot => (max + min) / 2;
+        public Vector3 Pivot => (max + min) / 2;
 
         public Vector3 extents => (max - min) / 2;
 
@@ -91,8 +91,8 @@ namespace VMFramework.Core
                 return;
             }
 
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         #endregion

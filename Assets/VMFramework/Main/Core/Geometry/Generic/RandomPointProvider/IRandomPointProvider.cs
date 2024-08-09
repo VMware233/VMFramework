@@ -1,7 +1,9 @@
-﻿namespace VMFramework.Core
+﻿using System;
+
+namespace VMFramework.Core
 {
     public interface IRandomPointProvider<out TPoint>
     {
-        public TPoint GetRandomPoint();
+        public TPoint GetRandomPoint(Random random);
     }
 }

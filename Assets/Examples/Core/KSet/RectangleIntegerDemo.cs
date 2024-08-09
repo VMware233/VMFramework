@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using VMFramework.Core;
+using VMFramework.Core.Pools;
 
 namespace VMFramework.Examples
 {
@@ -59,10 +60,14 @@ namespace VMFramework.Examples
 
             // 从[0, 2]x[0, 3]这个矩形内随机取5个不同的随机点（包括边界）
             // Get 5 unique random points inside the [0, 2]x[0, 3] rectangle, including the boundaries
-            foreach (var point in rectangle.GetRandomUniquePoints(5))
+            var randomPoints = ListPool<Vector2Int>.Default.Get();
+            randomPoints.Clear();
+            rectangle.GetRandomUniquePoints(5, randomPoints);
+            foreach (var point in randomPoints)
             {
                 Debug.Log(point);
             }
+            randomPoints.ReturnToPool();
         }
     }
 }

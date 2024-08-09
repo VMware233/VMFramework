@@ -16,9 +16,9 @@ namespace VMFramework.Core
         public static ColorRange unit { get; } =
             new(zeroColor, Color.white);
 
-        public Color size => max - min;
+        public Color Size => max - min;
 
-        public Color pivot => (max + min) / 2;
+        public Color Pivot => (max + min) / 2;
 
         public Color extents => (max - min) / 2;
 
@@ -79,8 +79,8 @@ namespace VMFramework.Core
                 max = zeroColor;
                 return;
             }
-            min = config.min;
-            max = config.max;
+            min = config.Min;
+            max = config.Max;
         }
 
         #endregion

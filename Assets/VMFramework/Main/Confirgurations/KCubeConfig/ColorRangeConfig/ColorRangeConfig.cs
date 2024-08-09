@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using VMFramework.Core;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Configuration
 {
@@ -10,9 +11,9 @@ namespace VMFramework.Configuration
 
         protected override bool requireCheckSize => false;
 
-        public override Color size => max - min;
+        public override Color Size => max - min;
 
-        public override Color pivot => (min + max) / 2f;
+        public override Color Pivot => (min + max) / 2f;
 
         public override Color extents => (max - min) / 2f;
 
@@ -63,7 +64,7 @@ namespace VMFramework.Configuration
         public override Color ClampMax(Color pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Color GetRandomPoint() => min.RandomRange(max);
+        public override Color GetRandomPoint(Random random) => random.Range(min, max);
 
         #endregion
 

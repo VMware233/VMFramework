@@ -8,7 +8,7 @@ namespace VMFramework.Core
         public readonly int center
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => pivot;
+            get => Pivot;
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             init
             {
@@ -25,7 +25,7 @@ namespace VMFramework.Core
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             init
             {
-                var pivot = this.pivot;
+                var pivot = this.Pivot;
                 min = pivot - value;
                 max = pivot + value;
             }

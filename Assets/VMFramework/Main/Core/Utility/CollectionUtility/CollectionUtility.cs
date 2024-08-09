@@ -7,6 +7,9 @@ namespace VMFramework.Core
 {
     public static class CollectionUtility
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmpty<T>(this IReadOnlyCollection<T> collection) => collection.Count == 0;
+        
         #region Add
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -28,12 +31,6 @@ namespace VMFramework.Core
                     collection.Add(item);
                 }
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Add<T>(this ICollection<T> collection, [CanBeNull] T item, int count)
-        {
-            count.Repeat(() => { collection.Add(item); });
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

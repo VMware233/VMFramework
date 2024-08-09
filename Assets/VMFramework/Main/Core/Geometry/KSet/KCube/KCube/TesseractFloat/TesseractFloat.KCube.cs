@@ -1,11 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Core
 {
     public partial struct TesseractFloat
     {
-        Vector4 IMinMaxOwner<Vector4>.min
+        Vector4 IMinMaxOwner<Vector4>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -13,7 +14,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        Vector4 IMinMaxOwner<Vector4>.max
+        Vector4 IMinMaxOwner<Vector4>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -38,6 +39,6 @@ namespace VMFramework.Core
         public Vector4 ClampMax(Vector4 pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4 GetRandomPoint() => min.RandomRange(max);
+        public Vector4 GetRandomPoint(Random random) => random.Range(min, max);
     }
 }

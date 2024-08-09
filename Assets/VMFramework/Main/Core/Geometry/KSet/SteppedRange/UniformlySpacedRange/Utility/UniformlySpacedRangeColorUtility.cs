@@ -16,7 +16,7 @@ namespace VMFramework.Core
             int count)
             where TMinMaxOwner : IMinMaxOwner<Color>
         {
-            return new UniformlySpacedRangeColor(minMaxOwner.min, minMaxOwner.max, count);
+            return new UniformlySpacedRangeColor(minMaxOwner.Min, minMaxOwner.Max, count);
         }
     }
 }

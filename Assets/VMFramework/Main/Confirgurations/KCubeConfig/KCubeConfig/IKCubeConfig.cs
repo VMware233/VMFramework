@@ -10,13 +10,13 @@ namespace VMFramework.Configuration
 
         public new TPoint max { get; set; }
 
-        TPoint IMinMaxOwner<TPoint>.min
+        TPoint IMinMaxOwner<TPoint>.Min
         {
             get => min;
             init => min = value;
         }
 
-        TPoint IMinMaxOwner<TPoint>.max
+        TPoint IMinMaxOwner<TPoint>.Max
         {
             get => max;
             init => max = value;

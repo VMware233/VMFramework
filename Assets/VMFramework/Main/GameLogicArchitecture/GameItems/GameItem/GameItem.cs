@@ -16,23 +16,23 @@ namespace VMFramework.GameLogicArchitecture
 
         [ShowInInspector]
         protected IGameTypedGamePrefab GamePrefab { get; private set; }
-        
+
         [ShowInInspector, DisplayAsString]
         public string id => GamePrefab.id;
 
         public string name => GamePrefab.name;
-        
+
         [ShowInInspector]
         public bool isDebugging => GamePrefab.IsDebugging;
-        
+
         [ShowInInspector]
         public IReadOnlyGameTypeSet GameTypeSet => GamePrefab.GameTypeSet;
-    
+
         [ShowInInspector]
         public GameType UniqueGameType => GamePrefab.UniqueGameType;
 
         [ShowInInspector]
-        public bool isDestroyed { get; private set; } = false;
+        public bool IsDestroyed { get; private set; } = false;
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace VMFramework.GameLogicArchitecture
 
         public virtual void CloneTo(IGameItem other)
         {
-            
+
         }
 
         #endregion
@@ -52,10 +52,10 @@ namespace VMFramework.GameLogicArchitecture
             OnGet();
         }
 
-        void IGameItem.OnCreate(string id)
+        void ICreatablePoolItem<string>.OnCreate(string argument)
         {
             GamePrefab = GamePrefabManager.GetGamePrefabStrictly<IGameTypedGamePrefab>(id);
-            
+
             OnCreate();
             OnGet();
         }
@@ -73,38 +73,41 @@ namespace VMFramework.GameLogicArchitecture
 
         protected virtual void OnGet()
         {
-            
+
         }
-        
+
         protected virtual void OnCreate()
         {
-            
+
         }
 
         protected virtual void OnReturn()
         {
-            
+
         }
 
         protected virtual void OnClear()
         {
-            
+
         }
 
         #endregion
 
         #region To String
 
-        protected virtual IEnumerable<(string propertyID, string propertyContent)> OnGetStringProperties()
+        protected virtual void OnGetStringProperties(
+            ICollection<(string propertyID, string propertyContent)> collection)
         {
-            yield break;
+
         }
 
         public override string ToString()
         {
-            var extraString = OnGetStringProperties()
-                .Select(property => property.propertyID + ":" + property.propertyContent)
-                .Join(", ");
+            var list = ListPool<(string propertyID, string propertyContent)>.Shared.Get();
+            OnGetStringProperties(list);
+
+            var extraString = list.Select(property => property.propertyID + ":" + property.propertyContent).Join(", ");
+            list.ReturnToPool();
 
             return $"[{GetType()}:id:{id},{extraString}]";
         }

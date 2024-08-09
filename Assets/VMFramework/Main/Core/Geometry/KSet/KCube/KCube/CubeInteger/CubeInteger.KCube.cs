@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Core
 {
     public partial struct CubeInteger
     {
-        Vector3Int IMinMaxOwner<Vector3Int>.min
+        Vector3Int IMinMaxOwner<Vector3Int>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -14,7 +15,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        Vector3Int IMinMaxOwner<Vector3Int>.max
+        Vector3Int IMinMaxOwner<Vector3Int>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -37,6 +38,6 @@ namespace VMFramework.Core
         public Vector3Int ClampMax(Vector3Int pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector3Int GetRandomPoint() => min.RandomRange(max);
+        public Vector3Int GetRandomPoint(Random random) => random.Range(min, max);
     }
 }

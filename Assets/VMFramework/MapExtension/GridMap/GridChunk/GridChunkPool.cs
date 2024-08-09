@@ -8,14 +8,11 @@ namespace VMFramework.Maps
     {
         private readonly IGridMap gridMap;
         private readonly Func<IGridChunk> onCreateFunc;
-        
-        public override int Capacity { get; }
 
-        public GridChunkPool(IGridMap gridMap, Func<IGridChunk> onCreateFunc, int capacity)
+        public GridChunkPool(IGridMap gridMap, Func<IGridChunk> onCreateFunc, int capacity) : base(capacity)
         {
             this.gridMap = gridMap;
             this.onCreateFunc = onCreateFunc;
-            Capacity = capacity;
         }
 
         protected override IGridChunk CreateItem()

@@ -1,11 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Core
 {
     public partial struct RectangleFloat
     {
-        Vector2 IMinMaxOwner<Vector2>.min
+        Vector2 IMinMaxOwner<Vector2>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -13,7 +14,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        Vector2 IMinMaxOwner<Vector2>.max
+        Vector2 IMinMaxOwner<Vector2>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -35,6 +36,6 @@ namespace VMFramework.Core
         public Vector2 ClampMax(Vector2 pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2 GetRandomPoint() => min.RandomRange(max);
+        public Vector2 GetRandomPoint(Random random) => random.Range(min, max);
     }
 }

@@ -7,7 +7,7 @@ namespace VMFramework.UI
 {
     public interface ITooltipProvider : IReadOnlyDestructible
     {
-        bool IReadOnlyDestructible.isDestroyed => false;
+        bool IReadOnlyDestructible.IsDestroyed => false;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGetTooltipBindGlobalEvent(out IGameEvent gameEvent)

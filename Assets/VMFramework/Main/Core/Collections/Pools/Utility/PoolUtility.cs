@@ -5,18 +5,6 @@ namespace VMFramework.Core.Pools
 {
     public static class PoolUtility
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsFull<TItem>(this IPool<TItem> pool)
-        {
-            return pool.Count >= pool.Capacity;
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsEmpty<TItem>(this IPool<TItem> pool)
-        {
-            return pool.Count == 0;
-        }
-        
         /// <summary>
         /// Get an item from the pool.
         /// If the pool is empty, a new item will be created using the provided creator.
@@ -25,7 +13,7 @@ namespace VMFramework.Core.Pools
         /// <typeparam name="TItem"></typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TItem Get<TItem>(this IPool<TItem> pool)
+        public static TItem Get<TItem>(this INormalPool<TItem> pool)
         {
             return pool.Get(out _);
         }
@@ -38,9 +26,10 @@ namespace VMFramework.Core.Pools
         /// <param name="count"></param>
         /// <typeparam name="TItem"></typeparam>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Prewarm<TItem>(this IPool<TItem> pool, int count)
+        public static void Prewarm<TItem>(this INormalPool<TItem> pool, int count)
         {
-            var temp = new List<TItem>();
+            var temp = ListPool<TItem>.Shared.Get();
+            
             for (int i = 0; i < count; i++)
             {
                 var item = pool.Get();
@@ -51,6 +40,33 @@ namespace VMFramework.Core.Pools
             {
                 pool.Return(item);
             }
+            
+            temp.ReturnToPool();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TItem Get<TKey, TItem>(this IDictionaryPool<TKey, TItem> pool, TKey key)
+        {
+            return pool.Get(key, out _);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Prewarm<TKey, TItem>(this IDictionaryPool<TKey, TItem> pool, TKey key, int count)
+        {
+            var temp = ListPool<TItem>.Shared.Get();
+            
+            for (int i = 0; i < count; i++)
+            {
+                var item = pool.Get(key);
+                temp.Add(item);
+            }
+            
+            foreach (var item in temp)
+            {
+                pool.Return(item);
+            }
+            
+            temp.ReturnToPool();
         }
     }
 }

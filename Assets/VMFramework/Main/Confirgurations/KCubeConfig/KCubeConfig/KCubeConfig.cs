@@ -38,7 +38,7 @@ namespace VMFramework.Configuration
 
         [LabelText("@" + nameof(sizeName)), VerticalGroup(INFO_VALUE_GROUP)]
         [ShowInInspector, DisplayAsString]
-        public abstract TPoint size
+        public abstract TPoint Size
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get;
@@ -46,7 +46,7 @@ namespace VMFramework.Configuration
 
         [LabelText("中心"), VerticalGroup(INFO_VALUE_GROUP)]
         [ShowInInspector, DisplayAsString]
-        public abstract TPoint pivot
+        public abstract TPoint Pivot
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get;

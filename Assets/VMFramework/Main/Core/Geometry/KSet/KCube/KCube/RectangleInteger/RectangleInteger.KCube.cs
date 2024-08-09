@@ -1,11 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace VMFramework.Core
 {
     public partial struct RectangleInteger
     {
-        Vector2Int IMinMaxOwner<Vector2Int>.min
+        Vector2Int IMinMaxOwner<Vector2Int>.Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => min;
@@ -13,7 +14,7 @@ namespace VMFramework.Core
             init => min = value;
         }
 
-        Vector2Int IMinMaxOwner<Vector2Int>.max
+        Vector2Int IMinMaxOwner<Vector2Int>.Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => max;
@@ -35,6 +36,6 @@ namespace VMFramework.Core
         public Vector2Int ClampMax(Vector2Int pos) => pos.ClampMax(max);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2Int GetRandomPoint() => min.RandomRange(max);
+        public Vector2Int GetRandomPoint(Random random) => random.Range(min, max);
     }
 }
